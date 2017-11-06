@@ -357,22 +357,7 @@ public abstract class Action {
         AccountAttributes account = null;
 
         if (isMasqueradeModeRequested(loggedInUser, paramRequestedUserId)) {
-            if (loggedInUserType.isAdmin) {
-                // Allowing admin to masquerade as another user
-                account = logic.getAccount(paramRequestedUserId);
-                if (account == null) { // Unregistered user
-                    if (regkey == null) {
-                        // since admin is masquerading, fabricate a regkey
-                        regkey = "any-non-null-value";
-                    }
-                    account = new AccountAttributes();
-                    account.googleId = paramRequestedUserId;
-                }
-                return account;
-            }
-            throw new UnauthorizedAccessException("User " + loggedInUserType.id
-                                                + " is trying to masquerade as " + paramRequestedUserId
-                                                + " without admin permission.");
+            return getAccountAttributes(loggedInUserType, paramRequestedUserId);
         }
 
         account = loggedInUser;
@@ -402,6 +387,26 @@ public abstract class Action {
         }
 
         return account;
+    }
+
+    private AccountAttributes getAccountAttributes(UserType loggedInUserType, String paramRequestedUserId) {
+        AccountAttributes account;
+        if (loggedInUserType.isAdmin) {
+            // Allowing admin to masquerade as another user
+            account = logic.getAccount(paramRequestedUserId);
+            if (account == null) { // Unregistered user
+                if (regkey == null) {
+                    // since admin is masquerading, fabricate a regkey
+                    regkey = "any-non-null-value";
+                }
+                account = new AccountAttributes();
+                account.googleId = paramRequestedUserId;
+            }
+            return account;
+        }
+        throw new UnauthorizedAccessException("User " + loggedInUserType.id
+                                            + " is trying to masquerade as " + paramRequestedUserId
+                                            + " without admin permission.");
     }
 
     protected boolean isPersistenceIssue() {
