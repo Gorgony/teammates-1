@@ -5,6 +5,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.common.util.ThreadHelper;
 import teammates.test.driver.BackDoor;
 import teammates.test.driver.TestProperties;
@@ -75,9 +77,9 @@ public class StudentCourseJoinConfirmationPageUiTest extends BaseUiTestCase {
                            .loginAsStudent(TestProperties.TEST_STUDENT1_ACCOUNT,
                                                   TestProperties.TEST_STUDENT1_PASSWORD);
 
-        String expectedStatus = String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
+        String expectedStatus = String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
                                               "[" + courseId + "] " + courseName) + '\n'
-                                + String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
+                                + String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
                                                 "[" + courseId + "] " + courseName) + '\n'
                                 + "Meanwhile, you can update your profile here.";
 
@@ -114,9 +116,9 @@ public class StudentCourseJoinConfirmationPageUiTest extends BaseUiTestCase {
         confirmationPage.clickConfirmButton();
         studentHomePage = AppPage.getNewPageInstance(browser, StudentHomePage.class);
         expectedStatus =
-                String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL, "[" + courseId + "] " + courseName)
+                String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL, "[" + courseId + "] " + courseName)
                 + '\n'
-                + String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT, "[" + courseId + "] " + courseName)
+                + String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT, "[" + courseId + "] " + courseName)
                 + '\n'
                 + "Meanwhile, you can update your profile here.";
 
@@ -132,7 +134,7 @@ public class StudentCourseJoinConfirmationPageUiTest extends BaseUiTestCase {
         expectedMsg = "You (" + TestProperties.TEST_STUDENT1_ACCOUNT + ") have already joined this course";
         studentHomePage.verifyStatus(expectedMsg);
 
-        assertTrue(browser.driver.getCurrentUrl().contains(Const.ParamsNames.ERROR + "=true"));
+        assertTrue(browser.driver.getCurrentUrl().contains(ParamNameConst.ParamsNames.ERROR + "=true"));
         studentHomePage.logout();
     }
 
@@ -164,9 +166,9 @@ public class StudentCourseJoinConfirmationPageUiTest extends BaseUiTestCase {
         studentHomePage = AppPage.createCorrectLoginPageType(browser)
                            .loginAsStudent(TestProperties.TEST_STUDENT1_ACCOUNT,
                                                   TestProperties.TEST_STUDENT1_PASSWORD);
-        String expectedStatus = String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
+        String expectedStatus = String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
                                               "[" + courseId + "] " + courseName) + '\n'
-                                + String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
+                                + String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
                                                 "[" + courseId + "] " + courseName) + '\n'
                                 + "Meanwhile, you can update your profile here.";
 
@@ -202,9 +204,9 @@ public class StudentCourseJoinConfirmationPageUiTest extends BaseUiTestCase {
         confirmationPage.clickConfirmButton();
         studentHomePage = AppPage.getNewPageInstance(browser, StudentHomePage.class);
         expectedStatus =
-                String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL, "[" + courseId + "] " + courseName)
+                String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL, "[" + courseId + "] " + courseName)
                 + '\n'
-                + String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT, "[" + courseId + "] " + courseName)
+                + String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT, "[" + courseId + "] " + courseName)
                 + '\n'
                 + "Meanwhile, you can update your profile here.";
         studentHomePage.verifyStatus(expectedStatus);
@@ -219,7 +221,7 @@ public class StudentCourseJoinConfirmationPageUiTest extends BaseUiTestCase {
         expectedMsg = "You (" + TestProperties.TEST_STUDENT1_ACCOUNT + ") have already joined this course";
         studentHomePage.verifyStatus(expectedMsg);
 
-        assertTrue(browser.driver.getCurrentUrl().contains(Const.ParamsNames.ERROR + "=true"));
+        assertTrue(browser.driver.getCurrentUrl().contains(ParamNameConst.ParamsNames.ERROR + "=true"));
     }
 
     @AfterClass

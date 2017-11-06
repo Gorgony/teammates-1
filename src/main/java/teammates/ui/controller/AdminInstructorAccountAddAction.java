@@ -14,18 +14,7 @@ import teammates.common.exception.EmailSendingException;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.TeammatesException;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.EmailWrapper;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.JsonUtils;
-import teammates.common.util.Logger;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.StringHelper;
-import teammates.common.util.Templates;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 import teammates.logic.api.EmailGenerator;
 import teammates.logic.backdoor.BackDoorLogic;
 import teammates.ui.pagedata.AdminHomePageData;
@@ -41,10 +30,10 @@ public class AdminInstructorAccountAddAction extends Action {
 
         AdminHomePageData data = new AdminHomePageData(account, sessionToken);
 
-        data.instructorShortName = getNonNullRequestParamValue(Const.ParamsNames.INSTRUCTOR_SHORT_NAME).trim();
-        data.instructorName = getNonNullRequestParamValue(Const.ParamsNames.INSTRUCTOR_NAME).trim();
-        data.instructorEmail = getNonNullRequestParamValue(Const.ParamsNames.INSTRUCTOR_EMAIL).trim();
-        data.instructorInstitution = getNonNullRequestParamValue(Const.ParamsNames.INSTRUCTOR_INSTITUTION).trim();
+        data.instructorShortName = getNonNullRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME).trim();
+        data.instructorName = getNonNullRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_NAME).trim();
+        data.instructorEmail = getNonNullRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL).trim();
+        data.instructorInstitution = getNonNullRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION).trim();
         data.isInstructorAddingResultForAjax = true;
         data.statusForAjax = "";
 
@@ -70,11 +59,11 @@ public class AdminInstructorAccountAddAction extends Action {
         } catch (Exception e) {
 
             String retryUrl = Const.ActionURIs.ADMIN_INSTRUCTORACCOUNT_ADD;
-            retryUrl = Url.addParamToUrl(retryUrl, Const.ParamsNames.INSTRUCTOR_SHORT_NAME, data.instructorShortName);
-            retryUrl = Url.addParamToUrl(retryUrl, Const.ParamsNames.INSTRUCTOR_NAME, data.instructorName);
-            retryUrl = Url.addParamToUrl(retryUrl, Const.ParamsNames.INSTRUCTOR_EMAIL, data.instructorEmail);
-            retryUrl = Url.addParamToUrl(retryUrl, Const.ParamsNames.INSTRUCTOR_INSTITUTION, data.instructorInstitution);
-            retryUrl = Url.addParamToUrl(retryUrl, Const.ParamsNames.SESSION_TOKEN, data.getSessionToken());
+            retryUrl = Url.addParamToUrl(retryUrl, ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, data.instructorShortName);
+            retryUrl = Url.addParamToUrl(retryUrl, ParamNameConst.ParamsNames.INSTRUCTOR_NAME, data.instructorName);
+            retryUrl = Url.addParamToUrl(retryUrl, ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, data.instructorEmail);
+            retryUrl = Url.addParamToUrl(retryUrl, ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, data.instructorInstitution);
+            retryUrl = Url.addParamToUrl(retryUrl, ParamNameConst.ParamsNames.SESSION_TOKEN, data.getSessionToken());
 
             StringBuilder errorMessage = new StringBuilder(100);
             String retryLink = "<a href=" + retryUrl + ">Exception in Importing Data, Retry</a>";

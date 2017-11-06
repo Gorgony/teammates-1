@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.ThreadHelper;
 import teammates.common.util.retry.MaximumRetriesExceededException;
 import teammates.common.util.retry.RetryableTask;
@@ -89,7 +89,7 @@ public class InstructorFeedbackResultsPage extends AppPage {
     public void displayByGiverRecipientQuestion() {
         displayEditSettingsWindow();
 
-        Select select = new Select(browser.driver.findElement(By.name(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
+        Select select = new Select(browser.driver.findElement(By.name(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
         select.selectByVisibleText("Group by - Giver > Recipient > Question");
 
         submitEditForm();
@@ -98,7 +98,7 @@ public class InstructorFeedbackResultsPage extends AppPage {
     public void displayByRecipientGiverQuestion() {
         displayEditSettingsWindow();
 
-        Select select = new Select(browser.driver.findElement(By.name(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
+        Select select = new Select(browser.driver.findElement(By.name(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
         select.selectByVisibleText("Group by - Recipient > Giver > Question");
 
         submitEditForm();
@@ -107,7 +107,7 @@ public class InstructorFeedbackResultsPage extends AppPage {
     public void displayByGiverQuestionRecipient() {
         displayEditSettingsWindow();
 
-        Select select = new Select(browser.driver.findElement(By.name(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
+        Select select = new Select(browser.driver.findElement(By.name(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
         select.selectByVisibleText("Group by - Giver > Question > Recipient");
 
         submitEditForm();
@@ -116,7 +116,7 @@ public class InstructorFeedbackResultsPage extends AppPage {
     public void displayByRecipientQuestionGiver() {
         displayEditSettingsWindow();
 
-        Select select = new Select(browser.driver.findElement(By.name(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
+        Select select = new Select(browser.driver.findElement(By.name(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
         select.selectByVisibleText("Group by - Recipient > Question > Giver");
 
         submitEditForm();
@@ -125,7 +125,7 @@ public class InstructorFeedbackResultsPage extends AppPage {
     public void filterResponsesForSection(String section) {
         displayEditSettingsWindow();
 
-        Select select = new Select(browser.driver.findElements(By.name(Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION))
+        Select select = new Select(browser.driver.findElements(By.name(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION))
                                                  .get(1));
         select.selectByVisibleText(section);
 
@@ -135,7 +135,7 @@ public class InstructorFeedbackResultsPage extends AppPage {
     public void filterResponsesForAllSections() {
         displayEditSettingsWindow();
 
-        Select select = new Select(browser.driver.findElements(By.name(Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION))
+        Select select = new Select(browser.driver.findElements(By.name(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION))
                                                  .get(1));
         select.selectByVisibleText("All");
 
@@ -145,7 +145,7 @@ public class InstructorFeedbackResultsPage extends AppPage {
     public void displayByQuestion() {
         displayEditSettingsWindow();
 
-        Select select = new Select(browser.driver.findElement(By.name(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
+        Select select = new Select(browser.driver.findElement(By.name(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE)));
         select.selectByVisibleText("Group by - Question");
 
         submitEditForm();
@@ -154,7 +154,7 @@ public class InstructorFeedbackResultsPage extends AppPage {
     public void clickGroupByTeam() {
         displayEditSettingsWindow();
 
-        WebElement button = browser.driver.findElement(By.name(Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM));
+        WebElement button = browser.driver.findElement(By.name(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM));
         click(button);
 
         submitEditForm();

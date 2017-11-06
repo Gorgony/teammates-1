@@ -13,10 +13,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.NullPostParameterException;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.EmailWrapper;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.logic.core.StudentsLogic;
 import teammates.test.cases.BaseComponentTestCase;
 import teammates.test.driver.AssertHelper;
@@ -103,7 +100,7 @@ public abstract class BaseActionTest extends BaseComponentTestCase {
      */
     protected String[] addUserIdToParams(String userId, String[] params) {
         List<String> list = new ArrayList<>();
-        list.add(Const.ParamsNames.USER_ID);
+        list.add(ParamNameConst.ParamsNames.USER_ID);
         list.add(userId);
         for (String s : params) {
             list.add(s);
@@ -115,9 +112,9 @@ public abstract class BaseActionTest extends BaseComponentTestCase {
         StudentAttributes unregStudent =
                 StudentsLogic.inst().getStudentForEmail("idOfTypicalCourse1", "student6InCourse1@gmail.tmt");
         List<String> list = new ArrayList<>();
-        list.add(Const.ParamsNames.REGKEY);
+        list.add(ParamNameConst.ParamsNames.REGKEY);
         list.add(StringHelper.encrypt(unregStudent.key));
-        list.add(Const.ParamsNames.STUDENT_EMAIL);
+        list.add(ParamNameConst.ParamsNames.STUDENT_EMAIL);
         list.add(unregStudent.email);
         for (String s : params) {
             list.add(s);
@@ -127,23 +124,23 @@ public abstract class BaseActionTest extends BaseComponentTestCase {
 
     protected String[] createValidParamsForProfile() {
         return new String[] {
-                Const.ParamsNames.STUDENT_SHORT_NAME, "short ",
-                Const.ParamsNames.STUDENT_PROFILE_EMAIL, "e@email.com  ",
-                Const.ParamsNames.STUDENT_PROFILE_INSTITUTION, " TEAMMATES Test Institute 5   ",
-                Const.ParamsNames.STUDENT_NATIONALITY, "American",
-                Const.ParamsNames.STUDENT_GENDER, "  other   ",
-                Const.ParamsNames.STUDENT_PROFILE_MOREINFO, "   This is more info on me   "
+                ParamNameConst.ParamsNames.STUDENT_SHORT_NAME, "short ",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_EMAIL, "e@email.com  ",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_INSTITUTION, " TEAMMATES Test Institute 5   ",
+                ParamNameConst.ParamsNames.STUDENT_NATIONALITY, "American",
+                ParamNameConst.ParamsNames.STUDENT_GENDER, "  other   ",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_MOREINFO, "   This is more info on me   "
         };
     }
 
     protected String[] createInvalidParamsForProfile() {
         return new String[] {
-                Const.ParamsNames.STUDENT_SHORT_NAME, "$$short",
-                Const.ParamsNames.STUDENT_PROFILE_EMAIL, "invalid.email",
-                Const.ParamsNames.STUDENT_PROFILE_INSTITUTION, "institute",
-                Const.ParamsNames.STUDENT_NATIONALITY, "USA",
-                Const.ParamsNames.STUDENT_GENDER, "female",
-                Const.ParamsNames.STUDENT_PROFILE_MOREINFO, "This is more info on me"
+                ParamNameConst.ParamsNames.STUDENT_SHORT_NAME, "$$short",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_EMAIL, "invalid.email",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_INSTITUTION, "institute",
+                ParamNameConst.ParamsNames.STUDENT_NATIONALITY, "USA",
+                ParamNameConst.ParamsNames.STUDENT_GENDER, "female",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_MOREINFO, "This is more info on me"
         };
     }
 
@@ -154,17 +151,17 @@ public abstract class BaseActionTest extends BaseComponentTestCase {
         }
 
         List<String> paramList = Arrays.asList(typicalCase);
-        int indexOfSessionVisibleDate = 1 + paramList.indexOf(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
-        int indexOfSessionVisibleTime = 1 + paramList.indexOf(Const.ParamsNames.FEEDBACK_SESSION_VISIBLETIME);
+        int indexOfSessionVisibleDate = 1 + paramList.indexOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
+        int indexOfSessionVisibleTime = 1 + paramList.indexOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLETIME);
         int indexOfSessionVisibleButtonValue =
-                1 + paramList.indexOf(Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON);
+                1 + paramList.indexOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON);
 
-        int indexOfSessionPublishDate = 1 + paramList.indexOf(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE);
-        int indexOfSessionPublishTime = 1 + paramList.indexOf(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME);
+        int indexOfSessionPublishDate = 1 + paramList.indexOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE);
+        int indexOfSessionPublishTime = 1 + paramList.indexOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME);
         int indexOfResultsVisibleButtonValue =
-                1 + paramList.indexOf(Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON);
+                1 + paramList.indexOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON);
 
-        int indexOfSessionInstructionsValue = 1 + paramList.indexOf(Const.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS);
+        int indexOfSessionInstructionsValue = 1 + paramList.indexOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS);
 
         switch (order) {
         case 1:
@@ -200,47 +197,47 @@ public abstract class BaseActionTest extends BaseComponentTestCase {
     protected String[] createParamsForTypicalFeedbackSession(String courseId, String fsName) {
 
         return new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fsName,
-                Const.ParamsNames.FEEDBACK_SESSION_STARTDATE, "01/02/2012",
-                Const.ParamsNames.FEEDBACK_SESSION_STARTTIME, "0",
-                Const.ParamsNames.FEEDBACK_SESSION_ENDDATE, "01/01/2015",
-                Const.ParamsNames.FEEDBACK_SESSION_ENDTIME, "0",
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE, "01/02/2012",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTTIME, "0",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE, "01/01/2015",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDTIME, "0",
 
-                Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON,
                 Const.INSTRUCTOR_FEEDBACK_SESSION_VISIBLE_TIME_CUSTOM,
 
-                Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE, "01/01/2012",
-                Const.ParamsNames.FEEDBACK_SESSION_VISIBLETIME, "0",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE, "01/01/2012",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLETIME, "0",
 
-                Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON,
                 Const.INSTRUCTOR_FEEDBACK_RESULTS_VISIBLE_TIME_ATVISIBLE,
 
-                Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, "",
-                Const.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME, "0",
-                Const.ParamsNames.FEEDBACK_SESSION_TIMEZONE, "8",
-                Const.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD, "10",
-                Const.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS, "instructions"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, "",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME, "0",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_TIMEZONE, "8",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD, "10",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS, "instructions"
         };
     }
 
     protected String[] createParamsForTypicalFeedbackQuestion(String courseId, String fsName) {
 
         return new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fsName,
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "custom",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit"
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsName,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "custom",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit"
         };
     }
 
@@ -735,8 +732,8 @@ public abstract class BaseActionTest extends BaseComponentTestCase {
 
     protected String getPageResultDestination(String parentUri, boolean isError, String userId) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
         return pageDestination;
     }
 

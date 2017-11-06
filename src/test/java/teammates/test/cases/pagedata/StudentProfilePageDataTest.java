@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StringHelper;
 import teammates.test.cases.BaseTestCase;
 import teammates.ui.pagedata.StudentProfilePageData;
@@ -56,8 +57,8 @@ public class StudentProfilePageDataTest extends BaseTestCase {
         acct = new AccountAttributes("valid.id", "full name", false, "e@mail1.com", "inst", spa);
         isEditingPhoto = "false";
         pictureUrl = Const.ActionURIs.STUDENT_PROFILE_PICTURE
-                   + "?" + Const.ParamsNames.BLOB_KEY + "=" + spa.pictureKey
-                   + "&" + Const.ParamsNames.USER_ID + "=" + acct.googleId;
+                   + "?" + ParamNameConst.ParamsNames.BLOB_KEY + "=" + spa.pictureKey
+                   + "&" + ParamNameConst.ParamsNames.USER_ID + "=" + acct.googleId;
         return new StudentProfilePageData(acct, dummySessionToken, isEditingPhoto);
     }
 
@@ -67,7 +68,7 @@ public class StudentProfilePageDataTest extends BaseTestCase {
                 .withGender("male")
                 .build();
         acct = new AccountAttributes("valid.id", "full name", false, "e@mail1.com", "inst", spa);
-        pictureUrl = Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH;
+        pictureUrl = SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH;
         return new StudentProfilePageData(acct, dummySessionToken, isEditingPhoto);
     }
 

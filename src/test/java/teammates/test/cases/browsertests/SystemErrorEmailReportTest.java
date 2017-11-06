@@ -8,9 +8,7 @@ import com.google.apphosting.api.DeadlineExceededException;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.NullPostParameterException;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.AppUrl;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
+import teammates.common.util.*;
 import teammates.test.pageobjects.AppPage;
 
 /**
@@ -44,7 +42,7 @@ public class SystemErrorEmailReportTest extends BaseUiTestCase {
         ______TS("AssertionError testing");
 
         AppUrl url = createUrl(Const.ActionURIs.ADMIN_EXCEPTION_TEST)
-                .withParam(Const.ParamsNames.ERROR, AssertionError.class.getSimpleName());
+                .withParam(ParamNameConst.ParamsNames.ERROR, AssertionError.class.getSimpleName());
         page.navigateTo(url);
         print("AssertionError triggered, please check your crash report at "
                 + Config.SUPPORT_EMAIL);
@@ -55,7 +53,7 @@ public class SystemErrorEmailReportTest extends BaseUiTestCase {
         ______TS("EntityDoesNotExistException testing");
 
         AppUrl url = createUrl(Const.ActionURIs.ADMIN_EXCEPTION_TEST)
-                .withParam(Const.ParamsNames.ERROR, EntityDoesNotExistException.class.getSimpleName());
+                .withParam(ParamNameConst.ParamsNames.ERROR, EntityDoesNotExistException.class.getSimpleName());
         page.navigateTo(url);
         print("This exception is handled by system, make sure you don't receive any emails. ");
     }
@@ -65,7 +63,7 @@ public class SystemErrorEmailReportTest extends BaseUiTestCase {
         ______TS("NullPointerException testing");
 
         AppUrl url = createUrl(Const.ActionURIs.ADMIN_EXCEPTION_TEST)
-                .withParam(Const.ParamsNames.ERROR, NullPointerException.class.getSimpleName());
+                .withParam(ParamNameConst.ParamsNames.ERROR, NullPointerException.class.getSimpleName());
         page.navigateTo(url);
         print("NullPointerException triggered, please check your crash report at " + Config.SUPPORT_EMAIL);
     }
@@ -75,7 +73,7 @@ public class SystemErrorEmailReportTest extends BaseUiTestCase {
         ______TS("Deadline Exceeded testing");
 
         AppUrl url = createUrl(Const.ActionURIs.ADMIN_EXCEPTION_TEST)
-                .withParam(Const.ParamsNames.ERROR, DeadlineExceededException.class.getSimpleName());
+                .withParam(ParamNameConst.ParamsNames.ERROR, DeadlineExceededException.class.getSimpleName());
         page.navigateTo(url);
         print("DeadlineExceededException triggered, please check your crash report at " + Config.SUPPORT_EMAIL);
 
@@ -87,7 +85,7 @@ public class SystemErrorEmailReportTest extends BaseUiTestCase {
         ______TS("UnauthorizedAccessException testing");
 
         AppUrl url = createUrl(Const.ActionURIs.ADMIN_EXCEPTION_TEST)
-                .withParam(Const.ParamsNames.ERROR, UnauthorizedAccessException.class.getSimpleName());
+                .withParam(ParamNameConst.ParamsNames.ERROR, UnauthorizedAccessException.class.getSimpleName());
         page.navigateTo(url);
         print("This exception is handled by system, make sure you don't receive any emails. ");
     }
@@ -96,9 +94,9 @@ public class SystemErrorEmailReportTest extends BaseUiTestCase {
         ______TS("NullPostParamException testing");
 
         AppUrl url = createUrl(Const.ActionURIs.ADMIN_EXCEPTION_TEST)
-                .withParam(Const.ParamsNames.ERROR, NullPostParameterException.class.getSimpleName());
+                .withParam(ParamNameConst.ParamsNames.ERROR, NullPostParameterException.class.getSimpleName());
         page.navigateTo(url);
-        page.verifyStatus(Const.StatusMessages.NULL_POST_PARAMETER_MESSAGE.replace("<br>", "\n"));
+        page.verifyStatus(StatusMessageConst.StatusMessages.NULL_POST_PARAMETER_MESSAGE.replace("<br>", "\n"));
         print("This exception is handled by system, make sure you don't receive any emails. ");
     }
 

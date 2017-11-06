@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.AjaxResult;
 import teammates.ui.controller.InstructorCourseDetailsPageAction;
@@ -31,7 +33,7 @@ public class InstructorCourseDetailsPageActionTest extends BaseActionTest {
 
         ______TS("Typical Case, Course with at least one student");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
         };
         InstructorCourseDetailsPageAction pageAction = getAction(submissionParams);
         ShowPageResult pageResult = getShowPageResult(pageAction);
@@ -66,7 +68,7 @@ public class InstructorCourseDetailsPageActionTest extends BaseActionTest {
 
         InstructorAttributes instructor4 = typicalBundle.instructors.get("instructor4");
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor4.courseId
+                ParamNameConst.ParamsNames.COURSE_ID, instructor4.courseId
         };
         pageAction = getAction(addUserIdToParams(instructor4.googleId, submissionParams));
         pageResult = getShowPageResult(pageAction);
@@ -74,7 +76,7 @@ public class InstructorCourseDetailsPageActionTest extends BaseActionTest {
         assertEquals(getPageResultDestination(Const.ViewURIs.INSTRUCTOR_COURSE_DETAILS, false, "idOfInstructor4"),
                      pageResult.getDestinationWithParams());
         assertFalse(pageResult.isError);
-        assertEquals(String.format(Const.StatusMessages.INSTRUCTOR_COURSE_EMPTY,
+        assertEquals(String.format(StatusMessageConst.StatusMessages.INSTRUCTOR_COURSE_EMPTY,
                                    pageResult.data.getInstructorCourseEnrollLink(instructor4.courseId)),
                      pageResult.getStatusMessage());
 
@@ -100,8 +102,8 @@ public class InstructorCourseDetailsPageActionTest extends BaseActionTest {
         gaeSimulation.loginAsInstructor(instructor1OfCourse1.googleId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.CSV_TO_HTML_TABLE_NEEDED, "true"
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.CSV_TO_HTML_TABLE_NEEDED, "true"
         };
         pageAction = getAction(submissionParams);
         AjaxResult ajaxResult = this.getAjaxResult(pageAction);
@@ -184,7 +186,7 @@ public class InstructorCourseDetailsPageActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, typicalBundle.instructors.get("instructor1OfCourse1").courseId
+                ParamNameConst.ParamsNames.COURSE_ID, typicalBundle.instructors.get("instructor1OfCourse1").courseId
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

@@ -7,6 +7,8 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.AjaxResult;
 import teammates.ui.controller.InstructorFeedbackEditCopyAction;
@@ -47,22 +49,22 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
 
         ______TS("Failure case: Courses not passed in, instructor home page");
         String[] params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name"
         };
 
         InstructorFeedbackEditCopyAction a = getAction(params);
         AjaxResult ajaxResult = getAjaxResult(a);
         InstructorFeedbackEditCopyData editCopyData = (InstructorFeedbackEditCopyData) ajaxResult.data;
 
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED, editCopyData.errorMessage);
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED, editCopyData.errorMessage);
 
         ______TS("Failure case: Courses not passed in, instructor feedbacks page");
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name"
         };
 
         a = getAction(params);
@@ -70,40 +72,40 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
 
         editCopyData = (InstructorFeedbackEditCopyData) ajaxResult.data;
 
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED, editCopyData.errorMessage);
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED, editCopyData.errorMessage);
 
         ______TS("Failure case: Courses not passed in, instructor feedback copy page");
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name"
         };
 
         a = getAction(params);
         ajaxResult = getAjaxResult(a);
         editCopyData = (InstructorFeedbackEditCopyData) ajaxResult.data;
 
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED, editCopyData.errorMessage);
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED, editCopyData.errorMessage);
 
         ______TS("Failure case: Courses not passed in, instructor feedback edit page");
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name"
         };
 
         a = getAction(params);
         ajaxResult = getAjaxResult(a);
         editCopyData = (InstructorFeedbackEditCopyData) ajaxResult.data;
 
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED, editCopyData.errorMessage);
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED, editCopyData.errorMessage);
 
         ______TS("Failure case: copying non-existing fs");
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "non.existing.fs",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "non.existing.fs",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId()
         };
 
         a = getAction(params);
@@ -118,10 +120,10 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
 
         ______TS("Failure case: copying to non-existing course");
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name",
-                Const.ParamsNames.COPIED_COURSES_ID, "non.existing.course"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, "non.existing.course"
         };
 
         a = getAction(params);
@@ -138,11 +140,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
 
         CourseAttributes course6 = dataBundle.courses.get("course6");
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId()
         };
 
         a = getAction(params);
@@ -158,11 +160,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
         ______TS("Failure case: course already has feedback session with same name, instructor feedbacks page");
 
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId()
         };
 
         a = getAction(params);
@@ -178,11 +180,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
         ______TS("Failure case: course already has feedback session with same name, instructor feedback copy page");
 
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId()
         };
 
         a = getAction(params);
@@ -198,11 +200,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
         ______TS("Failure case: course already has feedback session with same name, instructor feedback edit page");
 
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId()
         };
 
         a = getAction(params);
@@ -218,11 +220,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
         ______TS("Failure case: empty name, instructor home page");
 
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId()
         };
 
         a = getAction(params);
@@ -247,11 +249,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
         ______TS("Failure case: empty name, instructor feedbacks page");
 
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId()
         };
 
         a = getAction(params);
@@ -276,11 +278,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
         ______TS("Failure case: empty name, instructor feedback copy page");
 
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId()
         };
 
         a = getAction(params);
@@ -305,11 +307,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
         ______TS("Failure case: empty name, instructor feedback edit page");
 
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId()
         };
 
         a = getAction(params);
@@ -336,11 +338,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
         CourseAttributes course7 = dataBundle.courses.get("course7");
         String copiedCourseName = "Session with valid name";
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, copiedCourseName,
-                Const.ParamsNames.COPIED_COURSES_ID, course6.getId(),
-                Const.ParamsNames.COPIED_COURSES_ID, course7.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First Session",
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, copiedCourseName,
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course6.getId(),
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course7.getId()
         };
 
         a = getAction(params);
@@ -377,11 +379,11 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] params = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Session with valid name",
-                Const.ParamsNames.COPIED_COURSES_ID, "idOfTypicalCourse2",
-                Const.ParamsNames.COPIED_COURSES_ID, "idOfSampleCourse-demo"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Session with valid name",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, "idOfTypicalCourse2",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, "idOfSampleCourse-demo"
         };
 
         verifyUnaccessibleWithoutModifySessionPrivilege(params);
@@ -395,10 +397,10 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
 
         ______TS("Failure case: copying from course with insufficient permission");
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, "FeedbackEditCopy.CS2107",
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name",
-                Const.ParamsNames.COPIED_COURSES_ID, course.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, "FeedbackEditCopy.CS2107",
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, course.getId()
         };
         InstructorFeedbackEditCopyAction a = getAction(params);
         try {
@@ -412,10 +414,10 @@ public class InstructorFeedbackEditCopyActionTest extends BaseActionTest {
 
         ______TS("Failure case: copying to course with insufficient permission");
         params = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name",
-                Const.ParamsNames.COPIED_COURSES_ID, "FeedbackEditCopy.CS2107"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "valid name",
+                ParamNameConst.ParamsNames.COPIED_COURSES_ID, "FeedbackEditCopy.CS2107"
         };
 
         a = getAction(params);

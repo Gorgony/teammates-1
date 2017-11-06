@@ -8,6 +8,8 @@ import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.questions.FeedbackRankOptionsQuestionDetails;
 import teammates.common.util.AppUrl;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.BackDoor;
 import teammates.test.pageobjects.FeedbackSubmitPage;
 import teammates.test.pageobjects.InstructorFeedbackEditPage;
@@ -41,8 +43,8 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
 
         FeedbackSubmitPage submitPage = loginToStudentFeedbackSubmitPage("alice.tmms@FRankUiT.CS4221", "closed");
         submitPage.waitForAndDismissAlertModal();
-        assertTrue(submitPage.isElementVisible(Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0-0"));
-        assertFalse(submitPage.isElementEnabled(Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0-0"));
+        assertTrue(submitPage.isElementVisible(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0-0"));
+        assertFalse(submitPage.isElementEnabled(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0-0"));
         ______TS("Rank submission");
 
         submitPage = loginToStudentFeedbackSubmitPage("alice.tmms@FRankUiT.CS4221", "student");
@@ -77,7 +79,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
 
         // Submit
         submitPage.clickSubmitButton();
-        submitPage.verifyStatus(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED);
+        submitPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED);
 
         FeedbackQuestionAttributes fq1 = BackDoor.getFeedbackQuestion("FRankUiT.CS4221", "Student Session", 1);
         assertNotNull(BackDoor.getFeedbackResponse(fq1.getId(),
@@ -218,7 +220,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
         int qnNumber = 1;
         int responseNumber = 0;
         int rowNumber = 0;
-        assertFalse(submitPage.isNamedElementEnabled(Const.ParamsNames.FEEDBACK_QUESTION_RANKOPTION + "-"
+        assertFalse(submitPage.isNamedElementEnabled(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RANKOPTION + "-"
                                                      + qnNumber + "-" + responseNumber + "-" + rowNumber));
 
         ______TS("Rank submission: test submission page if some students are not visible to the instructor");
@@ -337,7 +339,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
         ______TS("Rank edit: empty question text");
 
         feedbackEditPage.clickAddQuestionButton();
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_TEXTINVALID);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_TEXTINVALID);
     }
 
     @Override
@@ -377,7 +379,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
         feedbackEditPage.tickDuplicatesAllowedCheckboxForNewQuestion();
 
         feedbackEditPage.clickAddQuestionButton();
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_ADDED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_ADDED);
         assertNotNull(BackDoor.getFeedbackQuestion(courseId, feedbackSessionName, 1));
 
         assertEquals("Blank options should have been removed", 2, feedbackEditPage.getNumOfOptionsInRankOptions(1));
@@ -394,7 +396,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
         feedbackEditPage.fillQuestionDescriptionForNewQuestion("more details");
 
         feedbackEditPage.clickAddQuestionButton();
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_ADDED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_ADDED);
         assertNotNull(BackDoor.getFeedbackQuestion(courseId, feedbackSessionName, 2));
 
         feedbackEditPage.verifyHtmlMainContent("/instructorFeedbackRankQuestionAddSuccess.html");
@@ -428,7 +430,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
         feedbackEditPage.untickDuplicatesAllowedCheckbox(1);
 
         feedbackEditPage.clickSaveExistingQuestionButton(1);
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_EDITED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED);
         feedbackEditPage.verifyHtmlMainContent("/instructorFeedbackRankQuestionEditSuccess.html");
 
         ______TS("rank edit: edit rank recipients question success");
@@ -436,7 +438,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
 
         feedbackEditPage.tickDuplicatesAllowedCheckbox(2);
         feedbackEditPage.clickSaveExistingQuestionButton(2);
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_EDITED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED);
         assertTrue(feedbackEditPage.isRankDuplicatesAllowedChecked(2));
 
         ______TS("Rank options: test min/max restrictions");
@@ -498,7 +500,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
         feedbackEditPage.verifyMinMaxOptionsToBeSelectedRestrictions(qNum);
 
         feedbackEditPage.clickSaveExistingQuestionButton(qNum);
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_EDITED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED);
 
         ______TS("Rank recipients: test min/max restrictions");
         qNum = 2;
@@ -544,7 +546,7 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
         feedbackEditPage.verifyMinMaxOptionsToBeSelectedRestrictions(qNum);
 
         feedbackEditPage.clickSaveExistingQuestionButton(qNum);
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_EDITED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED);
         feedbackEditPage.verifyHtmlMainContent("/instructorFeedbackRankMinMaxChoicesSuccess.html");
     }
 
@@ -554,12 +556,12 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
 
         feedbackEditPage.clickDeleteQuestionLink(2);
         feedbackEditPage.waitForConfirmationModalAndClickOk();
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_DELETED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_DELETED);
         assertNull(BackDoor.getFeedbackQuestion(courseId, feedbackSessionName, 2));
 
         feedbackEditPage.clickDeleteQuestionLink(1);
         feedbackEditPage.waitForConfirmationModalAndClickOk();
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_DELETED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_DELETED);
         assertNull(BackDoor.getFeedbackQuestion(courseId, feedbackSessionName, 1));
     }
 
@@ -607,12 +609,12 @@ public class FeedbackRankQuestionUiTest extends FeedbackQuestionUiTest {
                     .withSessionName(testData.feedbackSessions.get(fsName).getFeedbackSessionName());
 
         if (needAjax) {
-            resultsPageUrl = resultsPageUrl.withParam(Const.ParamsNames.FEEDBACK_RESULTS_NEED_AJAX,
+            resultsPageUrl = resultsPageUrl.withParam(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_NEED_AJAX,
                                                       String.valueOf(needAjax));
         }
 
         if (viewType != null) {
-            resultsPageUrl = resultsPageUrl.withParam(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, viewType);
+            resultsPageUrl = resultsPageUrl.withParam(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, viewType);
         }
 
         return loginAdminToPage(resultsPageUrl, InstructorFeedbackResultsPage.class);

@@ -6,6 +6,7 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.AppUrl;
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.BackDoor;
 import teammates.test.driver.StringHelperExtension;
 import teammates.test.pageobjects.InstructorCourseDetailsPage;
@@ -106,7 +107,7 @@ public class InstructorCourseStudentDetailsEditPageUiTest extends BaseUiTestCase
         StudentAttributes anotherStudent = testData.students.get("unregisteredStudent");
 
         editPage = editPage.submitUnsuccessfully("New name2", "New team2", anotherStudent.email, "New comments2");
-        editPage.verifyStatus(String.format(Const.StatusMessages.STUDENT_EMAIL_TAKEN_MESSAGE, anotherStudent.name,
+        editPage.verifyStatus(String.format(StatusMessageConst.StatusMessages.STUDENT_EMAIL_TAKEN_MESSAGE, anotherStudent.name,
                                             anotherStudent.email));
         editPage.verifyIsCorrectPage("CCSDEditUiT.jose.tmms@gmail.tmt");
 
@@ -123,7 +124,7 @@ public class InstructorCourseStudentDetailsEditPageUiTest extends BaseUiTestCase
 
         InstructorCourseDetailsPage detailsPage =
                 editPage.submitSuccessfully("New name", "New team", "newemail@gmail.tmt", "New comments");
-        detailsPage.verifyStatus(Const.StatusMessages.STUDENT_EDITED);
+        detailsPage.verifyStatus(StatusMessageConst.StatusMessages.STUDENT_EDITED);
         detailsPage.verifyIsCorrectPage(testData.courses.get("CCSDEditUiT.CS2104").getId());
 
         // Verify data

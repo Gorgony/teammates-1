@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.AccountsLogic;
 import teammates.ui.controller.AjaxResult;
 import teammates.ui.controller.ErrorUserReportLogAction;
@@ -40,15 +42,15 @@ public class ErrorUserReportLogActionTest extends BaseActionTest {
         final String testErrorReportRequestedUrl = "/page/testurl";
 
         String[] params = new String[]{
-                Const.ParamsNames.ERROR_FEEDBACK_URL_REQUESTED, testErrorReportRequestedUrl,
-                Const.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT, testErrorReportSubject,
-                Const.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT, testErrorReportContent,
+                ParamNameConst.ParamsNames.ERROR_FEEDBACK_URL_REQUESTED, testErrorReportRequestedUrl,
+                ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT, testErrorReportSubject,
+                ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT, testErrorReportContent,
         };
 
         ErrorUserReportLogAction action = getAction(params);
         AjaxResult result = getAjaxResult(action);
 
-        assertEquals(Const.StatusMessages.ERROR_FEEDBACK_SUBMIT_SUCCESS, result.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.ERROR_FEEDBACK_SUBMIT_SUCCESS, result.getStatusMessage());
 
         // getting basic AccountAttributes because ErrorUserReportLogAction only logs this.
         AccountAttributes instructor1ofCourse1AccountAttributes = accountsLogic
@@ -68,8 +70,8 @@ public class ErrorUserReportLogActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT, "test subject",
-                Const.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT, "test content",
+                ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT, "test subject",
+                ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT, "test content",
         };
 
         verifyOnlyLoggedInUsersCanAccess(submissionParams);

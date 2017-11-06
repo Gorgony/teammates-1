@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor/course" prefix="course" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 
 <%@ attribute name="instructorPanel" type="teammates.ui.template.CourseEditInstructorPanel" required="true" %>
 
@@ -13,8 +14,8 @@
       </div>
 
       <div class="col-sm-9">
-        <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-            id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
+        <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+            id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
             value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER%>">
         &nbsp;Co-owner: Can do everything&nbsp;
         <a href="javascript:;" class="view-role-details" data-role="<%= Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER %>">
@@ -22,8 +23,8 @@
         </a>
         <br>
 
-        <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-            id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
+        <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+            id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
             value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_MANAGER%>">
         &nbsp;Manager: Can do everything except for deleting the course&nbsp;
         <a href="javascript:;" class="view-role-details" data-role="<%= Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_MANAGER %>">
@@ -31,8 +32,8 @@
         </a>
         <br>
 
-        <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-            id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
+        <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+            id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
             value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_OBSERVER%>">
         &nbsp;Observer: Can only view information(students, submissions, comments etc.).&nbsp;Cannot edit/delete/submit anything.&nbsp;
         <a href="javascript:;" class="view-role-details" data-role="<%= Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_OBSERVER %>">
@@ -40,8 +41,8 @@
         </a>
         <br>
 
-        <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-            id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
+        <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+            id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
             value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_TUTOR%>">
         &nbsp;Tutor: Can view student details, give/view comments, submit/view responses for sessions&nbsp;
         <a href="javascript:;" class="view-role-details" data-role="<%= Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_TUTOR %>">
@@ -49,8 +50,8 @@
         </a>
         <br>
 
-        <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-            id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
+        <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+            id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${instructorPanel.index}"
             value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_CUSTOM%>">
         &nbsp;Custom: No access by default. Any access needs to be granted explicitly.
         <br>

@@ -4,8 +4,8 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Assumption;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailWrapper;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.api.EmailGenerator;
 
 /**
@@ -25,12 +25,12 @@ public class InstructorCourseJoinEmailWorkerAction extends AutomatedAction {
 
     @Override
     public void execute() {
-        String inviterId = getRequestParamValue(ParamsNames.INVITER_ID);
-        Assumption.assertPostParamNotNull(ParamsNames.INVITER_ID, inviterId);
-        String courseId = getRequestParamValue(ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(ParamsNames.COURSE_ID, courseId);
-        String instructorEmail = getRequestParamValue(ParamsNames.INSTRUCTOR_EMAIL);
-        Assumption.assertPostParamNotNull(ParamsNames.INSTRUCTOR_EMAIL, instructorEmail);
+        String inviterId = getRequestParamValue(ParamNameConst.ParamsNames.INVITER_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.INVITER_ID, inviterId);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        String instructorEmail = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instructorEmail);
 
         AccountAttributes inviter = logic.getAccount(inviterId);
         Assumption.assertNotNull(inviter);

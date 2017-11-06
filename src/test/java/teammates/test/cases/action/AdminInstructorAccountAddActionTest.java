@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import teammates.common.util.Const;
 import teammates.common.util.EmailType;
 import teammates.common.util.EmailWrapper;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.api.Logic;
 import teammates.test.driver.StringHelperExtension;
 import teammates.ui.controller.AdminInstructorAccountAddAction;
@@ -40,21 +41,21 @@ public class AdminInstructorAccountAddActionTest extends BaseActionTest {
 
         gaeSimulation.loginAsAdmin(adminUserId);
         verifyAssumptionFailure();
-        verifyAssumptionFailure(Const.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName);
-        verifyAssumptionFailure(Const.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName,
-                Const.ParamsNames.INSTRUCTOR_NAME, name);
-        verifyAssumptionFailure(Const.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName,
-                Const.ParamsNames.INSTRUCTOR_NAME, name,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, email);
-        verifyAssumptionFailure(Const.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName,
-                Const.ParamsNames.INSTRUCTOR_NAME, name,
-                Const.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
-        verifyAssumptionFailure(Const.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, email,
-                Const.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
-        verifyAssumptionFailure(Const.ParamsNames.INSTRUCTOR_NAME, name,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, email,
-                Const.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
+        verifyAssumptionFailure(ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName);
+        verifyAssumptionFailure(ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, name);
+        verifyAssumptionFailure(ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, name,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, email);
+        verifyAssumptionFailure(ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, name,
+                ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
+        verifyAssumptionFailure(ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, email,
+                ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
+        verifyAssumptionFailure(ParamNameConst.ParamsNames.INSTRUCTOR_NAME, name,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, email,
+                ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
 
         ______TS("Normal case: not importing demo couse, extra spaces around values");
         final String newInstructorShortNameWithSpaces = "   " + newInstructorShortName + "   ";
@@ -63,10 +64,10 @@ public class AdminInstructorAccountAddActionTest extends BaseActionTest {
         final String instituteWithSpaces = "   " + institute + "   ";
 
         AdminInstructorAccountAddAction a = getAction(
-                Const.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortNameWithSpaces,
-                Const.ParamsNames.INSTRUCTOR_NAME, nameWithSpaces,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, emailWithSpaces,
-                Const.ParamsNames.INSTRUCTOR_INSTITUTION, instituteWithSpaces);
+                ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, newInstructorShortNameWithSpaces,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, nameWithSpaces,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, emailWithSpaces,
+                ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, instituteWithSpaces);
 
         AjaxResult r = getAjaxResult(a);
         assertTrue(r.getStatusMessage().contains("Instructor " + name + " has been successfully created"));
@@ -83,10 +84,10 @@ public class AdminInstructorAccountAddActionTest extends BaseActionTest {
         final String anotherNewInstructorShortName = "Bond";
         final String invalidName = "James%20Bond99";
         a = getAction(
-                Const.ParamsNames.INSTRUCTOR_SHORT_NAME, anotherNewInstructorShortName,
-                Const.ParamsNames.INSTRUCTOR_NAME, invalidName,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, email,
-                Const.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
+                ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, anotherNewInstructorShortName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, invalidName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, email,
+                ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
 
         String expectedError =
                 "\"" + invalidName + "\" is not acceptable to TEAMMATES as a/an person name because "
@@ -107,10 +108,10 @@ public class AdminInstructorAccountAddActionTest extends BaseActionTest {
         ______TS("Normal case: importing demo couse");
 
         a = getAction(
-                Const.ParamsNames.INSTRUCTOR_SHORT_NAME, anotherNewInstructorShortName,
-                Const.ParamsNames.INSTRUCTOR_NAME, name,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, email,
-                Const.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
+                ParamNameConst.ParamsNames.INSTRUCTOR_SHORT_NAME, anotherNewInstructorShortName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, name,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, email,
+                ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
 
         r = getAjaxResult(a);
         assertTrue(r.getStatusMessage().contains("Instructor " + name + " has been successfully created"));

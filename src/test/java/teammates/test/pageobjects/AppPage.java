@@ -27,7 +27,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import teammates.common.util.Const;
 import teammates.common.util.ThreadHelper;
 import teammates.common.util.Url;
 import teammates.common.util.retry.MaximumRetriesExceededException;
@@ -1012,7 +1011,7 @@ public abstract class AppPage {
     }
 
     public void verifyImageUrl(String urlRegex, String imgSrc) {
-        if (Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH.equals(urlRegex)) {
+        if (SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH.equals(urlRegex)) {
             verifyDefaultImageUrl(imgSrc);
         } else {
             AssertHelper.assertContainsRegex(urlRegex, imgSrc);
@@ -1022,7 +1021,7 @@ public abstract class AppPage {
     public void verifyDefaultImageUrl(String imgSrc) {
         openNewWindow(imgSrc);
         switchToNewWindow();
-        assertEquals(TestProperties.TEAMMATES_URL + Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH,
+        assertEquals(TestProperties.TEAMMATES_URL + SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH,
                 browser.driver.getCurrentUrl());
         browser.closeCurrentWindowAndSwitchToParentWindow();
     }

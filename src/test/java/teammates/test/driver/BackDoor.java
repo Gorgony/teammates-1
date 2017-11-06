@@ -439,7 +439,7 @@ public final class BackDoor {
 
     private static String readResponse(URLConnection conn) throws IOException {
         conn.setReadTimeout(10000);
-        InputStreamReader isr = new InputStreamReader(conn.getInputStream(), Const.SystemParams.ENCODING);
+        InputStreamReader isr = new InputStreamReader(conn.getInputStream(), SystemParamsConst.SystemParams.ENCODING);
         BufferedReader rd = new BufferedReader(isr);
         StringBuilder sb = new StringBuilder();
         String line;
@@ -451,7 +451,7 @@ public final class BackDoor {
     }
 
     private static void sendRequest(String paramString, URLConnection conn) throws IOException {
-        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(), Const.SystemParams.ENCODING);
+        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(), SystemParamsConst.SystemParams.ENCODING);
         wr.write(paramString);
         wr.flush();
         wr.close();

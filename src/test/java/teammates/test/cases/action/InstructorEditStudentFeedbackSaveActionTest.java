@@ -9,6 +9,8 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.NullPostParameterException;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.storage.api.FeedbackQuestionsDb;
 import teammates.storage.api.FeedbackResponsesDb;
 import teammates.ui.controller.InstructorEditStudentFeedbackSaveAction;
@@ -61,22 +63,22 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         String moderatedStudentEmail = "student1InIESFPTCourse@gmail.tmt";
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         InstructorEditStudentFeedbackSaveAction a = getAction(submissionParams);
         RedirectResult r = getRedirectResult(a);
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE,
@@ -94,23 +96,23 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         ______TS("deleted response");
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "",
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail,
-                Const.ParamsNames.SEND_SUBMISSION_EMAIL, "on"
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail,
+                ParamNameConst.ParamsNames.SEND_SUBMISSION_EMAIL, "on"
         };
 
         a = getAction(submissionParams);
         r = getRedirectResult(a);
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE,
@@ -128,21 +130,21 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         ______TS("skipped question");
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "",
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         a = getAction(submissionParams);
         r = getRedirectResult(a);
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE,
@@ -157,21 +159,21 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         ______TS("new response");
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "New " + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "New " + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         a = getAction(submissionParams);
         r = getRedirectResult(a);
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE,
@@ -198,8 +200,8 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
 
         String moderatedStudentEmail = "student1InIESFPTCourse@gmail.tmt";
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, dataBundle.feedbackResponses.get("response1ForQ1").courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.COURSE_ID, dataBundle.feedbackResponses.get("response1ForQ1").courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -207,15 +209,15 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.FEEDBACK_SESSION_NAME), e.getMessage());
+                    ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME), e.getMessage());
         }
 
         ______TS("Unsuccessful case: test empty course id parameter");
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME,
                         dataBundle.feedbackResponses.get("response1ForQ1").feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -223,20 +225,20 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.COURSE_ID), e.getMessage());
+                    ParamNameConst.ParamsNames.COURSE_ID), e.getMessage());
         }
 
         ______TS("Unsuccessful case: test no moderated student parameter");
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", "",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
         };
 
         try {
@@ -244,7 +246,7 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON), e.getMessage());
+                    ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON), e.getMessage());
         }
 
     }
@@ -267,15 +269,15 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         gaeSimulation.loginAsInstructor(instructorHelper.googleId);
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -283,7 +285,7 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         } catch (UnauthorizedAccessException e) {
             assertEquals("Feedback session [First feedback session] is not accessible to instructor ["
                                  + instructorHelper.email + "] for privilege "
-                                 + "[" + Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
+                                 + "[" + ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
                                  + "] on section [Section 1]",
                          e.getMessage());
         }
@@ -294,15 +296,15 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         gaeSimulation.loginAsInstructor(instructorHelper.googleId);
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -310,7 +312,7 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         } catch (UnauthorizedAccessException e) {
             assertEquals("Feedback session [First feedback session] is not accessible to instructor ["
                                  + instructorHelper.email + "] for privilege "
-                                 + "[" + Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
+                                 + "[" + ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
                                  + "] on section [Section 1]",
                          e.getMessage());
         }
@@ -327,22 +329,22 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         assertNotNull("Feedback response not found in database", fr);
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         InstructorEditStudentFeedbackSaveAction a = getAction(submissionParams);
         RedirectResult r = getRedirectResult(a);
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE,
@@ -365,15 +367,15 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         assertNotNull("Feedback response not found in database", fr);
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -395,22 +397,22 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         assertNotNull("Feedback response not found in database", fr);
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         a = getAction(submissionParams);
         r = getRedirectResult(a);
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE,
@@ -436,22 +438,22 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         assertNotNull("Feedback response not found in database", fr);
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         a = getAction(submissionParams);
         r = getRedirectResult(a);
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE,
@@ -475,15 +477,15 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         assertNotNull("Feedback response not found in database", fr);
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -491,7 +493,7 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         } catch (UnauthorizedAccessException e) {
             assertEquals("Feedback session [Another feedback session] is not accessible to instructor ["
                              + instructorHelper3.email + "] for privilege ["
-                             + Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
+                             + ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
                              + "] on section [Section 2]",
                          e.getMessage());
         }
@@ -514,15 +516,15 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         String moderatedStudentEmail = "student1InIESFPTCourse@gmail.tmt";
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         InstructorEditStudentFeedbackSaveAction a;
@@ -544,15 +546,15 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         assertNotNull("Feedback response not found in database", fr);
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -573,15 +575,15 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         assertNotNull("Feedback response not found in database", fr);
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -611,22 +613,22 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         assertNotNull("Feedback response not found in database", fr);
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
-                Const.ParamsNames.COURSE_ID, fr.courseId,
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-1", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-1-0", fr.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fr.feedbackSessionName,
+                ParamNameConst.ParamsNames.COURSE_ID, fr.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", fr.feedbackQuestionId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-1-0", fr.recipient,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-1", fr.feedbackQuestionType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-1-0", "Edited" + fr.getResponseDetails().getAnswerString(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         InstructorEditStudentFeedbackSaveAction a = getAction(submissionParams);
         RedirectResult r = getRedirectResult(a);
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE,
@@ -647,12 +649,12 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
     protected String getPageResultDestination(
             String parentUri, boolean isError, String moderatedPerson, String userId, String courseId, String fsname) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
         pageDestination = addParamToUrl(
-                pageDestination, Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedPerson);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
+                pageDestination, ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedPerson);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
         return pageDestination;
     }
 
@@ -668,9 +670,9 @@ public class InstructorEditStudentFeedbackSaveActionTest extends BaseActionTest 
         String moderatedStudentEmail = student.email;
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

@@ -7,14 +7,15 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.util.Assumption;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.pagedata.FeedbackSubmissionEditPageData;
 
 public class InstructorEditStudentFeedbackPageAction extends Action {
 
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        String moderatedEntityIdentifier = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        String moderatedEntityIdentifier = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON);
 
         StudentAttributes studentUnderModeration = logic.getStudentForEmail(courseId, moderatedEntityIdentifier);
 
@@ -37,18 +38,18 @@ public class InstructorEditStudentFeedbackPageAction extends Action {
             }
         }
 
-        String feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
+        String feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
 
         gateKeeper.verifyAccessible(logic.getInstructorForGoogleId(courseId, account.googleId),
                 logic.getFeedbackSession(feedbackSessionName, courseId),
                 false, studentUnderModeration.section,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
 
-        String moderatedQuestionId = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_QUESTION_ID);
+        String moderatedQuestionId = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_QUESTION_ID);
 
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedEntityIdentifier);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedEntityIdentifier);
 
         FeedbackSubmissionEditPageData data = new FeedbackSubmissionEditPageData(account, student, sessionToken);
 

@@ -10,12 +10,7 @@ import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.JoinCourseException;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 
 /**
  * This action handles students who attempt to join a course after
@@ -34,8 +29,8 @@ public class StudentCourseJoinAuthenticatedAction extends CourseJoinAuthenticate
         // the next URL can be specified either in registration key
         // (see {@link Action#parseAndInitializeRegkeyFromRequest()}
         // or as a parameter in the request
-        String nextUrl = nextUrlFromRegkey == null ? getRequestParamValue(Const.ParamsNames.NEXT_URL) : nextUrlFromRegkey;
-        Assumption.assertPostParamNotNull(Const.ParamsNames.NEXT_URL, nextUrl);
+        String nextUrl = nextUrlFromRegkey == null ? getRequestParamValue(ParamNameConst.ParamsNames.NEXT_URL) : nextUrlFromRegkey;
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.NEXT_URL, nextUrl);
         nextUrl = SanitizationHelper.desanitizeFromNextUrl(nextUrl);
 
         ensureStudentExists();
@@ -59,7 +54,7 @@ public class StudentCourseJoinAuthenticatedAction extends CourseJoinAuthenticate
                 + "<br>Google ID: " + account.googleId
                 + "<br>Key : " + regkey;
         RedirectResult response = createRedirectResult(nextUrl);
-        response.addResponseParam(Const.ParamsNames.CHECK_PERSISTENCE_COURSE, getStudent().course);
+        response.addResponseParam(ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE, getStudent().course);
         excludeStudentDetailsFromResponseParams();
 
         if (statusToAdmin == null || statusToAdmin.trim().isEmpty()) {
@@ -78,13 +73,13 @@ public class StudentCourseJoinAuthenticatedAction extends CourseJoinAuthenticate
         CourseAttributes course = logic.getCourse(getStudent().course);
         String courseDisplayText = "[" + course.getId() + "] " + SanitizationHelper.sanitizeForHtml(course.getName());
 
-        statusToUser.add(new StatusMessage(String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
+        statusToUser.add(new StatusMessage(String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
                                                            courseDisplayText), StatusMessageColor.SUCCESS));
 
         List<FeedbackSessionAttributes> fsa =
                 logic.getFeedbackSessionsForUserInCourse(getStudent().course, getStudent().email);
         if (fsa.isEmpty()) {
-            statusToUser.add(new StatusMessage(String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
+            statusToUser.add(new StatusMessage(String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
                                                                courseDisplayText), StatusMessageColor.INFO));
 
             StudentProfileAttributes spa = logic.getStudentProfile(account.googleId);

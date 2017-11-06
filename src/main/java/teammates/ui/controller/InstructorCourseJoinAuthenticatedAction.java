@@ -4,10 +4,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.JoinCourseException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 
 /**
  * This action handles instructors who attempt to join a course after
@@ -23,7 +20,7 @@ public class InstructorCourseJoinAuthenticatedAction extends CourseJoinAuthentic
     protected ActionResult execute() throws EntityDoesNotExistException {
         Assumption.assertNotNull(regkey);
 
-        String institute = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_INSTITUTION);
+        String institute = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION);
 
         gateKeeper.verifyLoggedInUserPrivileges();
 
@@ -62,7 +59,7 @@ public class InstructorCourseJoinAuthenticatedAction extends CourseJoinAuthentic
         RedirectResult response = createRedirectResult(Const.ActionURIs.INSTRUCTOR_HOME_PAGE);
         InstructorAttributes instructor = logic.getInstructorForRegistrationKey(regkey);
         if (instructor != null) {
-            response.addResponseParam(Const.ParamsNames.CHECK_PERSISTENCE_COURSE, instructor.courseId);
+            response.addResponseParam(ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE, instructor.courseId);
             sendCourseRegisteredEmail(instructor.name, instructor.email, true, instructor.courseId);
         }
 

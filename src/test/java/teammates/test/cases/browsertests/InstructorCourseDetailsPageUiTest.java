@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.AppUrl;
 import teammates.common.util.Const;
+import teammates.common.util.StatusMessageConst;
 import teammates.common.util.ThreadHelper;
 import teammates.test.driver.BackDoor;
 import teammates.test.driver.EmailAccount;
@@ -181,7 +182,7 @@ public class InstructorCourseDetailsPageUiTest extends BaseUiTestCase {
         } else {
             // TODO: use GAE LocalMailService
         }
-        detailsPage.verifyStatus(Const.StatusMessages.COURSE_REMINDER_SENT_TO + student2.email);
+        detailsPage.verifyStatus(StatusMessageConst.StatusMessages.COURSE_REMINDER_SENT_TO + student2.email);
 
         // Hiding of the 'Send invite' link is already covered by content test.
         //  (i.e., they contain cases of both hidden and visible 'Send invite' links.

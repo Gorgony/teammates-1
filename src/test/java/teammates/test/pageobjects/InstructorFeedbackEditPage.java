@@ -22,10 +22,7 @@ import org.openqa.selenium.support.ui.Select;
 import com.google.appengine.api.datastore.Text;
 
 import teammates.common.datatransfer.FeedbackParticipantType;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.StringHelper;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.test.driver.TimeHelperExtension;
 
 public class InstructorFeedbackEditPage extends AppPage {
@@ -56,31 +53,31 @@ public class InstructorFeedbackEditPage extends AppPage {
     @FindBy(id = "editUncommonSettingsSendEmailsButton")
     private WebElement uncommonSettingsSendEmailsButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_custom")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_custom")
     private WebElement customSessionVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_custom")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_custom")
     private WebElement customResultsVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_atopen")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_atopen")
     private WebElement defaultSessionVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_atvisible")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_atvisible")
     private WebElement defaultResultsVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_later")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_later")
     private WebElement manualResultsVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_never")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_never")
     private WebElement neverSessionVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_never")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_never")
     private WebElement neverResultsVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_closing")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_closing")
     private WebElement closingSessionEmailReminderButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_published")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_published")
     private WebElement publishedSessionEmailReminderButton;
 
     @FindBy(id = "fsEditLink")
@@ -184,7 +181,7 @@ public class InstructorFeedbackEditPage extends AppPage {
     }
 
     public void fillQuestionDescription(String qnDescription, int qnIndex) {
-        fillRichTextEditor(Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION + "-" + qnIndex, qnDescription);
+        fillRichTextEditor(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION + "-" + qnIndex, qnDescription);
     }
 
     public void fillQuestionDescriptionForNewQuestion(String qnDescription) {
@@ -363,14 +360,14 @@ public class InstructorFeedbackEditPage extends AppPage {
     }
 
     public boolean isRubricColLeftMovable(int qnNumber, int colNumber) {
-        String elemId = Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_MOVE_COL_LEFT + "-" + qnNumber + "-" + colNumber;
+        String elemId = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_MOVE_COL_LEFT + "-" + qnNumber + "-" + colNumber;
         WebElement moveColButton = browser.driver.findElement(By.id(elemId));
 
         return moveColButton.getAttribute("disabled") == null;
     }
 
     public boolean isRubricColRightMovable(int qnNumber, int colNumber) {
-        String elemId = Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_MOVE_COL_RIGHT + "-" + qnNumber + "-" + colNumber;
+        String elemId = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_MOVE_COL_RIGHT + "-" + qnNumber + "-" + colNumber;
         WebElement moveColButton = browser.driver.findElement(By.id(elemId));
 
         return moveColButton.getAttribute("disabled") == null;
@@ -394,9 +391,9 @@ public class InstructorFeedbackEditPage extends AppPage {
         String elemId;
 
         if (isMoveLeft) {
-            elemId = Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_MOVE_COL_LEFT + "-" + qnNumber + "-" + colNumber;
+            elemId = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_MOVE_COL_LEFT + "-" + qnNumber + "-" + colNumber;
         } else {
-            elemId = Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_MOVE_COL_RIGHT + "-" + qnNumber + "-" + colNumber;
+            elemId = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_MOVE_COL_RIGHT + "-" + qnNumber + "-" + colNumber;
         }
 
         WebElement moveColButton = browser.driver.findElement(By.id(elemId));
@@ -413,7 +410,7 @@ public class InstructorFeedbackEditPage extends AppPage {
     private String getRubricSubQuestionSelectorId(int qnNumber, int subQnIndex) {
         String idSuffix = getIdSuffix(qnNumber);
 
-        return Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + idSuffix + "-" + subQnIndex;
+        return ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + idSuffix + "-" + subQnIndex;
     }
 
     public WebElement getRubricSubQuestionBox(int qnNumber, int subQnIndex) {
@@ -422,14 +419,14 @@ public class InstructorFeedbackEditPage extends AppPage {
 
     private String getRubricChoice(int qnNumber, int colNumber) {
         String idSuffix = getIdSuffix(qnNumber);
-        String elemId = Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + idSuffix + "-" + colNumber;
+        String elemId = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + idSuffix + "-" + colNumber;
 
         return browser.driver.findElement(By.id(elemId)).getAttribute("value");
     }
 
     private String getRubricWeight(int qnNumber, int colNumber) {
         String idSuffix = getIdSuffix(qnNumber);
-        String elemId = Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + idSuffix + "-" + colNumber;
+        String elemId = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + idSuffix + "-" + colNumber;
 
         return browser.driver.findElement(By.id(elemId)).getAttribute("value");
     }
@@ -584,7 +581,7 @@ public class InstructorFeedbackEditPage extends AppPage {
     public void fillRubricChoiceBox(String choice, int qnNumber, int choiceIndex) {
         String idSuffix = getIdSuffix(qnNumber);
 
-        String elemId = Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + idSuffix + "-" + choiceIndex;
+        String elemId = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + idSuffix + "-" + choiceIndex;
 
         WebElement subQnBox = browser.driver.findElement(By.id(elemId));
         fillTextBox(subQnBox, choice);
@@ -593,7 +590,7 @@ public class InstructorFeedbackEditPage extends AppPage {
     public void fillRubricWeightBox(String weight, int qnNumber, int choiceIndex) {
         String idSuffix = getIdSuffix(qnNumber);
 
-        String elemid = Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + idSuffix + "-" + choiceIndex;
+        String elemid = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + idSuffix + "-" + choiceIndex;
 
         WebElement weightBox = browser.driver.findElement(By.id(elemid));
         fillTextBox(weightBox, weight);
@@ -606,7 +603,7 @@ public class InstructorFeedbackEditPage extends AppPage {
     private String getRubricDescriptionBoxId(int qnNumber, int subQnIndex, int choiceIndex) {
         String idSuffix = getIdSuffix(qnNumber);
 
-        return Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + idSuffix + "-" + subQnIndex + "-" + choiceIndex;
+        return ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + idSuffix + "-" + subQnIndex + "-" + choiceIndex;
     }
 
     private WebElement getRubricDescriptionBox(int qnNumber, int subQnIndex, int choiceIndex) {
@@ -1138,13 +1135,13 @@ public class InstructorFeedbackEditPage extends AppPage {
 
     public void editFeedbackSession(Date startTime, Date endTime, Text instructions, int gracePeriod) {
         // Select start date
-        executeScript("$('#" + Const.ParamsNames.FEEDBACK_SESSION_STARTDATE + "')[0].value='"
+        executeScript("$('#" + ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE + "')[0].value='"
                       + TimeHelper.formatDate(startTime) + "';");
         selectDropdownByVisibleValue(startTimeDropdown,
                 TimeHelperExtension.convertToDisplayValueInTimeDropDown(startTime));
 
         // Select deadline date
-        executeScript("$('#" + Const.ParamsNames.FEEDBACK_SESSION_ENDDATE + "')[0].value='"
+        executeScript("$('#" + ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE + "')[0].value='"
                       + TimeHelper.formatDate(endTime) + "';");
         selectDropdownByVisibleValue(endTimeDropdown,
                 TimeHelperExtension.convertToDisplayValueInTimeDropDown(endTime));
@@ -1461,7 +1458,7 @@ public class InstructorFeedbackEditPage extends AppPage {
     }
 
     public void clickAssignWeightsCheckbox(int qnIndex) {
-        By by = By.id(Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHTS_ASSIGNED + getIdSuffix(qnIndex));
+        By by = By.id(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHTS_ASSIGNED + getIdSuffix(qnIndex));
         WebElement assignWeightsCheckbox = browser.driver.findElement(by);
         click(assignWeightsCheckbox);
     }
@@ -1886,7 +1883,7 @@ public class InstructorFeedbackEditPage extends AppPage {
     }
 
     public void toggleNotSureCheck(int questionNumber) {
-        click(browser.driver.findElement(By.id(Const.ParamsNames.FEEDBACK_QUESTION_CONTRIBISNOTSUREALLOWED
+        click(browser.driver.findElement(By.id(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONTRIBISNOTSUREALLOWED
                                                + "-" + questionNumber)));
     }
 

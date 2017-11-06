@@ -7,6 +7,8 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.NullPostParameterException;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.ui.controller.InstructorFeedbackSubmissionEditPageAction;
 import teammates.ui.controller.RedirectResult;
 import teammates.ui.controller.ShowPageResult;
@@ -31,10 +33,10 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
         ______TS("not enough parameters");
 
         String[] paramsWithoutCourseId = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
         };
         String[] paramsWithoutFeedbackSessionName = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId()
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId()
         };
 
         verifyAssumptionFailure(paramsWithoutCourseId);
@@ -43,8 +45,8 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
         ______TS("Test null feedback session name parameter");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         InstructorFeedbackSubmissionEditPageAction a;
@@ -56,14 +58,14 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                                       Const.ParamsNames.FEEDBACK_SESSION_NAME), e.getMessage());
+                                       ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME), e.getMessage());
         }
 
         ______TS("Test null course id parameter");
 
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         try {
@@ -72,7 +74,7 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                                       Const.ParamsNames.COURSE_ID), e.getMessage());
+                                       ParamNameConst.ParamsNames.COURSE_ID), e.getMessage());
         }
 
         ______TS("Test insufficient authorization");
@@ -81,9 +83,9 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
         gaeSimulation.loginAsInstructor(instructor.googleId);
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         try {
@@ -101,9 +103,9 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
         gaeSimulation.loginAsInstructor(instructor.googleId);
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "feedback session that does not exist",
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "feedback session that does not exist",
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         a = getAction(submissionParams);
@@ -113,15 +115,15 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
                 getPageResultDestination(Const.ActionURIs.INSTRUCTOR_HOME_PAGE, false, instructor.googleId),
                 rr.getDestinationWithParams());
         assertFalse(rr.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_DELETED_NO_ACCESS,
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_DELETED_NO_ACCESS,
                      rr.getStatusMessage());
 
         ______TS("typical success case");
 
         String[] params = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         a = getAction(params);
@@ -155,9 +157,9 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
         session = typicalBundle.feedbackSessions.get("closedSession");
 
         params = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         a = getAction(params);
@@ -168,7 +170,7 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
                         Const.ViewURIs.INSTRUCTOR_FEEDBACK_SUBMISSION_EDIT, false, instructor.googleId),
                 r.getDestinationWithParams());
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN, r.getStatusMessage());
 
         ______TS("private session case");
 
@@ -177,9 +179,9 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
         gaeSimulation.loginAsInstructor(instructor.googleId);
 
         params = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         a = getAction(params);
@@ -204,8 +206,8 @@ public class InstructorFeedbackSubmissionEditPageActionTest extends BaseActionTe
         FeedbackSessionAttributes fs = typicalBundle.feedbackSessions.get("session1InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName()
         };
         verifyUnaccessibleWithoutSubmitSessionInSectionsPrivilege(submissionParams);
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

@@ -10,10 +10,7 @@ import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.ui.template.FeedbackSubmissionEditQuestion;
 import teammates.ui.template.FeedbackSubmissionEditResponse;
 import teammates.ui.template.StudentFeedbackSubmissionEditQuestionsWithResponses;
@@ -65,7 +62,7 @@ public class FeedbackSubmissionEditPageData extends PageData {
 
         registerMessage = student == null
                         ? ""
-                        : String.format(Const.StatusMessages.UNREGISTERED_STUDENT, student.name, joinUrl);
+                        : String.format(StatusMessageConst.StatusMessages.UNREGISTERED_STUDENT, student.name, joinUrl);
         createQuestionsWithResponses();
     }
 

@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.NullPostParameterException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.FeedbackSessionsLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.test.driver.StringHelperExtension;
@@ -68,7 +70,7 @@ public class InstructorFeedbackAddActionTest extends BaseActionTest {
                 + "<br><span class=\"bold\">Instructions:</span> "
                 + "<Text: instructions>|||/page/instructorFeedbackAdd";
         AssertHelper.assertLogMessageEquals(expectedString, a.getLogMessage());
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_ADDED, rr.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_ADDED, rr.getStatusMessage());
 
         ______TS("Error: try to add the same session again");
 
@@ -80,7 +82,7 @@ public class InstructorFeedbackAddActionTest extends BaseActionTest {
                 Const.ViewURIs.INSTRUCTOR_FEEDBACK_SESSIONS, true, "idOfInstructor1OfCourse1");
         assertEquals(expectedString, pr.getDestinationWithParams());
         assertTrue(pr.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_EXISTS, pr.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EXISTS, pr.getStatusMessage());
 
         ______TS("Error: Invalid parameter (invalid sesssion name, > 38 characters)");
 
@@ -130,7 +132,7 @@ public class InstructorFeedbackAddActionTest extends BaseActionTest {
                 + "<span class=\"bold\">Instructions:</span> "
                 + "<Text: instructions>|||/page/instructorFeedbackAdd";
         AssertHelper.assertLogMessageEquals(expectedString, a.getLogMessage());
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_ADDED, rr.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_ADDED, rr.getStatusMessage());
 
         ______TS("timezone with minute offset");
 
@@ -163,7 +165,7 @@ public class InstructorFeedbackAddActionTest extends BaseActionTest {
                 + "<Text: instructions>|||"
                 + "/page/instructorFeedbackAdd";
         AssertHelper.assertLogMessageEquals(expectedString, a.getLogMessage());
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_ADDED, rr.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_ADDED, rr.getStatusMessage());
 
         ______TS("Masquerade mode");
 
@@ -198,7 +200,7 @@ public class InstructorFeedbackAddActionTest extends BaseActionTest {
                 + "<span class=\"bold\">Instructions:</span> "
                 + "<Text: >|||/page/instructorFeedbackAdd";
         AssertHelper.assertLogMessageEqualsInMasqueradeMode(expectedString, a.getLogMessage(), adminUserId);
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_ADDED, rr.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_ADDED, rr.getStatusMessage());
 
         ______TS("Unsuccessful case: test null course ID parameter");
         params = new String[]{};
@@ -207,7 +209,7 @@ public class InstructorFeedbackAddActionTest extends BaseActionTest {
             a = getAction(params);
             getRedirectResult(a);
         } catch (NullPostParameterException e) {
-            assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER, Const.ParamsNames.COURSE_ID),
+            assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER, ParamNameConst.ParamsNames.COURSE_ID),
                          e.getMessage());
         }
         // remove the sessions that were added
@@ -222,10 +224,10 @@ public class InstructorFeedbackAddActionTest extends BaseActionTest {
     protected String getPageResultDestination(
             String parentUri, String courseId, String fsname, String userId, boolean isError) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
         return pageDestination;
     }
 

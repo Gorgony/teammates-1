@@ -6,11 +6,7 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
-import teammates.common.util.EmailType;
-import teammates.common.util.TaskWrapper;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.logic.core.CoursesLogic;
 import teammates.logic.core.FeedbackSessionsLogic;
 import teammates.test.driver.TimeHelperExtension;
@@ -73,11 +69,11 @@ public class FeedbackSessionOpeningRemindersActionTest extends BaseAutomatedActi
             try {
                 assertEquals(String.format(EmailType.FEEDBACK_OPENING.getSubject(), courseName,
                                            session1.getSessionName()),
-                             paramMap.get(ParamsNames.EMAIL_SUBJECT)[0]);
+                             paramMap.get(ParamNameConst.ParamsNames.EMAIL_SUBJECT)[0]);
             } catch (AssertionError ae) {
                 assertEquals(String.format(EmailType.FEEDBACK_OPENING.getSubject(), courseName,
                                            session2.getSessionName()),
-                             paramMap.get(ParamsNames.EMAIL_SUBJECT)[0]);
+                             paramMap.get(ParamNameConst.ParamsNames.EMAIL_SUBJECT)[0]);
             }
         }
 

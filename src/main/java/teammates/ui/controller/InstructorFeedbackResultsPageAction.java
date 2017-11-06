@@ -5,11 +5,7 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.ExceedingRangeException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.ui.datatransfer.InstructorFeedbackResultsPageViewType;
 import teammates.ui.pagedata.InstructorFeedbackResultsPageData;
 
@@ -21,12 +17,12 @@ public class InstructorFeedbackResultsPageAction extends Action {
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        String feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        String showStats = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        String feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        String showStats = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS);
 
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
 
         statusToAdmin = "Show instructor feedback result page<br>"
                       + "Session Name: " + feedbackSessionName + "<br>"
@@ -39,19 +35,19 @@ public class InstructorFeedbackResultsPageAction extends Action {
         gateKeeper.verifyAccessible(instructor, session, !isCreatorOnly);
 
         InstructorFeedbackResultsPageData data = new InstructorFeedbackResultsPageData(account, sessionToken);
-        String selectedSection = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION);
+        String selectedSection = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION);
 
         if (selectedSection == null) {
             selectedSection = ALL_SECTION_OPTION;
         }
 
         boolean isMissingResponsesShown = getRequestParamAsBoolean(
-                Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES);
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES);
 
         // this is for ajax loading of the html table in the modal
         // "(Non-English characters not displayed properly in the downloaded file? click here)"
         // TODO move into another action and another page data class
-        boolean isLoadingCsvResultsAsHtml = getRequestParamAsBoolean(Const.ParamsNames.CSV_TO_HTML_TABLE_NEEDED);
+        boolean isLoadingCsvResultsAsHtml = getRequestParamAsBoolean(ParamNameConst.ParamsNames.CSV_TO_HTML_TABLE_NEEDED);
         if (isLoadingCsvResultsAsHtml) {
             return createAjaxResultForCsvTableLoadedInHtml(
                     courseId, feedbackSessionName, instructor, data, selectedSection,
@@ -60,9 +56,9 @@ public class InstructorFeedbackResultsPageAction extends Action {
         data.setSessionResultsHtmlTableAsString("");
         data.setAjaxStatus("");
 
-        String groupByTeam = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM);
-        String sortType = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE);
-        String startIndex = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_MAIN_INDEX);
+        String groupByTeam = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM);
+        String sortType = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE);
+        String startIndex = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_MAIN_INDEX);
 
         if (startIndex != null) {
             data.setStartIndex(Integer.parseInt(startIndex));
@@ -76,8 +72,8 @@ public class InstructorFeedbackResultsPageAction extends Action {
             isMissingResponsesShown = true;
         }
 
-        String questionId = getRequestParamValue(Const.ParamsNames.FEEDBACK_QUESTION_ID);
-        String isTestingAjax = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_NEED_AJAX);
+        String questionId = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID);
+        String isTestingAjax = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_NEED_AJAX);
 
         if (ALL_SECTION_OPTION.equals(selectedSection) && questionId == null
                 && !Const.FeedbackSessionResults.QUESTION_SORT_TYPE.equals(sortType)) {
@@ -123,10 +119,10 @@ public class InstructorFeedbackResultsPageAction extends Action {
         if (selectedSection.equals(ALL_SECTION_OPTION) && (isShowSectionWarningForParticipantView
                                                            || isShowSectionWarningForQuestionView)) {
             if (isMultipleSectionAvailable) {
-                statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_RESULTS_SECTIONVIEWWARNING,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_RESULTS_SECTIONVIEWWARNING,
                                                    StatusMessageColor.WARNING));
             } else {
-                statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_RESULTS_QUESTIONVIEWWARNING,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_RESULTS_QUESTIONVIEWWARNING,
                                                    StatusMessageColor.WARNING));
             }
             isError = true;

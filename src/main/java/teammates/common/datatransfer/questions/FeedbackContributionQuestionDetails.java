@@ -15,11 +15,7 @@ import teammates.common.datatransfer.StudentResultSummary;
 import teammates.common.datatransfer.TeamEvalResult;
 import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.Logger;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.Templates;
+import teammates.common.util.*;
 import teammates.common.util.Templates.FeedbackQuestion.FormTemplates;
 import teammates.common.util.Templates.FeedbackQuestion.Slots;
 import teammates.ui.template.InstructorFeedbackResultsResponseRow;
@@ -50,7 +46,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
             FeedbackQuestionType questionType) {
         String isNotSureAllowedString = HttpRequestHelper.getValueFromParamMap(
                 requestParameters,
-                Const.ParamsNames.FEEDBACK_QUESTION_CONTRIBISNOTSUREALLOWED);
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONTRIBISNOTSUREALLOWED);
         boolean isNotSureAllowed = "on".equals(isNotSureAllowedString);
         this.setContributionQuestionDetails(isNotSureAllowed);
         return true;
@@ -63,7 +59,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
 
     @Override
     public String getQuestionTypeDisplayName() {
-        return Const.FeedbackQuestionTypeNames.CONTRIB;
+        return FeedbackGuestionConst.FeedbackQuestionTypeNames.CONTRIB;
     }
 
     @Override
@@ -89,7 +85,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
                 FormTemplates.CONTRIB_SUBMISSION_FORM,
                 Slots.QUESTION_INDEX, Integer.toString(qnIdx),
                 Slots.RESPONSE_INDEX, Integer.toString(responseIdx),
-                Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
                 Slots.DISABLED, sessionIsOpen ? "" : "disabled",
                 Slots.CONTRIB_SELECT_FRAGMENTS_HTML, optionSelectFragmentsHtml,
                 Slots.CONTRIB_EQUAL_SHARE_HELP, getEqualShareHelpLinkIfNeeded(responseIdx));
@@ -105,7 +101,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
                 FormTemplates.CONTRIB_SUBMISSION_FORM,
                 Slots.QUESTION_INDEX, Integer.toString(qnIdx),
                 Slots.RESPONSE_INDEX, Integer.toString(responseIdx),
-                Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
                 Slots.DISABLED, sessionIsOpen ? "" : "disabled",
                 Slots.CONTRIB_SELECT_FRAGMENTS_HTML, optionSelectHtml,
                 Slots.CONTRIB_EQUAL_SHARE_HELP, getEqualShareHelpLinkIfNeeded(responseIdx));
@@ -118,7 +114,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
                 Slots.QUESTION_NUMBER, Integer.toString(questionNumber),
                 Slots.CONTRIB_IS_NOT_SURE_ALLOWED_CHECKED, isNotSureAllowed ? "checked" : "",
                 Slots.CONTRIB_PARAM_IS_NOT_SURE_ALLOWED_CHECKED,
-                        Const.ParamsNames.FEEDBACK_QUESTION_CONTRIBISNOTSUREALLOWED);
+                        ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONTRIBISNOTSUREALLOWED);
     }
 
     @Override
@@ -300,16 +296,16 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
                     Slots.CONTRIB_PC, getPointsAsColorizedHtml(summary.perceivedToInstructor),
                     Slots.CONTRIB_DIFF, getPointsDiffAsHtml(summary),
                     Slots.CONTRIB_RR, getNormalizedPointsListColorizedDescending(incomingPoints, studentIndx),
-                    Slots.CONTRIB_PARAM_STUDENT_NAME, Const.ParamsNames.STUDENT_NAME));
+                    Slots.CONTRIB_PARAM_STUDENT_NAME, ParamNameConst.ParamsNames.STUDENT_NAME));
         }
 
         return Templates.populateTemplate(
                 FormTemplates.CONTRIB_RESULT_STATS,
                 Slots.CONTRIB_FRAGMENTS, contribFragments.toString(),
-                Slots.CONTRIB_TOOLTIPS_CLAIMED, SanitizationHelper.sanitizeForHtml(Const.Tooltips.CLAIMED),
-                Slots.CONTRIB_TOOLTIPS_PERCEIVED, Const.Tooltips.PERCEIVED,
-                Slots.CONTRIB_TOOLTIPS_POINTS_RECEIVED, Const.Tooltips.FEEDBACK_CONTRIBUTION_POINTS_RECEIVED,
-                Slots.CONTRIB_TOOLTIPS_DIFF, Const.Tooltips.FEEDBACK_CONTRIBUTION_DIFF);
+                Slots.CONTRIB_TOOLTIPS_CLAIMED, SanitizationHelper.sanitizeForHtml(ToolTipConst.Tooltips.CLAIMED),
+                Slots.CONTRIB_TOOLTIPS_PERCEIVED, ToolTipConst.Tooltips.PERCEIVED,
+                Slots.CONTRIB_TOOLTIPS_POINTS_RECEIVED, ToolTipConst.Tooltips.FEEDBACK_CONTRIBUTION_POINTS_RECEIVED,
+                Slots.CONTRIB_TOOLTIPS_DIFF, ToolTipConst.Tooltips.FEEDBACK_CONTRIBUTION_DIFF);
     }
 
     @Override
@@ -664,10 +660,10 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
     private static String getPointsAsColorizedHtml(int points) {
         if (points == Const.POINTS_NOT_SUBMITTED || points == Const.INT_UNINITIALIZED) {
             return "<span class=\"color_neutral\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
-                   + Const.Tooltips.FEEDBACK_CONTRIBUTION_NOT_AVAILABLE + "\">N/A</span>";
+                   + ToolTipConst.Tooltips.FEEDBACK_CONTRIBUTION_NOT_AVAILABLE + "\">N/A</span>";
         } else if (points == Const.POINTS_NOT_SURE) {
             return "<span class=\"color-negative\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
-                   + Const.Tooltips.FEEDBACK_CONTRIBUTION_NOT_SURE + "\">N/S</span>";
+                   + ToolTipConst.Tooltips.FEEDBACK_CONTRIBUTION_NOT_SURE + "\">N/S</span>";
         } else if (points == 0) {
             return "<span class=\"color-negative\">0%</span>";
         } else if (points > 100) {
@@ -686,11 +682,11 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
         if (perceived == Const.POINTS_NOT_SUBMITTED || perceived == Const.INT_UNINITIALIZED
                 || claimed == Const.POINTS_NOT_SUBMITTED || claimed == Const.INT_UNINITIALIZED) {
             return "<span class=\"color_neutral\" data-toggle=\"tooltip\" data-placement=\"top\" "
-                   + "data-container=\"body\" title=\"" + Const.Tooltips.FEEDBACK_CONTRIBUTION_NOT_AVAILABLE
+                   + "data-container=\"body\" title=\"" + ToolTipConst.Tooltips.FEEDBACK_CONTRIBUTION_NOT_AVAILABLE
                    + "\">N/A</span>";
         } else if (perceived == Const.POINTS_NOT_SURE || claimed == Const.POINTS_NOT_SURE) {
             return "<span class=\"color-negative\" data-toggle=\"tooltip\" data-placement=\"top\" "
-                   + "data-container=\"body\" title=\"" + Const.Tooltips.FEEDBACK_CONTRIBUTION_NOT_SURE + "\">N/S"
+                   + "data-container=\"body\" title=\"" + ToolTipConst.Tooltips.FEEDBACK_CONTRIBUTION_NOT_SURE + "\">N/S"
                    + "</span>";
         } else if (diff > 0) {
             return "<span class=\"color-positive\"> + " + diff + "%</span>";
@@ -709,7 +705,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
     @Override
     public String getQuestionTypeChoiceOption() {
         return "<li data-questiontype = \"CONTRIB\"><a href=\"javascript:;\">"
-               + Const.FeedbackQuestionTypeNames.CONTRIB + "</a></li>";
+               + FeedbackGuestionConst.FeedbackQuestionTypeNames.CONTRIB + "</a></li>";
     }
 
     @Override
@@ -736,7 +732,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
                 validAnswer = true;
             }
             if (!validAnswer) {
-                errors.add(Const.FeedbackQuestion.CONTRIB_ERROR_INVALID_OPTION);
+                errors.add(FeedbackGuestionConst.FeedbackQuestion.CONTRIB_ERROR_INVALID_OPTION);
             }
         }
         return errors;
@@ -751,7 +747,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
             log.severe("Unexpected giverType for contribution question: " + feedbackQuestionAttributes.giverType
                        + " (forced to :" + FeedbackParticipantType.STUDENTS + ")");
             feedbackQuestionAttributes.giverType = FeedbackParticipantType.STUDENTS;
-            errorMsg = Const.FeedbackQuestion.CONTRIB_ERROR_INVALID_FEEDBACK_PATH;
+            errorMsg = FeedbackGuestionConst.FeedbackQuestion.CONTRIB_ERROR_INVALID_FEEDBACK_PATH;
         }
 
         // recipient type can only be OWN_TEAM_MEMBERS_INCLUDING_SELF
@@ -760,7 +756,7 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
                        + feedbackQuestionAttributes.recipientType
                        + " (forced to :" + FeedbackParticipantType.OWN_TEAM_MEMBERS_INCLUDING_SELF + ")");
             feedbackQuestionAttributes.recipientType = FeedbackParticipantType.OWN_TEAM_MEMBERS_INCLUDING_SELF;
-            errorMsg = Const.FeedbackQuestion.CONTRIB_ERROR_INVALID_FEEDBACK_PATH;
+            errorMsg = FeedbackGuestionConst.FeedbackQuestion.CONTRIB_ERROR_INVALID_FEEDBACK_PATH;
         }
 
         // restrictions on visibility options
@@ -770,14 +766,14 @@ public class FeedbackContributionQuestionDetails extends FeedbackQuestionDetails
                 == feedbackQuestionAttributes.showResponsesTo.contains(FeedbackParticipantType.OWN_TEAM_MEMBERS))) {
             log.severe("Unexpected showResponsesTo for contribution question: "
                        + feedbackQuestionAttributes.showResponsesTo + " (forced to :"
-                       + Const.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS
+                       + FeedbackGuestionConst.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS
                                                .get("ANONYMOUS_TO_RECIPIENT_AND_TEAM_VISIBLE_TO_INSTRUCTORS")
                        + ")");
             feedbackQuestionAttributes.showResponsesTo = Arrays.asList(FeedbackParticipantType.RECEIVER,
                                                                        FeedbackParticipantType.RECEIVER_TEAM_MEMBERS,
                                                                        FeedbackParticipantType.OWN_TEAM_MEMBERS,
                                                                        FeedbackParticipantType.INSTRUCTORS);
-            errorMsg = Const.FeedbackQuestion.CONTRIB_ERROR_INVALID_VISIBILITY_OPTIONS;
+            errorMsg = FeedbackGuestionConst.FeedbackQuestion.CONTRIB_ERROR_INVALID_VISIBILITY_OPTIONS;
         }
 
         return errorMsg;

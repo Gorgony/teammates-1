@@ -3,10 +3,7 @@ package teammates.ui.template;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import teammates.common.util.ActivityLogEntry;
-import teammates.common.util.Const;
-import teammates.common.util.TimeHelper;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 
 public class AdminActivityLogTableRow {
 
@@ -26,10 +23,10 @@ public class AdminActivityLogTableRow {
         switch (activityLog.getUserRole()) {
         case Const.ActivityLog.ROLE_STUDENT:
             return Url.addParamToUrl(Const.ActionURIs.STUDENT_HOME_PAGE,
-                                     Const.ParamsNames.USER_ID, activityLog.getUserGoogleId());
+                                     ParamNameConst.ParamsNames.USER_ID, activityLog.getUserGoogleId());
         case Const.ActivityLog.ROLE_INSTRUCTOR:
             return Url.addParamToUrl(Const.ActionURIs.INSTRUCTOR_HOME_PAGE,
-                                     Const.ParamsNames.USER_ID, activityLog.getUserGoogleId());
+                                     ParamNameConst.ParamsNames.USER_ID, activityLog.getUserGoogleId());
         default:
             return null;
         }
@@ -107,13 +104,13 @@ public class AdminActivityLogTableRow {
 
     public String getDisplayedActionUrl() {
         return Url.addParamToUrl(activityLog.getActionUrl(),
-                                 Const.ParamsNames.USER_ID, activityLog.getUserGoogleId());
+                                 ParamNameConst.ParamsNames.USER_ID, activityLog.getUserGoogleId());
     }
 
     public String getDisplayedLogTime() {
         Calendar appCal = Calendar.getInstance(TimeZone.getTimeZone(Const.DEFAULT_TIMEZONE));
         appCal.setTimeInMillis(activityLog.getLogTime());
-        appCal = TimeHelper.convertToUserTimeZone(appCal, Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        appCal = TimeHelper.convertToUserTimeZone(appCal, SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
         return TimeHelper.calendarToString(appCal);
     }
 

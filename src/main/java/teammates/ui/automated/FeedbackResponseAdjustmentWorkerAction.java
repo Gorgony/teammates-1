@@ -8,12 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import teammates.common.datatransfer.StudentEnrollDetails;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const.ParamsNames;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.JsonUtils;
-import teammates.common.util.LogMessageGenerator;
-import teammates.common.util.Logger;
+import teammates.common.util.*;
 
 /**
  * Task queue worker action: adjusts feedback responses in the database due to
@@ -35,14 +30,14 @@ public class FeedbackResponseAdjustmentWorkerAction extends AutomatedAction {
 
     @Override
     public void execute() {
-        String courseId = getRequestParamValue(ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(ParamsNames.COURSE_ID, courseId);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
 
-        String sessionName = getRequestParamValue(ParamsNames.FEEDBACK_SESSION_NAME);
-        Assumption.assertPostParamNotNull(ParamsNames.FEEDBACK_SESSION_NAME, sessionName);
+        String sessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, sessionName);
 
-        String enrollmentDetails = getRequestParamValue(ParamsNames.ENROLLMENT_DETAILS);
-        Assumption.assertPostParamNotNull(ParamsNames.ENROLLMENT_DETAILS, enrollmentDetails);
+        String enrollmentDetails = getRequestParamValue(ParamNameConst.ParamsNames.ENROLLMENT_DETAILS);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.ENROLLMENT_DETAILS, enrollmentDetails);
 
         log.info("Adjusting submissions for feedback session :" + sessionName + "in course : " + courseId);
 

@@ -4,7 +4,7 @@ import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseCommentAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 public abstract class InstructorFeedbackResponseCommentAbstractAction extends Action {
 
@@ -20,8 +20,8 @@ public abstract class InstructorFeedbackResponseCommentAbstractAction extends Ac
             return;
         }
         gateKeeper.verifyAccessible(instructor, session, false, response.giverSection,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
         gateKeeper.verifyAccessible(instructor, session, false, response.recipientSection,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
     }
 }

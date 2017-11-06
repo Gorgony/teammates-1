@@ -6,8 +6,9 @@ import java.util.List;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
+import teammates.common.util.ToolTipConst;
 import teammates.ui.template.CourseEditInstructorPanel;
 import teammates.ui.template.ElementTag;
 
@@ -79,13 +80,13 @@ public class InstructorCourseEditPageData extends PageData {
 
     private void createCourseRelatedButtons(InstructorAttributes currentInstructor) {
         boolean isEditDeleteCourseButtonDisabled = !currentInstructor.isAllowedForPrivilege(
-                                                       Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE);
+                                                       ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE);
 
         editCourseButton = createEditCourseButton(isEditDeleteCourseButtonDisabled);
         deleteCourseButton = createDeleteCourseButton(isEditDeleteCourseButtonDisabled);
 
         boolean isAddInstructorButtonDisabled = !currentInstructor.isAllowedForPrivilege(
-                                                    Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR);
+                                                    ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR);
         addInstructorButton = createAddInstructorButton(isAddInstructorButtonDisabled);
     }
 
@@ -101,7 +102,7 @@ public class InstructorCourseEditPageData extends PageData {
         if (instructor != null) {
             int panelIndex = instructorPanel.getIndex();
             boolean isDisabled = !currentInstructor.isAllowedForPrivilege(
-                                         Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR);
+                                         ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR);
 
             if (instructor.googleId == null) {
                 instructorPanel.setResendInviteButton(createRemindInstructorButton(instructor, panelIndex, isDisabled));
@@ -162,7 +163,7 @@ public class InstructorCourseEditPageData extends PageData {
     private ElementTag createEditCourseButton(boolean isDisabled) {
         String buttonContent = "<span class=\"glyphicon glyphicon-pencil\"></span> Edit";
         String buttonId = "courseEditLink";
-        return createBasicButton(buttonContent, buttonId, "javascript:;", Const.Tooltips.COURSE_INFO_EDIT,
+        return createBasicButton(buttonContent, buttonId, "javascript:;", ToolTipConst.Tooltips.COURSE_INFO_EDIT,
                                  isDisabled);
     }
 
@@ -171,7 +172,7 @@ public class InstructorCourseEditPageData extends PageData {
         String buttonId = "courseDeleteLink";
         String href = getInstructorCourseDeleteLink(course.getId(), false);
 
-        ElementTag button = createBasicButton(buttonContent, buttonId, href, Const.Tooltips.COURSE_DELETE,
+        ElementTag button = createBasicButton(buttonContent, buttonId, href, ToolTipConst.Tooltips.COURSE_DELETE,
                                               isDisabled);
         button.setAttribute("data-course-id", course.getId());
         String existingClasses = button.removeAttribute("class");
@@ -185,7 +186,7 @@ public class InstructorCourseEditPageData extends PageData {
         String buttonId = "instrRemindLink" + panelIndex;
         String href = getInstructorCourseRemindInstructorLink(instructor.courseId, instructor.email);
 
-        ElementTag button = createBasicButton(buttonContent, buttonId, href, Const.Tooltips.COURSE_INSTRUCTOR_REMIND,
+        ElementTag button = createBasicButton(buttonContent, buttonId, href, ToolTipConst.Tooltips.COURSE_INSTRUCTOR_REMIND,
                                               isDisabled);
         button.setAttribute("data-instructor-name", instructor.getName());
         button.setAttribute("data-course-id", instructor.getCourseId());
@@ -199,7 +200,7 @@ public class InstructorCourseEditPageData extends PageData {
         String href = getInstructorCourseInstructorDeleteLink(instructor.courseId, instructor.email);
         boolean isDeleteSelf = instructor.email.equals(this.account.email);
 
-        ElementTag button = createBasicButton(buttonContent, buttonId, href, Const.Tooltips.COURSE_INSTRUCTOR_DELETE,
+        ElementTag button = createBasicButton(buttonContent, buttonId, href, ToolTipConst.Tooltips.COURSE_INSTRUCTOR_DELETE,
                                               isDisabled);
         button.setAttribute("data-is-delete-self", String.valueOf(isDeleteSelf));
         button.setAttribute("data-instructor-name", instructor.getName());
@@ -212,14 +213,14 @@ public class InstructorCourseEditPageData extends PageData {
         String buttonContent = "<span class=\"glyphicon glyphicon-pencil\"></span> Edit";
         String buttonId = "instrEditLink" + panelIndex;
 
-        return createBasicButton(buttonContent, buttonId, "javascript:;", Const.Tooltips.COURSE_INSTRUCTOR_EDIT, isDisabled);
+        return createBasicButton(buttonContent, buttonId, "javascript:;", ToolTipConst.Tooltips.COURSE_INSTRUCTOR_EDIT, isDisabled);
     }
 
     private ElementTag createCancelEditInstructorButton(int panelIndex, boolean isDisabled) {
         String buttonContent = "<span class=\"glyphicon glyphicon-remove\"></span> Cancel";
         String buttonId = "instrCancelLink" + panelIndex;
 
-        return createBasicButton(buttonContent, buttonId, "javascript:;", Const.Tooltips.COURSE_INSTRUCTOR_CANCEL_EDIT,
+        return createBasicButton(buttonContent, buttonId, "javascript:;", ToolTipConst.Tooltips.COURSE_INSTRUCTOR_CANCEL_EDIT,
                                  isDisabled);
     }
 

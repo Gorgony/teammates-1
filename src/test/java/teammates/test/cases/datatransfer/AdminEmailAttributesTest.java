@@ -10,10 +10,7 @@ import org.testng.annotations.Test;
 import com.google.appengine.api.datastore.Text;
 
 import teammates.common.datatransfer.attributes.AdminEmailAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.StringHelper;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.storage.entity.AdminEmail;
 import teammates.test.driver.StringHelperExtension;
 
@@ -41,7 +38,7 @@ public class AdminEmailAttributesTest extends BaseAttributesTest {
 
         ______TS("success: default values for optional params");
 
-        assertEquals(Const.ParamsNames.ADMIN_EMAIL_ID, attributesWithDefaultValues.getEmailId());
+        assertEquals(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, attributesWithDefaultValues.getEmailId());
         assertFalse("Default false for isInTrashBin", attributesWithDefaultValues.isInTrashBin);
         assertEquals(Const.TIME_REPRESENTS_DEFAULT_TIMESTAMP, attributesWithDefaultValues.getCreateDate());
         assertTrue("Valid input", attributesWithDefaultValues.isValid());
@@ -62,7 +59,7 @@ public class AdminEmailAttributesTest extends BaseAttributesTest {
 
         ______TS("success: default values for optional params");
 
-        assertEquals(Const.ParamsNames.ADMIN_EMAIL_ID, attributesWithNullOptionalArguments.getEmailId());
+        assertEquals(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, attributesWithNullOptionalArguments.getEmailId());
         assertFalse("Default false for isInTrashBin", attributesWithNullOptionalArguments.isInTrashBin);
         assertEquals(Const.TIME_REPRESENTS_DEFAULT_TIMESTAMP, attributesWithNullOptionalArguments.getCreateDate());
         assertEquals(null, attributesWithNullOptionalArguments.getSendDate());
@@ -278,7 +275,7 @@ public class AdminEmailAttributesTest extends BaseAttributesTest {
         validAdminEmailAttributesObject.sendDate = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        return TimeHelper.convertToUserTimeZone(calendar, Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        return TimeHelper.convertToUserTimeZone(calendar, SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
     }
 
     private String getInvalidityInfoForSubject(String emailSubject) throws Exception {

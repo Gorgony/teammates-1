@@ -12,6 +12,7 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.util.Assumption;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.Url;
 import teammates.ui.pagedata.InstructorStudentListAjaxPageData;
 
@@ -20,11 +21,11 @@ public class InstructorStudentListAjaxPageAction extends Action {
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
 
-        String courseIndexString = getRequestParamValue(Const.ParamsNames.COURSE_INDEX);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_INDEX, courseIndexString);
+        String courseIndexString = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_INDEX);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_INDEX, courseIndexString);
 
         gateKeeper.verifyInstructorPrivileges(account);
 
@@ -44,18 +45,18 @@ public class InstructorStudentListAjaxPageAction extends Action {
                 for (StudentAttributes student : teamDetails.students) {
                     String studentPhotoUrl = student.getPublicProfilePictureUrl();
                     studentPhotoUrl = Url.addParamToUrl(studentPhotoUrl,
-                                                    Const.ParamsNames.USER_ID, account.googleId);
+                                                    ParamNameConst.ParamsNames.USER_ID, account.googleId);
                     emailPhotoUrlMapping.put(student.email, studentPhotoUrl);
                 }
             }
             Map<String, Boolean> sectionPrivilege = new HashMap<>();
-            sectionPrivilege.put(Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS,
+            sectionPrivilege.put(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS,
                                  instructor.isAllowedForPrivilege(
                                          sectionDetails.name,
-                                         Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS));
-            sectionPrivilege.put(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT,
+                                         ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS));
+            sectionPrivilege.put(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT,
                                  instructor.isAllowedForPrivilege(sectionDetails.name,
-                                                                  Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT));
+                                                                  ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT));
             sectionPrivileges.put(sectionDetails.name, sectionPrivilege);
         }
 

@@ -4,6 +4,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/instructor/feedbacks" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ tag import="teammates.common.util.Const"%>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="sessionPanel" type="teammates.ui.template.InstructorFeedbackResultsSessionPanel" required="true" %>
 <div class="well well-plain padding-0">
   <div class="form-horizontal">
@@ -49,15 +50,15 @@
             <form method="post" action="<%=Const.ActionURIs.INSTRUCTOR_FEEDBACK_RESULTS_DOWNLOAD%>">
               <div id="feedbackDataButtons">
                 <input id="button_download" type="submit" class="btn btn-primary btn-block"
-                    name="<%=Const.ParamsNames.FEEDBACK_RESULTS_UPLOADDOWNLOADBUTTON%>"
+                    name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_UPLOADDOWNLOADBUTTON%>"
                     value="Download Results">
               </div>
-              <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>" value="${data.account.googleId}">
-              <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${sessionPanel.feedbackSessionName}">
-              <input type="hidden" name="<%=Const.ParamsNames.COURSE_ID%>" value="${sessionPanel.courseId}">
-              <input type="hidden" name="<%=Const.ParamsNames.SECTION_NAME %>" value="${fn:escapeXml(sessionPanel.selectedSection)}">
-              <input type="hidden" id="statsShownCheckBox" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS %>" value="${sessionPanel.isStatsShown}">
-              <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES %>" value="${sessionPanel.isMissingResponsesShown}">
+              <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>" value="${data.account.googleId}">
+              <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${sessionPanel.feedbackSessionName}">
+              <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_ID%>" value="${sessionPanel.courseId}">
+              <input type="hidden" name="<%=ParamNameConst.ParamsNames.SECTION_NAME %>" value="${fn:escapeXml(sessionPanel.selectedSection)}">
+              <input type="hidden" id="statsShownCheckBox" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS %>" value="${sessionPanel.isStatsShown}">
+              <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES %>" value="${sessionPanel.isMissingResponsesShown}">
             </form>
             <br>
             <div>

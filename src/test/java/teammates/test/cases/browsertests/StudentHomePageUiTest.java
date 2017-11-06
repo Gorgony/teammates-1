@@ -3,9 +3,7 @@ package teammates.test.cases.browsertests;
 import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
-import teammates.common.util.AppUrl;
-import teammates.common.util.Const;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.test.driver.BackDoor;
 import teammates.test.driver.TestProperties;
 import teammates.test.pageobjects.StudentHelpPage;
@@ -139,7 +137,7 @@ public class StudentHomePageUiTest extends BaseUiTestCase {
         assertTrue(pageSource.contains("Submit Feedback"));
         assertTrue(pageSource.contains("SHomeUiT.CS2104"));
         assertTrue(pageSource.contains("Closed Feedback Session"));
-        assertTrue(pageSource.contains(Const.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN));
+        assertTrue(pageSource.contains(StatusMessageConst.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN));
         studentHomePage.loadStudentHomeTab();
 
         ______TS("link: link of Grace period feedback");
@@ -152,7 +150,7 @@ public class StudentHomePageUiTest extends BaseUiTestCase {
         assertTrue(pageSource.contains("Submit Feedback"));
         assertTrue(pageSource.contains("SHomeUiT.CS2104"));
         assertTrue(pageSource.contains("Graced Feedback Session"));
-        assertTrue(pageSource.contains(Const.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN));
+        assertTrue(pageSource.contains(StatusMessageConst.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN));
         studentHomePage.loadStudentHomeTab();
 
         ______TS("link: link of pending feedback");
@@ -186,7 +184,7 @@ public class StudentHomePageUiTest extends BaseUiTestCase {
 
     private void loginWithPersistenceProblem() {
         AppUrl homeUrl = ((AppUrl) createUrl(Const.ActionURIs.STUDENT_HOME_PAGE)
-                    .withParam(Const.ParamsNames.CHECK_PERSISTENCE_COURSE, "SHomeUiT.CS2104"))
+                    .withParam(ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE, "SHomeUiT.CS2104"))
                     .withUserId("unreg_user");
 
         studentHome = loginAdminToPage(homeUrl, StudentHomePage.class);

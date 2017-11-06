@@ -3,10 +3,7 @@ package teammates.ui.controller;
 import teammates.common.datatransfer.FeedbackSessionQuestionsBundle;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.FeedbackSubmissionEditPageData;
 
 public abstract class FeedbackSubmissionEditPageAction extends Action {
@@ -16,10 +13,10 @@ public abstract class FeedbackSubmissionEditPageAction extends Action {
 
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
 
         if (!isSpecificUserJoinedCourse()) {
             return createPleaseJoinCourseResponse(courseId);
@@ -28,7 +25,7 @@ public abstract class FeedbackSubmissionEditPageAction extends Action {
         FeedbackSessionAttributes feedbackSession = logic.getFeedbackSession(feedbackSessionName, courseId);
 
         if (feedbackSession == null) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_SESSION_DELETED_NO_ACCESS,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_DELETED_NO_ACCESS,
                                                StatusMessageColor.WARNING));
 
             return createSpecificRedirectResult();
@@ -36,8 +33,8 @@ public abstract class FeedbackSubmissionEditPageAction extends Action {
 
         verifyAccessibleForSpecificUser(feedbackSession);
 
-        String regKey = getRequestParamValue(Const.ParamsNames.REGKEY);
-        String email = getRequestParamValue(Const.ParamsNames.STUDENT_EMAIL);
+        String regKey = getRequestParamValue(ParamNameConst.ParamsNames.REGKEY);
+        String email = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_EMAIL);
 
         String userEmailForCourse = getUserEmailForCourse();
         data = new FeedbackSubmissionEditPageData(account, student, sessionToken);
@@ -48,7 +45,7 @@ public abstract class FeedbackSubmissionEditPageAction extends Action {
         setStatusToAdmin();
 
         if (!data.isSessionOpenForSubmission()) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN,
                                                StatusMessageColor.WARNING));
         }
 

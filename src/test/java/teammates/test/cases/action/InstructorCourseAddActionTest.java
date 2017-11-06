@@ -8,6 +8,8 @@ import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.CoursesLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCourseAddAction;
@@ -37,14 +39,14 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
 
         ______TS("Not enough parameters");
         verifyAssumptionFailure();
-        verifyAssumptionFailure(Const.ParamsNames.COURSE_NAME, "ticac tac name");
+        verifyAssumptionFailure(ParamNameConst.ParamsNames.COURSE_NAME, "ticac tac name");
 
         ______TS("Error: Invalid parameter for Course ID");
 
         String invalidCourseId = "ticac,tpa1,id";
-        InstructorCourseAddAction addAction = getAction(Const.ParamsNames.COURSE_ID, invalidCourseId,
-                                                        Const.ParamsNames.COURSE_NAME, "ticac tpa1 name",
-                                                        Const.ParamsNames.COURSE_TIME_ZONE, "UTC");
+        InstructorCourseAddAction addAction = getAction(ParamNameConst.ParamsNames.COURSE_ID, invalidCourseId,
+                                                        ParamNameConst.ParamsNames.COURSE_NAME, "ticac tpa1 name",
+                                                        ParamNameConst.ParamsNames.COURSE_TIME_ZONE, "UTC");
         ShowPageResult pageResult = getShowPageResult(addAction);
 
         assertEquals(
@@ -73,9 +75,9 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
 
         ______TS("Typical case, 1 existing course");
 
-        addAction = getAction(Const.ParamsNames.COURSE_ID, "ticac.tpa1.id",
-                              Const.ParamsNames.COURSE_NAME, "ticac tpa1 name",
-                              Const.ParamsNames.COURSE_TIME_ZONE, "UTC");
+        addAction = getAction(ParamNameConst.ParamsNames.COURSE_ID, "ticac.tpa1.id",
+                              ParamNameConst.ParamsNames.COURSE_NAME, "ticac tpa1 name",
+                              ParamNameConst.ParamsNames.COURSE_TIME_ZONE, "UTC");
         RedirectResult redirectResult = getRedirectResult(addAction);
 
         List<CourseAttributes> courseList = CoursesLogic.inst().getCoursesForInstructor(instructorId);
@@ -86,7 +88,7 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
                              + "Course added : ticac.tpa1.id<br>Total courses: 2|||/page/instructorCourseAdd";
         AssertHelper.assertLogMessageEquals(expectedLogMessage, addAction.getLogMessage());
 
-        String expected = Const.StatusMessages.COURSE_ADDED
+        String expected = StatusMessageConst.StatusMessages.COURSE_ADDED
                   .replace("${courseEnrollLink}",
                           getPageResultDestination(Const.ActionURIs.INSTRUCTOR_COURSE_ENROLL_PAGE, "ticac.tpa1.id",
                                   "idOfInstructor1OfCourse1"))
@@ -97,15 +99,15 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
 
         ______TS("Error: Try to add the same course again");
 
-        addAction = getAction(Const.ParamsNames.COURSE_ID, "ticac.tpa1.id",
-                              Const.ParamsNames.COURSE_NAME, "ticac tpa1 name",
-                              Const.ParamsNames.COURSE_TIME_ZONE, "UTC");
+        addAction = getAction(ParamNameConst.ParamsNames.COURSE_ID, "ticac.tpa1.id",
+                              ParamNameConst.ParamsNames.COURSE_NAME, "ticac tpa1 name",
+                              ParamNameConst.ParamsNames.COURSE_TIME_ZONE, "UTC");
         pageResult = getShowPageResult(addAction);
 
         assertEquals(getPageResultDestination(Const.ViewURIs.INSTRUCTOR_COURSES, true, "idOfInstructor1OfCourse1"),
                      pageResult.getDestinationWithParams());
         assertTrue(pageResult.isError);
-        assertEquals(Const.StatusMessages.COURSE_EXISTS, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.COURSE_EXISTS, pageResult.getStatusMessage());
 
         pageData = (InstructorCoursesPageData) pageResult.data;
         assertEquals(2, pageData.getActiveCourses().getRows().size() + pageData.getArchivedCourses().getRows().size());
@@ -121,10 +123,10 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
         CoursesLogic.inst().deleteCourseCascade(instructor1OfCourse1.courseId);
         CoursesLogic.inst().deleteCourseCascade("ticac.tpa1.id");
         gaeSimulation.loginAsAdmin(adminUserId);
-        addAction = getAction(Const.ParamsNames.USER_ID, instructorId,
-                              Const.ParamsNames.COURSE_ID, "ticac.tpa2.id",
-                              Const.ParamsNames.COURSE_NAME, "ticac tpa2 name",
-                              Const.ParamsNames.COURSE_TIME_ZONE, "UTC");
+        addAction = getAction(ParamNameConst.ParamsNames.USER_ID, instructorId,
+                              ParamNameConst.ParamsNames.COURSE_ID, "ticac.tpa2.id",
+                              ParamNameConst.ParamsNames.COURSE_NAME, "ticac tpa2 name",
+                              ParamNameConst.ParamsNames.COURSE_TIME_ZONE, "UTC");
         redirectResult = getRedirectResult(addAction);
 
         String expectedDestination = getPageResultDestination(
@@ -155,9 +157,9 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
 
         gaeSimulation.loginAsInstructor(instructorId);
 
-        addAction = getAction(Const.ParamsNames.COURSE_ID, "ticac.tpa2.id",
-                              Const.ParamsNames.COURSE_NAME, "ticac tpa2 name",
-                              Const.ParamsNames.COURSE_TIME_ZONE, "UTC");
+        addAction = getAction(ParamNameConst.ParamsNames.COURSE_ID, "ticac.tpa2.id",
+                              ParamNameConst.ParamsNames.COURSE_NAME, "ticac tpa2 name",
+                              ParamNameConst.ParamsNames.COURSE_TIME_ZONE, "UTC");
         redirectResult = getRedirectResult(addAction);
 
         courseList = CoursesLogic.inst().getCoursesForInstructor(instructorId);
@@ -168,7 +170,7 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
                              + "Total courses: 2|||/page/instructorCourseAdd";
         AssertHelper.assertLogMessageEquals(expectedLogMessage, addAction.getLogMessage());
 
-        expected = Const.StatusMessages.COURSE_ADDED
+        expected = StatusMessageConst.StatusMessages.COURSE_ADDED
                 .replace("${courseEnrollLink}",
                         getPageResultDestination(Const.ActionURIs.INSTRUCTOR_COURSE_ENROLL_PAGE, "ticac.tpa2.id",
                                 "idOfInstructorOfArchivedCourse"))
@@ -185,8 +187,8 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
 
     protected String getPageResultDestination(String parentUri, String courseId, String userId) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
         return pageDestination;
     }
 
@@ -194,9 +196,9 @@ public class InstructorCourseAddActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, "ticac.tac.id",
-                Const.ParamsNames.COURSE_NAME, "ticac tac name",
-                Const.ParamsNames.COURSE_TIME_ZONE, "UTC"};
+                ParamNameConst.ParamsNames.COURSE_ID, "ticac.tac.id",
+                ParamNameConst.ParamsNames.COURSE_NAME, "ticac tac name",
+                ParamNameConst.ParamsNames.COURSE_TIME_ZONE, "UTC"};
 
         verifyOnlyInstructorsCanAccess(submissionParams);
 

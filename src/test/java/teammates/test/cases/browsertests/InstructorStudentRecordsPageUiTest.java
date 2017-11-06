@@ -9,6 +9,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.AppUrl;
 import teammates.common.util.Const;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.pageobjects.InstructorStudentRecordsPage;
 
 /**
@@ -153,7 +154,7 @@ public class InstructorStudentRecordsPageUiTest extends BaseUiTestCase {
         ______TS("Typical Case: Edit and add empty comment");
 
         viewPage.editFeedbackResponseComment("-RGQ-1-1-1-2", "");
-        viewPage.verifyCommentFormErrorMessage(Const.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY);
+        viewPage.verifyCommentFormErrorMessage(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY);
         viewPage.closeEditFeedbackResponseCommentForm("-RGQ-1-1-1-2");
 
         ______TS("Typical Case: Delete comment");

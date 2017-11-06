@@ -5,11 +5,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.NullPostParameterException;
-import teammates.common.util.Const;
-import teammates.common.util.EmailType;
-import teammates.common.util.EmailWrapper;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 import teammates.logic.core.AccountsLogic;
 import teammates.logic.core.CoursesLogic;
 import teammates.test.driver.AssertHelper;
@@ -49,26 +45,26 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
 
         //null student email
         String[] invalidParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
         };
         verifyAssumptionFailure(invalidParams);
 
         //null course id
         invalidParams = new String[]{
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
         };
         verifyAssumptionFailure(invalidParams);
 
         ______TS("Typical case, successful edit and save student detail");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email,
-                Const.ParamsNames.STUDENT_NAME, student1InCourse1.name,
-                Const.ParamsNames.NEW_STUDENT_EMAIL, newStudentEmail,
-                Const.ParamsNames.COMMENTS, newStudentComments,
-                Const.ParamsNames.TEAM_NAME, newStudentTeam,
-                Const.ParamsNames.SESSION_SUMMARY_EMAIL_SEND_CHECK, "true"
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email,
+                ParamNameConst.ParamsNames.STUDENT_NAME, student1InCourse1.name,
+                ParamNameConst.ParamsNames.NEW_STUDENT_EMAIL, newStudentEmail,
+                ParamNameConst.ParamsNames.COMMENTS, newStudentComments,
+                ParamNameConst.ParamsNames.TEAM_NAME, newStudentTeam,
+                ParamNameConst.ParamsNames.SESSION_SUMMARY_EMAIL_SEND_CHECK, "true"
         };
 
         InstructorCourseStudentDetailsEditSaveAction a = getAction(submissionParams);
@@ -83,7 +79,7 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
                 r.getDestinationWithParams());
 
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.STUDENT_EDITED_AND_EMAIL_SENT, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.STUDENT_EDITED_AND_EMAIL_SENT, r.getStatusMessage());
 
         verifyNumberOfEmailsSent(a, 1);
 
@@ -111,13 +107,13 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
         String newStudentCommentsToBeTrimmed = "  this is new comment after editing   ";
 
         String[] submissionParamsToBeTrimmed = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, newStudentEmail,
-                Const.ParamsNames.STUDENT_NAME, student1InCourse1.name,
-                Const.ParamsNames.NEW_STUDENT_EMAIL, newStudentEmailToBeTrimmed,
-                Const.ParamsNames.COMMENTS, newStudentCommentsToBeTrimmed,
-                Const.ParamsNames.TEAM_NAME, newStudentTeamToBeTrimmed,
-                Const.ParamsNames.SESSION_SUMMARY_EMAIL_SEND_CHECK, "true"
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, newStudentEmail,
+                ParamNameConst.ParamsNames.STUDENT_NAME, student1InCourse1.name,
+                ParamNameConst.ParamsNames.NEW_STUDENT_EMAIL, newStudentEmailToBeTrimmed,
+                ParamNameConst.ParamsNames.COMMENTS, newStudentCommentsToBeTrimmed,
+                ParamNameConst.ParamsNames.TEAM_NAME, newStudentTeamToBeTrimmed,
+                ParamNameConst.ParamsNames.SESSION_SUMMARY_EMAIL_SEND_CHECK, "true"
         };
 
         InstructorCourseStudentDetailsEditSaveAction aToBeTrimmed = getAction(submissionParamsToBeTrimmed);
@@ -132,7 +128,7 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
                 rToBeTrimmed.getDestinationWithParams());
 
         assertFalse(rToBeTrimmed.isError);
-        assertEquals(Const.StatusMessages.STUDENT_EDITED, rToBeTrimmed.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.STUDENT_EDITED, rToBeTrimmed.getStatusMessage());
 
         verifyNoEmailsSent(aToBeTrimmed);
 
@@ -154,12 +150,12 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
         assertEquals(FieldValidator.EMAIL_MAX_LENGTH + 1, invalidStudentEmail.length());
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, newStudentEmail, //Use the new email as the previous email have been changed
-                Const.ParamsNames.STUDENT_NAME, student1InCourse1.name,
-                Const.ParamsNames.NEW_STUDENT_EMAIL, invalidStudentEmail,
-                Const.ParamsNames.COMMENTS, student1InCourse1.comments,
-                Const.ParamsNames.TEAM_NAME, student1InCourse1.team
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, newStudentEmail, //Use the new email as the previous email have been changed
+                ParamNameConst.ParamsNames.STUDENT_NAME, student1InCourse1.name,
+                ParamNameConst.ParamsNames.NEW_STUDENT_EMAIL, invalidStudentEmail,
+                ParamNameConst.ParamsNames.COMMENTS, student1InCourse1.comments,
+                ParamNameConst.ParamsNames.TEAM_NAME, student1InCourse1.team
         };
 
         gaeSimulation.loginAsInstructor(instructorId);
@@ -197,12 +193,12 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
         String takenStudentEmail = student2InCourse1.email;
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, newStudentEmail, //Use the new email as the previous email have been changed
-                Const.ParamsNames.STUDENT_NAME, student1InCourse1.name,
-                Const.ParamsNames.NEW_STUDENT_EMAIL, takenStudentEmail,
-                Const.ParamsNames.COMMENTS, student1InCourse1.comments,
-                Const.ParamsNames.TEAM_NAME, student1InCourse1.team
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, newStudentEmail, //Use the new email as the previous email have been changed
+                ParamNameConst.ParamsNames.STUDENT_NAME, student1InCourse1.name,
+                ParamNameConst.ParamsNames.NEW_STUDENT_EMAIL, takenStudentEmail,
+                ParamNameConst.ParamsNames.COMMENTS, student1InCourse1.comments,
+                ParamNameConst.ParamsNames.TEAM_NAME, student1InCourse1.team
         };
 
         gaeSimulation.loginAsInstructor(instructorId);
@@ -217,14 +213,14 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
                 result.getDestinationWithParams());
 
         assertTrue(result.isError);
-        assertEquals(String.format(Const.StatusMessages.STUDENT_EMAIL_TAKEN_MESSAGE, student2InCourse1.name,
+        assertEquals(String.format(StatusMessageConst.StatusMessages.STUDENT_EMAIL_TAKEN_MESSAGE, student2InCourse1.name,
                                    takenStudentEmail),
                 result.getStatusMessage());
 
         expectedLogMessage = "TEAMMATESLOG|||instructorCourseStudentDetailsEditSave|||instructorCourseStudentDetailsEditSave"
                 + "|||true|||Instructor|||Instructor 1 of Course 1|||idOfInstructor1OfCourse1|||instr1@course1.tmt|||"
                 + "Servlet Action Failure : "
-                + String.format(Const.StatusMessages.STUDENT_EMAIL_TAKEN_MESSAGE, student2InCourse1.name,
+                + String.format(StatusMessageConst.StatusMessages.STUDENT_EMAIL_TAKEN_MESSAGE, student2InCourse1.name,
                                 takenStudentEmail)
                 + "|||/page/instructorCourseStudentDetailsEditSave";
 
@@ -239,12 +235,12 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
         String nonExistentEmailForStudent = "notinuseemail@gmail.tmt";
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, nonExistentEmailForStudent,
-                Const.ParamsNames.STUDENT_NAME, student1InCourse1.name,
-                Const.ParamsNames.NEW_STUDENT_EMAIL, student1InCourse1.email,
-                Const.ParamsNames.COMMENTS, student1InCourse1.comments,
-                Const.ParamsNames.TEAM_NAME, student1InCourse1.team
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, nonExistentEmailForStudent,
+                ParamNameConst.ParamsNames.STUDENT_NAME, student1InCourse1.name,
+                ParamNameConst.ParamsNames.NEW_STUDENT_EMAIL, student1InCourse1.email,
+                ParamNameConst.ParamsNames.COMMENTS, student1InCourse1.comments,
+                ParamNameConst.ParamsNames.TEAM_NAME, student1InCourse1.team
         };
 
         gaeSimulation.loginAsInstructor(instructorId);
@@ -260,7 +256,7 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
                 redirectResult.getDestinationWithParams());
 
         assertTrue(redirectResult.isError);
-        assertEquals(Const.StatusMessages.STUDENT_NOT_FOUND_FOR_EDIT, redirectResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.STUDENT_NOT_FOUND_FOR_EDIT, redirectResult.getStatusMessage());
 
         expectedLogMessage = "TEAMMATESLOG|||instructorCourseStudentDetailsEditSave|||instructorCourseStudentDetailsEditSave"
                 + "|||true|||Instructor|||Instructor 1 of Course 1|||idOfInstructor1OfCourse1|||instr1@course1.tmt|||"
@@ -272,7 +268,7 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
 
         ______TS("Unsuccessful case: test null student email parameter");
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
         };
 
         try {
@@ -281,12 +277,12 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.STUDENT_EMAIL), e.getMessage());
+                    ParamNameConst.ParamsNames.STUDENT_EMAIL), e.getMessage());
         }
 
         ______TS("Unsuccessful case: test null course id parameter");
         submissionParams = new String[]{
-                Const.ParamsNames.STUDENT_EMAIL, newStudentEmail
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, newStudentEmail
         };
 
         try {
@@ -295,7 +291,7 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.COURSE_ID), e.getMessage());
+                    ParamNameConst.ParamsNames.COURSE_ID), e.getMessage());
         }
     }
 
@@ -306,9 +302,9 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
 
     protected String getPageResultDestination(String parentUri, boolean isError, String userId, String courseId) {
         String pageDestination = parentUri;
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
         return pageDestination;
     }
 
@@ -319,8 +315,8 @@ public class InstructorCourseStudentDetailsEditSaveActionTest extends BaseAction
         StudentAttributes student1InCourse1 = typicalBundle.students.get("student3InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

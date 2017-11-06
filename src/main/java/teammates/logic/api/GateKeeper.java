@@ -13,7 +13,7 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.FeedbackSessionNotVisibleException;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Assumption;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.AccountsLogic;
 import teammates.logic.core.InstructorsLogic;
 import teammates.logic.core.StudentsLogic;
@@ -341,7 +341,7 @@ public class GateKeeper {
     }
 
     private void verifyInstructorCanViewPhoto(InstructorAttributes instructor, String section) {
-        if (!instructor.isAllowedForPrivilege(section, Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS)) {
+        if (!instructor.isAllowedForPrivilege(section, ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS)) {
             throw new UnauthorizedAccessException("Instructor does not have enough privileges to view the photo");
         }
     }

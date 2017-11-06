@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.CoursesLogic;
 import teammates.logic.core.InstructorsLogic;
 import teammates.test.driver.AssertHelper;
@@ -39,7 +40,7 @@ public class InstructorCourseEditPageActionTest extends BaseActionTest {
 
         ______TS("Typical case: open the course edit page");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId
+                ParamNameConst.ParamsNames.COURSE_ID, courseId
         };
 
         InstructorCourseEditPageAction editAction = getAction(submissionParams);
@@ -60,9 +61,9 @@ public class InstructorCourseEditPageActionTest extends BaseActionTest {
 
         ______TS("Typical case: open the course edit page with instructor's email");
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, "instr1@course1.tmt",
-                Const.ParamsNames.COURSE_EDIT_MAIN_INDEX, "1"
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, "instr1@course1.tmt",
+                ParamNameConst.ParamsNames.COURSE_EDIT_MAIN_INDEX, "1"
         };
 
         editAction = getAction(submissionParams);
@@ -89,8 +90,8 @@ public class InstructorCourseEditPageActionTest extends BaseActionTest {
         gaeSimulation.loginAsAdmin("admin.user");
 
         submissionParams = new String[] {
-                Const.ParamsNames.USER_ID, instructorId,
-                Const.ParamsNames.COURSE_ID, courseId
+                ParamNameConst.ParamsNames.USER_ID, instructorId,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId
         };
 
         editAction = getAction(submissionParams);
@@ -113,8 +114,8 @@ public class InstructorCourseEditPageActionTest extends BaseActionTest {
         CoursesLogic.inst().deleteCourseCascade(courseId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.USER_ID, instructorId,
-                Const.ParamsNames.COURSE_ID, courseId
+                ParamNameConst.ParamsNames.USER_ID, instructorId,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId
         };
 
         try {
@@ -143,7 +144,7 @@ public class InstructorCourseEditPageActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, typicalBundle.instructors.get("instructor1OfCourse1").courseId
+                ParamNameConst.ParamsNames.COURSE_ID, typicalBundle.instructors.get("instructor1OfCourse1").courseId
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

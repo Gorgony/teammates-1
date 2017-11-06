@@ -236,16 +236,16 @@ public final class SanitizationHelper {
      */
     public static String sanitizeForUri(String uri) {
         try {
-            return URLEncoder.encode(uri, Const.SystemParams.ENCODING);
+            return URLEncoder.encode(uri, SystemParamsConst.SystemParams.ENCODING);
         } catch (UnsupportedEncodingException wontHappen) {
             log.warning("Unexpected UnsupportedEncodingException in "
-                        + "SanitizationHelper.sanitizeForUri(" + uri + ", " + Const.SystemParams.ENCODING + ")");
+                        + "SanitizationHelper.sanitizeForUri(" + uri + ", " + SystemParamsConst.SystemParams.ENCODING + ")");
             return uri;
         }
     }
 
     /**
-     * Sanitizes the given URL for the parameter {@link Const.ParamsNames#NEXT_URL}.
+     * Sanitizes the given URL for the parameter {@link ParamNameConst.ParamsNames#NEXT_URL}.
      * The following characters will be sanitized:
      * <ul>
      * <li>&, to prevent the parameters of the next URL from being considered as

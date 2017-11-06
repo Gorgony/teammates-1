@@ -17,7 +17,6 @@ import org.joda.time.DateTime;
 
 import teammates.client.remoteapi.RemoteApiClient;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Const;
 import teammates.common.util.TimeHelper;
 import teammates.storage.entity.Account;
 import teammates.storage.entity.Course;
@@ -382,7 +381,7 @@ public class AdminEmailListGenerator extends RemoteApiClient {
         Calendar cal = Calendar.getInstance();
         cal.clear();
         cal.setTime(now);
-        cal = TimeHelper.convertToUserTimeZone(cal, Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        cal = TimeHelper.convertToUserTimeZone(cal, SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
 
         System.out.print(formatTime(cal.getTime()) + "\n");
         return formatTime(cal.getTime());

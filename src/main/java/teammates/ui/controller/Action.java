@@ -14,17 +14,7 @@ import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.EntityNotFoundException;
 import teammates.common.exception.InvalidOriginException;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.CryptoHelper;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.LogMessageGenerator;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.StringHelper;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 import teammates.logic.api.EmailSender;
 import teammates.logic.api.GateKeeper;
 import teammates.logic.api.Logic;
@@ -111,7 +101,7 @@ public abstract class Action {
         sessionToken = CryptoHelper.computeSessionToken(session.getId());
         parseAndInitializeRegkeyFromRequest();
         // Set error status forwarded from the previous action
-        isError = getRequestParamAsBoolean(Const.ParamsNames.ERROR);
+        isError = getRequestParamAsBoolean(ParamNameConst.ParamsNames.ERROR);
     }
 
     /**
@@ -120,14 +110,14 @@ public abstract class Action {
     private void parseAndInitializeRegkeyFromRequest() {
         String regkeyFromRequest = getRegkeyFromRequest();
         boolean isNextParamInRegkey = regkeyFromRequest != null
-                                      && regkeyFromRequest.contains("${amp}" + Const.ParamsNames.NEXT_URL + "=");
+                                      && regkeyFromRequest.contains("${amp}" + ParamNameConst.ParamsNames.NEXT_URL + "=");
         if (isNextParamInRegkey) {
             /*
              * Here regkey may contain the nextUrl as well. This is due to
              * a workaround which replaces "&" with a placeholder "${amp}", thus the
              * next parameter, nextUrl, is treated as part of the "regkey".
              */
-            String[] split = regkeyFromRequest.split("\\$\\{amp\\}" + Const.ParamsNames.NEXT_URL + "=");
+            String[] split = regkeyFromRequest.split("\\$\\{amp\\}" + ParamNameConst.ParamsNames.NEXT_URL + "=");
             regkey = split[0];
             nextUrlFromRegkey = SanitizationHelper.desanitizeFromNextUrl(split[1]);
         } else {
@@ -155,7 +145,7 @@ public abstract class Action {
     // These methods are used for Cross-Site Request Forgery (CSRF) prevention
 
     private void validateOriginIfRequired() {
-        if (!Const.SystemParams.PAGES_REQUIRING_ORIGIN_VALIDATION.contains(request.getRequestURI())) {
+        if (!SystemParamsConst.SystemParams.PAGES_REQUIRING_ORIGIN_VALIDATION.contains(request.getRequestURI())) {
             return;
         }
 
@@ -168,7 +158,7 @@ public abstract class Action {
             throw new InvalidOriginException("Invalid HTTP referrer");
         }
 
-        String sessionToken = getRequestParamValue(Const.ParamsNames.SESSION_TOKEN);
+        String sessionToken = getRequestParamValue(ParamNameConst.ParamsNames.SESSION_TOKEN);
         if (sessionToken == null) {
             throw new InvalidOriginException("Missing session token");
         }
@@ -249,11 +239,11 @@ public abstract class Action {
 
         AccountAttributes loggedInUser = null;
 
-        String email = getRequestParamValue(Const.ParamsNames.STUDENT_EMAIL);
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
+        String email = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_EMAIL);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
 
         if (currentUser == null) {
-            Assumption.assertPostParamNotNull(Const.ParamsNames.REGKEY, regkey);
+            Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.REGKEY, regkey);
             loggedInUser = authenticateNotLoggedInUser(email, courseId);
         } else {
             loggedInUser = logic.getAccount(currentUser.id);
@@ -271,7 +261,7 @@ public abstract class Action {
      * @return Registration key or null if key not in HTTP request
      */
     protected String getRegkeyFromRequest() {
-        return getRequestParamValue(Const.ParamsNames.REGKEY);
+        return getRequestParamValue(ParamNameConst.ParamsNames.REGKEY);
     }
 
     protected AccountAttributes createDummyAccountIfUserIsUnregistered(UserType currentUser,
@@ -294,8 +284,8 @@ public abstract class Action {
                 expectedId = StringHelper.encrypt(expectedId);
                 String redirectUrl = Config.getAppUrl(Const.ActionURIs.LOGOUT)
                                           .withUserId(StringHelper.encrypt(loggedInUserId))
-                                          .withParam(Const.ParamsNames.NEXT_URL, gateKeeper.getLoginUrl(requestUrl))
-                                          .withParam(Const.ParamsNames.HINT, expectedId)
+                                          .withParam(ParamNameConst.ParamsNames.NEXT_URL, gateKeeper.getLoginUrl(requestUrl))
+                                          .withParam(ParamNameConst.ParamsNames.HINT, expectedId)
                                           .toString();
 
                 setRedirectPage(redirectUrl);
@@ -334,12 +324,12 @@ public abstract class Action {
     }
 
     private boolean isNotLegacyLink() {
-        return !Const.SystemParams.LEGACY_PAGES_WITH_REDUCED_SECURITY.contains(request.getRequestURI());
+        return !SystemParamsConst.SystemParams.LEGACY_PAGES_WITH_REDUCED_SECURITY.contains(request.getRequestURI());
     }
 
     private boolean doesUserNeedToLogin(UserType currentUser) {
         boolean isGoogleLoginRequired =
-                !Const.SystemParams.PAGES_ACCESSIBLE_WITHOUT_GOOGLE_LOGIN.contains(request.getRequestURI());
+                !SystemParamsConst.SystemParams.PAGES_ACCESSIBLE_WITHOUT_GOOGLE_LOGIN.contains(request.getRequestURI());
         boolean isUserLoggedIn = currentUser != null;
         boolean hasRegkey = getRegkeyFromRequest() != null;
 
@@ -352,7 +342,7 @@ public abstract class Action {
     }
 
     protected AccountAttributes authenticateAndGetNominalUser(UserType loggedInUserType) {
-        String paramRequestedUserId = request.getParameter(Const.ParamsNames.USER_ID);
+        String paramRequestedUserId = request.getParameter(ParamNameConst.ParamsNames.USER_ID);
 
         AccountAttributes account = null;
 
@@ -368,7 +358,7 @@ public abstract class Action {
                 // TODO: encrypt the email as currently anyone with the regkey can
                 //       get the email because of this redirect:
                 String joinUrl = Config.getAppUrl(student.getRegistrationUrl())
-                                    .withParam(Const.ParamsNames.NEXT_URL, requestUrl)
+                                    .withParam(ParamNameConst.ParamsNames.NEXT_URL, requestUrl)
                                     .toString();
                 setRedirectPage(joinUrl);
                 return null;
@@ -380,7 +370,7 @@ public abstract class Action {
         boolean isUserLoggedIn = account.googleId != null;
         if (isPageNotCourseJoinRelated() && doesRegkeyBelongToUnregisteredStudent() && isUserLoggedIn) {
             String redirectUrl = Config.getAppUrl(student.getRegistrationUrl())
-                                  .withParam(Const.ParamsNames.NEXT_URL, requestUrl)
+                                  .withParam(ParamNameConst.ParamsNames.NEXT_URL, requestUrl)
                                   .toString();
             setRedirectPage(redirectUrl);
             return null;
@@ -411,7 +401,7 @@ public abstract class Action {
 
     protected boolean isPersistenceIssue() {
         String persistenceCheckString1 =
-                getRequestParamValue(Const.ParamsNames.CHECK_PERSISTENCE_COURSE);
+                getRequestParamValue(ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE);
 
         return persistenceCheckString1 != null;
     }
@@ -435,8 +425,8 @@ public abstract class Action {
 
     private boolean doesUserNeedRegistration(AccountAttributes user) {
         boolean userNeedsRegistrationForPage =
-                !Const.SystemParams.PAGES_ACCESSIBLE_WITHOUT_REGISTRATION.contains(request.getRequestURI())
-                && !Const.SystemParams.PAGES_ACCESSIBLE_WITHOUT_GOOGLE_LOGIN.contains(request.getRequestURI());
+                !SystemParamsConst.SystemParams.PAGES_ACCESSIBLE_WITHOUT_REGISTRATION.contains(request.getRequestURI())
+                && !SystemParamsConst.SystemParams.PAGES_ACCESSIBLE_WITHOUT_GOOGLE_LOGIN.contains(request.getRequestURI());
         boolean userIsNotRegistered = user.createdAt == null;
         return userNeedsRegistrationForPage && userIsNotRegistered;
     }
@@ -486,23 +476,23 @@ public abstract class Action {
 
         // Set the common parameters for the response
         if (gateKeeper.getCurrentUser() != null) {
-            response.responseParams.put(Const.ParamsNames.USER_ID, account.googleId);
+            response.responseParams.put(ParamNameConst.ParamsNames.USER_ID, account.googleId);
         }
 
         if (regkey != null) {
-            response.responseParams.put(Const.ParamsNames.REGKEY, getRegkeyFromRequest());
+            response.responseParams.put(ParamNameConst.ParamsNames.REGKEY, getRegkeyFromRequest());
 
             if (student != null) {
-                response.responseParams.put(Const.ParamsNames.STUDENT_EMAIL, student.email);
-                response.responseParams.put(Const.ParamsNames.COURSE_ID, student.course);
+                response.responseParams.put(ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email);
+                response.responseParams.put(ParamNameConst.ParamsNames.COURSE_ID, student.course);
             }
 
-            if (getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME) != null) {
-                response.responseParams.put(Const.ParamsNames.FEEDBACK_SESSION_NAME,
-                        getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME));
+            if (getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME) != null) {
+                response.responseParams.put(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME,
+                        getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME));
             }
         }
-        response.responseParams.put(Const.ParamsNames.ERROR, Boolean.toString(response.isError));
+        response.responseParams.put(ParamNameConst.ParamsNames.ERROR, Boolean.toString(response.isError));
 
         // Pass status message using session to prevent XSS attack
         if (!response.getStatusMessage().isEmpty()) {
@@ -519,14 +509,14 @@ public abstract class Action {
     protected void putStatusMessageToSession(ActionResult response) {
         @SuppressWarnings("unchecked")
         List<StatusMessage> statusMessagesToUser =
-                (List<StatusMessage>) session.getAttribute(Const.ParamsNames.STATUS_MESSAGES_LIST);
+                (List<StatusMessage>) session.getAttribute(ParamNameConst.ParamsNames.STATUS_MESSAGES_LIST);
 
         if (statusMessagesToUser == null) {
             statusMessagesToUser = new ArrayList<>();
         }
 
         statusMessagesToUser.addAll(response.statusToUser);
-        session.setAttribute(Const.ParamsNames.STATUS_MESSAGES_LIST, statusMessagesToUser);
+        session.setAttribute(ParamNameConst.ParamsNames.STATUS_MESSAGES_LIST, statusMessagesToUser);
     }
 
     /**
@@ -561,7 +551,7 @@ public abstract class Action {
      * Returns the value for the specified parameter expected to be present in the http request.
      * Assumption: the requested parameter is not null.
      *
-     * @param paramName  a constant from the {@link Const.ParamsNames} class.
+     * @param paramName  a constant from the {@link ParamNameConst.ParamsNames} class.
      */
     public String getNonNullRequestParamValue(String paramName) {
         return getNonNullRequestParamValues(paramName)[0];
@@ -578,7 +568,7 @@ public abstract class Action {
      * Returns the values for the specified parameter expected to be present in the http request.
      * Assumption: the requested parameter is not null.
      *
-     * @param paramName  a constant from the {@link Const.ParamsNames} class.
+     * @param paramName  a constant from the {@link ParamNameConst.ParamsNames} class.
      */
     public String[] getNonNullRequestParamValues(String paramName) {
         String[] values = getRequestParamValues(paramName);

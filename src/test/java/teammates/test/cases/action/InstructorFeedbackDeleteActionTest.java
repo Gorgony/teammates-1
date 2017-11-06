@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.FeedbackSessionsLogic;
 import teammates.storage.api.FeedbackSessionsDb;
 import teammates.ui.controller.InstructorFeedbackDeleteAction;
@@ -27,8 +29,8 @@ public class InstructorFeedbackDeleteActionTest extends BaseActionTest {
         FeedbackSessionAttributes fs = typicalBundle.feedbackSessions.get("session1InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
         };
 
         InstructorAttributes instructor = typicalBundle.instructors.get("instructor1OfCourse1");
@@ -46,7 +48,7 @@ public class InstructorFeedbackDeleteActionTest extends BaseActionTest {
                         false,
                         "idOfInstructor1OfCourse1"),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_DELETED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_DELETED, r.getStatusMessage());
         assertFalse(r.isError);
     }
 
@@ -61,8 +63,8 @@ public class InstructorFeedbackDeleteActionTest extends BaseActionTest {
         FeedbackSessionAttributes fs = typicalBundle.feedbackSessions.get("session2InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
         };
 
         verifyUnaccessibleWithoutLogin(submissionParams);

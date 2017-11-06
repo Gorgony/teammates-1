@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.CoursesLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCoursesPageAction;
@@ -27,7 +28,7 @@ public class InstructorCoursesPageActionTest extends BaseActionTest {
         InstructorAttributes instructor1OfCourse1 = typicalBundle.instructors.get("instructor1OfCourse1");
         String instructorId = instructor1OfCourse1.googleId;
 
-        String[] submissionParams = new String[]{Const.ParamsNames.IS_USING_AJAX, "true"};
+        String[] submissionParams = new String[]{ParamNameConst.ParamsNames.IS_USING_AJAX, "true"};
 
         InstructorAttributes instructor1ofCourse1 = typicalBundle.instructors.get("instructor1OfCourse1");
 

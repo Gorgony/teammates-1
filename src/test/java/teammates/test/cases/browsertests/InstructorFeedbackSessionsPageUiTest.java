@@ -14,10 +14,7 @@ import com.google.appengine.api.datastore.Text;
 
 import teammates.common.datatransfer.FeedbackSessionType;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
-import teammates.common.util.AppUrl;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.test.driver.AssertHelper;
 import teammates.test.driver.BackDoor;
 import teammates.test.driver.Priority;
@@ -189,14 +186,14 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
                 newSession.getFeedbackSessionName(), newSession.getCourseId(),
                 newSession.getEndTime(), newSession.getStartTime(), null, null,
                 instructions, newSession.getGracePeriod());
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_END_TIME_EARLIER_THAN_START_TIME);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_END_TIME_EARLIER_THAN_START_TIME);
         assertEquals("<p>" + instructions.getValue() + "</p>", feedbackPage.getInstructions());
 
         feedbackPage.addFeedbackSessionWithStandardTimeZone(
                 newSession.getFeedbackSessionName(), newSession.getCourseId(),
                 newSession.getStartTime(), newSession.getEndTime(), null, null,
                 instructions, newSession.getGracePeriod());
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_ADDED);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_ADDED);
 
         FeedbackSessionAttributes savedSession =
                 BackDoor.getFeedbackSession(newSession.getCourseId(), newSession.getFeedbackSessionName());
@@ -223,7 +220,7 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
                 templateSessionName, newSession.getCourseId(),
                 newSession.getStartTime(), newSession.getEndTime(), null, null,
                 newSession.getInstructions(), newSession.getGracePeriod());
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_ADDED);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_ADDED);
         feedbackPage.verifyHtmlMainContent("/instructorFeedbackTeamPeerEvalTemplateAddSuccess.html");
         //TODO: check that the questions created match. Maybe do that in action test.
 
@@ -239,7 +236,7 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
                 newSession.getFeedbackSessionName(), newSession.getCourseId(),
                 newSession.getStartTime(), newSession.getEndTime(), null, null,
                 newSession.getInstructions(), newSession.getGracePeriod());
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_EXISTS);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EXISTS);
 
         ______TS("success case: private session, boundary length name, only results email");
 
@@ -451,14 +448,14 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
 
         ______TS("Success case: copy successfully a previous session");
         feedbackPage.copyFeedbackSession("New Session ## (Copied)", newSession.getCourseId());
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_COPIED);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPIED);
         // Check that we are redirected to the edit page.
         feedbackPage.verifyHtmlMainContent("/instructorFeedbackCopySuccess.html");
 
         ______TS("Success case: copy successfully a previous session with trimmed name");
         feedbackPage = getFeedbackPageForInstructor(idOfInstructorWithSessions);
         feedbackPage.copyFeedbackSession(" New Session ## Trimmed (Copied) ", newSession.getCourseId());
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_COPIED);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPIED);
         // Check that we are redirected to the edit page.
         feedbackPage.verifyHtmlMainContent("/instructorFeedbackCopyTrimmedSuccess.html");
 
@@ -500,7 +497,7 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
         feedbackPage.getFsCopyToModal().clickSubmitButton();
         feedbackPage.getFsCopyToModal().waitForFormSubmissionErrorMessagePresence();
         assertTrue(feedbackPage.getFsCopyToModal().isFormSubmissionStatusMessageVisible());
-        feedbackPage.getFsCopyToModal().verifyStatusMessage(Const.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED);
+        feedbackPage.getFsCopyToModal().verifyStatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED);
 
         // Go back to previous page because 'copy feedback session' redirects to the 'FeedbackEdit' page.
         feedbackPage.goToPreviousPage(InstructorFeedbackSessionsPage.class);
@@ -513,7 +510,7 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
 
         feedbackPage.getFsCopyToModal().clickSubmitButton();
 
-        String error = String.format(Const.StatusMessages.FEEDBACK_SESSION_COPY_ALREADYEXISTS,
+        String error = String.format(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_ALREADYEXISTS,
                                      feedbackSessionName, courseId);
 
         feedbackPage.getFsCopyToModal().waitForFormSubmissionErrorMessagePresence();
@@ -549,7 +546,7 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
         feedbackPage.getFsCopyToModal().clickSubmitButton();
 
         feedbackPage.waitForPageToLoad();
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_COPIED);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPIED);
 
         feedbackPage.goToPreviousPage(InstructorFeedbackSessionsPage.class);
     }
@@ -595,7 +592,7 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
         assertFalse(BackDoor.getFeedbackSession(courseId, sessionName).isPublished());
 
         feedbackPage.clickAndConfirm(feedbackPage.getPublishLink(courseId, sessionName));
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_PUBLISHED);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_PUBLISHED);
         assertTrue(BackDoor.getFeedbackSession(courseId, sessionName).isPublished());
         feedbackPage.verifyHtmlMainContent("/instructorFeedbackPublishSuccessful.html");
 
@@ -631,7 +628,7 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
         assertTrue(BackDoor.getFeedbackSession(courseId, sessionName).isPublished());
 
         feedbackPage.clickAndConfirm(feedbackPage.getUnpublishLink(courseId, sessionName));
-        feedbackPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_UNPUBLISHED);
+        feedbackPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_UNPUBLISHED);
         assertFalse(BackDoor.getFeedbackSession(courseId, sessionName).isPublished());
         feedbackPage.verifyHtmlMainContent("/instructorFeedbackUnpublishSuccessful.html");
 
@@ -690,80 +687,80 @@ public class InstructorFeedbackSessionsPageUiTest extends BaseUiTestCase {
         initialCal.set(2014, 3, 16, 0, 0, 0);
 
         // fill in defaut values
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE, initialCal);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE, initialCal);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_ENDDATE, initialCal);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, initialCal);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE, initialCal);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE, initialCal);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE, initialCal);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, initialCal);
 
         ______TS("increasing start date does not affect end date value");
 
         Calendar increasedStartDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         increasedStartDate.set(2014, 4, 16, 0, 0, 0);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE, increasedStartDate);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE, increasedStartDate);
 
-        String valueOfEndDate = feedbackPage.getValueOfDate(Const.ParamsNames.FEEDBACK_SESSION_ENDDATE);
+        String valueOfEndDate = feedbackPage.getValueOfDate(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE);
         assertEquals(sdf.format(initialCal.getTime()), valueOfEndDate);
 
         ______TS("decreasing start date affects visible time, end date range and publish date range");
 
         Calendar decreasedStartDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         decreasedStartDate.set(2014, 3, 11, 0, 0, 0);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE, decreasedStartDate);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE, decreasedStartDate);
 
-        String valueOfVisibleDate = feedbackPage.getValueOfDate(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
+        String valueOfVisibleDate = feedbackPage.getValueOfDate(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
         assertEquals(sdf.format(decreasedStartDate.getTime()), valueOfVisibleDate);
 
-        String maxValueOfVisibleDate = feedbackPage.getMaxDateOf(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
+        String maxValueOfVisibleDate = feedbackPage.getMaxDateOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
         assertEquals(sdf.format(decreasedStartDate.getTime()), maxValueOfVisibleDate);
 
-        String minValueOfPublishDate = feedbackPage.getMinDateOf(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE);
+        String minValueOfPublishDate = feedbackPage.getMinDateOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE);
         assertEquals(sdf.format(decreasedStartDate.getTime()), minValueOfPublishDate);
 
         ______TS("decreasing end date does not affect start time or visible time");
         Calendar decreasedEndDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         decreasedEndDate.set(2014, 1, 20, 0, 0, 0);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_ENDDATE, decreasedEndDate);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE, decreasedEndDate);
 
-        String valueOfStartDate = feedbackPage.getValueOfDate(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE);
+        String valueOfStartDate = feedbackPage.getValueOfDate(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE);
         assertEquals(sdf.format(decreasedStartDate.getTime()), valueOfStartDate);
 
-        valueOfVisibleDate = feedbackPage.getValueOfDate(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
+        valueOfVisibleDate = feedbackPage.getValueOfDate(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
         assertEquals(sdf.format(decreasedStartDate.getTime()), valueOfVisibleDate);
 
-        maxValueOfVisibleDate = feedbackPage.getMaxDateOf(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
+        maxValueOfVisibleDate = feedbackPage.getMaxDateOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
         assertEquals(sdf.format(decreasedStartDate.getTime()), maxValueOfVisibleDate);
 
-        minValueOfPublishDate = feedbackPage.getMinDateOf(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE);
+        minValueOfPublishDate = feedbackPage.getMinDateOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE);
         assertEquals(sdf.format(decreasedStartDate.getTime()), minValueOfPublishDate);
 
         ______TS("changing visible date affects publish date range");
 
         Calendar changedVisibleDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         changedVisibleDate.set(2014, 1, 10, 0, 0, 0);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE, changedVisibleDate);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE, changedVisibleDate);
 
-        String valueOfPublishDate = feedbackPage.getMinDateOf(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE);
+        String valueOfPublishDate = feedbackPage.getMinDateOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE);
         assertEquals(sdf.format(changedVisibleDate.getTime()), valueOfPublishDate);
 
         ______TS("changing publish date affects visible date range publishTime < startTime");
 
         Calendar changedPublishDate = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         changedPublishDate.set(2014, 1, 19, 0, 0, 0);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, changedPublishDate);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, changedPublishDate);
 
-        valueOfVisibleDate = feedbackPage.getMaxDateOf(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
+        valueOfVisibleDate = feedbackPage.getMaxDateOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
         assertEquals(sdf.format(changedPublishDate.getTime()), valueOfVisibleDate);
 
         ______TS("changing publish date does not affect visible date range publishTime > startTime");
 
         decreasedStartDate.set(2014, 1, 19, 0, 0, 0);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE, decreasedStartDate);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE, decreasedStartDate);
 
         changedPublishDate.set(2014, 2, 21, 0, 0, 0);
-        feedbackPage.fillTimeValueForDatePickerTest(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, changedPublishDate);
+        feedbackPage.fillTimeValueForDatePickerTest(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, changedPublishDate);
 
         //check if maxDate is start time and not publish time
-        maxValueOfVisibleDate = feedbackPage.getMaxDateOf(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
+        maxValueOfVisibleDate = feedbackPage.getMaxDateOf(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE);
         assertEquals(sdf.format(decreasedStartDate.getTime()), maxValueOfVisibleDate);
     }
 

@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.AdminEmailAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.AdminEmailsLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.AdminEmailComposePageAction;
@@ -60,7 +62,7 @@ public class AdminEmailComposePageActionTest extends BaseActionTest {
         // retrieve email id from logic
         AdminEmailAttributes emailData = dataBundle.adminEmails.get("adminEmail1");
         AdminEmailAttributes email = adminEmailsLogic.getAdminEmailBySubject(emailData.subject);
-        action = getAction(Const.ParamsNames.ADMIN_EMAIL_ID, email.emailId);
+        action = getAction(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, email.emailId);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, false, "admin.user"),
@@ -76,16 +78,16 @@ public class AdminEmailComposePageActionTest extends BaseActionTest {
 
         ______TS("edit existing email : email does not exist : failure");
         String emailId = "nonexistingEmailId";
-        action = getAction(Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
+        action = getAction(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, true, "admin.user"),
                 pageResult.getDestinationWithParams());
 
-        expectedLogSegment = normalLogSegment + " : " + Const.StatusMessages.EMAIL_NOT_FOUND;
+        expectedLogSegment = normalLogSegment + " : " + StatusMessageConst.StatusMessages.EMAIL_NOT_FOUND;
         AssertHelper.assertContains(expectedLogSegment, action.getLogMessage());
 
-        assertEquals(Const.StatusMessages.EMAIL_NOT_FOUND, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.EMAIL_NOT_FOUND, pageResult.getStatusMessage());
 
         data = (AdminEmailComposePageData) pageResult.data;
         assertNull(data.emailToEdit);

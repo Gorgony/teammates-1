@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityNotFoundException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorEditInstructorFeedbackPageAction;
 import teammates.ui.controller.ShowPageResult;
@@ -44,9 +45,9 @@ public class InstructorEditInstructorFeedbackPageActionTest extends BaseActionTe
         ______TS("typical success case");
         feedbackSessionName = "First feedback session";
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail
         };
 
         editInstructorFpAction = getAction(submissionParams);
@@ -70,9 +71,9 @@ public class InstructorEditInstructorFeedbackPageActionTest extends BaseActionTe
         ______TS("success: another feedback");
         feedbackSessionName = "Another feedback session";
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail
         };
 
         editInstructorFpAction = getAction(submissionParams);
@@ -97,9 +98,9 @@ public class InstructorEditInstructorFeedbackPageActionTest extends BaseActionTe
         gaeSimulation.loginAsInstructor(instructor.googleId);
         moderatedInstructorEmail = "non-exIstentEmail@gsail.tmt";
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail
         };
 
         try {
@@ -126,9 +127,9 @@ public class InstructorEditInstructorFeedbackPageActionTest extends BaseActionTe
         String moderatedInstructorEmail = "helper@course1.tmt";
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail
         };
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);
         verifyUnaccessibleWithoutModifySessionPrivilege(submissionParams);

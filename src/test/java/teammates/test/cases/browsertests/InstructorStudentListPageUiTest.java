@@ -174,7 +174,7 @@ public class InstructorStudentListPageUiTest extends BaseUiTestCase {
         viewPage.checkCourse(1);
 
         viewPage.clickShowPhoto(student.course, student.name);
-        viewPage.verifyProfilePhoto(student.course, student.name, Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
+        viewPage.verifyProfilePhoto(student.course, student.name, SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
 
         ______TS("student has uploaded an image");
 

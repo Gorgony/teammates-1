@@ -9,6 +9,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 import teammates.common.util.StringHelper;
 import teammates.logic.core.InstructorsLogic;
@@ -40,7 +41,7 @@ public class StudentCourseDetailsPageActionTest extends BaseActionTest {
         gaeSimulation.loginAsStudent(student1InCourse1.googleId);
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, idOfCourseOfStudent
+                ParamNameConst.ParamsNames.COURSE_ID, idOfCourseOfStudent
         };
 
         ______TS("Invalid parameters");
@@ -90,7 +91,7 @@ public class StudentCourseDetailsPageActionTest extends BaseActionTest {
 
         ______TS("Typical case, the student is not in the course");
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse2"
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse2"
         };
 
         StudentCourseDetailsPageAction redirectAction = getAction(submissionParams);
@@ -115,7 +116,7 @@ public class StudentCourseDetailsPageActionTest extends BaseActionTest {
         StudentAttributes studentTestingSanitization = typicalBundle.students.get("student1InTestingSanitizationCourse");
         gaeSimulation.loginAsStudent(studentTestingSanitization.googleId);
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, studentTestingSanitization.course
+                ParamNameConst.ParamsNames.COURSE_ID, studentTestingSanitization.course
         };
 
         pageAction = getAction(submissionParams);
@@ -158,7 +159,7 @@ public class StudentCourseDetailsPageActionTest extends BaseActionTest {
         gaeSimulation.logoutUser();
         gaeSimulation.loginAsStudent(typicalBundle.accounts.get("student2InCourse1").googleId);
         String[] submissionParam = new String[] {
-                Const.ParamsNames.COURSE_ID, student1.course
+                ParamNameConst.ParamsNames.COURSE_ID, student1.course
         };
 
         StudentCourseDetailsPageAction pageAction = getAction(submissionParam);
@@ -209,7 +210,7 @@ public class StudentCourseDetailsPageActionTest extends BaseActionTest {
                 .get("student1InCourse1").course;
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, idOfCourseOfStudent
+                ParamNameConst.ParamsNames.COURSE_ID, idOfCourseOfStudent
         };
 
         verifyAccessibleForStudentsOfTheSameCourse(submissionParams);
@@ -218,7 +219,7 @@ public class StudentCourseDetailsPageActionTest extends BaseActionTest {
 
         idOfCourseOfStudent = typicalBundle.students.get("student2InCourse1").course;
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, idOfCourseOfStudent
+                ParamNameConst.ParamsNames.COURSE_ID, idOfCourseOfStudent
         };
 
         verifyUnaccessibleForStudentsOfOtherCourses(submissionParams);

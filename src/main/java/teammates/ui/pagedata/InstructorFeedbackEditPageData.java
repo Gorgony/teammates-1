@@ -19,6 +19,7 @@ import teammates.common.datatransfer.questions.FeedbackQuestionType;
 import teammates.common.util.Assumption;
 import teammates.common.util.Config;
 import teammates.common.util.Const;
+import teammates.common.util.FeedbackGuestionConst;
 import teammates.ui.template.ElementTag;
 import teammates.ui.template.FeedbackQuestionEditForm;
 import teammates.ui.template.FeedbackQuestionFeedbackPathSettings;
@@ -157,24 +158,24 @@ public class InstructorFeedbackEditPageData extends PageData {
 
     private String getDropdownMenuLabel(FeedbackQuestionAttributes question) {
         if (isVisibilitySetToAnonymousToRecipientAndInstructors(question)) {
-            return Const.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS.get("ANONYMOUS_TO_RECIPIENT_AND_INSTRUCTORS");
+            return FeedbackGuestionConst.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS.get("ANONYMOUS_TO_RECIPIENT_AND_INSTRUCTORS");
         }
 
         if (isVisibilitySetToAnonymousToRecipientVisibleToInstructors(question)) {
-            return Const.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS.get("ANONYMOUS_TO_RECIPIENT_VISIBLE_TO_INSTRUCTORS");
+            return FeedbackGuestionConst.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS.get("ANONYMOUS_TO_RECIPIENT_VISIBLE_TO_INSTRUCTORS");
         }
 
         if (isVisibilitySetToAnonymousToRecipientAndTeamVisibleToInstructors(question)) {
-            return Const.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS
+            return FeedbackGuestionConst.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS
                                          .get("ANONYMOUS_TO_RECIPIENT_AND_TEAM_VISIBLE_TO_INSTRUCTORS");
         }
 
         if (isVisibilitySetToVisibleToInstructorsOnly(question)) {
-            return Const.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS.get("VISIBLE_TO_INSTRUCTORS_ONLY");
+            return FeedbackGuestionConst.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS.get("VISIBLE_TO_INSTRUCTORS_ONLY");
         }
 
         if (isVisibilitySetToVisibleToRecipientAndInstructors(question)) {
-            return Const.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS.get("VISIBLE_TO_RECIPIENT_AND_INSTRUCTORS");
+            return FeedbackGuestionConst.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS.get("VISIBLE_TO_RECIPIENT_AND_INSTRUCTORS");
         }
 
         return "Custom visibility option:";
@@ -252,9 +253,9 @@ public class InstructorFeedbackEditPageData extends PageData {
                                                        ? question.numberOfEntitiesToGiveFeedbackTo
                                                        : 1);
 
-        boolean isCommonGiver = Const.FeedbackQuestion.COMMON_FEEDBACK_PATHS.containsKey(question.giverType);
+        boolean isCommonGiver = FeedbackGuestionConst.FeedbackQuestion.COMMON_FEEDBACK_PATHS.containsKey(question.giverType);
         boolean isCommonPath =
-                    isCommonGiver && Const.FeedbackQuestion.COMMON_FEEDBACK_PATHS.get(question.giverType)
+                    isCommonGiver && FeedbackGuestionConst.FeedbackQuestion.COMMON_FEEDBACK_PATHS.get(question.giverType)
                                                            .contains(question.recipientType);
         settings.setCommonPathSelected(isCommonPath);
 

@@ -6,6 +6,7 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorFeedbackEditPageAction;
 import teammates.ui.controller.ShowPageResult;
@@ -38,9 +39,9 @@ public class InstructorFeedbackEditPageActionTest extends BaseActionTest {
         feedbackSessionAttributes = typicalBundle.feedbackSessions.get("session1InCourse1");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionAttributes.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT, "true"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionAttributes.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT, "true"
         };
 
         instructorFeedbackEditPageAction = getAction(submissionParams);
@@ -65,9 +66,9 @@ public class InstructorFeedbackEditPageActionTest extends BaseActionTest {
         ______TS("failure 1: non-existent feedback session");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "randomName for Session123",
-                Const.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT, "true"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "randomName for Session123",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT, "true"
         };
 
         instructorFeedbackEditPageAction = getAction(submissionParams);
@@ -91,9 +92,9 @@ public class InstructorFeedbackEditPageActionTest extends BaseActionTest {
         FeedbackSessionAttributes fs = typicalBundle.feedbackSessions.get("session1InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT, "true"
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT, "true"
         };
 
         verifyUnaccessibleWithoutModifySessionPrivilege(submissionParams);

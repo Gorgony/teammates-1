@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="teammates.common.util.Const" %>
+<%@ page import="teammates.common.util.ParamNameConst" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
@@ -10,11 +11,11 @@
 </c:set>
 
 <c:set var="COURSE_ID">
-  <%=Const.ParamsNames.COURSE_ID%>
+  <%=ParamNameConst.ParamsNames.COURSE_ID%>
 </c:set>
 
 <c:set var="STUDENTS_ENROLLMENT_INFO">
-  <%=Const.ParamsNames.STUDENTS_ENROLLMENT_INFO%>
+  <%=ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO%>
 </c:set>
 
 <ti:instructorPage title="Enrollment Results for ${data.courseId}" jsIncludes="${jsIncludes}">

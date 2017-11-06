@@ -10,7 +10,7 @@ import teammates.common.datatransfer.DataBundle;
 import teammates.common.datatransfer.SectionDetailsBundle;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.cases.BaseTestCase;
 import teammates.ui.pagedata.InstructorCourseDetailsPageData;
 
@@ -65,14 +65,14 @@ public class InstructorCourseDetailsPageDataTest extends BaseTestCase {
 
         ______TS("test current instructor doesn't have any permission for the course");
         String[] allPrivileges = {
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE,
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR,
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION,
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT,
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS,
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS,
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS,
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
         };
 
         for (String privilege : allPrivileges) {

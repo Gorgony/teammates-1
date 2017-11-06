@@ -3,6 +3,7 @@ package teammates.ui.controller;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Assumption;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.Url;
 import teammates.ui.pagedata.InstructorCourseJoinConfirmationPageData;
 
@@ -20,7 +21,7 @@ public class InstructorCourseJoinAction extends Action {
     @Override
     public ActionResult execute() {
 
-        String institute = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_INSTITUTION);
+        String institute = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION);
 
         Assumption.assertNotNull(regkey);
 
@@ -36,12 +37,12 @@ public class InstructorCourseJoinAction extends Action {
         if (instructor != null && instructor.isRegistered()) {
             // Bypass confirmation if instructor is already registered
             String redirectUrl = Url.addParamToUrl(Const.ActionURIs.INSTRUCTOR_COURSE_JOIN_AUTHENTICATED,
-                                                   Const.ParamsNames.REGKEY, regkey);
+                                                   ParamNameConst.ParamsNames.REGKEY, regkey);
 
             //for the link of instructor added by admin, an additional parameter institute is needed
             //so it must be passed to instructorCourseJoinAuthenticated action
             if (institute != null) {
-                redirectUrl = Url.addParamToUrl(redirectUrl, Const.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
+                redirectUrl = Url.addParamToUrl(redirectUrl, ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
             }
 
             return createRedirectResult(redirectUrl);

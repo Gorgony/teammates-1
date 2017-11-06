@@ -9,9 +9,7 @@ import java.util.Map;
 
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.datatransfer.InstructorStudentListPageCourseData;
 import teammates.ui.pagedata.InstructorStudentListPageData;
 
@@ -22,8 +20,8 @@ public class InstructorStudentListPageAction extends Action {
 
         gateKeeper.verifyInstructorPrivileges(account);
 
-        String searchKey = getRequestParamValue(Const.ParamsNames.SEARCH_KEY);
-        Boolean displayArchive = getRequestParamAsBoolean(Const.ParamsNames.DISPLAY_ARCHIVE);
+        String searchKey = getRequestParamValue(ParamNameConst.ParamsNames.SEARCH_KEY);
+        Boolean displayArchive = getRequestParamAsBoolean(ParamNameConst.ParamsNames.DISPLAY_ARCHIVE);
         Map<String, InstructorAttributes> instructors = new HashMap<>();
 
         List<CourseAttributes> courses = logic.getCoursesForInstructor(account.googleId);
@@ -43,7 +41,7 @@ public class InstructorStudentListPageAction extends Action {
         }
 
         if (courses.isEmpty()) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.INSTRUCTOR_NO_COURSE_AND_STUDENTS,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.INSTRUCTOR_NO_COURSE_AND_STUDENTS,
                                                StatusMessageColor.WARNING));
         }
 
@@ -53,7 +51,7 @@ public class InstructorStudentListPageAction extends Action {
         for (CourseAttributes course : courses) {
             InstructorAttributes instructor = instructors.get(course.getId());
             boolean isInstructorAllowedToModify = instructor.isAllowedForPrivilege(
-                                            Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
+                                            ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
 
             boolean isCourseDisplayed = displayArchive || !instructor.isArchived;
             if (isCourseDisplayed) {

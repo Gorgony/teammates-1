@@ -265,7 +265,7 @@ public class AdminActivityLogPageData extends PageData {
 
             } else if ("from".equals(label)) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm");
-                sdf.setTimeZone(TimeZone.getTimeZone(Const.SystemParams.ADMIN_TIME_ZONE));
+                sdf.setTimeZone(TimeZone.getTimeZone(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE));
                 Date d = sdf.parse(values[0] + " 00:00");
                 Calendar cal = TimeHelper.now(0.0);
                 cal.setTime(d);
@@ -275,7 +275,7 @@ public class AdminActivityLogPageData extends PageData {
             } else if ("to".equals(label)) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm");
 
-                sdf.setTimeZone(TimeZone.getTimeZone(Const.SystemParams.ADMIN_TIME_ZONE));
+                sdf.setTimeZone(TimeZone.getTimeZone(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE));
                 Date d = sdf.parse(values[0] + " 23:59");
                 Calendar cal = TimeHelper.now(0.0);
                 cal.setTime(d);

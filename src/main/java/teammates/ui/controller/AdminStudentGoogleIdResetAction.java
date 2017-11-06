@@ -3,9 +3,7 @@ package teammates.ui.controller;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.AdminStudentGoogleIdResetPageData;
 
 /**
@@ -22,9 +20,9 @@ public class AdminStudentGoogleIdResetAction extends Action {
 
         gateKeeper.verifyAdminPrivileges(account);
 
-        String studentEmail = getRequestParamValue(Const.ParamsNames.STUDENT_EMAIL);
-        String studentCourseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        String wrongGoogleId = getRequestParamValue(Const.ParamsNames.STUDENT_ID);
+        String studentEmail = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_EMAIL);
+        String studentCourseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        String wrongGoogleId = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_ID);
 
         AdminStudentGoogleIdResetPageData data = new AdminStudentGoogleIdResetPageData(account, sessionToken);
 
@@ -33,9 +31,9 @@ public class AdminStudentGoogleIdResetAction extends Action {
                 logic.resetStudentGoogleId(studentEmail, studentCourseId);
                 taskQueuer.scheduleCourseRegistrationInviteToStudent(studentCourseId, studentEmail, true);
             } catch (InvalidParametersException e) {
-                statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL,
                                                    StatusMessageColor.DANGER));
-                statusToAdmin = Const.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL + "<br>"
+                statusToAdmin = StatusMessageConst.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL + "<br>"
                               + "Email: " + studentEmail + "<br>"
                               + "CourseId: " + studentCourseId + "<br>"
                               + "Failed with error<br>"
@@ -47,15 +45,15 @@ public class AdminStudentGoogleIdResetAction extends Action {
 
             if (updatedStudent.googleId == null || updatedStudent.googleId.isEmpty()) {
 
-                statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_GOOGLEID_RESET, StatusMessageColor.SUCCESS));
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_GOOGLEID_RESET, StatusMessageColor.SUCCESS));
                 statusToUser.add(new StatusMessage("Email : " + studentEmail, StatusMessageColor.SUCCESS));
                 statusToUser.add(new StatusMessage("CourseId : " + studentCourseId, StatusMessageColor.SUCCESS));
 
-                statusToAdmin = Const.StatusMessages.STUDENT_GOOGLEID_RESET + "<br>"
+                statusToAdmin = StatusMessageConst.StatusMessages.STUDENT_GOOGLEID_RESET + "<br>"
                               + "Email: " + studentEmail + "<br>"
                               + "CourseId: " + studentCourseId;
 
-                data.statusForAjax = Const.StatusMessages.STUDENT_GOOGLEID_RESET + "<br>"
+                data.statusForAjax = StatusMessageConst.StatusMessages.STUDENT_GOOGLEID_RESET + "<br>"
                                    + "Email : " + studentEmail + "<br>"
                                    + "CourseId : " + studentCourseId;
 
@@ -63,12 +61,12 @@ public class AdminStudentGoogleIdResetAction extends Action {
                 deleteAccountIfNeeded(wrongGoogleId);
             } else {
                 data.isGoogleIdReset = false;
-                statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL,
                                                    StatusMessageColor.DANGER));
-                statusToAdmin = Const.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL + "<br>"
+                statusToAdmin = StatusMessageConst.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL + "<br>"
                               + "Email: " + studentEmail + "<br>"
                               + "CourseId: " + studentCourseId + "<br>";
-                data.statusForAjax = Const.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL + "<br>"
+                data.statusForAjax = StatusMessageConst.StatusMessages.STUDENT_GOOGLEID_RESET_FAIL + "<br>"
                                    + "Email : " + studentEmail + "<br>"
                                    + "CourseId : " + studentCourseId;
             }

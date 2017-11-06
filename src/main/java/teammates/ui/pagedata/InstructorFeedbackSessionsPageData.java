@@ -9,6 +9,8 @@ import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.ui.template.ElementTag;
 import teammates.ui.template.FeedbackSessionsAdditionalSettingsFormSegment;
 import teammates.ui.template.FeedbackSessionsCopyFromModal;
@@ -90,7 +92,7 @@ public class InstructorFeedbackSessionsPageData extends PageData {
         for (FeedbackSessionAttributes existingFeedbackSession : existingFeedbackSessions) {
             if (instructors.get(existingFeedbackSession.getCourseId())
                            .isAllowedForPrivilege(
-                                  Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION)) {
+                                  ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION)) {
                 filteredFeedbackSessions.add(existingFeedbackSession);
             }
         }
@@ -252,7 +254,7 @@ public class InstructorFeedbackSessionsPageData extends PageData {
                                             course.getId().equals(courseIdForNewSession);
 
             if (instructors.get(course.getId()).isAllowedForPrivilege(
-                    Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION)) {
+                    ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION)) {
                 ElementTag option = createOption(course.getId(), course.getId(),
                                                  isFilledFormForSessionInThisCourse || isEmptyFormForSessionInThisCourse);
                 result.add(option);
@@ -268,8 +270,8 @@ public class InstructorFeedbackSessionsPageData extends PageData {
      * @return no active courses or no modify courses' sessions permission message
      */
     private String determinePlaceholderMessage(boolean hasActiveCourses) {
-        return hasActiveCourses ? Const.StatusMessages.INSTRUCTOR_NO_MODIFY_PERMISSION_FOR_ACTIVE_COURSES_SESSIONS
-                                : Const.StatusMessages.INSTRUCTOR_NO_ACTIVE_COURSES;
+        return hasActiveCourses ? StatusMessageConst.StatusMessages.INSTRUCTOR_NO_MODIFY_PERMISSION_FOR_ACTIVE_COURSES_SESSIONS
+                                : StatusMessageConst.StatusMessages.INSTRUCTOR_NO_ACTIVE_COURSES;
     }
 
     /**

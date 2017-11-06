@@ -7,9 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
-import teammates.common.util.AppUrl;
-import teammates.common.util.Const;
-import teammates.common.util.JsonUtils;
+import teammates.common.util.*;
 import teammates.test.driver.BackDoor;
 import teammates.test.driver.FileHelper;
 import teammates.test.driver.Priority;
@@ -64,7 +62,7 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
 
         resultsPage = loginToInstructorFeedbackResultsPageWithViewType("CFResultsUiT.instr",
                 "Session with no sections", true, "question");
-        resultsPage.verifyStatus(Const.StatusMessages.FEEDBACK_RESULTS_QUESTIONVIEWWARNING);
+        resultsPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_RESULTS_QUESTIONVIEWWARNING);
 
         ______TS("Typical case: standard session results");
 
@@ -387,7 +385,7 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
         resultsPage.removeNavBar();
         resultsPage.hoverClickAndViewGiverPhotoOnTableCell(
                 0, 0, "studentProfilePic?studentemail={*}&courseid={*}&user=CFResultsUiT.instr");
-        resultsPage.hoverClickAndViewRecipientPhotoOnTableCell(0, 0, Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
+        resultsPage.hoverClickAndViewRecipientPhotoOnTableCell(0, 0, SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
 
         ______TS("Typical case: ajax for view by question for helper 1");
 
@@ -418,7 +416,7 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
                 "studentProfilePic?studentemail={*}&courseid={*}&user=CFResultsUiT.instr");
         resultsPage.hoverAndViewStudentPhotoOnBody("1-1",
                 "studentProfilePic?studentemail={*}&courseid={*}&user=CFResultsUiT.instr");
-        resultsPage.hoverClickAndViewStudentPhotoOnHeading("1-2", Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
+        resultsPage.hoverClickAndViewStudentPhotoOnHeading("1-2", SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
 
         ______TS("Typical case: ajax for view by giver > question > recipient");
 
@@ -432,7 +430,7 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
         resultsPage.removeNavBar();
         resultsPage.hoverClickAndViewStudentPhotoOnHeading("1-1",
                 "studentProfilePic?studentemail={*}&courseid={*}&user=CFResultsUiT.instr");
-        resultsPage.clickViewPhotoLink("1-2", Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
+        resultsPage.clickViewPhotoLink("1-2", SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
 
         ______TS("Typical case: ajax for view by recipient > question > giver");
 
@@ -462,7 +460,7 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
                 "studentProfilePic?studentemail={*}&courseid={*}&user=CFResultsUiT.instr");
         resultsPage.hoverAndViewStudentPhotoOnBody("1-1",
                 "studentProfilePic?studentemail={*}&courseid={*}&user=CFResultsUiT.instr");
-        resultsPage.hoverClickAndViewStudentPhotoOnHeading("1-2", Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
+        resultsPage.hoverClickAndViewStudentPhotoOnHeading("1-2", SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH);
     }
 
     private void testFilterAction() throws Exception {
@@ -566,14 +564,14 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
         resultsPage.deselectUsersInRemindAllForm();
         resultsPage.clickRemindButtonInModal();
         resultsPage.waitForAjaxLoaderGifToDisappear();
-        resultsPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_REMINDERSEMPTYRECIPIENT);
+        resultsPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_REMINDERSEMPTYRECIPIENT);
 
         ______TS("Typical case: remind all: click on remind with students selected");
 
         resultsPage.clickRemindAllButtonAndWaitForFormToLoad();
         resultsPage.clickRemindButtonInModal();
         resultsPage.waitForAjaxLoaderGifToDisappear();
-        resultsPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_REMINDERSSENT);
+        resultsPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_REMINDERSSENT);
     }
 
     @Test
@@ -606,7 +604,7 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
 
         resultsPage.clickCommentModalButton("-2-1-0");
         resultsPage.addFeedbackResponseCommentInCommentModal("showResponseCommentAddForm-2-1-0", "");
-        resultsPage.verifyCommentFormErrorMessage("-2-1-0", Const.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY);
+        resultsPage.verifyCommentFormErrorMessage("-2-1-0", StatusMessageConst.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY);
         resultsPage.closeCommentModal("-2-1-0");
         resultsPage.waitForModalToDisappear();
 
@@ -694,7 +692,7 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
         resultsPage.displayByRecipientGiverQuestion();
         resultsPage.loadResultSectionPanel(0, 1);
         resultsPage.addFeedbackResponseComment("showResponseCommentAddForm-0-0-1-1", "");
-        resultsPage.verifyCommentFormErrorMessage("-0-0-1-1", Const.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY);
+        resultsPage.verifyCommentFormErrorMessage("-0-0-1-1", StatusMessageConst.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY);
 
         ______TS("Typical case: add new feedback response comments");
 
@@ -837,12 +835,12 @@ public class InstructorFeedbackResultsPageUiTest extends BaseUiTestCase {
                                 .withSessionName(testData.feedbackSessions.get(fsName).getFeedbackSessionName());
 
         if (needAjax) {
-            resultsUrl = resultsUrl.withParam(Const.ParamsNames.FEEDBACK_RESULTS_NEED_AJAX,
+            resultsUrl = resultsUrl.withParam(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_NEED_AJAX,
                                         String.valueOf(needAjax));
         }
 
         if (viewType != null) {
-            resultsUrl = resultsUrl.withParam(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, viewType);
+            resultsUrl = resultsUrl.withParam(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, viewType);
         }
 
         InstructorFeedbackResultsPage resultsPage =

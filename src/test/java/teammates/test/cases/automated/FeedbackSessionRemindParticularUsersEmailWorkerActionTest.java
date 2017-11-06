@@ -9,8 +9,8 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailType;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.TaskWrapper;
 import teammates.logic.core.CoursesLogic;
 import teammates.ui.automated.FeedbackSessionRemindParticularUsersEmailWorkerAction;
@@ -37,11 +37,11 @@ public class FeedbackSessionRemindParticularUsersEmailWorkerActionTest extends B
         InstructorAttributes instructor1 = dataBundle.instructors.get("instructor1OfCourse1");
 
         String[] submissionParams = new String[] {
-                ParamsNames.SUBMISSION_FEEDBACK, session1.getFeedbackSessionName(),
-                ParamsNames.SUBMISSION_COURSE, session1.getCourseId(),
-                ParamsNames.SUBMISSION_REMIND_USERLIST, student1.email,
-                ParamsNames.SUBMISSION_REMIND_USERLIST, instructor1.email,
-                ParamsNames.SUBMISSION_REMIND_USERLIST, "non-existent"
+                ParamNameConst.ParamsNames.SUBMISSION_FEEDBACK, session1.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.SUBMISSION_COURSE, session1.getCourseId(),
+                ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST, student1.email,
+                ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST, instructor1.email,
+                ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST, "non-existent"
         };
 
         FeedbackSessionRemindParticularUsersEmailWorkerAction action = getAction(submissionParams);
@@ -56,8 +56,8 @@ public class FeedbackSessionRemindParticularUsersEmailWorkerActionTest extends B
             Map<String, String[]> paramMap = task.getParamMap();
             assertEquals(String.format(EmailType.FEEDBACK_SESSION_REMINDER.getSubject(), courseName,
                                        session1.getSessionName()),
-                         paramMap.get(ParamsNames.EMAIL_SUBJECT)[0]);
-            String recipient = paramMap.get(ParamsNames.EMAIL_RECEIVER)[0];
+                         paramMap.get(ParamNameConst.ParamsNames.EMAIL_SUBJECT)[0]);
+            String recipient = paramMap.get(ParamNameConst.ParamsNames.EMAIL_RECEIVER)[0];
             assertTrue(recipient.equals(student1.email) || recipient.equals(instructor1.email));
         }
     }

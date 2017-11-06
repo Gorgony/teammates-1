@@ -6,6 +6,7 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.controller.InstructorFeedbackQuestionCopyPageAction;
 import teammates.ui.controller.ShowPageResult;
 
@@ -31,8 +32,8 @@ public class InstructorFeedbackQuestionCopyPageActionTest extends BaseActionTest
                 typicalBundle.feedbackSessions.get("session1InCourse1");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionAttributes.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionAttributes.getFeedbackSessionName()
         };
 
         InstructorFeedbackQuestionCopyPageAction action = getAction(submissionParams);
@@ -47,8 +48,8 @@ public class InstructorFeedbackQuestionCopyPageActionTest extends BaseActionTest
         ______TS("failure: non-existent feedback session");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "Non-existent Session Name"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "Non-existent Session Name"
         };
 
         action = getAction(submissionParams);
@@ -64,8 +65,8 @@ public class InstructorFeedbackQuestionCopyPageActionTest extends BaseActionTest
         gaeSimulation.loginAsInstructor(typicalBundle.accounts.get("helperOfCourse1").googleId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionAttributes.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackSessionAttributes.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionAttributes.getFeedbackSessionName()
         };
 
         action = getAction(submissionParams);
@@ -88,8 +89,8 @@ public class InstructorFeedbackQuestionCopyPageActionTest extends BaseActionTest
     @Test
     protected void testAccessControl() throws Exception {
         String[] params = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(params);

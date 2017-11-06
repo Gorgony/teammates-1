@@ -1,5 +1,7 @@
 <%@ tag description="questionWithResponses.tag - Display question with responses" %>
 <%@ tag import="teammates.common.util.Const"%>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ attribute name="questionWithResponses" type="teammates.ui.template.StudentFeedbackSubmissionEditQuestionsWithResponses" required="true" %>
@@ -29,7 +31,7 @@
     <label for="input">
       <span data-toggle="tooltip"
         data-placement="top"
-        title="<%= Const.Tooltips.EVALUEE_DESCRIPTION %>">
+        title="<%= ToolTipConst.Tooltips.EVALUEE_DESCRIPTION %>">
         Evaluee
       </span>
       <c:choose>
@@ -40,7 +42,7 @@
     </label>
 
     <select class="participantSelect middlealign<c:if test="${not response.existingResponse}"> newResponse</c:if> form-control"
-        name="<%= Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT %>-${questionWithResponses.question.qnIndx}-${response.responseIndx}"
+        name="<%= ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT %>-${questionWithResponses.question.qnIndx}-${response.responseIndx}"
         ${isNumResponsesMax ? 'style="display:none;max-width:125px"' : 'style="width:275px;max-width:275px"'}
         ${isSessionOpenForSubmission ? '' : 'disabled' }>
 
@@ -53,7 +55,7 @@
     ${response.submissionFormHtml}
     <c:if test="${response.existingResponse}">
       <input type="hidden"
-          name="<%= Const.ParamsNames.FEEDBACK_RESPONSE_ID %>-${questionWithResponses.question.qnIndx}-${response.responseIndx}"
+          name="<%= ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID %>-${questionWithResponses.question.qnIndx}-${response.responseIndx}"
           value="<c:out value="${response.responseId}"/>">
     </c:if>
   </div>

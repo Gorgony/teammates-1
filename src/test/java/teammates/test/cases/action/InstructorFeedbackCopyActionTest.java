@@ -4,9 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
+import teammates.common.util.*;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorFeedbackCopyAction;
 import teammates.ui.controller.RedirectResult;
@@ -36,10 +34,10 @@ public class InstructorFeedbackCopyActionTest extends BaseActionTest {
     public void testAccessControl() {
 
         String[] params = new String[]{
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Copied Session",
-                Const.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Copied Session",
+                ParamNameConst.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(params);
@@ -66,10 +64,10 @@ public class InstructorFeedbackCopyActionTest extends BaseActionTest {
         ______TS("Typical case");
 
         String[] params = new String[]{
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Copied Session",
-                Const.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Copied Session",
+                ParamNameConst.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
         };
 
         InstructorFeedbackCopyAction a = getAction(params);
@@ -100,22 +98,22 @@ public class InstructorFeedbackCopyActionTest extends BaseActionTest {
         ______TS("Error: Trying to copy with existing feedback session name");
 
         params = new String[]{
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Second feedback session",
-                Const.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Second feedback session",
+                ParamNameConst.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
         };
 
         a = getAction(params);
         RedirectResult pageResult = getRedirectResult(a);
 
         assertEquals(Config.getAppUrl(Const.ActionURIs.INSTRUCTOR_FEEDBACK_SESSIONS_PAGE)
-                           .withParam(Const.ParamsNames.ERROR, Boolean.TRUE.toString())
-                           .withParam(Const.ParamsNames.USER_ID, instructor1ofCourse1.googleId)
+                           .withParam(ParamNameConst.ParamsNames.ERROR, Boolean.TRUE.toString())
+                           .withParam(ParamNameConst.ParamsNames.USER_ID, instructor1ofCourse1.googleId)
                            .toString(),
                      pageResult.getDestinationWithParams());
         assertTrue(pageResult.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_EXISTS, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EXISTS, pageResult.getStatusMessage());
 
         expectedString =
                 "TEAMMATESLOG|||instructorFeedbackCopy|||instructorFeedbackCopy|||true|||"
@@ -128,18 +126,18 @@ public class InstructorFeedbackCopyActionTest extends BaseActionTest {
         ______TS("Error: Trying to copy with invalid feedback session name");
 
         params = new String[]{
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
-                Const.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "",
+                ParamNameConst.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
         };
 
         a = getAction(params);
         pageResult = getRedirectResult(a);
 
         assertEquals(Config.getAppUrl(Const.ActionURIs.INSTRUCTOR_FEEDBACK_SESSIONS_PAGE)
-                           .withParam(Const.ParamsNames.ERROR, Boolean.TRUE.toString())
-                           .withParam(Const.ParamsNames.USER_ID, instructor1ofCourse1.googleId)
+                           .withParam(ParamNameConst.ParamsNames.ERROR, Boolean.TRUE.toString())
+                           .withParam(ParamNameConst.ParamsNames.USER_ID, instructor1ofCourse1.googleId)
                            .toString(),
                      pageResult.getDestinationWithParams());
         assertTrue(pageResult.isError);
@@ -162,10 +160,10 @@ public class InstructorFeedbackCopyActionTest extends BaseActionTest {
         gaeSimulation.loginAsAdmin(adminUserId);
 
         params = new String[]{
-                Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Second copied feedback session",
-                Const.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
+                ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, "Second copied feedback session",
+                ParamNameConst.ParamsNames.COPIED_COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
         };
         params = addUserIdToParams(instructor1ofCourse1.googleId, params);
 
@@ -203,10 +201,10 @@ public class InstructorFeedbackCopyActionTest extends BaseActionTest {
     protected String getPageResultDestination(
             String parentUri, String courseId, String fsname, String userId, boolean isError) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
         return pageDestination;
     }
 }

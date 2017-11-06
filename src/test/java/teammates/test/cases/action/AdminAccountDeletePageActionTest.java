@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.AccountsLogic;
 import teammates.ui.controller.AdminAccountDeleteAction;
 import teammates.ui.controller.RedirectResult;
@@ -27,7 +29,7 @@ public class AdminAccountDeletePageActionTest extends BaseActionTest {
         InstructorAttributes instructor1OfCourse1 = typicalBundle.instructors.get("instructor1OfCourse1");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.INSTRUCTOR_ID, instructor1OfCourse1.googleId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructor1OfCourse1.googleId,
                 "account", "true"
         };
 
@@ -38,7 +40,7 @@ public class AdminAccountDeletePageActionTest extends BaseActionTest {
         RedirectResult result = getRedirectResult(deleteAction);
 
         assertNull(AccountsLogic.inst().getAccount(instructor1OfCourse1.googleId));
-        assertEquals(Const.StatusMessages.INSTRUCTOR_ACCOUNT_DELETED, result.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.INSTRUCTOR_ACCOUNT_DELETED, result.getStatusMessage());
         assertEquals(
                 getPageResultDestination(Const.ActionURIs.ADMIN_ACCOUNT_MANAGEMENT_PAGE, false, adminUserId),
                 result.getDestinationWithParams());

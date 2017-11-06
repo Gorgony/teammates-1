@@ -3,6 +3,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/instructor/feedbacks" prefix="tif" %>
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
 
 <%@ attribute name="fsList" type="teammates.ui.template.FeedbackSessionsTable" required="true"%>
 
@@ -18,7 +19,7 @@
       <th>Submissions</th>
       <th>Responses</th>
       <th>
-        <span title="<%= Const.Tooltips.FEEDBACK_SESSION_RESPONSE_RATE %>" data-toggle="tooltip" data-placement="top">
+        <span title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESPONSE_RATE %>" data-toggle="tooltip" data-placement="top">
           Response Rate
         </span>
       </th>

@@ -1,10 +1,6 @@
 package teammates.ui.controller;
 
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.PageData;
 
 public class ErrorUserReportLogAction extends Action {
@@ -16,14 +12,14 @@ public class ErrorUserReportLogAction extends Action {
 
     @Override
     protected ActionResult execute() {
-        emailContent = getRequestParamValue(Const.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT, emailContent);
-        emailSubject = getRequestParamValue(Const.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT, emailSubject);
-        requestedUrl = getRequestParamValue(Const.ParamsNames.ERROR_FEEDBACK_URL_REQUESTED);
+        emailContent = getRequestParamValue(ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT, emailContent);
+        emailSubject = getRequestParamValue(ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT, emailSubject);
+        requestedUrl = getRequestParamValue(ParamNameConst.ParamsNames.ERROR_FEEDBACK_URL_REQUESTED);
         log.severe(getUserErrorReportLogMessage());
         PageData data = new PageData(account, sessionToken);
-        statusToUser.add(new StatusMessage(Const.StatusMessages.ERROR_FEEDBACK_SUBMIT_SUCCESS,
+        statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.ERROR_FEEDBACK_SUBMIT_SUCCESS,
                 StatusMessageColor.SUCCESS));
         return createAjaxResult(data);
     }

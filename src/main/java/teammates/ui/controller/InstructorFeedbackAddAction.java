@@ -14,13 +14,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityAlreadyExistsException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.TeammatesException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.JsonUtils;
-import teammates.common.util.Logger;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.Templates;
+import teammates.common.util.*;
 import teammates.common.util.Templates.FeedbackSessionTemplates;
 import teammates.ui.pagedata.InstructorFeedbackSessionsPageData;
 
@@ -31,15 +25,15 @@ public class InstructorFeedbackAddAction extends InstructorFeedbackAbstractActio
     @Override
     protected ActionResult execute() {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
 
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
         Assumption.assertNotEmpty(courseId);
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
 
         gateKeeper.verifyAccessible(
-                instructor, logic.getCourse(courseId), Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
+                instructor, logic.getCourse(courseId), ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
 
         FeedbackSessionAttributes fs = extractFeedbackSessionData(true);
 
@@ -50,7 +44,7 @@ public class InstructorFeedbackAddAction extends InstructorFeedbackAbstractActio
         // without accounts need to receive the email to be able to respond
         fs.setOpeningEmailEnabled(true);
 
-        String feedbackSessionType = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_TYPE);
+        String feedbackSessionType = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_TYPE);
 
         InstructorFeedbackSessionsPageData data = new InstructorFeedbackSessionsPageData(account, sessionToken);
         try {
@@ -65,7 +59,7 @@ public class InstructorFeedbackAddAction extends InstructorFeedbackAbstractActio
                 log.severe(TeammatesException.toStringWithStackTrace(e));
             }
 
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_SESSION_ADDED, StatusMessageColor.SUCCESS));
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_ADDED, StatusMessageColor.SUCCESS));
             statusToAdmin =
                     "New Feedback Session <span class=\"bold\">(" + fs.getFeedbackSessionName() + ")</span> for Course "
                     + "<span class=\"bold\">[" + fs.getCourseId() + "]</span> created.<br>"
@@ -82,7 +76,7 @@ public class InstructorFeedbackAddAction extends InstructorFeedbackAbstractActio
                             fs.getCourseId(), fs.getFeedbackSessionName()));
 
         } catch (EntityAlreadyExistsException e) {
-            setStatusForException(e, Const.StatusMessages.FEEDBACK_SESSION_EXISTS);
+            setStatusForException(e, StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EXISTS);
         } catch (InvalidParametersException e) {
             setStatusForException(e);
         }
@@ -96,7 +90,7 @@ public class InstructorFeedbackAddAction extends InstructorFeedbackAbstractActio
         FeedbackSessionAttributes.sortFeedbackSessionsByCreationTimeDescending(feedbackSessions);
 
         if (feedbackSessions.isEmpty()) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_SESSION_ADD_DB_INCONSISTENCY,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_ADD_DB_INCONSISTENCY,
                                                StatusMessageColor.WARNING));
         }
 

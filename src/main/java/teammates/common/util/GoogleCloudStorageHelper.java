@@ -82,7 +82,7 @@ public final class GoogleCloudStorageHelper {
         UploadOptions uploadOptions =
                 UploadOptions.Builder.withDefaults()
                              .googleStorageBucketName(Config.GCS_BUCKETNAME)
-                             .maxUploadSizeBytes(Const.SystemParams.MAX_FILE_LIMIT_FOR_BLOBSTOREAPI);
+                             .maxUploadSizeBytes(SystemParamsConst.SystemParams.MAX_FILE_LIMIT_FOR_BLOBSTOREAPI);
 
         return BlobstoreServiceFactory.getBlobstoreService()
                                       .createUploadUrl(callbackUrl, uploadOptions);

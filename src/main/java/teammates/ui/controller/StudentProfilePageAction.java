@@ -2,6 +2,7 @@ package teammates.ui.controller;
 
 import teammates.common.util.Const;
 import teammates.common.util.Logger;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 import teammates.ui.pagedata.StudentProfilePageData;
 
@@ -15,7 +16,7 @@ public class StudentProfilePageAction extends Action {
     @Override
     protected ActionResult execute() {
         account.studentProfile = logic.getStudentProfile(account.googleId);
-        String isEditingPhoto = getRequestParamValue(Const.ParamsNames.STUDENT_PROFILE_PHOTOEDIT);
+        String isEditingPhoto = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_PROFILE_PHOTOEDIT);
         if (isEditingPhoto == null) {
             isEditingPhoto = "false";
         }

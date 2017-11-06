@@ -23,11 +23,7 @@ import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseCommentAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.questions.FeedbackQuestionDetails;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.StringHelper;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 import teammates.ui.datatransfer.InstructorFeedbackResultsPageViewType;
 import teammates.ui.template.ElementTag;
 import teammates.ui.template.FeedbackResponseCommentRow;
@@ -501,10 +497,10 @@ public class InstructorFeedbackResultsPageData extends PageData {
             boolean isAllowedToSubmitSessionsInBothSection =
                     instructor.isAllowedForPrivilege(response.giverSection,
                                                      response.feedbackSessionName,
-                                                     Const.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS)
+                                                     ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS)
                     && instructor.isAllowedForPrivilege(response.recipientSection,
                                                         response.feedbackSessionName,
-                                                        Const.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS);
+                                                        ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS);
             boolean isCommentsOnResponsesAllowed = question.getQuestionDetails()
                     .isCommentsOnResponsesAllowed();
             Matcher matcher = sectionIdPattern.matcher(additionalInfoId);
@@ -1462,10 +1458,10 @@ public class InstructorFeedbackResultsPageData extends PageData {
         boolean isInstructorWithPrivilegesToModify =
                 instructor.isAllowedForPrivilege(
                         response.giverSection, response.feedbackSessionName,
-                        Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS)
+                        ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS)
                 && instructor.isAllowedForPrivilege(
                            response.recipientSection, response.feedbackSessionName,
-                           Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
+                           ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
         boolean isInstructorAllowedToEditAndDeleteComment = isInstructorGiver || isInstructorWithPrivilegesToModify;
 
         Map<FeedbackParticipantType, Boolean> responseVisibilityMap = getResponseVisibilityMap(question);
@@ -1606,8 +1602,8 @@ public class InstructorFeedbackResultsPageData extends PageData {
 
         boolean isSessionClosed = bundle.getFeedbackSession().isClosed();
         String actionLink = addUserIdToUrl(Const.ActionURIs.INSTRUCTOR_FEEDBACK_REMIND_PARTICULAR_STUDENTS_PAGE);
-        actionLink = Url.addParamToUrl(actionLink, Const.ParamsNames.COURSE_ID, bundle.feedbackSession.getCourseId());
-        actionLink = Url.addParamToUrl(actionLink, Const.ParamsNames.FEEDBACK_SESSION_NAME,
+        actionLink = Url.addParamToUrl(actionLink, ParamNameConst.ParamsNames.COURSE_ID, bundle.feedbackSession.getCourseId());
+        actionLink = Url.addParamToUrl(actionLink, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME,
                 bundle.feedbackSession.getFeedbackSessionName());
         actionLink = addSessionTokenToUrl(actionLink);
 
@@ -1622,10 +1618,10 @@ public class InstructorFeedbackResultsPageData extends PageData {
         String remindParticularStudentsLink = Const.ActionURIs.INSTRUCTOR_FEEDBACK_REMIND_PARTICULAR_STUDENTS;
 
         String nextUrl = addUserIdToUrl(Const.ActionURIs.INSTRUCTOR_FEEDBACK_RESULTS_PAGE);
-        nextUrl = Url.addParamToUrl(nextUrl, Const.ParamsNames.COURSE_ID, bundle.feedbackSession.getCourseId());
-        nextUrl = Url.addParamToUrl(nextUrl, Const.ParamsNames.FEEDBACK_SESSION_NAME,
+        nextUrl = Url.addParamToUrl(nextUrl, ParamNameConst.ParamsNames.COURSE_ID, bundle.feedbackSession.getCourseId());
+        nextUrl = Url.addParamToUrl(nextUrl, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME,
                 bundle.feedbackSession.getFeedbackSessionName());
-        remindParticularStudentsLink = Url.addParamToUrl(remindParticularStudentsLink, Const.ParamsNames.NEXT_URL,
+        remindParticularStudentsLink = Url.addParamToUrl(remindParticularStudentsLink, ParamNameConst.ParamsNames.NEXT_URL,
                 nextUrl);
         remindParticularStudentsLink = addSessionTokenToUrl(remindParticularStudentsLink);
         return remindParticularStudentsLink;
@@ -1715,7 +1711,7 @@ public class InstructorFeedbackResultsPageData extends PageData {
     }
 
     private String getInstructorFeedbackSessionEditLink() {
-        return instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION)
+        return instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION)
                ? getInstructorFeedbackEditLink(bundle.feedbackSession.getCourseId(),
                                                       bundle.feedbackSession.getFeedbackSessionName(), true)
                : null;
@@ -1728,7 +1724,7 @@ public class InstructorFeedbackResultsPageData extends PageData {
 
     private boolean isAllowedToModerate(InstructorAttributes instructor, String sectionName, String feedbackSessionName) {
         return instructor.isAllowedForPrivilege(sectionName, feedbackSessionName,
-                                                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
+                                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
     }
 
     public boolean isAllSectionsSelected() {

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StringHelper;
 import teammates.logic.core.StudentsLogic;
 import teammates.ui.controller.StudentCourseJoinAction;
@@ -47,7 +48,7 @@ public class StudentCourseJoinActionLegacyTest extends BaseActionTest {
         StudentAttributes unregStudent1 = typicalBundle.students.get("student2InUnregisteredCourse");
         String key = StudentsLogic.inst().getStudentForEmail(unregStudent1.course, unregStudent1.email).key;
         String[] submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, StringHelper.encrypt(key)
+                ParamNameConst.ParamsNames.REGKEY, StringHelper.encrypt(key)
         };
 
         verifyAccessibleWithoutLogin(submissionParams);

@@ -1,9 +1,10 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
 <%@ page import="teammates.common.util.Const"%>
+<%@ page import="teammates.common.util.ParamNameConst" %>
 <%
-  pageContext.setAttribute("expectedId", request.getAttribute(Const.ParamsNames.HINT));
-  pageContext.setAttribute("actualId", request.getAttribute(Const.ParamsNames.USER_ID));
-  pageContext.setAttribute("logoutUrl", request.getAttribute(Const.ParamsNames.NEXT_URL));
+  pageContext.setAttribute("expectedId", request.getAttribute(ParamNameConst.ParamsNames.HINT));
+  pageContext.setAttribute("actualId", request.getAttribute(ParamNameConst.ParamsNames.USER_ID));
+  pageContext.setAttribute("logoutUrl", request.getAttribute(ParamNameConst.ParamsNames.NEXT_URL));
   pageContext.setAttribute("homePage", Const.ActionURIs.STUDENT_HOME_PAGE);
 %>
 <t:errorPage>

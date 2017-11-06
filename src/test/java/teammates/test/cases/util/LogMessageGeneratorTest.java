@@ -12,6 +12,7 @@ import teammates.common.exception.PageNotFoundException;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
 import teammates.common.util.LogMessageGenerator;
+import teammates.common.util.ParamNameConst;
 import teammates.test.cases.BaseTestCase;
 import teammates.test.driver.AssertHelper;
 
@@ -197,9 +198,9 @@ public class LogMessageGeneratorTest extends BaseTestCase {
 
     private Map<String, String[]> generateRequestParamsWithRegKey() {
         Map<String, String[]> params = new HashMap<>();
-        params.put(Const.ParamsNames.COURSE_ID, new String[] { "CS2103" });
-        params.put(Const.ParamsNames.STUDENT_EMAIL, new String[] { "student@email.com" });
-        params.put(Const.ParamsNames.REGKEY, new String[] { "KeyABC" });
+        params.put(ParamNameConst.ParamsNames.COURSE_ID, new String[] { "CS2103" });
+        params.put(ParamNameConst.ParamsNames.STUDENT_EMAIL, new String[] { "student@email.com" });
+        params.put(ParamNameConst.ParamsNames.REGKEY, new String[] { "KeyABC" });
         return params;
     }
 }

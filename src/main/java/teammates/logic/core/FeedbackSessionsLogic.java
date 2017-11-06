@@ -33,13 +33,7 @@ import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.ExceedingRangeException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.TeammatesException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Const.SystemParams;
-import teammates.common.util.Logger;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.storage.api.FeedbackSessionsDb;
 
 /**
@@ -362,7 +356,7 @@ public final class FeedbackSessionsLogic {
                 Map.Entry<String, String> studentEntry = iter.next();
                 StudentAttributes student = studentsLogic.getStudentForEmail(courseId, studentEntry.getKey());
                 if (!instructor.isAllowedForPrivilege(student.section,
-                        fsa.getFeedbackSessionName(), Const.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS)) {
+                        fsa.getFeedbackSessionName(), ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS)) {
                     iter.remove();
                 }
             }
@@ -374,7 +368,7 @@ public final class FeedbackSessionsLogic {
                 Map.Entry<String, String> teamEntry = iter.next();
                 String teamSection = studentsLogic.getSectionForTeam(courseId, teamEntry.getKey());
                 if (!instructor.isAllowedForPrivilege(teamSection,
-                        fsa.getFeedbackSessionName(), Const.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS)) {
+                        fsa.getFeedbackSessionName(), ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS)) {
                     iter.remove();
                 }
             }
@@ -1435,7 +1429,7 @@ public final class FeedbackSessionsLogic {
 
         for (FeedbackSessionAttributes session : nonPrivateSessions) {
             if (session.getFeedbackSessionType() != FeedbackSessionType.PRIVATE
-                    && session.isClosingWithinTimeLimit(SystemParams.NUMBER_OF_HOURS_BEFORE_CLOSING_ALERT)) {
+                    && session.isClosingWithinTimeLimit(SystemParamsConst.SystemParams.NUMBER_OF_HOURS_BEFORE_CLOSING_ALERT)) {
                 requiredSessions.add(session);
             }
         }
@@ -1982,7 +1976,7 @@ public final class FeedbackSessionsLogic {
                         instructor.isAllowedForPrivilege(
                                            student.section,
                                            feedbackSessionName,
-                                           Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS);
+                                           ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS);
                 boolean isStudentInSelectedSection = student.section.equals(sectionToView);
                 boolean isViewingAllSections = sectionToView == null;
 
@@ -2033,14 +2027,14 @@ public final class FeedbackSessionsLogic {
             boolean isGiverSectionRestricted =
                     !instructor.isAllowedForPrivilege(response.giverSection,
                                                       response.feedbackSessionName,
-                                                      Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS);
+                                                      ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS);
             // If instructors are not restricted to view the giver's section,
             // they are allowed to view responses to GENERAL, subject to visibility options
             boolean isRecipientSectionRestricted =
                     relatedQuestion.recipientType != FeedbackParticipantType.NONE
                     && !instructor.isAllowedForPrivilege(response.recipientSection,
                                                          response.feedbackSessionName,
-                                                         Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS);
+                                                         ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS);
 
             boolean isNotAllowedForInstructor = isGiverSectionRestricted || isRecipientSectionRestricted;
             if (isNotAllowedForInstructor) {
@@ -2407,7 +2401,7 @@ public final class FeedbackSessionsLogic {
             // also reset sentClosingEmail
             newSession.setSentClosingEmail(
                     newSession.isClosed()
-                    || !newSession.isClosedAfter(SystemParams.NUMBER_OF_HOURS_BEFORE_CLOSING_ALERT));
+                    || !newSession.isClosedAfter(SystemParamsConst.SystemParams.NUMBER_OF_HOURS_BEFORE_CLOSING_ALERT));
         }
 
         // reset sentPublishedEmail if the session has been published but is

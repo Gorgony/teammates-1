@@ -7,12 +7,7 @@ import java.util.List;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.Text;
 
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.JsonUtils;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.storage.entity.StudentProfile;
 
 /**
@@ -82,17 +77,17 @@ public class StudentProfileAttributes extends EntityAttributes<StudentProfile> {
     // branch is not fully tested here: part of StudentCourseJoinAuthenticatedAction
     public String generateUpdateMessageForStudent() {
         if (isMultipleFieldsEmpty()) {
-            return Const.StatusMessages.STUDENT_UPDATE_PROFILE;
+            return StatusMessageConst.StatusMessages.STUDENT_UPDATE_PROFILE;
         } else if (StringHelper.isEmpty(shortName)) {
-            return Const.StatusMessages.STUDENT_UPDATE_PROFILE_SHORTNAME;
+            return StatusMessageConst.StatusMessages.STUDENT_UPDATE_PROFILE_SHORTNAME;
         } else if (StringHelper.isEmpty(email)) {
-            return Const.StatusMessages.STUDENT_UPDATE_PROFILE_EMAIL;
+            return StatusMessageConst.StatusMessages.STUDENT_UPDATE_PROFILE_EMAIL;
         } else if (StringHelper.isEmpty(pictureKey)) {
-            return Const.StatusMessages.STUDENT_UPDATE_PROFILE_PICTURE;
+            return StatusMessageConst.StatusMessages.STUDENT_UPDATE_PROFILE_PICTURE;
         } else if (StringHelper.isEmpty(moreInfo)) {
-            return Const.StatusMessages.STUDENT_UPDATE_PROFILE_MOREINFO;
+            return StatusMessageConst.StatusMessages.STUDENT_UPDATE_PROFILE_MOREINFO;
         } else if (StringHelper.isEmpty(nationality)) {
-            return Const.StatusMessages.STUDENT_UPDATE_PROFILE_NATIONALITY;
+            return StatusMessageConst.StatusMessages.STUDENT_UPDATE_PROFILE_NATIONALITY;
         }
         return "";
     }

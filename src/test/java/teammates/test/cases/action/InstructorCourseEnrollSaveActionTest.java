@@ -9,11 +9,7 @@ import teammates.common.datatransfer.StudentAttributesFactory;
 import teammates.common.datatransfer.StudentUpdateStatus;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.TaskWrapper;
+import teammates.common.util.*;
 import teammates.logic.core.CoursesLogic;
 import teammates.logic.core.StudentsLogic;
 import teammates.test.driver.AssertHelper;
@@ -62,8 +58,8 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
                        + "Section 1 \t Team   1.1</td></div>'\"\tstudent3  In   Course1  \tstudent3InCourse1@gmail.tmt\t";
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollString
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollString
         };
         InstructorCourseEnrollSaveAction enrollAction = getAction(submissionParams);
 
@@ -80,7 +76,7 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
         List<TaskWrapper> tasksAdded = enrollAction.getTaskQueuer().getTasksAdded();
         for (TaskWrapper task : tasksAdded) {
             Map<String, String[]> paramMap = task.getParamMap();
-            assertEquals(courseId, paramMap.get(ParamsNames.COURSE_ID)[0]);
+            assertEquals(courseId, paramMap.get(ParamNameConst.ParamsNames.COURSE_ID)[0]);
         }
 
         InstructorCourseEnrollResultPageData pageData = (InstructorCourseEnrollResultPageData) pageResult.data;
@@ -143,9 +139,9 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
         enrollString = headerRow + Const.EOL + studentsInfo;
 
         submissionParams = new String[]{
-                Const.ParamsNames.USER_ID, instructorId,
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollString
+                ParamNameConst.ParamsNames.USER_ID, instructorId,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollString
         };
         enrollAction = getAction(submissionParams);
 
@@ -196,8 +192,8 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
                      + studentWithInvalidEmail;
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollString
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollString
         };
         enrollAction = getAction(submissionParams);
 
@@ -254,8 +250,8 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
                                                          + "\temail" + i + "@nonexistemail.nonexist");
         }
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollStringBuilder.toString()
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollStringBuilder.toString()
         };
         enrollAction = getAction(submissionParams);
         pageResult = getShowPageResult(enrollAction);
@@ -269,14 +265,14 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
                  + "\tname" + Const.SIZE_LIMIT_PER_ENROLLMENT + "\temail" + Const.SIZE_LIMIT_PER_ENROLLMENT
                  + "@nonexistemail.nonexist");
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollStringBuilder.toString()
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollStringBuilder.toString()
         };
         enrollAction = getAction(submissionParams);
         pageResult = getShowPageResult(enrollAction);
         assertEquals(Const.ViewURIs.INSTRUCTOR_COURSE_ENROLL, pageResult.destination);
         assertTrue(pageResult.isError);
-        assertEquals(Const.StatusMessages.QUOTA_PER_ENROLLMENT_EXCEED, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.QUOTA_PER_ENROLLMENT_EXCEED, pageResult.getStatusMessage());
         verifyNoTasksAdded(enrollAction);
 
         ______TS("Failure case: empty input");
@@ -284,8 +280,8 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
         enrollString = "";
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollString
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO, enrollString
         };
         enrollAction = getAction(submissionParams);
 
@@ -295,14 +291,14 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
                 getPageResultDestination(Const.ViewURIs.INSTRUCTOR_COURSE_ENROLL, true, "idOfInstructor1OfCourse1"),
                 pageResult.getDestinationWithParams());
         assertTrue(pageResult.isError);
-        assertEquals(Const.StatusMessages.ENROLL_LINE_EMPTY, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.ENROLL_LINE_EMPTY, pageResult.getStatusMessage());
         verifyNoTasksAdded(enrollAction);
 
         enrollPageData = (InstructorCourseEnrollPageData) pageResult.data;
         assertEquals(courseId, enrollPageData.getCourseId());
         assertEquals(enrollString, enrollPageData.getEnrollStudents());
 
-        AssertHelper.assertContains(Const.StatusMessages.ENROLL_LINE_EMPTY, enrollAction.getLogMessage());
+        AssertHelper.assertContains(StatusMessageConst.StatusMessages.ENROLL_LINE_EMPTY, enrollAction.getLogMessage());
 
         CoursesLogic.inst().deleteCourseCascade("new-course");
         StudentsLogic.inst().deleteStudentsForCourseWithoutDocument(instructor1OfCourse1.courseId);
@@ -334,8 +330,8 @@ public class InstructorCourseEnrollSaveActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, typicalBundle.instructors.get("instructor1OfCourse1").courseId,
-                Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, ""
+                ParamNameConst.ParamsNames.COURSE_ID, typicalBundle.instructors.get("instructor1OfCourse1").courseId,
+                ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO, ""
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

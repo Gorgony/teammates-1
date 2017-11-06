@@ -6,8 +6,8 @@ import java.util.List;
 import teammates.common.datatransfer.StudentUpdateStatus;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
-import teammates.common.util.Const;
 import teammates.common.util.Logger;
+import teammates.common.util.StatusMessageConst;
 import teammates.ui.template.EnrollResultPanel;
 
 /**
@@ -88,22 +88,22 @@ public class InstructorCourseEnrollResultPageData extends PageData {
 
         switch (status) {
         case ERROR:
-            return String.format(Const.StatusMessages.COURSE_ENROLL_STUDENTS_ERROR,
+            return String.format(StatusMessageConst.StatusMessages.COURSE_ENROLL_STUDENTS_ERROR,
                     students[StudentUpdateStatus.ERROR.numericRepresentation].size());
         case NEW:
-            return String.format(Const.StatusMessages.COURSE_ENROLL_STUDENTS_ADDED,
+            return String.format(StatusMessageConst.StatusMessages.COURSE_ENROLL_STUDENTS_ADDED,
                     students[StudentUpdateStatus.NEW.numericRepresentation].size());
         case MODIFIED:
-            return String.format(Const.StatusMessages.COURSE_ENROLL_STUDENTS_MODIFIED,
+            return String.format(StatusMessageConst.StatusMessages.COURSE_ENROLL_STUDENTS_MODIFIED,
                     students[StudentUpdateStatus.MODIFIED.numericRepresentation].size());
         case UNMODIFIED:
-            return String.format(Const.StatusMessages.COURSE_ENROLL_STUDENTS_UNMODIFIED,
+            return String.format(StatusMessageConst.StatusMessages.COURSE_ENROLL_STUDENTS_UNMODIFIED,
                     students[StudentUpdateStatus.UNMODIFIED.numericRepresentation].size());
         case NOT_IN_ENROLL_LIST:
-            return String.format(Const.StatusMessages.COURSE_ENROLL_STUDENTS_NOT_IN_LIST,
+            return String.format(StatusMessageConst.StatusMessages.COURSE_ENROLL_STUDENTS_NOT_IN_LIST,
                     students[StudentUpdateStatus.NOT_IN_ENROLL_LIST.numericRepresentation].size());
         case UNKNOWN:
-            return String.format(Const.StatusMessages.COURSE_ENROLL_STUDENTS_UNKNOWN,
+            return String.format(StatusMessageConst.StatusMessages.COURSE_ENROLL_STUDENTS_UNKNOWN,
                     students[StudentUpdateStatus.UNKNOWN.numericRepresentation].size());
         default:
             log.severe("Unknown Enrollment status " + enrollmentStatus);

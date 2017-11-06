@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 
 <%@ attribute name="instructorIndex" required="true" %>
 <%@ attribute name="panelIndex" required="true" %>
@@ -11,7 +12,7 @@
     <c:if test="${not sectionRow.sessionsInSectionSpecial}">
       style="display: none;"
     </c:if> >
-  <input type="hidden" name="is<%=Const.ParamsNames.INSTRUCTOR_SECTION_GROUP%>${panelIndex}sessionsset" value="${sectionRow.sessionsInSectionSpecial}"/>
+  <input type="hidden" name="is<%=ParamNameConst.ParamsNames.INSTRUCTOR_SECTION_GROUP%>${panelIndex}sessionsset" value="${sectionRow.sessionsInSectionSpecial}"/>
 
   <table class="table table-striped">
     <thead>

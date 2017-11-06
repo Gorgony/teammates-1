@@ -5,9 +5,9 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailType;
 import teammates.common.util.EmailWrapper;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.automated.StudentCourseJoinEmailWorkerAction;
 
 /**
@@ -29,9 +29,9 @@ public class StudentCourseJoinEmailWorkerActionTest extends BaseAutomatedActionT
         ______TS("typical case: new student joining");
 
         String[] submissionParams = new String[] {
-                ParamsNames.COURSE_ID, course1.getId(),
-                ParamsNames.STUDENT_EMAIL, stu1InCourse1.email,
-                ParamsNames.IS_STUDENT_REJOINING, "false"
+                ParamNameConst.ParamsNames.COURSE_ID, course1.getId(),
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, stu1InCourse1.email,
+                ParamNameConst.ParamsNames.IS_STUDENT_REJOINING, "false"
         };
 
         StudentCourseJoinEmailWorkerAction action = getAction(submissionParams);
@@ -48,9 +48,9 @@ public class StudentCourseJoinEmailWorkerActionTest extends BaseAutomatedActionT
         ______TS("typical case: old student rejoining (after google id reset)");
 
         submissionParams = new String[] {
-                ParamsNames.COURSE_ID, course1.getId(),
-                ParamsNames.STUDENT_EMAIL, stu1InCourse1.email,
-                ParamsNames.IS_STUDENT_REJOINING, "true"
+                ParamNameConst.ParamsNames.COURSE_ID, course1.getId(),
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, stu1InCourse1.email,
+                ParamNameConst.ParamsNames.IS_STUDENT_REJOINING, "true"
         };
 
         action = getAction(submissionParams);

@@ -2,6 +2,7 @@ package teammates.ui.template;
 
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.Url;
 
 public class AdminAccountDetailsStudentCourseListTableRow {
@@ -35,9 +36,9 @@ public class AdminAccountDetailsStudentCourseListTableRow {
 
     private String getAdminDeleteStudentFromCourseLink() {
         String link = Const.ActionURIs.ADMIN_ACCOUNT_DELETE;
-        link = Url.addParamToUrl(link, Const.ParamsNames.STUDENT_ID, googleId);
-        link = Url.addParamToUrl(link, Const.ParamsNames.COURSE_ID, courseDetails.getId());
-        link = Url.addParamToUrl(link, Const.ParamsNames.SESSION_TOKEN, sessionToken);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.STUDENT_ID, googleId);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.COURSE_ID, courseDetails.getId());
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.SESSION_TOKEN, sessionToken);
 
         return link;
     }

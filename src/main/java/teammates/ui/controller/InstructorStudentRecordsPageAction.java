@@ -9,11 +9,7 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorStudentRecordsPageData;
 
 public class InstructorStudentRecordsPageAction extends Action {
@@ -21,19 +17,19 @@ public class InstructorStudentRecordsPageAction extends Action {
     @Override
     public ActionResult execute() {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
         gateKeeper.verifyAccessible(instructor, logic.getCourse(courseId));
 
-        String studentEmail = getRequestParamValue(Const.ParamsNames.STUDENT_EMAIL);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.STUDENT_EMAIL, studentEmail);
+        String studentEmail = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_EMAIL);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.STUDENT_EMAIL, studentEmail);
 
         StudentAttributes student = logic.getStudentForEmail(courseId, studentEmail);
 
         if (student == null) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_NOT_FOUND_FOR_RECORDS,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_NOT_FOUND_FOR_RECORDS,
                                                StatusMessageColor.DANGER));
             isError = true;
             return createRedirectResult(Const.ActionURIs.INSTRUCTOR_HOME_PAGE);
@@ -48,23 +44,23 @@ public class InstructorStudentRecordsPageAction extends Action {
         StudentProfileAttributes studentProfile = null;
 
         boolean isInstructorAllowedToViewStudent = instructor.isAllowedForPrivilege(student.section,
-                                                        Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
+                                                        ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
         boolean isStudentWithProfile = !student.googleId.isEmpty();
         if (isInstructorAllowedToViewStudent && isStudentWithProfile) {
             studentProfile = logic.getStudentProfile(student.googleId);
             Assumption.assertNotNull(studentProfile);
         } else {
             if (student.googleId.isEmpty()) {
-                statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_NOT_JOINED_YET_FOR_RECORDS,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_NOT_JOINED_YET_FOR_RECORDS,
                                                    StatusMessageColor.WARNING));
             } else if (!isInstructorAllowedToViewStudent) {
-                statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_UNACCESSIBLE_TO_INSTRUCTOR,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_UNACCESSIBLE_TO_INSTRUCTOR,
                                                    StatusMessageColor.WARNING));
             }
         }
 
         if (sessions.isEmpty()) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.INSTRUCTOR_NO_STUDENT_RECORDS,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.INSTRUCTOR_NO_STUDENT_RECORDS,
                                                StatusMessageColor.WARNING));
         }
 
@@ -94,7 +90,7 @@ public class InstructorStudentRecordsPageAction extends Action {
             FeedbackSessionAttributes tempFs = iterFs.next();
             if (!tempFs.getCourseId().equals(courseId)
                     || !instructor.isAllowedForPrivilege(student.section, tempFs.getSessionName(),
-                                                         Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS)) {
+                                                         ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS)) {
                 iterFs.remove();
             }
         }

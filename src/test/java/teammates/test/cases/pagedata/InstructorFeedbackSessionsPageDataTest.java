@@ -15,7 +15,7 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.StatusMessageConst;
 import teammates.common.util.TimeHelper;
 import teammates.test.cases.BaseTestCase;
 import teammates.ui.pagedata.InstructorFeedbackSessionsPageData;
@@ -144,7 +144,7 @@ public class InstructorFeedbackSessionsPageDataTest extends BaseTestCase {
 
         assertNull(formModel.getCourseId());
         assertEquals(1, formModel.getCoursesSelectField().size());
-        assertEquals(Const.StatusMessages.INSTRUCTOR_NO_ACTIVE_COURSES,
+        assertEquals(StatusMessageConst.StatusMessages.INSTRUCTOR_NO_ACTIVE_COURSES,
                      formModel.getCoursesSelectField().get(0).getContent());
 
         assertTrue(formModel.isSubmitButtonDisabled());
@@ -174,7 +174,7 @@ public class InstructorFeedbackSessionsPageDataTest extends BaseTestCase {
 
         assertNull(formModel.getCourseId());
         assertEquals(1, formModel.getCoursesSelectField().size());
-        assertEquals(Const.StatusMessages.INSTRUCTOR_NO_MODIFY_PERMISSION_FOR_ACTIVE_COURSES_SESSIONS,
+        assertEquals(StatusMessageConst.StatusMessages.INSTRUCTOR_NO_MODIFY_PERMISSION_FOR_ACTIVE_COURSES_SESSIONS,
                      formModel.getCoursesSelectField().get(0).getContent());
 
         assertTrue(formModel.isSubmitButtonDisabled());

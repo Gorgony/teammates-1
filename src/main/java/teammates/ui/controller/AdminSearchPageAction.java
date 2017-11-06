@@ -10,13 +10,7 @@ import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.StringHelper;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 import teammates.ui.pagedata.AdminSearchPageData;
 
 public class AdminSearchPageAction extends Action {
@@ -31,8 +25,8 @@ public class AdminSearchPageAction extends Action {
 
         gateKeeper.verifyAdminPrivileges(account);
 
-        String searchKey = getRequestParamValue(Const.ParamsNames.ADMIN_SEARCH_KEY);
-        String searchButtonHit = getRequestParamValue(Const.ParamsNames.ADMIN_SEARCH_BUTTON_HIT);
+        String searchKey = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_SEARCH_KEY);
+        String searchButtonHit = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_SEARCH_BUTTON_HIT);
 
         AdminSearchPageData data = new AdminSearchPageData(account, sessionToken);
 
@@ -167,7 +161,7 @@ public class AdminSearchPageAction extends Action {
             }
 
             String curLink = Url.addParamToUrl(Const.ActionURIs.INSTRUCTOR_HOME_PAGE,
-                                                        Const.ParamsNames.USER_ID,
+                                                        ParamNameConst.ParamsNames.USER_ID,
                                                         instructor.googleId);
 
             data.instructorHomePageLinkMap.put(instructor.googleId, curLink);
@@ -211,7 +205,7 @@ public class AdminSearchPageAction extends Action {
             }
 
             String curLink = Url.addParamToUrl(Const.ActionURIs.STUDENT_HOME_PAGE,
-                                                        Const.ParamsNames.USER_ID,
+                                                        ParamNameConst.ParamsNames.USER_ID,
                                                         student.googleId);
 
             data.studentIdToHomePageLinkMap.put(student.googleId, curLink);
@@ -230,13 +224,13 @@ public class AdminSearchPageAction extends Action {
             }
 
             String curLink = Url.addParamToUrl(Const.ActionURIs.INSTRUCTOR_STUDENT_RECORDS_PAGE,
-                                                        Const.ParamsNames.COURSE_ID,
+                                                        ParamNameConst.ParamsNames.COURSE_ID,
                                                         student.course);
-            curLink = Url.addParamToUrl(curLink, Const.ParamsNames.STUDENT_EMAIL, student.email);
+            curLink = Url.addParamToUrl(curLink, ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email);
             String availableGoogleId = findAvailableInstructorGoogleIdForCourse(student.course);
 
             if (!availableGoogleId.isEmpty()) {
-                curLink = Url.addParamToUrl(curLink, Const.ParamsNames.USER_ID, availableGoogleId);
+                curLink = Url.addParamToUrl(curLink, ParamNameConst.ParamsNames.USER_ID, availableGoogleId);
                 data.studentRecordsPageLinkMap.put(student.getIdentificationString(), curLink);
             }
         }
@@ -277,7 +271,7 @@ public class AdminSearchPageAction extends Action {
         for (InstructorAttributes instructor : instructorList) {
 
             if (instructor.isRegistered()
-                    && instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR)) {
+                    && instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR)) {
 
                 tempCourseIdToInstructorGoogleIdMap.put(courseId, instructor.googleId);
                 return instructor.googleId;

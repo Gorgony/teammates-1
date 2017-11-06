@@ -10,11 +10,7 @@ import java.util.Map;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.ui.pagedata.AdminSessionsPageData;
 
 public class AdminSessionsPageAction extends Action {
@@ -85,13 +81,13 @@ public class AdminSessionsPageAction extends Action {
     }
 
     private ActionResult createShowPageResultIfParametersInvalid() {
-        String startDate = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE);
-        String endDate = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENDDATE);
-        String startHour = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_STARTHOUR);
-        String endHour = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENDHOUR);
-        String startMin = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_STARTMINUTE);
-        String endMin = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENDMINUTE);
-        String timeZone = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_TIMEZONE);
+        String startDate = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE);
+        String endDate = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE);
+        String startHour = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTHOUR);
+        String endHour = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDHOUR);
+        String startMin = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTMINUTE);
+        String endMin = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDMINUTE);
+        String timeZone = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_TIMEZONE);
 
         Date start;
         Date end;
@@ -314,13 +310,13 @@ public class AdminSessionsPageAction extends Action {
 
     private boolean checkAllParameters(String condition) {
 
-        String startDate = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE);
-        String endDate = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENDDATE);
-        String startHour = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_STARTHOUR);
-        String endHour = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENDHOUR);
-        String startMin = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_STARTMINUTE);
-        String endMin = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENDMINUTE);
-        String timeZone = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_TIMEZONE);
+        String startDate = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE);
+        String endDate = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE);
+        String startHour = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTHOUR);
+        String endHour = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDHOUR);
+        String startMin = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTMINUTE);
+        String endMin = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDMINUTE);
+        String timeZone = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_TIMEZONE);
 
         if (condition.contentEquals("null")) {
 

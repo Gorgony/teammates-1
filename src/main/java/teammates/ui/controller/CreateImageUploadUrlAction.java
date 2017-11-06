@@ -4,6 +4,7 @@ import com.google.appengine.api.blobstore.BlobstoreFailureException;
 
 import teammates.common.util.Const;
 import teammates.common.util.GoogleCloudStorageHelper;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.Url;
 import teammates.ui.pagedata.CreateImageUploadUrlAjaxPageData;
 
@@ -34,7 +35,7 @@ public class CreateImageUploadUrlAction extends Action {
 
     protected String getUploadUrl() {
         String callbackUrl =
-                Url.addParamToUrl(Const.ActionURIs.IMAGE_UPLOAD, Const.ParamsNames.SESSION_TOKEN, sessionToken);
+                Url.addParamToUrl(Const.ActionURIs.IMAGE_UPLOAD, ParamNameConst.ParamsNames.SESSION_TOKEN, sessionToken);
         return GoogleCloudStorageHelper.getNewUploadUrl(callbackUrl);
     }
 

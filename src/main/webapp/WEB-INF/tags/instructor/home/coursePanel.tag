@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="courseTable" type="teammates.ui.template.CourseTable" required="true" %>
 <%@ attribute name="index" required="true" %>
 <c:set var="isNotLoaded" value="${empty courseTable.buttons}" />
@@ -50,8 +51,8 @@
   </div>
   <c:if test="${isNotLoaded}">
     <form>
-      <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>" value="${data.account.googleId}">
-      <input type="hidden" name="<%=Const.ParamsNames.COURSE_TO_LOAD%>" value="${courseTable.courseId}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>" value="${data.account.googleId}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_TO_LOAD%>" value="${courseTable.courseId}">
       <input type="hidden" name="index" value="${index}">
     </form>
   </c:if>

@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCourseStudentDetailsEditPageAction;
 import teammates.ui.controller.ShowPageResult;
@@ -37,21 +38,21 @@ public class InstructorCourseStudentDetailsEditPageActionTest extends BaseAction
 
         //null student email
         String[] invalidParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
         };
         verifyAssumptionFailure(invalidParams);
 
         //null course id
         invalidParams = new String[]{
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
         };
         verifyAssumptionFailure(invalidParams);
 
         ______TS("Typical case, edit student detail page");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
         };
 
         InstructorCourseStudentDetailsEditPageAction a = getAction(submissionParams);
@@ -94,8 +95,8 @@ public class InstructorCourseStudentDetailsEditPageActionTest extends BaseAction
         StudentAttributes student1InCourse1 = typicalBundle.students.get("student1InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

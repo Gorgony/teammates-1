@@ -9,9 +9,9 @@ import com.google.apphosting.api.ApiProxy;
 import teammates.common.datatransfer.attributes.AdminEmailAttributes;
 import teammates.common.exception.TeammatesException;
 import teammates.common.util.Assumption;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.GoogleCloudStorageHelper;
 import teammates.common.util.Logger;
+import teammates.common.util.ParamNameConst;
 
 /**
  * Task queue worker action: prepares admin email to be sent via task queue in group mode,
@@ -35,15 +35,15 @@ public class AdminPrepareEmailGroupModeWorkerAction extends AutomatedAction {
     public void execute() {
         log.info("Preparing admin email task queue in group mode...");
 
-        String emailId = getRequestParamValue(ParamsNames.ADMIN_EMAIL_ID);
-        Assumption.assertPostParamNotNull(ParamsNames.ADMIN_EMAIL_ID, emailId);
+        String emailId = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
 
-        String groupReceiverListFileKey = getRequestParamValue(ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY);
-        Assumption.assertPostParamNotNull(ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY, groupReceiverListFileKey);
+        String groupReceiverListFileKey = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY, groupReceiverListFileKey);
 
         String indexOfEmailListToResumeAsString =
-                getRequestParamValue(ParamsNames.ADMIN_GROUP_RECEIVER_EMAIL_LIST_INDEX);
-        String indexOfEmailToResumeAsString = getRequestParamValue(ParamsNames.ADMIN_GROUP_RECEIVER_EMAIL_INDEX);
+                getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_GROUP_RECEIVER_EMAIL_LIST_INDEX);
+        String indexOfEmailToResumeAsString = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_GROUP_RECEIVER_EMAIL_INDEX);
 
         int indexOfEmailListToResume = indexOfEmailListToResumeAsString == null
                                        ? 0

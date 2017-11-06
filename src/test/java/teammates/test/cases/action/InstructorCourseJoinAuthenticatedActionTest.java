@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.common.util.StringHelper;
 import teammates.logic.core.AccountsLogic;
 import teammates.logic.core.InstructorsLogic;
@@ -37,7 +39,7 @@ public class InstructorCourseJoinAuthenticatedActionTest extends BaseActionTest 
         ______TS("Failure: Invalid key");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, invalidEncryptedKey
+                ParamNameConst.ParamsNames.REGKEY, invalidEncryptedKey
         };
 
         InstructorCourseJoinAuthenticatedAction joinAction = getAction(submissionParams);
@@ -64,7 +66,7 @@ public class InstructorCourseJoinAuthenticatedActionTest extends BaseActionTest 
         ______TS("Failure: Instructor already registered");
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, StringHelper.encrypt(instructor.key)
+                ParamNameConst.ParamsNames.REGKEY, StringHelper.encrypt(instructor.key)
         };
 
         joinAction = getAction(submissionParams);
@@ -92,7 +94,7 @@ public class InstructorCourseJoinAuthenticatedActionTest extends BaseActionTest 
         instructor2 = instrDb.getInstructorForGoogleId(instructor2.courseId, instructor2.googleId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, StringHelper.encrypt(instructor2.key)
+                ParamNameConst.ParamsNames.REGKEY, StringHelper.encrypt(instructor2.key)
         };
 
         joinAction = getAction(submissionParams);
@@ -130,7 +132,7 @@ public class InstructorCourseJoinAuthenticatedActionTest extends BaseActionTest 
         gaeSimulation.loginUser(instructor.googleId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, StringHelper.encrypt(newInstructor.key)
+                ParamNameConst.ParamsNames.REGKEY, StringHelper.encrypt(newInstructor.key)
         };
 
         joinAction = getAction(submissionParams);
@@ -171,7 +173,7 @@ public class InstructorCourseJoinAuthenticatedActionTest extends BaseActionTest 
         newInstructor = instrDb.getInstructorForEmail(instructor.courseId, instructor.email);
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, StringHelper.encrypt(newInstructor.key)
+                ParamNameConst.ParamsNames.REGKEY, StringHelper.encrypt(newInstructor.key)
         };
 
         joinAction = getAction(submissionParams);
@@ -186,11 +188,11 @@ public class InstructorCourseJoinAuthenticatedActionTest extends BaseActionTest 
                         StringHelper.encrypt(newInstructor.key)),
                 redirectResult.getDestinationWithParams());
         assertTrue(redirectResult.isError);
-        assertEquals(String.format(Const.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER, currentLoginId),
+        assertEquals(String.format(StatusMessageConst.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER, currentLoginId),
                      redirectResult.getStatusMessage());
 
         expectedLogSegment = "Servlet Action Failure : "
-                             + String.format(Const.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
+                             + String.format(StatusMessageConst.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
                                              currentLoginId)
                              + "<br><br>Action Instructor Joins Course<br>Google ID: "
                              + currentLoginId + "<br>Key : " + newInstructor.key;
@@ -204,19 +206,19 @@ public class InstructorCourseJoinAuthenticatedActionTest extends BaseActionTest 
 
     protected String getPageResultDestination(String parentUri, boolean isError, String userId, String key) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.REGKEY, key);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.REGKEY, key);
         return pageDestination;
     }
 
     protected String getPageResultDestination(
             String parentUri, String persistenceCourse, boolean isError, String userId, String key) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.CHECK_PERSISTENCE_COURSE, persistenceCourse);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.REGKEY, key);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE, persistenceCourse);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.REGKEY, key);
         return pageDestination;
     }
 
@@ -225,7 +227,7 @@ public class InstructorCourseJoinAuthenticatedActionTest extends BaseActionTest 
     protected void testAccessControl() throws Exception {
         String invalidEncryptedKey = StringHelper.encrypt("invalidKey");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, invalidEncryptedKey
+                ParamNameConst.ParamsNames.REGKEY, invalidEncryptedKey
         };
 
         verifyOnlyLoggedInUsersCanAccess(submissionParams);

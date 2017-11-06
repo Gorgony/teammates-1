@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StringHelper;
 import teammates.common.util.Url;
 import teammates.logic.core.AccountsLogic;
@@ -40,7 +41,7 @@ public class InstructorCourseJoinActionTest extends BaseActionTest {
         ______TS("Invalid key, redirect for confirmation again");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, invalidEncryptedKey
+                ParamNameConst.ParamsNames.REGKEY, invalidEncryptedKey
         };
 
         InstructorCourseJoinAction confirmAction = getAction(submissionParams);
@@ -64,7 +65,7 @@ public class InstructorCourseJoinActionTest extends BaseActionTest {
         ______TS("Already registered instructor, redirect straight to authentication page");
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, StringHelper.encrypt(instructor.key)
+                ParamNameConst.ParamsNames.REGKEY, StringHelper.encrypt(instructor.key)
         };
 
         confirmAction = getAction(submissionParams);
@@ -103,7 +104,7 @@ public class InstructorCourseJoinActionTest extends BaseActionTest {
         gaeSimulation.loginUser(instructor.googleId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, StringHelper.encrypt(newInstructor.key)
+                ParamNameConst.ParamsNames.REGKEY, StringHelper.encrypt(newInstructor.key)
         };
 
         confirmAction = getAction(submissionParams);
@@ -132,17 +133,17 @@ public class InstructorCourseJoinActionTest extends BaseActionTest {
 
     protected String getPageResultDestination(String parentUri, boolean isError, String userId, String key) {
         String pageDestination = parentUri;
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.REGKEY, key);
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.REGKEY, key);
         return pageDestination;
     }
 
     protected String getPageResultDestination(String parentUri, String key, boolean isError, String userId) {
         String pageDestination = parentUri;
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.REGKEY, key);
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = Url.addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.REGKEY, key);
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = Url.addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
         return pageDestination;
     }
 
@@ -151,7 +152,7 @@ public class InstructorCourseJoinActionTest extends BaseActionTest {
     protected void testAccessControl() throws Exception {
         String invalidEncryptedKey = StringHelper.encrypt("invalidKey");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, invalidEncryptedKey
+                ParamNameConst.ParamsNames.REGKEY, invalidEncryptedKey
         };
 
         verifyOnlyLoggedInUsersCanAccess(submissionParams);

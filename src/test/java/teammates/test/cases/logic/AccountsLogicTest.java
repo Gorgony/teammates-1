@@ -11,10 +11,7 @@ import teammates.common.datatransfer.attributes.StudentProfileAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.JoinCourseException;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.logic.api.Logic;
 import teammates.logic.core.AccountsLogic;
 import teammates.logic.core.InstructorsLogic;
@@ -224,7 +221,7 @@ public class AccountsLogicTest extends BaseLogicTest {
             accountsLogic.joinCourseForStudent(StringHelper.encrypt(studentData.key), existingId);
             signalFailureToDetectException();
         } catch (JoinCourseException e) {
-            assertEquals(String.format(Const.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
+            assertEquals(String.format(StatusMessageConst.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
                     existingId), e.getMessage());
         }
 
@@ -339,7 +336,7 @@ public class AccountsLogicTest extends BaseLogicTest {
             accountsLogic.joinCourseForInstructor(encryptedKey, "idOfInstructorWithOnlyOneSampleCourse");
             signalFailureToDetectException();
         } catch (JoinCourseException e) {
-            assertEquals(String.format(Const.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
+            assertEquals(String.format(StatusMessageConst.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
                     "idOfInstructorWithOnlyOneSampleCourse"), e.getMessage());
         }
 

@@ -7,6 +7,7 @@ import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.FeedbackQuestionsLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorFeedbackQuestionCopyAction;
@@ -36,8 +37,8 @@ public class InstructorFeedbackQuestionCopyActionTest extends BaseActionTest {
     @Test
     public void testAccessControl() {
         String[] params = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(params);
@@ -70,14 +71,14 @@ public class InstructorFeedbackQuestionCopyActionTest extends BaseActionTest {
                                                                         session1.getCourseId(), 2);
 
         String[] params = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME + "-0", question1.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID + "-0", question1.getCourseId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-0", question1.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME + "-1", question2.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID + "-1", question2.getCourseId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-1", question2.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME + "-0", question1.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID + "-0", question1.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-0", question1.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME + "-1", question2.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID + "-1", question2.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-1", question2.getId()
         };
 
         InstructorFeedbackQuestionCopyAction a = getAction(params);
@@ -119,9 +120,9 @@ public class InstructorFeedbackQuestionCopyActionTest extends BaseActionTest {
                         sanitizationSession.getCourseId(), 1);
 
         params = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-0", question1.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-0", question1.getId()
         };
 
         a = getAction(params);
@@ -154,8 +155,8 @@ public class InstructorFeedbackQuestionCopyActionTest extends BaseActionTest {
         ______TS("Error: Indicate no questions to be copied");
 
         params = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1"
         };
 
         a = getAction(params);
@@ -187,11 +188,11 @@ public class InstructorFeedbackQuestionCopyActionTest extends BaseActionTest {
         gaeSimulation.loginAsAdmin(adminUserId);
 
         params = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME + "-0", question3.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID + "-0", question3.getCourseId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-0", question3.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "Second feedback session",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME + "-0", question3.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID + "-0", question3.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-0", question3.getId(),
         };
         params = addUserIdToParams(instructor1ofCourse1.googleId, params);
 
@@ -228,10 +229,10 @@ public class InstructorFeedbackQuestionCopyActionTest extends BaseActionTest {
     protected String getPageResultDestination(
             String parentUri, String courseId, String fsname, String userId, boolean isError) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
         return pageDestination;
     }
 }

@@ -1,6 +1,7 @@
 <%@ tag description="studentHome - Course table" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
 <%@ attribute name="actions" type="teammates.ui.template.StudentFeedbackSessionActions" required="true" %>
 <%@ attribute name="index" required="true" %>
 <a class="btn btn-default btn-xs btn-tm-actions"
@@ -9,7 +10,7 @@
     id="viewFeedbackResults${index}"
     data-toggle="tooltip"
     data-placement="top"
-    title="<%= Const.Tooltips.FEEDBACK_SESSION_RESULTS %>"
+    title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESULTS %>"
     role="button"
     <c:if test="${not actions.sessionPublished}">disabled</c:if>>
   View Responses

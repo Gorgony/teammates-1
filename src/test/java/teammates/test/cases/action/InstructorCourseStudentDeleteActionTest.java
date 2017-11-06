@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCourseStudentDeleteAction;
 import teammates.ui.controller.RedirectResult;
@@ -30,8 +32,8 @@ public class InstructorCourseStudentDeleteActionTest extends BaseActionTest {
         gaeSimulation.loginAsInstructor(instructor1OfCourse1.googleId);
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
         };
 
         InstructorCourseStudentDeleteAction action = getAction(submissionParams);
@@ -39,7 +41,7 @@ public class InstructorCourseStudentDeleteActionTest extends BaseActionTest {
 
         assertEquals(Const.ActionURIs.INSTRUCTOR_COURSE_DETAILS_PAGE, redirectResult.destination);
         assertFalse(redirectResult.isError);
-        assertEquals(Const.StatusMessages.STUDENT_DELETED, redirectResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.STUDENT_DELETED, redirectResult.getStatusMessage());
 
         AssertHelper.assertLogMessageEquals("TEAMMATESLOG|||instructorCourseStudentDelete|||instructorCourseStudentDelete|||"
                      + "true|||Instructor|||Instructor 1 of Course 1|||idOfInstructor1OfCourse1|||"
@@ -61,8 +63,8 @@ public class InstructorCourseStudentDeleteActionTest extends BaseActionTest {
         StudentAttributes student1InCourse1 = typicalBundle.students.get("student5InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
         };
 
         verifyUnaccessibleWithoutModifyStudentPrivilege(submissionParams);

@@ -7,6 +7,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityNotFoundException;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorFeedbackPreviewAsInstructorAction;
 import teammates.ui.controller.ShowPageResult;
@@ -40,9 +41,9 @@ public class InstructorFeedbackPreviewAsInstructorActionTest extends BaseActionT
         String previewAsEmail = instructor2.email;
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.PREVIEWAS, previewAsEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.PREVIEWAS, previewAsEmail
         };
 
         InstructorFeedbackPreviewAsInstructorAction paia = getAction(submissionParams);
@@ -72,9 +73,9 @@ public class InstructorFeedbackPreviewAsInstructorActionTest extends BaseActionT
         previewAsEmail = instructor1.email;
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.PREVIEWAS, previewAsEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.PREVIEWAS, previewAsEmail
         };
 
         paia = getAction(submissionParams);
@@ -104,9 +105,9 @@ public class InstructorFeedbackPreviewAsInstructorActionTest extends BaseActionT
         previewAsEmail = instructor2.email;
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.PREVIEWAS, previewAsEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.PREVIEWAS, previewAsEmail
         };
 
         try {
@@ -124,9 +125,9 @@ public class InstructorFeedbackPreviewAsInstructorActionTest extends BaseActionT
         previewAsEmail = "non-existentEmail@course13212.tmt";
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.PREVIEWAS, previewAsEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.PREVIEWAS, previewAsEmail
         };
 
         try {
@@ -151,9 +152,9 @@ public class InstructorFeedbackPreviewAsInstructorActionTest extends BaseActionT
         InstructorAttributes instructor = typicalBundle.instructors.get("instructor1OfCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.PREVIEWAS, instructor.email
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.PREVIEWAS, instructor.email
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

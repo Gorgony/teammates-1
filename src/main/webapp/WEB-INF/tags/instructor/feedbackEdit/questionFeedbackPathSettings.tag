@@ -1,8 +1,7 @@
 <%@ tag description="instructorFeedbackEdit - feedback question feedback path settings" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ tag import="teammates.common.util.Const" %>
-<%@ tag import="teammates.common.util.FieldValidator" %>
 <%@ tag import="teammates.common.datatransfer.FeedbackParticipantType" %>
+<%@ tag import="teammates.common.util.*" %>
 
 <%@ attribute name="fqForm" type="teammates.ui.template.FeedbackQuestionEditForm" required="true"%>
 <c:set var="isNewQuestion" value="${fqForm.questionIndex eq -1}" />
@@ -27,7 +26,7 @@
     </button>
     <ul class="dropdown-menu">
       <li class="dropdown-header">Common feedback path combinations</li>
-      <c:forEach items="<%= Const.FeedbackQuestion.COMMON_FEEDBACK_PATHS %>" var="commonPath">
+      <c:forEach items="<%= FeedbackGuestionConst.FeedbackQuestion.COMMON_FEEDBACK_PATHS %>" var="commonPath">
         <li class="dropdown-submenu">
           <c:set var="commonGiver" value="${commonPath.key}" />
           <a>${commonGiver.displayNameGiver} will give feedback on...</a>
@@ -51,14 +50,14 @@
   <div class="feedback-path-others margin-top-7px"<c:if test="${fqForm.feedbackPathSettings.commonPathSelected || isNewQuestion}"> style="display:none;"</c:if>>
     <div class="col-sm-12 col-lg-6 padding-0 margin-bottom-7px"
         data-toggle="tooltip" data-placement="top"
-        title="<%= Const.Tooltips.FEEDBACK_SESSION_GIVER %>">
+        title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_GIVER %>">
       <label class="col-sm-4 col-lg-5 control-label">
         Who will give the feedback:
       </label>
       <div class="col-sm-8 col-lg-7">
         <select class="form-control participantSelect"
-            id="<%= Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE %>-${fqForm.questionIndex}"
-            name="<%= Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE %>"
+            id="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE %>-${fqForm.questionIndex}"
+            name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE %>"
             <c:if test="${!fqForm.editable}">disabled</c:if>>
           <c:forEach items="<%= FeedbackParticipantType.GIVERS %>" var="giverType">
             <option <c:if test="${fqForm.feedbackPathSettings.selectedGiver eq giverType}">selected </c:if>value="${giverType}">
@@ -69,14 +68,14 @@
       </div>
     </div>
     <div class="col-sm-12 col-lg-6 padding-0 margin-bottom-7px" data-toggle="tooltip" data-placement="top"
-        title="<%= Const.Tooltips.FEEDBACK_SESSION_RECIPIENT %>">
+        title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RECIPIENT %>">
       <label class="col-sm-4 col-lg-5 control-label">
         Who the feedback is about:
       </label>
       <div class="col-sm-8 col-lg-7">
         <select class="form-control participantSelect"
-            id="<%= Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE %>-${fqForm.questionIndex}"
-            name="<%= Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE %>"
+            id="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE %>-${fqForm.questionIndex}"
+            name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE %>"
             <c:if test="${!fqForm.editable}">disabled</c:if>>
           <c:forEach items="<%= FeedbackParticipantType.RECIPIENTS %>" var="recipientType">
             <option <c:if test="${fqForm.feedbackPathSettings.selectedRecipient eq recipientType}">selected </c:if>value="${recipientType}">
@@ -93,17 +92,17 @@
       <div class="col-sm-8 form-control-static">
         <div class="col-sm-4 col-md-3 col-lg-2 margin-bottom-7px">
           <input class="nonDestructive" type="radio"
-              name="<%= Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE %>"
+              name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE %>"
               <c:if test="${fqForm.feedbackPathSettings.numberOfEntitiesToGiveFeedbackToChecked}">checked</c:if>
               value="custom" <c:if test="${!fqForm.editable}">disabled</c:if>>
           <input class="nonDestructive numberOfEntitiesBox width-75-pc" type="number"
-              name="<%= Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES %>"
+              name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES %>"
               value="${fqForm.feedbackPathSettings.numOfEntitiesToGiveFeedbackToValue}"
               min="1" max="250" <c:if test="${!fqForm.editable}">disabled</c:if>>
         </div>
         <div class="col-sm-4 col-md-3 col-lg-2 margin-bottom-7px">
           <input class="nonDestructive" type="radio"
-              name="<%= Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE %>"
+              name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE %>"
               <c:if test="${!fqForm.feedbackPathSettings.numberOfEntitiesToGiveFeedbackToChecked}">checked</c:if>
               value="max" <c:if test="${!fqForm.editable}">disabled</c:if>>
           <span class="">Unlimited</span>

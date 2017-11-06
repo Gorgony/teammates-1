@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import teammates.common.datatransfer.attributes.AccountAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StatusMessage;
 import teammates.ui.pagedata.PageData;
 
@@ -50,7 +50,7 @@ public class ShowPageResult extends ActionResult {
          *  section is a {@code jsp:include} and cannot see parameters encoded
          *  in the URL
          */
-        req.setAttribute(Const.ParamsNames.ERROR, Boolean.toString(isError));
+        req.setAttribute(ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
 
         req.getRequestDispatcher(getDestinationWithParams()).forward(req, resp);
     }
@@ -62,12 +62,12 @@ public class ShowPageResult extends ActionResult {
     private void addStatusMessagesToPageData(HttpServletRequest req) {
         @SuppressWarnings("unchecked")
         List<StatusMessage> statusMessagesToUser =
-                (List<StatusMessage>) req.getSession().getAttribute(Const.ParamsNames.STATUS_MESSAGES_LIST);
+                (List<StatusMessage>) req.getSession().getAttribute(ParamNameConst.ParamsNames.STATUS_MESSAGES_LIST);
 
         // If the list of status messages can be found in the session and it is not empty,
         // means there are status messages to be shown to the user, add them to the page data.
         if (statusMessagesToUser != null && !statusMessagesToUser.isEmpty()) {
-            req.getSession().removeAttribute(Const.ParamsNames.STATUS_MESSAGES_LIST);
+            req.getSession().removeAttribute(ParamNameConst.ParamsNames.STATUS_MESSAGES_LIST);
             data.setStatusMessagesToUser(statusMessagesToUser);
         }
     }

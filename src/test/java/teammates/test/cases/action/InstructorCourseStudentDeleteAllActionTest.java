@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCourseStudentDeleteAllAction;
 import teammates.ui.controller.RedirectResult;
@@ -28,7 +30,7 @@ public class InstructorCourseStudentDeleteAllActionTest extends BaseActionTest {
         gaeSimulation.loginAsInstructor(instructor1OfCourse1.googleId);
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
         };
 
         InstructorCourseStudentDeleteAllAction action = getAction(submissionParams);
@@ -36,7 +38,7 @@ public class InstructorCourseStudentDeleteAllActionTest extends BaseActionTest {
 
         assertEquals(Const.ActionURIs.INSTRUCTOR_COURSE_DETAILS_PAGE, redirectResult.destination);
         assertFalse(redirectResult.isError);
-        assertEquals(Const.StatusMessages.STUDENTS_DELETED, redirectResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.STUDENTS_DELETED, redirectResult.getStatusMessage());
 
         AssertHelper.assertLogMessageEquals("TEAMMATESLOG|||instructorCourseStudentDeleteAll|||"
                 + "instructorCourseStudentDeleteAll|||true|||Instructor|||Instructor 1 of Course 1|||"
@@ -57,7 +59,7 @@ public class InstructorCourseStudentDeleteAllActionTest extends BaseActionTest {
         InstructorAttributes instructor1OfCourse1 = typicalBundle.instructors.get("instructor1OfCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
         };
 
         verifyUnaccessibleWithoutModifyStudentPrivilege(submissionParams);

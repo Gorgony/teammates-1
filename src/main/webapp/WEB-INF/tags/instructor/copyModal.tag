@@ -1,5 +1,6 @@
 <%@ tag description="instructorHome / instructorFeedbacks / instructorFeedbackEdit - Copy modal" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="editCopyActionLink" required="true" %>
 
 <div class="modal fade" id="fsCopyModal" tabindex="-1" role="dialog"
@@ -21,7 +22,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           <input type="submit" class="btn btn-primary" id="fscopy_submit" value="Copy">
-          <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${data.account.googleId}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${data.account.googleId}">
         </div>
       </form>
     </div>

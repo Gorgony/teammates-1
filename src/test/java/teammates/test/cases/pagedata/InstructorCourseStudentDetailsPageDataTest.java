@@ -6,6 +6,7 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.cases.BaseTestCase;
 import teammates.ui.pagedata.InstructorCourseStudentDetailsPageData;
 import teammates.ui.template.StudentInfoTable;
@@ -102,11 +103,11 @@ public class InstructorCourseStudentDetailsPageDataTest extends BaseTestCase {
         String moreInfo = "Information for John Doe.";
 
         if (pictureKey == null || pictureKey.isEmpty()) {
-            this.pictureUrl = Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH;
+            this.pictureUrl = SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH;
         } else {
             this.pictureUrl = Const.ActionURIs.STUDENT_PROFILE_PICTURE + "?"
-                            + Const.ParamsNames.BLOB_KEY + "=" + pictureKey + "&"
-                            + Const.ParamsNames.USER_ID + "=null";
+                            + ParamNameConst.ParamsNames.BLOB_KEY + "=" + pictureKey + "&"
+                            + ParamNameConst.ParamsNames.USER_ID + "=null";
         }
 
         inputStudentProfile = StudentProfileAttributes.builder()

@@ -7,6 +7,7 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityNotFoundException;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorEditStudentFeedbackPageAction;
 import teammates.ui.controller.ShowPageResult;
@@ -46,9 +47,9 @@ public class InstructorEditStudentFeedbackPageActionTest extends BaseActionTest 
         String moderatedStudentEmail = student.email;
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         InstructorEditStudentFeedbackPageAction editPageAction = getAction(submissionParams);
@@ -74,9 +75,9 @@ public class InstructorEditStudentFeedbackPageActionTest extends BaseActionTest 
         moderatedStudentEmail = student.email;
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         editPageAction = getAction(submissionParams);
@@ -89,9 +90,9 @@ public class InstructorEditStudentFeedbackPageActionTest extends BaseActionTest 
         moderatedStudentEmail = student.email;
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         editPageAction = getAction(submissionParams);
@@ -113,9 +114,9 @@ public class InstructorEditStudentFeedbackPageActionTest extends BaseActionTest 
         String moderatedStudentTeam = student.team;
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentTeam
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentTeam
         };
 
         editPageAction = getAction(submissionParams);
@@ -146,9 +147,9 @@ public class InstructorEditStudentFeedbackPageActionTest extends BaseActionTest 
         moderatedStudentEmail = student.email;
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -158,7 +159,7 @@ public class InstructorEditStudentFeedbackPageActionTest extends BaseActionTest 
             assertEquals(
                     "Feedback session [First feedback session] is not accessible to instructor ["
                             + instructorHelper.email + "] for privilege ["
-                            + Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
+                            + ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
                             + "] on section [Section 1]",
                     e.getMessage());
         }
@@ -170,9 +171,9 @@ public class InstructorEditStudentFeedbackPageActionTest extends BaseActionTest 
         moderatedStudentEmail = "non-exIstentEmail@gsail.tmt";
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         try {
@@ -204,9 +205,9 @@ public class InstructorEditStudentFeedbackPageActionTest extends BaseActionTest 
         String moderatedStudentEmail = student.email;
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

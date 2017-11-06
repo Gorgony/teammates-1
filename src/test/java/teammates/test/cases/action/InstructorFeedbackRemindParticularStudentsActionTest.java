@@ -7,6 +7,8 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
 import teammates.common.util.Const.TaskQueue;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.ui.controller.InstructorFeedbackRemindParticularStudentsAction;
 import teammates.ui.controller.RedirectResult;
 
@@ -31,55 +33,55 @@ public class InstructorFeedbackRemindParticularStudentsActionTest extends BaseAc
 
         ______TS("Unsuccessful case: Not enough parameters");
         String[] paramsNoCourseId = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getSessionName(),
         };
         verifyAssumptionFailure(paramsNoCourseId);
         String[] paramsNoFeedback = new String[] {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId()
         };
         verifyAssumptionFailure(paramsNoFeedback);
 
         ______TS("Unsuccessful case: No user to remind, warning message generated");
 
         String[] paramsNoUserToRemind = new String[] {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getSessionName(),
         };
 
         InstructorFeedbackRemindParticularStudentsAction action = getAction(paramsNoUserToRemind);
 
         RedirectResult rr = getRedirectResult(action);
-        assertTrue(rr.getStatusMessage().contains(Const.StatusMessages.FEEDBACK_SESSION_REMINDERSEMPTYRECIPIENT));
+        assertTrue(rr.getStatusMessage().contains(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_REMINDERSEMPTYRECIPIENT));
         verifyNoTasksAdded(action);
 
         ______TS("Unsuccessful case: Feedback session not open, warning message generated");
 
         fs = typicalBundle.feedbackSessions.get("awaiting.session");
         String[] paramsFeedbackSessionNotOpen = new String[] {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getSessionName(),
-                Const.ParamsNames.SUBMISSION_REMIND_USERLIST, studentNotSubmitFeedback.getEmail()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getSessionName(),
+                ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST, studentNotSubmitFeedback.getEmail()
         };
 
         action = getAction(paramsFeedbackSessionNotOpen);
 
         rr = getRedirectResult(action);
-        assertTrue(rr.getStatusMessage().contains(Const.StatusMessages.FEEDBACK_SESSION_REMINDERSSESSIONNOTOPEN));
+        assertTrue(rr.getStatusMessage().contains(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_REMINDERSSESSIONNOTOPEN));
         verifyNoTasksAdded(action);
 
         ______TS("Successful case: Typical case");
 
         fs = typicalBundle.feedbackSessions.get("session1InCourse1");
         String[] paramsTypical = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getSessionName(),
-                Const.ParamsNames.SUBMISSION_REMIND_USERLIST, studentNotSubmitFeedback.getEmail()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getSessionName(),
+                ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST, studentNotSubmitFeedback.getEmail()
         };
 
         action = getAction(paramsTypical);
 
         rr = getRedirectResult(action);
-        assertTrue(rr.getStatusMessage().contains(Const.StatusMessages.FEEDBACK_SESSION_REMINDERSSENT));
+        assertTrue(rr.getStatusMessage().contains(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_REMINDERSSENT));
 
         verifySpecifiedTasksAdded(action,
                 TaskQueue.FEEDBACK_SESSION_REMIND_PARTICULAR_USERS_EMAIL_QUEUE_NAME, 1);
@@ -97,9 +99,9 @@ public class InstructorFeedbackRemindParticularStudentsActionTest extends BaseAc
         FeedbackSessionAttributes fs = typicalBundle.feedbackSessions.get("session1InCourse1");
         StudentAttributes studentNotSubmitFeedback = typicalBundle.students.get("student5InCourse1");
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.SUBMISSION_REMIND_USERLIST, studentNotSubmitFeedback.getEmail()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST, studentNotSubmitFeedback.getEmail()
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import teammates.common.datatransfer.UserType;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.api.GateKeeper;
 
 @SuppressWarnings("serial")
@@ -25,9 +26,9 @@ public class LoginServlet extends HttpServlet {
     public final void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         GateKeeper gateKeeper = new GateKeeper();
         UserType user = gateKeeper.getCurrentUser();
-        boolean isInstructor = req.getParameter(Const.ParamsNames.LOGIN_INSTRUCTOR) != null;
-        boolean isStudent = req.getParameter(Const.ParamsNames.LOGIN_STUDENT) != null;
-        boolean isAdmin = req.getParameter(Const.ParamsNames.LOGIN_ADMIN) != null;
+        boolean isInstructor = req.getParameter(ParamNameConst.ParamsNames.LOGIN_INSTRUCTOR) != null;
+        boolean isStudent = req.getParameter(ParamNameConst.ParamsNames.LOGIN_STUDENT) != null;
+        boolean isAdmin = req.getParameter(ParamNameConst.ParamsNames.LOGIN_ADMIN) != null;
 
         if (isInstructor) {
             if (isMasqueradeMode(user)) {

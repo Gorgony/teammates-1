@@ -13,11 +13,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 import teammates.common.datatransfer.UserType;
 import teammates.common.exception.TeammatesException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.LogMessageGenerator;
-import teammates.common.util.Logger;
+import teammates.common.util.*;
 import teammates.logic.api.GateKeeper;
 
 /**
@@ -41,8 +37,8 @@ public class PublicImageServlet extends HttpServlet {
 
         UserType userType = new GateKeeper().getCurrentUser();
         Map<String, String[]> requestParameters = req.getParameterMap();
-        String blobKey = HttpRequestHelper.getValueFromParamMap(requestParameters, Const.ParamsNames.BLOB_KEY);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.BLOB_KEY, blobKey);
+        String blobKey = HttpRequestHelper.getValueFromParamMap(requestParameters, ParamNameConst.ParamsNames.BLOB_KEY);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.BLOB_KEY, blobKey);
 
         try {
             if (blobKey.isEmpty()) {

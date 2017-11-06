@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.CoursesLogic;
 import teammates.ui.controller.InstructorCourseEditSaveAction;
 import teammates.ui.controller.RedirectResult;
@@ -39,9 +41,9 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
 
         ______TS("Typical case: edit course name with same name");
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.COURSE_NAME, courseName,
-                Const.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.COURSE_NAME, courseName,
+                ParamNameConst.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
         };
 
         // execute the action
@@ -49,7 +51,7 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
         redirectResult = getRedirectResult(courseEditSaveAction);
 
         // get updated results and compare
-        statusMessage = Const.StatusMessages.COURSE_EDITED;
+        statusMessage = StatusMessageConst.StatusMessages.COURSE_EDITED;
         assertEquals(statusMessage, redirectResult.getStatusMessage());
         assertEquals(
                 getPageResultDestination(Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_PAGE, false, instructorId, courseId),
@@ -58,9 +60,9 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
         ______TS("Typical case: edit course name with valid characters");
         String courseNameWithValidCharacters = courseName + " valid";
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.COURSE_NAME, courseNameWithValidCharacters,
-                Const.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.COURSE_NAME, courseNameWithValidCharacters,
+                ParamNameConst.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
         };
 
         // execute the action
@@ -68,7 +70,7 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
         redirectResult = getRedirectResult(courseEditSaveAction);
 
         // get updated results and compare
-        statusMessage = Const.StatusMessages.COURSE_EDITED;
+        statusMessage = StatusMessageConst.StatusMessages.COURSE_EDITED;
         assertEquals(statusMessage, redirectResult.getStatusMessage());
         assertEquals(
                 getPageResultDestination(Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_PAGE, false, instructorId, courseId),
@@ -77,9 +79,9 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
         ______TS("Failure case: edit course name with empty string");
         courseName = "";
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.COURSE_NAME, courseName,
-                Const.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.COURSE_NAME, courseName,
+                ParamNameConst.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
         };
 
         // execute the action
@@ -99,9 +101,9 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
         ______TS("Failure case: edit course name with non-alphanumeric start character");
         courseName = "@#$@#$";
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.COURSE_NAME, courseName,
-                Const.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.COURSE_NAME, courseName,
+                ParamNameConst.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
         };
 
         // execute the action
@@ -120,9 +122,9 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
         ______TS("Failure case: edit course name with name containing | and %");
         courseName = "normal|name%";
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.COURSE_NAME, courseName,
-                Const.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.COURSE_NAME, courseName,
+                ParamNameConst.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
         };
 
         // execute the action
@@ -142,9 +144,9 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
         courseName = CoursesLogic.inst().getCourse(courseId).getName();
         courseTimeZone = "InvalidTimeZone";
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.COURSE_NAME, courseName,
-                Const.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.COURSE_NAME, courseName,
+                ParamNameConst.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
         };
 
         courseEditSaveAction = getAction(submissionParams);
@@ -166,9 +168,9 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
 
     protected String getPageResultDestination(String parentUri, boolean isError, String userId, String courseId) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
         return pageDestination;
     }
 
@@ -180,9 +182,9 @@ public class InstructorCourseEditSaveActionTest extends BaseActionTest {
         String courseName = "Typical Course 1 with 2 Evals";
         String courseTimeZone = "UTC";
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.COURSE_NAME, courseName,
-                Const.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.COURSE_NAME, courseName,
+                ParamNameConst.ParamsNames.COURSE_TIME_ZONE, courseTimeZone
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

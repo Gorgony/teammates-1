@@ -14,6 +14,7 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.util.Assumption;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.pagedata.InstructorFeedbackEditPageData;
 
 public class InstructorFeedbackEditPageAction extends Action {
@@ -21,11 +22,11 @@ public class InstructorFeedbackEditPageAction extends Action {
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        String feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
-        String shouldLoadInEditModeParam = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        String feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        String shouldLoadInEditModeParam = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT);
         boolean shouldLoadInEditMode = "true".equals(shouldLoadInEditModeParam);
 
         FeedbackSessionAttributes feedbackSession = logic.getFeedbackSession(feedbackSessionName, courseId);
@@ -33,7 +34,7 @@ public class InstructorFeedbackEditPageAction extends Action {
                 logic.getInstructorForGoogleId(courseId, account.googleId),
                 feedbackSession,
                 false,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
 
         List<FeedbackQuestionAttributes> questions = logic.getFeedbackQuestionsForSession(feedbackSessionName, courseId);
 
@@ -58,7 +59,7 @@ public class InstructorFeedbackEditPageAction extends Action {
         List<InstructorAttributes> instructorList = logic.getInstructorsForCourse(courseId);
         List<InstructorAttributes> instructorsWhoCanSubmit = new ArrayList<>();
         for (InstructorAttributes instructor : instructorList) {
-            if (instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS)) {
+            if (instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS)) {
                 instructorsWhoCanSubmit.add(instructor);
             }
         }

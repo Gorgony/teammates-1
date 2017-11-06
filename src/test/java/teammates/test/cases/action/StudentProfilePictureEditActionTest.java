@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.RedirectResult;
 import teammates.ui.controller.StudentProfilePictureEditAction;
@@ -205,14 +206,14 @@ public class StudentProfilePictureEditActionTest extends BaseActionTest {
 
     private String[] createValidParamsForProfilePictureEdit() {
         return new String[] {
-                Const.ParamsNames.PROFILE_PICTURE_LEFTX, "0",
-                Const.ParamsNames.PROFILE_PICTURE_RIGHTX, "100",
-                Const.ParamsNames.PROFILE_PICTURE_TOPY, "0",
-                Const.ParamsNames.PROFILE_PICTURE_BOTTOMY, "100",
-                Const.ParamsNames.PROFILE_PICTURE_HEIGHT, "500",
-                Const.ParamsNames.PROFILE_PICTURE_WIDTH, "300",
-                Const.ParamsNames.PROFILE_PICTURE_ROTATE, "90",
-                Const.ParamsNames.BLOB_KEY, "random-blobKey"
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_LEFTX, "0",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_RIGHTX, "100",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_TOPY, "0",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_BOTTOMY, "100",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_HEIGHT, "500",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_WIDTH, "300",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_ROTATE, "90",
+                ParamNameConst.ParamsNames.BLOB_KEY, "random-blobKey"
         };
     }
 
@@ -225,14 +226,14 @@ public class StudentProfilePictureEditActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[] {
-                Const.ParamsNames.PROFILE_PICTURE_LEFTX, "0",
-                Const.ParamsNames.PROFILE_PICTURE_RIGHTX, "100",
-                Const.ParamsNames.PROFILE_PICTURE_TOPY, "0",
-                Const.ParamsNames.PROFILE_PICTURE_BOTTOMY, "100",
-                Const.ParamsNames.PROFILE_PICTURE_HEIGHT, "500",
-                Const.ParamsNames.PROFILE_PICTURE_WIDTH, "300",
-                Const.ParamsNames.PROFILE_PICTURE_ROTATE, "180",
-                Const.ParamsNames.BLOB_KEY, "random-blobKey"
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_LEFTX, "0",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_RIGHTX, "100",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_TOPY, "0",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_BOTTOMY, "100",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_HEIGHT, "500",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_WIDTH, "300",
+                ParamNameConst.ParamsNames.PROFILE_PICTURE_ROTATE, "180",
+                ParamNameConst.ParamsNames.BLOB_KEY, "random-blobKey"
         };
         verifyAnyRegisteredUserCanAccess(submissionParams);
     }

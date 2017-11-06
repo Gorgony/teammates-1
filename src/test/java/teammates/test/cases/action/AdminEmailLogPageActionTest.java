@@ -82,7 +82,7 @@ public class AdminEmailLogPageActionTest extends BaseActionTest {
 
     private void initVariable() {
         formatterAdminTime = new SimpleDateFormat("dd/MM/yy");
-        formatterAdminTime.setTimeZone(TimeZone.getTimeZone(Const.SystemParams.ADMIN_TIME_ZONE));
+        formatterAdminTime.setTimeZone(TimeZone.getTimeZone(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE));
     }
 
     @Override
@@ -411,7 +411,7 @@ public class AdminEmailLogPageActionTest extends BaseActionTest {
     }
 
     private Calendar getEndOfTheDayOffsetNowInAdminTimeZone(int dayOffset) {
-        Calendar calendar = TimeHelper.now(Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        Calendar calendar = TimeHelper.now(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
@@ -420,7 +420,7 @@ public class AdminEmailLogPageActionTest extends BaseActionTest {
     }
 
     private Calendar adminTimeZoneToUtc(Calendar calendar) {
-        return TimeHelper.convertToUserTimeZone(calendar, -Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        return TimeHelper.convertToUserTimeZone(calendar, -SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
     }
 
     @Override

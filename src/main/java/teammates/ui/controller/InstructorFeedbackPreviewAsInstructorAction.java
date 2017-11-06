@@ -4,24 +4,25 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.util.Assumption;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.pagedata.FeedbackSubmissionEditPageData;
 
 public class InstructorFeedbackPreviewAsInstructorAction extends Action {
 
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        String feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        String previewInstructorEmail = getRequestParamValue(Const.ParamsNames.PREVIEWAS);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        String feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        String previewInstructorEmail = getRequestParamValue(ParamNameConst.ParamsNames.PREVIEWAS);
 
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.PREVIEWAS, previewInstructorEmail);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.PREVIEWAS, previewInstructorEmail);
 
         gateKeeper.verifyAccessible(
                 logic.getInstructorForGoogleId(courseId, account.googleId),
                 logic.getFeedbackSession(feedbackSessionName, courseId),
-                false, Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
+                false, ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
 
         InstructorAttributes previewInstructor = logic.getInstructorForEmail(courseId, previewInstructorEmail);
 

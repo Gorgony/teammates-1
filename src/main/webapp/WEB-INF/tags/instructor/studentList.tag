@@ -1,6 +1,7 @@
 <%@ tag description="instructorSearch / instructorStudentList - Student List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
 <%@ attribute name="courseId" required="true" %>
 <%@ attribute name="courseIndex" required="true" %>
 <%@ attribute name="hasSection" required="true" %>
@@ -104,11 +105,11 @@
                   <a class="btn btn-default btn-xs margin-bottom-7px<c:if test="${not viewButtonEnabled}"> disabled mouse-hover-only</c:if>"
                       <c:choose>
                         <c:when test="${not viewButtonEnabled}">
-                          title="<%= Const.Tooltips.ACTION_NOT_ALLOWED %>"
+                          title="<%= ToolTipConst.Tooltips.ACTION_NOT_ALLOWED %>"
                           disabled
                         </c:when>
                         <c:otherwise>
-                          title="<%= Const.Tooltips.COURSE_STUDENT_DETAILS %>"
+                          title="<%= ToolTipConst.Tooltips.COURSE_STUDENT_DETAILS %>"
                           href="${student.courseStudentDetailsLink}"
                           target="_blank" rel="noopener noreferrer"
                         </c:otherwise>
@@ -121,11 +122,11 @@
                   <a class="btn btn-default btn-xs margin-bottom-7px<c:if test="${not editButtonEnabled}"> disabled mouse-hover-only</c:if>"
                       <c:choose>
                         <c:when test="${not editButtonEnabled}">
-                          title="<%= Const.Tooltips.ACTION_NOT_ALLOWED %>"
+                          title="<%= ToolTipConst.Tooltips.ACTION_NOT_ALLOWED %>"
                           disabled
                         </c:when>
                         <c:otherwise>
-                          title="<%= Const.Tooltips.COURSE_STUDENT_EDIT %>"
+                          title="<%= ToolTipConst.Tooltips.COURSE_STUDENT_EDIT %>"
                           href="${student.courseStudentEditLink}"
                           target="_blank" rel="noopener noreferrer"
                         </c:otherwise>
@@ -139,11 +140,11 @@
                     <a class="course-student-remind-link btn btn-default btn-xs margin-bottom-7px<c:if test="${not remindButtonEnabled}"> disabled mouse-hover-only</c:if>"
                         <c:choose>
                           <c:when test="${not remindButtonEnabled}">
-                            title="<%= Const.Tooltips.ACTION_NOT_ALLOWED %>"
+                            title="<%= ToolTipConst.Tooltips.ACTION_NOT_ALLOWED %>"
                             disabled
                           </c:when>
                           <c:otherwise>
-                            title="<%= Const.Tooltips.COURSE_STUDENT_REMIND %>"
+                            title="<%= ToolTipConst.Tooltips.COURSE_STUDENT_REMIND %>"
                             href="${student.courseStudentRemindLink}"
                           </c:otherwise>
                         </c:choose>
@@ -157,11 +158,11 @@
                       data-student-name="${student.studentNameForJs}" data-course-id="${student.courseIdForJs}"
                       <c:choose>
                         <c:when test="${not deleteButtonEnabled}">
-                          title="<%= Const.Tooltips.ACTION_NOT_ALLOWED %>"
+                          title="<%= ToolTipConst.Tooltips.ACTION_NOT_ALLOWED %>"
                           disabled
                         </c:when>
                         <c:otherwise>
-                          title="<%= Const.Tooltips.COURSE_STUDENT_DELETE %>"
+                          title="<%= ToolTipConst.Tooltips.COURSE_STUDENT_DELETE %>"
                           href="${student.courseStudentDeleteLink}"
                         </c:otherwise>
                       </c:choose>
@@ -171,7 +172,7 @@
                   </a>
                   <a class="btn btn-default btn-xs margin-bottom-7px"
                       href="${student.courseStudentRecordsLink}"
-                      title="<%= Const.Tooltips.COURSE_STUDENT_RECORDS %>"
+                      title="<%= ToolTipConst.Tooltips.COURSE_STUDENT_RECORDS %>"
                       target="_blank" rel="noopener noreferrer"
                       data-toggle="tooltip"
                       data-placement="top">

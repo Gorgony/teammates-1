@@ -4,10 +4,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorCourseStudentDetailsPageData;
 
 public class InstructorCourseStudentDetailsPageAction extends Action {
@@ -15,22 +12,22 @@ public class InstructorCourseStudentDetailsPageAction extends Action {
     @Override
     public ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
 
-        String studentEmail = getRequestParamValue(Const.ParamsNames.STUDENT_EMAIL);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.STUDENT_EMAIL, studentEmail);
+        String studentEmail = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_EMAIL);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.STUDENT_EMAIL, studentEmail);
 
         StudentAttributes student = logic.getStudentForEmail(courseId, studentEmail);
         if (student == null) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_NOT_FOUND_FOR_COURSE_DETAILS,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_NOT_FOUND_FOR_COURSE_DETAILS,
                                                StatusMessageColor.DANGER));
             isError = true;
             return createRedirectResult(Const.ActionURIs.INSTRUCTOR_HOME_PAGE);
         }
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
         gateKeeper.verifyAccessible(instructor, logic.getCourse(courseId), student.section,
-                                    Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
+                                    ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
 
         boolean hasSection = logic.hasIndicatedSections(courseId);
 
@@ -51,7 +48,7 @@ public class InstructorCourseStudentDetailsPageAction extends Action {
     private StudentProfileAttributes loadStudentProfile(StudentAttributes student, InstructorAttributes currentInstructor) {
         StudentProfileAttributes studentProfile = null;
         boolean isInstructorAllowedToViewStudent = currentInstructor.isAllowedForPrivilege(student.section,
-                                                        Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
+                                                        ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
         boolean isStudentWithProfile = !student.googleId.isEmpty();
         if (isInstructorAllowedToViewStudent && isStudentWithProfile) {
             studentProfile = logic.getStudentProfile(student.googleId);
@@ -62,13 +59,13 @@ public class InstructorCourseStudentDetailsPageAction extends Action {
 
         // this means that the user is returning to the page and is not the first time
         boolean hasExistingStatus = !statusToUser.isEmpty()
-                                        || session.getAttribute(Const.ParamsNames.STATUS_MESSAGES_LIST) != null;
+                                        || session.getAttribute(ParamNameConst.ParamsNames.STATUS_MESSAGES_LIST) != null;
         if (!isStudentWithProfile && !hasExistingStatus) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_NOT_JOINED_YET_FOR_RECORDS,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_NOT_JOINED_YET_FOR_RECORDS,
                                                StatusMessageColor.WARNING));
         }
         if (!isInstructorAllowedToViewStudent && !hasExistingStatus) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_UNACCESSIBLE_TO_INSTRUCTOR,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_UNACCESSIBLE_TO_INSTRUCTOR,
                                                StatusMessageColor.WARNING));
         }
         return null;

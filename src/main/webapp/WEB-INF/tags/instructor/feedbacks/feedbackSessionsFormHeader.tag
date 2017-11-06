@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 
 <%@ attribute name="fsForm" type="teammates.ui.template.FeedbackSessionsForm" required="true"%>
 
@@ -12,8 +14,8 @@
       <div class="col-xs-10 tablet-no-padding" title="Select a session type here."
           data-toggle="tooltip" data-placement="top">
         <select class="form-control"
-            name="<%= Const.ParamsNames.FEEDBACK_SESSION_TYPE %>"
-            id="<%= Const.ParamsNames.FEEDBACK_SESSION_TYPE %>">
+            name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_TYPE %>"
+            id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_TYPE %>">
           <c:forEach items="${fsForm.feedbackSessionTypeOptions}" var="option">
             <option ${option.attributesToString}>
               ${option.content}
@@ -41,7 +43,7 @@
     <div class="col-sm-12">
       <span class="pull-right">
         <a class="btn btn-primary btn-sm enable-edit-fs" id="fsEditLink"
-            title="<%= Const.Tooltips.FEEDBACK_SESSION_EDIT %>"
+            title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_EDIT %>"
             data-toggle="tooltip" data-placement="top">
           <span class="glyphicon glyphicon-pencil"></span> Edit
         </a>
@@ -51,7 +53,7 @@
         <a href="${fsForm.fsDeleteLink}"
             data-course-id="${fsForm.courseId}"
             data-feedback-session-name="${fsForm.fsName}"
-            title="<%= Const.Tooltips.FEEDBACK_SESSION_DELETE %>"
+            title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_DELETE %>"
             data-toggle="tooltip" data-placement="top"
             class="btn btn-primary btn-sm" id="fsDeleteLink">
           <span class="glyphicon glyphicon-trash"></span> Delete

@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 public class InstructorCourseDetailsPage extends AppPage {
 
@@ -182,7 +182,7 @@ public class InstructorCourseDetailsPage extends AppPage {
     }
 
     private String getStudentNameInRow(int studentNum) {
-        return browser.driver.findElement(By.id(Const.ParamsNames.STUDENT_NAME + "-c0." + studentNum)).getText();
+        return browser.driver.findElement(By.id(ParamNameConst.ParamsNames.STUDENT_NAME + "-c0." + studentNum)).getText();
     }
 
 }

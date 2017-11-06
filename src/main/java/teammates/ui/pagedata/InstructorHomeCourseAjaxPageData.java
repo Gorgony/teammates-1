@@ -10,7 +10,9 @@ import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.TimeHelper;
+import teammates.common.util.ToolTipConst;
 import teammates.ui.template.CourseTable;
 import teammates.ui.template.ElementTag;
 import teammates.ui.template.HomeFeedbackSessionRow;
@@ -68,38 +70,38 @@ public class InstructorHomeCourseAjaxPageData extends PageData {
         ElementTag enroll = createButton("Enroll",
                                          className + "enroll-for-test",
                                          getInstructorCourseEnrollLink(courseId),
-                                         Const.Tooltips.COURSE_ENROLL);
-        addAttributeIf(!instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT),
+                                         ToolTipConst.Tooltips.COURSE_ENROLL);
+        addAttributeIf(!instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT),
                        enroll, disabled, null);
 
         ElementTag view = createButton("View / Edit",
                                        className + "view-for-test",
                                        getInstructorCourseDetailsLink(courseId),
-                                       Const.Tooltips.COURSE_DETAILS);
+                                       ToolTipConst.Tooltips.COURSE_DETAILS);
 
         ElementTag edit = createButton("View / Edit",
                                        className + "edit-for-test",
                                        getInstructorCourseEditLink(courseId),
-                                       Const.Tooltips.COURSE_EDIT);
+                                       ToolTipConst.Tooltips.COURSE_EDIT);
 
         ElementTag add = createButton("Add",
                                       className + "add-eval-for-test",
                                       getInstructorFeedbackSessionsLink(courseId),
-                                      Const.Tooltips.COURSE_ADD_FEEDBACKSESSION);
-        addAttributeIf(!instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION),
+                                      ToolTipConst.Tooltips.COURSE_ADD_FEEDBACKSESSION);
+        addAttributeIf(!instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION),
                        add, disabled, null);
 
         ElementTag archive = createButton("Archive",
                                           className + "archive-for-test",
                                           getInstructorCourseArchiveLink(courseId, true, true),
-                                          Const.Tooltips.COURSE_ARCHIVE);
+                                          ToolTipConst.Tooltips.COURSE_ARCHIVE);
         addAttributeIf(true, archive, "data-course-id", courseId);
 
         ElementTag delete = createButton("Delete",
                                          className + "delete-for-test course-delete-link",
                                          getInstructorCourseDeleteLink(courseId, true),
-                                         Const.Tooltips.COURSE_DELETE);
-        addAttributeIf(!instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE),
+                                         ToolTipConst.Tooltips.COURSE_DELETE);
+        addAttributeIf(!instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE),
                        delete, disabled, null);
         addAttributeIf(true, delete, "data-course-id", courseId);
 

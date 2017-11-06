@@ -7,7 +7,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 /**
  * Page Object class for handling the modal for copying a feedback session to multiple courses.
@@ -35,7 +35,7 @@ public class InstructorCopyFsToModal extends AppPage {
     }
 
     public void waitForModalToLoad() {
-        By byCopiedFsNameField = By.id(Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME);
+        By byCopiedFsNameField = By.id(ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME);
         waitForElementPresence(byCopiedFsNameField);
         waitForElementVisibility(browser.driver.findElement(byCopiedFsNameField));
 
@@ -48,12 +48,12 @@ public class InstructorCopyFsToModal extends AppPage {
      */
     public void fillFormWithAllCoursesSelected(String newFsName) {
         WebElement fsCopyModal = browser.driver.findElement(By.id("fsCopyModal"));
-        List<WebElement> coursesCheckBoxes = fsCopyModal.findElements(By.name(Const.ParamsNames.COPIED_COURSES_ID));
+        List<WebElement> coursesCheckBoxes = fsCopyModal.findElements(By.name(ParamNameConst.ParamsNames.COPIED_COURSES_ID));
         for (WebElement e : coursesCheckBoxes) {
             markCheckBoxAsChecked(e);
         }
 
-        WebElement fsNameInput = fsCopyModal.findElement(By.id(Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME));
+        WebElement fsNameInput = fsCopyModal.findElement(By.id(ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME));
         fillTextBox(fsNameInput, newFsName);
     }
 
@@ -62,7 +62,7 @@ public class InstructorCopyFsToModal extends AppPage {
      */
     public void resetCoursesCheckboxes() {
         WebElement fsCopyModal = browser.driver.findElement(By.id("fsCopyModal"));
-        List<WebElement> coursesCheckBoxes = fsCopyModal.findElements(By.name(Const.ParamsNames.COPIED_COURSES_ID));
+        List<WebElement> coursesCheckBoxes = fsCopyModal.findElements(By.name(ParamNameConst.ParamsNames.COPIED_COURSES_ID));
         for (WebElement e : coursesCheckBoxes) {
             markCheckBoxAsUnchecked(e);
         }

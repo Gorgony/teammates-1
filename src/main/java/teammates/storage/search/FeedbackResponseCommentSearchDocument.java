@@ -26,6 +26,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
 import teammates.common.util.JsonUtils;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StringHelper;
 
 /**
@@ -479,10 +480,10 @@ public class FeedbackResponseCommentSearchDocument extends SearchDocument {
                         instructor == null
                         || !instructor.isAllowedForPrivilege(
                                 response.giverSection, response.feedbackSessionName,
-                                Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS)
+                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS)
                         || !instructor.isAllowedForPrivilege(
                                 response.recipientSection, response.feedbackSessionName,
-                                Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS);
+                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS);
 
                 if (isNotAllowedForInstructor) {
                     isVisibleResponse = false;

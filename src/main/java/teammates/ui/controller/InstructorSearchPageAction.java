@@ -7,9 +7,7 @@ import java.util.Set;
 import teammates.common.datatransfer.FeedbackResponseCommentSearchResultBundle;
 import teammates.common.datatransfer.StudentSearchResultBundle;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorSearchPageData;
 
 /**
@@ -20,19 +18,19 @@ public class InstructorSearchPageAction extends Action {
     @Override
     protected ActionResult execute() {
         gateKeeper.verifyInstructorPrivileges(account);
-        String searchKey = getRequestParamValue(Const.ParamsNames.SEARCH_KEY);
+        String searchKey = getRequestParamValue(ParamNameConst.ParamsNames.SEARCH_KEY);
         if (searchKey == null) {
             searchKey = "";
         }
 
         int numberOfSearchOptions = 0;
 
-        boolean isSearchForStudents = getRequestParamAsBoolean(Const.ParamsNames.SEARCH_STUDENTS);
+        boolean isSearchForStudents = getRequestParamAsBoolean(ParamNameConst.ParamsNames.SEARCH_STUDENTS);
         if (isSearchForStudents) {
             numberOfSearchOptions++;
         }
 
-        boolean isSearchCommentForResponses = getRequestParamAsBoolean(Const.ParamsNames.SEARCH_COMMENTS_FOR_RESPONSES);
+        boolean isSearchCommentForResponses = getRequestParamAsBoolean(ParamNameConst.ParamsNames.SEARCH_COMMENTS_FOR_RESPONSES);
         if (isSearchCommentForResponses) {
             numberOfSearchOptions++;
         }
@@ -43,7 +41,7 @@ public class InstructorSearchPageAction extends Action {
 
         if (searchKey.isEmpty() || numberOfSearchOptions == 0) {
             //display search tips and tutorials
-            statusToUser.add(new StatusMessage(Const.StatusMessages.INSTRUCTOR_SEARCH_TIPS, StatusMessageColor.INFO));
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.INSTRUCTOR_SEARCH_TIPS, StatusMessageColor.INFO));
         } else {
             //Start searching
             List<InstructorAttributes> instructors = logic.getInstructorsForGoogleId(account.googleId);
@@ -63,7 +61,7 @@ public class InstructorSearchPageAction extends Action {
             }
 
             if (totalResultsSize == 0) {
-                statusToUser.add(new StatusMessage(Const.StatusMessages.INSTRUCTOR_SEARCH_NO_RESULTS,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.INSTRUCTOR_SEARCH_NO_RESULTS,
                                                    StatusMessageColor.WARNING));
             }
         }

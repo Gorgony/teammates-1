@@ -5,6 +5,7 @@
 
 <%@ page import="teammates.common.util.Const" %>
 <%@ page import="teammates.common.util.FrontEndLibrary" %>
+<%@ page import="teammates.common.util.StatusMessageConst" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor" prefix="ti" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor/feedbackEdit" prefix="feedbackEdit" %>
@@ -16,7 +17,7 @@
 </c:set>
 
 <c:set var="EMPTY_FEEDBACK_SESSION_MESSAGE">
-  <%= Const.StatusMessages.FEEDBACK_QUESTION_EMPTY %>
+  <%= StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EMPTY %>
 </c:set>
 <ti:instructorPage title="Edit Feedback Session" jsIncludes="${jsIncludes}">
 

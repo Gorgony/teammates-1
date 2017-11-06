@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import teammates.common.util.Const;
 import teammates.common.util.HttpRequestHelper;
+import teammates.common.util.ParamNameConst;
 
 public abstract class FeedbackRankQuestionDetails extends FeedbackQuestionDetails {
 
@@ -34,7 +35,7 @@ public abstract class FeedbackRankQuestionDetails extends FeedbackQuestionDetail
 
         String areDuplicatesAllowedString =
                 HttpRequestHelper.getValueFromParamMap(
-                        requestParameters, Const.ParamsNames.FEEDBACK_QUESTION_RANKISDUPLICATESALLOWED);
+                        requestParameters, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RANKISDUPLICATESALLOWED);
         boolean areDuplicatesAllowed = "on".equals(areDuplicatesAllowedString);
 
         this.areDuplicatesAllowed = areDuplicatesAllowed;

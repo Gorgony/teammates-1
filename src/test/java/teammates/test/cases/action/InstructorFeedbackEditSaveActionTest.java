@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.AjaxResult;
 import teammates.ui.controller.InstructorFeedbackEditSaveAction;
@@ -46,7 +47,7 @@ public class InstructorFeedbackEditSaveActionTest extends BaseActionTest {
         AjaxResult ar = getAjaxResult(a);
         InstructorFeedbackEditPageData pageData = (InstructorFeedbackEditPageData) ar.data;
 
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_EDITED, pageData.getStatusForAjax());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EDITED, pageData.getStatusForAjax());
         assertFalse(pageData.getHasError());
 
         expectedString =
@@ -90,7 +91,7 @@ public class InstructorFeedbackEditSaveActionTest extends BaseActionTest {
         ar = getAjaxResult(a);
         pageData = (InstructorFeedbackEditPageData) ar.data;
 
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_EDITED, pageData.getStatusForAjax());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EDITED, pageData.getStatusForAjax());
         assertFalse(pageData.getHasError());
 
         expectedString =
@@ -122,7 +123,7 @@ public class InstructorFeedbackEditSaveActionTest extends BaseActionTest {
         ar = getAjaxResult(a);
         pageData = (InstructorFeedbackEditPageData) ar.data;
 
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_EDITED, pageData.getStatusForAjax());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EDITED, pageData.getStatusForAjax());
         assertFalse(pageData.getHasError());
 
         expectedString =
@@ -156,7 +157,7 @@ public class InstructorFeedbackEditSaveActionTest extends BaseActionTest {
         ar = getAjaxResult(a);
         pageData = (InstructorFeedbackEditPageData) ar.data;
 
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_EDITED, pageData.getStatusForAjax());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EDITED, pageData.getStatusForAjax());
         assertFalse(pageData.getHasError());
 
         expectedString =

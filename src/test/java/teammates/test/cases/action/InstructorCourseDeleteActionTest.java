@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.CoursesLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCourseDeleteAction;
@@ -36,8 +37,8 @@ public class InstructorCourseDeleteActionTest extends BaseActionTest {
         ______TS("Typical case, 2 courses, redirect to homepage");
         CoursesLogic.inst().createCourseAndInstructor(instructorId, "icdct.tpa.id1", "New course", "UTC");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.INSTRUCTOR_HOME_PAGE
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.INSTRUCTOR_HOME_PAGE
         };
 
         assertTrue(CoursesLogic.inst().isCoursePresent("icdct.tpa.id1"));
@@ -66,8 +67,8 @@ public class InstructorCourseDeleteActionTest extends BaseActionTest {
         gaeSimulation.loginAsAdmin(adminUserId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, "icdct.tpa.id1",
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.INSTRUCTOR_COURSES_PAGE
+                ParamNameConst.ParamsNames.COURSE_ID, "icdct.tpa.id1",
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.INSTRUCTOR_COURSES_PAGE
         };
         deleteAction = getAction(addUserIdToParams(instructorId, submissionParams));
         redirectResult = getRedirectResult(deleteAction);
@@ -89,7 +90,7 @@ public class InstructorCourseDeleteActionTest extends BaseActionTest {
 
         CoursesLogic.inst().createCourseAndInstructor(instructorId, "icdct.tpa.id2", "New course", "UTC");
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, "icdct.tpa.id2",
+                ParamNameConst.ParamsNames.COURSE_ID, "icdct.tpa.id2",
         };
         deleteAction = getAction(addUserIdToParams(instructorId, submissionParams));
         redirectResult = getRedirectResult(deleteAction);
@@ -122,7 +123,7 @@ public class InstructorCourseDeleteActionTest extends BaseActionTest {
                 "icdat.owncourse", "New course", "UTC");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, "icdat.owncourse"
+                ParamNameConst.ParamsNames.COURSE_ID, "icdat.owncourse"
         };
 
         /*  Test access for users

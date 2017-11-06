@@ -3,7 +3,6 @@ package teammates.ui.template;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import teammates.common.util.Const;
 import teammates.common.util.EmailLogEntry;
 import teammates.common.util.SanitizationHelper;
 import teammates.common.util.TimeHelper;
@@ -25,7 +24,7 @@ public class AdminEmailTableRow {
     public String getTimeForDisplay() {
         Calendar appCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         appCal.setTimeInMillis(emailEntry.getTime());
-        appCal = TimeHelper.convertToUserTimeZone(appCal, Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        appCal = TimeHelper.convertToUserTimeZone(appCal, SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
         return TimeHelper.formatTime12H(appCal.getTime());
     }
 

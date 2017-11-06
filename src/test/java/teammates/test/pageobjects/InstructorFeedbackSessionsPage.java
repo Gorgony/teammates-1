@@ -13,7 +13,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.google.appengine.api.datastore.Text;
 
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.TimeHelper;
 
 public class InstructorFeedbackSessionsPage extends AppPage {
@@ -51,34 +51,34 @@ public class InstructorFeedbackSessionsPage extends AppPage {
     @FindBy(id = "editUncommonSettingsSendEmailsButton")
     private WebElement uncommonSettingsSendEmailsButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_custom")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_custom")
     private WebElement customSessionVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_custom")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_custom")
     private WebElement customResultsVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_never")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_never")
     private WebElement neverSessionVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_never")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_never")
     private WebElement neverResultsVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_atopen")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON + "_atopen")
     private WebElement defaultSessionVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_atvisible")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_atvisible")
     private WebElement defaultResultsVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_later")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON + "_later")
     private WebElement manualResultsVisibleTimeButton;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_open")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_open")
     private WebElement sendOpenEmailCheckbox;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_closing")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_closing")
     private WebElement sendClosingEmailCheckbox;
 
-    @FindBy(id = Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_published")
+    @FindBy(id = ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL + "_published")
     private WebElement sendPublishedEmailCheckbox;
 
     @FindBy(id = "button_submit")
@@ -303,19 +303,19 @@ public class InstructorFeedbackSessionsPage extends AppPage {
     }
 
     public void fillStartTime(Date startTime) {
-        fillTimeValueIfNotNull(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE, startTime, startTimeDropdown);
+        fillTimeValueIfNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE, startTime, startTimeDropdown);
     }
 
     public void fillEndTime(Date endTime) {
-        fillTimeValueIfNotNull(Const.ParamsNames.FEEDBACK_SESSION_ENDDATE, endTime, endTimeDropdown);
+        fillTimeValueIfNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE, endTime, endTimeDropdown);
     }
 
     public void fillVisibleTime(Date visibleTime) {
-        fillTimeValueIfNotNull(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE, visibleTime, visibleTimeDropdown);
+        fillTimeValueIfNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE, visibleTime, visibleTimeDropdown);
     }
 
     public void fillPublishTime(Date publishTime) {
-        fillTimeValueIfNotNull(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, publishTime, publishTimeDropdown);
+        fillTimeValueIfNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE, publishTime, publishTimeDropdown);
     }
 
     public void fillTimeValueIfNotNull(String dateId, Date datetimeValue, WebElement timeDropdown) {

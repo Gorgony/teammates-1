@@ -3,9 +3,9 @@ package teammates.ui.automated;
 import teammates.common.datatransfer.attributes.AdminEmailAttributes;
 import teammates.common.exception.TeammatesException;
 import teammates.common.util.Assumption;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailWrapper;
 import teammates.common.util.Logger;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.api.EmailGenerator;
 
 /**
@@ -27,15 +27,15 @@ public class AdminSendEmailWorkerAction extends AutomatedAction {
 
     @Override
     public void execute() {
-        String receiverEmail = getRequestParamValue(ParamsNames.ADMIN_EMAIL_RECEIVER);
-        Assumption.assertPostParamNotNull(ParamsNames.ADMIN_EMAIL_RECEIVER, receiverEmail);
+        String receiverEmail = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_RECEIVER);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.ADMIN_EMAIL_RECEIVER, receiverEmail);
 
-        String emailContent = getRequestParamValue(ParamsNames.ADMIN_EMAIL_CONTENT);
-        String emailSubject = getRequestParamValue(ParamsNames.ADMIN_EMAIL_SUBJECT);
+        String emailContent = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT);
+        String emailSubject = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT);
 
         if (emailContent == null || emailSubject == null) {
-            String emailId = getRequestParamValue(ParamsNames.ADMIN_EMAIL_ID);
-            Assumption.assertPostParamNotNull(ParamsNames.ADMIN_EMAIL_ID, emailId);
+            String emailId = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID);
+            Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
 
             log.info("Sending large email. Going to retrieve email content and subject from datastore.");
             AdminEmailAttributes adminEmail = logic.getAdminEmailById(emailId);

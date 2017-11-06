@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 public class InstructorCourseEditPage extends AppPage {
 
@@ -435,7 +435,7 @@ public class InstructorCourseEditPage extends AppPage {
     }
 
     public void changeCourseIdInForm(int instrNum, String newCourseId) {
-        String selector = "$('#edit-" + instrNum + " input[name=\"" + Const.ParamsNames.COURSE_ID + "\"]')";
+        String selector = "$('#edit-" + instrNum + " input[name=\"" + ParamNameConst.ParamsNames.COURSE_ID + "\"]')";
         String action = ".val('" + newCourseId + "')";
         executeScript(selector + action);
     }
@@ -472,13 +472,13 @@ public class InstructorCourseEditPage extends AppPage {
 
     public WebElement getDisplayedToStudentCheckBox(int instrNum) {
         return browser.driver.findElement(By.cssSelector("#instructorTable" + instrNum + " input[name='"
-                                                         + Const.ParamsNames.INSTRUCTOR_IS_DISPLAYED_TO_STUDENT
+                                                         + ParamNameConst.ParamsNames.INSTRUCTOR_IS_DISPLAYED_TO_STUDENT
                                                          + "']"));
     }
 
     public WebElement getDisplayNameField(int instrNum) {
         String displayNameFieldSelector = "#instructorTable" + instrNum + " input[name='"
-                + Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME
+                + ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME
                 + "']";
         return browser.driver.findElement(By.cssSelector(displayNameFieldSelector));
     }
@@ -493,14 +493,14 @@ public class InstructorCourseEditPage extends AppPage {
 
     public boolean getInstructorDisplayedToStudents(int instrNum) {
         String isDisplayedToStudentsCheckboxSelector = "#instructorTable" + instrNum + " input[name='"
-                + Const.ParamsNames.INSTRUCTOR_IS_DISPLAYED_TO_STUDENT
+                + ParamNameConst.ParamsNames.INSTRUCTOR_IS_DISPLAYED_TO_STUDENT
                 + "']";
         return browser.driver.findElement(By.cssSelector(isDisplayedToStudentsCheckboxSelector)).isSelected();
     }
 
     public String getInstructorDisplayName(int instrNum) {
         String displayNameFieldSelector = "#instructorTable" + instrNum + " input[name='"
-                + Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME
+                + ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME
                 + "']";
         return browser.driver.findElement(By.cssSelector(displayNameFieldSelector)).getAttribute("value");
     }
@@ -531,8 +531,8 @@ public class InstructorCourseEditPage extends AppPage {
 
     private WebElement getSectionSelectionCheckBox(int instrNum, int sectionLevelIndex, int sectionNum) {
         WebElement sectionPanel = getSectionLevelPanel(instrNum, sectionLevelIndex);
-        String cssSelector = "input[name='" + Const.ParamsNames.INSTRUCTOR_SECTION_GROUP
-                             + sectionLevelIndex + Const.ParamsNames.INSTRUCTOR_SECTION + sectionNum + "']";
+        String cssSelector = "input[name='" + ParamNameConst.ParamsNames.INSTRUCTOR_SECTION_GROUP
+                             + sectionLevelIndex + ParamNameConst.ParamsNames.INSTRUCTOR_SECTION + sectionNum + "']";
         return sectionPanel.findElement(By.cssSelector(cssSelector));
     }
 

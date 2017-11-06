@@ -4,6 +4,7 @@
 
 <%@ tag import="teammates.common.util.Config" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 
 <%@ taglib tagdir="/WEB-INF/tags/instructor/results" prefix="results" %>
 
@@ -58,15 +59,15 @@
         </div>
 
         <form style="display:none;" id="seeMore-${sectionIndex}" class="seeMoreForm-${sectionIndex}" action="<%=Const.ActionURIs.INSTRUCTOR_FEEDBACK_RESULTS_PAGE%>">
-          <input type="hidden" name="<%=Const.ParamsNames.COURSE_ID%>" value="${courseId}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${feedbackSessionName}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION%>" value="${fn:escapeXml(sectionPanel.sectionName)}">
-          <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>" value="${data.account.googleId}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM%>" value="${data.groupByTeam}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE%>" value="${data.sortType}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS%>" value="on" id="showStats-${sectionIndex}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES%>" value="${data.missingResponsesShown}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_MAIN_INDEX%>" value="-1" id="mainIndex-${sectionIndex}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_ID%>" value="${courseId}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${feedbackSessionName}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION%>" value="${fn:escapeXml(sectionPanel.sectionName)}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>" value="${data.account.googleId}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM%>" value="${data.groupByTeam}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE%>" value="${data.sortType}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS%>" value="on" id="showStats-${sectionIndex}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES%>" value="${data.missingResponsesShown}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_MAIN_INDEX%>" value="-1" id="mainIndex-${sectionIndex}">
         </form>
       </div>
     </c:otherwise>

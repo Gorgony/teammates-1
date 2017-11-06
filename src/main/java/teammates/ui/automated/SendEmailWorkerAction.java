@@ -2,9 +2,9 @@ package teammates.ui.automated;
 
 import teammates.common.exception.TeammatesException;
 import teammates.common.util.Assumption;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailWrapper;
 import teammates.common.util.Logger;
+import teammates.common.util.ParamNameConst;
 
 /**
  * Task queue worker action: sends queued email.
@@ -25,22 +25,22 @@ public class SendEmailWorkerAction extends AutomatedAction {
 
     @Override
     public void execute() {
-        String emailSubject = getRequestParamValue(ParamsNames.EMAIL_SUBJECT);
-        Assumption.assertPostParamNotNull(ParamsNames.EMAIL_SUBJECT, emailSubject);
+        String emailSubject = getRequestParamValue(ParamNameConst.ParamsNames.EMAIL_SUBJECT);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.EMAIL_SUBJECT, emailSubject);
 
-        String emailContent = getRequestParamValue(ParamsNames.EMAIL_CONTENT);
-        Assumption.assertPostParamNotNull(ParamsNames.EMAIL_CONTENT, emailContent);
+        String emailContent = getRequestParamValue(ParamNameConst.ParamsNames.EMAIL_CONTENT);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.EMAIL_CONTENT, emailContent);
 
-        String emailSenderEmail = getRequestParamValue(ParamsNames.EMAIL_SENDER);
-        Assumption.assertPostParamNotNull(ParamsNames.EMAIL_SENDER, emailSenderEmail);
+        String emailSenderEmail = getRequestParamValue(ParamNameConst.ParamsNames.EMAIL_SENDER);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.EMAIL_SENDER, emailSenderEmail);
 
-        String emailSenderName = getRequestParamValue(ParamsNames.EMAIL_SENDERNAME);
+        String emailSenderName = getRequestParamValue(ParamNameConst.ParamsNames.EMAIL_SENDERNAME);
 
-        String emailReceiver = getRequestParamValue(ParamsNames.EMAIL_RECEIVER);
-        Assumption.assertPostParamNotNull(ParamsNames.EMAIL_RECEIVER, emailReceiver);
+        String emailReceiver = getRequestParamValue(ParamNameConst.ParamsNames.EMAIL_RECEIVER);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.EMAIL_RECEIVER, emailReceiver);
 
-        String emailReply = getRequestParamValue(ParamsNames.EMAIL_REPLY_TO_ADDRESS);
-        Assumption.assertPostParamNotNull(ParamsNames.EMAIL_REPLY_TO_ADDRESS, emailReply);
+        String emailReply = getRequestParamValue(ParamNameConst.ParamsNames.EMAIL_REPLY_TO_ADDRESS);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.EMAIL_REPLY_TO_ADDRESS, emailReply);
 
         EmailWrapper message = new EmailWrapper();
         message.setRecipient(emailReceiver);

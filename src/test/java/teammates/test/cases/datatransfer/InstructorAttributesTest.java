@@ -8,6 +8,7 @@ import teammates.common.datatransfer.InstructorPrivileges;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StringHelper;
 import teammates.storage.entity.Instructor;
 
@@ -247,17 +248,17 @@ public class InstructorAttributesTest extends BaseAttributesTest {
                 .withDisplayedName(displayedName).withPrivileges(privileges)
                 .build();
 
-        assertFalse(instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE));
+        assertFalse(instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE));
         instructor.privileges = null;
-        assertTrue(instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE));
+        assertTrue(instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE));
 
         String sectionId = "sectionId";
         String sessionId = "sessionId";
         assertTrue(instructor.isAllowedForPrivilege(sectionId, sessionId,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS));
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS));
         instructor.privileges = null;
         assertTrue(instructor.isAllowedForPrivilege(sectionId, sessionId,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS));
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS));
     }
 
     @Test
@@ -283,9 +284,9 @@ public class InstructorAttributesTest extends BaseAttributesTest {
                 .build();
 
         assertTrue(instructor.isEqualToAnotherInstructor(instructor2));
-        instructor2.privileges.updatePrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, true);
+        instructor2.privileges.updatePrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, true);
         assertFalse(instructor.isEqualToAnotherInstructor(instructor2));
-        instructor2.privileges.updatePrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, false);
+        instructor2.privileges.updatePrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, false);
         assertTrue(instructor.isEqualToAnotherInstructor(instructor2));
         // TODO: find ways to test this method more thoroughly
     }

@@ -6,6 +6,7 @@ import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.NullPostParameterException;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 public class AdminExceptionTestAction extends Action {
 
@@ -15,7 +16,7 @@ public class AdminExceptionTestAction extends Action {
 
         gateKeeper.verifyAdminPrivileges(account);
 
-        String error = getRequestParamValue(Const.ParamsNames.ERROR);
+        String error = getRequestParamValue(ParamNameConst.ParamsNames.ERROR);
 
         if (error.equals(AssertionError.class.getSimpleName())) {
             throw new AssertionError("AssertionError Testing");

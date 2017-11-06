@@ -4,6 +4,8 @@
 <%@ taglib tagdir="/WEB-INF/tags/shared" prefix="shared" %>
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.datatransfer.FeedbackParticipantType" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="frc" type="teammates.ui.template.FeedbackResponseCommentRow" required="true" %>
 <%@ attribute name="firstIndex" %>
 <%@ attribute name="secondIndex" %>
@@ -49,19 +51,19 @@
               class="btn btn-default btn-xs icon-button"
               data-toggle="tooltip"
               data-placement="top"
-              title="<%= Const.Tooltips.COMMENT_DELETE %>"
+              title="<%= ToolTipConst.Tooltips.COMMENT_DELETE %>"
               <c:if test="${not frc.editDeleteEnabled}">
                 disabled
               </c:if>>
             <span class="glyphicon glyphicon-trash glyphicon-primary"></span>
           </a>
-          <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_SESSION_INDEX %>" value="${firstIndex}">
-          <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_RESPONSE_ID %>" value="${frc.feedbackResponseId}">
-          <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID %>" value="${frc.commentId}">
-          <input type="hidden" name="<%= Const.ParamsNames.COURSE_ID %>" value="${frc.courseId}">
-          <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${frc.feedbackSessionName}">
-          <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${data.account.googleId}">
-          <input type="hidden" name="<%= Const.ParamsNames.SESSION_TOKEN %>" value="${data.sessionToken}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_INDEX %>" value="${firstIndex}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID %>" value="${frc.feedbackResponseId}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID %>" value="${frc.commentId}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.COURSE_ID %>" value="${frc.courseId}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${frc.feedbackSessionName}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${data.account.googleId}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.SESSION_TOKEN %>" value="${data.sessionToken}">
         </form>
         <a type="button" id="commentedit-${divId}"
             <c:choose>
@@ -78,7 +80,7 @@
             </c:choose>
             data-toggle="tooltip"
             data-placement="top"
-            title="<%= Const.Tooltips.COMMENT_EDIT %>"
+            title="<%= ToolTipConst.Tooltips.COMMENT_EDIT %>"
             <c:if test="${not frc.editDeleteEnabled}">disabled</c:if>>
           <span class="glyphicon glyphicon-pencil glyphicon-primary"></span>
         </a>
@@ -88,7 +90,7 @@
   <%-- Do not add whitespace between the opening and closing tags --%>
   <div id="plainCommentText-${divId}" style="margin-left: 15px;">${frc.commentText}</div>
   <c:if test="${frc.editDeleteEnabled}">
-    <c:set var="textAreaId"><%= Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT %></c:set>
+    <c:set var="textAreaId"><%= ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT %></c:set>
     <c:set var="submitLink"><%= Const.ActionURIs.INSTRUCTOR_FEEDBACK_RESPONSE_COMMENT_EDIT %></c:set>
     <shared:feedbackResponseCommentForm fsIndex="${firstIndex}"
         secondIndex="${secondIndex}"

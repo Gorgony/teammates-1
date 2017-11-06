@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="editCourseButton" type="teammates.ui.template.ElementTag" required="true" %>
 <%@ attribute name="deleteCourseButton" type="teammates.ui.template.ElementTag" required="true" %>
 <%@ attribute name="course" type="teammates.common.datatransfer.attributes.CourseAttributes" required="true" %>
@@ -24,18 +25,18 @@
 
   <div class="panel-body fill-plain">
     <form action="<%=Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_SAVE%>" method="post" id="formEditcourse" class="form form-horizontal">
-      <input type="hidden" name="<%=Const.ParamsNames.COURSE_ID%>" value="${course.id}">
-      <input type="hidden" name="<%=Const.ParamsNames.SESSION_TOKEN%>" value="${data.sessionToken}">
-      <input type="hidden" name="<%=Const.ParamsNames.INSTRUCTOR_ID%>" value="${data.account.googleId}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_ID%>" value="${course.id}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.SESSION_TOKEN%>" value="${data.sessionToken}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ID%>" value="${data.account.googleId}">
 
       <div class="form-group">
         <label class="col-sm-3 control-label">Course ID:</label>
         <div class="col-sm-3">
           <input type="text" class="form-control"
-              name="<%=Const.ParamsNames.COURSE_ID%>" id="<%=Const.ParamsNames.COURSE_ID%>"
-              value="${course.id}"
-              data-toggle="tooltip" data-placement="top" title="Identifier of the course, e.g.CS3215-Sem1."
-              maxlength="<%=FieldValidator.COURSE_ID_MAX_LENGTH%>" tabindex="1" disabled>
+                 name="<%=ParamNameConst.ParamsNames.COURSE_ID%>" id="<%=ParamNameConst.ParamsNames.COURSE_ID%>"
+                 value="${course.id}"
+                 data-toggle="tooltip" data-placement="top" title="Identifier of the course, e.g.CS3215-Sem1."
+                 maxlength="<%=FieldValidator.COURSE_ID_MAX_LENGTH%>" tabindex="1" disabled>
         </div>
       </div>
 
@@ -43,10 +44,10 @@
         <label class="col-sm-3 control-label">Course Name:</label>
         <div class="col-sm-9">
           <input type="text" class="form-control"
-              name="<%=Const.ParamsNames.COURSE_NAME%>" id="<%=Const.ParamsNames.COURSE_NAME%>"
-              value="${fn:escapeXml(course.name)}"
-              data-toggle="tooltip" data-placement="top" title="The name of the course, e.g. Software Engineering."
-              maxlength="<%=FieldValidator.COURSE_NAME_MAX_LENGTH%>" tabindex="2" disabled>
+                 name="<%=ParamNameConst.ParamsNames.COURSE_NAME%>" id="<%=ParamNameConst.ParamsNames.COURSE_NAME%>"
+                 value="${fn:escapeXml(course.name)}"
+                 data-toggle="tooltip" data-placement="top" title="The name of the course, e.g. Software Engineering."
+                 maxlength="<%=FieldValidator.COURSE_NAME_MAX_LENGTH%>" tabindex="2" disabled>
         </div>
       </div>
 
@@ -54,9 +55,9 @@
         <label class="col-xs-12 col-sm-3 control-label">Time Zone:</label>
         <div class="col-xs-12 col-sm-5">
           <select class="form-control"
-              name="<%=Const.ParamsNames.COURSE_TIME_ZONE%>" id="<%=Const.ParamsNames.COURSE_TIME_ZONE%>"
-              data-toggle="tooltip" data-placement="top" title="The time zone for the course, e.g. Asia/Singapore."
-              tabindex="3" disabled>
+                  name="<%=ParamNameConst.ParamsNames.COURSE_TIME_ZONE%>" id="<%=ParamNameConst.ParamsNames.COURSE_TIME_ZONE%>"
+                  data-toggle="tooltip" data-placement="top" title="The time zone for the course, e.g. Asia/Singapore."
+                  tabindex="3" disabled>
             <option value="">Select a time zone...</option>
           </select>
         </div>
@@ -73,7 +74,7 @@
         </div>
       </div>
 
-      <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>" value="${data.account.googleId}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>" value="${data.account.googleId}">
     </form>
   </div>
 </div>

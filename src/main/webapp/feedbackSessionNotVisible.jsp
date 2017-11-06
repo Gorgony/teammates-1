@@ -1,10 +1,11 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="teammates.common.util.Const"%>
+<%@ page import="teammates.common.util.ParamNameConst" %>
 <% response.setStatus(403);%>
 <%
-  String startTimeString = (String)session.getAttribute(Const.ParamsNames.FEEDBACK_SESSION_NOT_VISIBLE);
-  session.removeAttribute(Const.ParamsNames.FEEDBACK_SESSION_NOT_VISIBLE);
+  String startTimeString = (String)session.getAttribute(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NOT_VISIBLE);
+  session.removeAttribute(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NOT_VISIBLE);
   pageContext.setAttribute("startTimeString", startTimeString);
 %>
 <t:errorPage>

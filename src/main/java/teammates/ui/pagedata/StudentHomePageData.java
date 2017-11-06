@@ -10,6 +10,7 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.util.Const;
 import teammates.common.util.TimeHelper;
+import teammates.common.util.ToolTipConst;
 import teammates.ui.template.CourseTable;
 import teammates.ui.template.ElementTag;
 import teammates.ui.template.HomeFeedbackSessionRow;
@@ -50,7 +51,7 @@ public class StudentHomePageData extends PageData {
         List<ElementTag> links = new ArrayList<>();
         links.add(new ElementTag("View Team",
                                  "href", getStudentCourseDetailsLink(courseId),
-                                 "title", Const.Tooltips.STUDENT_COURSE_DETAILS));
+                                 "title", ToolTipConst.Tooltips.STUDENT_COURSE_DETAILS));
         return links;
     }
 
@@ -122,25 +123,25 @@ public class StudentHomePageData extends PageData {
         Boolean isAwaiting = session.isWaitingToOpen();
 
         if (isAwaiting) {
-            msg.append(Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_AWAITING);
+            msg.append(ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_AWAITING);
         } else if (hasSubmitted) {
-            msg.append(Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_SUBMITTED);
+            msg.append(ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_SUBMITTED);
         } else {
-            msg.append(Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PENDING);
+            msg.append(ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PENDING);
         }
         if (session.isClosed()) {
-            msg.append(Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_CLOSED);
+            msg.append(ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_CLOSED);
         }
         return msg.toString();
     }
 
     private String getStudentPublishedTooltipForSession(FeedbackSessionAttributes session) {
         if (session.getResultsVisibleFromTime().equals(Const.TIME_REPRESENTS_NEVER)) {
-            return Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NEVER_PUBLISHED;
+            return ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NEVER_PUBLISHED;
         } else if (session.isPublished()) {
-            return Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PUBLISHED;
+            return ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PUBLISHED;
         } else {
-            return Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED;
+            return ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED;
         }
     }
 

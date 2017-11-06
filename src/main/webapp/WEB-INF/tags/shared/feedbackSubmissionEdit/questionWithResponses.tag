@@ -1,5 +1,6 @@
 <%@ tag description="feedbackSubmissionEdit.jsp - Display question with responses" %>
 <%@ tag import="teammates.common.util.Const"%>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags/shared/feedbackSubmissionEdit" prefix="feedbackSubmissionEdit" %>
 
@@ -7,13 +8,13 @@
 <%@ attribute name="isShowRealQuestionNumber" type="java.lang.Boolean" required="true" %>
 <%@ attribute name="isSessionOpenForSubmission" type="java.lang.Boolean" required="true" %>
 
-<input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_TYPE %>-${questionWithResponses.question.qnIndx}"
+<input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE %>-${questionWithResponses.question.qnIndx}"
     value="${questionWithResponses.question.questionType}">
 
-<input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_ID %>-${questionWithResponses.question.qnIndx}"
+<input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID %>-${questionWithResponses.question.qnIndx}"
     value="${questionWithResponses.question.questionId}">
 
-<input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL %>-${questionWithResponses.question.qnIndx}"
+<input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL %>-${questionWithResponses.question.qnIndx}"
     value="${questionWithResponses.numOfResponseBoxes}">
 
 <div class="form-horizontal">

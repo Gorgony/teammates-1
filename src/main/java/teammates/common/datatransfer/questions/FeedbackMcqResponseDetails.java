@@ -2,8 +2,8 @@ package teammates.common.datatransfer.questions;
 
 import java.util.Map;
 
-import teammates.common.util.Const;
 import teammates.common.util.HttpRequestHelper;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 
 public class FeedbackMcqResponseDetails extends FeedbackResponseDetails {
@@ -88,7 +88,7 @@ public class FeedbackMcqResponseDetails extends FeedbackResponseDetails {
     private String[] appendOtherOptionFlagToAnswer(String[] answer, Map<String, String[]> requestParameters,
                                     int questionIndx, int responseIndx) {
         String isOtherOptionAnswer = HttpRequestHelper.getValueFromParamMap(
-                                        requestParameters, Const.ParamsNames.FEEDBACK_QUESTION_MCQ_ISOTHEROPTIONANSWER
+                                        requestParameters, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQ_ISOTHEROPTIONANSWER
                                                            + "-" + questionIndx + "-" + responseIndx);
         if (answer != null) {
             String[] answerWithOtherOptionFlag = new String[answer.length + 1];

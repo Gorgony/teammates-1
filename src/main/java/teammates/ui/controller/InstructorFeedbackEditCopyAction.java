@@ -9,41 +9,36 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityAlreadyExistsException;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorFeedbackEditCopyData;
 
 public class InstructorFeedbackEditCopyAction extends Action {
 
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        String newFeedbackSessionName = getRequestParamValue(Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME);
-        String[] coursesIdToCopyTo = getRequestParamValues(Const.ParamsNames.COPIED_COURSES_ID);
-        String originalFeedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        String originalCourseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        String nextUrl = getRequestParamValue(Const.ParamsNames.NEXT_URL);
+        String newFeedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME);
+        String[] coursesIdToCopyTo = getRequestParamValues(ParamNameConst.ParamsNames.COPIED_COURSES_ID);
+        String originalFeedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        String originalCourseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        String nextUrl = getRequestParamValue(ParamNameConst.ParamsNames.NEXT_URL);
 
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, originalCourseId);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, originalFeedbackSessionName);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, newFeedbackSessionName);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, originalCourseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, originalFeedbackSessionName);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME, newFeedbackSessionName);
 
         if (nextUrl == null) {
             nextUrl = Const.ActionURIs.INSTRUCTOR_FEEDBACK_SESSIONS_PAGE;
         }
 
         if (coursesIdToCopyTo == null || coursesIdToCopyTo.length == 0) {
-            return createAjaxResultWithErrorMessage(Const.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED);
+            return createAjaxResultWithErrorMessage(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED);
         }
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(originalCourseId, account.googleId);
         FeedbackSessionAttributes fsa = logic.getFeedbackSession(originalFeedbackSessionName, originalCourseId);
 
         gateKeeper.verifyAccessible(instructor, logic.getCourse(originalCourseId),
-                                    Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
+                                    ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
         gateKeeper.verifyAccessible(instructor, fsa, false);
 
         try {
@@ -53,7 +48,7 @@ public class InstructorFeedbackEditCopyAction extends Action {
 
             if (!conflictCourses.isEmpty()) {
                 String commaSeparatedListOfCourses = StringHelper.toString(conflictCourses, ",");
-                String errorToUser = String.format(Const.StatusMessages.FEEDBACK_SESSION_COPY_ALREADYEXISTS,
+                String errorToUser = String.format(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_ALREADYEXISTS,
                                                    newFeedbackSessionName,
                                                    commaSeparatedListOfCourses);
 
@@ -67,7 +62,7 @@ public class InstructorFeedbackEditCopyAction extends Action {
                 InstructorAttributes instructorForCourse =
                         logic.getInstructorForGoogleId(courseIdToCopyTo, account.googleId);
                 gateKeeper.verifyAccessible(instructorForCourse, logic.getCourse(courseIdToCopyTo),
-                                            Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
+                                            ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
 
                 fs = logic.copyFeedbackSession(newFeedbackSessionName, courseIdToCopyTo,
                         originalFeedbackSessionName, originalCourseId, instructor.email);
@@ -76,7 +71,7 @@ public class InstructorFeedbackEditCopyAction extends Action {
             List<String> courses = Arrays.asList(coursesIdToCopyTo);
             String commaSeparatedListOfCourses = StringHelper.toString(courses, ",");
 
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_SESSION_COPIED, StatusMessageColor.SUCCESS));
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPIED, StatusMessageColor.SUCCESS));
             statusToAdmin =
                     "Copying to multiple feedback sessions.<br>"
                     + "New Feedback Session <span class=\"bold\">(" + fs.getFeedbackSessionName() + ")</span> "
@@ -94,16 +89,16 @@ public class InstructorFeedbackEditCopyAction extends Action {
             return createAjaxResultWithoutClearingStatusMessage(
                        new InstructorFeedbackEditCopyData(account, sessionToken,
                                                           Config.getAppUrl(nextUrl)
-                                                                .withParam(Const.ParamsNames.ERROR,
+                                                                .withParam(ParamNameConst.ParamsNames.ERROR,
                                                                            Boolean.FALSE.toString())
-                                                                .withParam(Const.ParamsNames.USER_ID,
+                                                                .withParam(ParamNameConst.ParamsNames.USER_ID,
                                                                            account.googleId)
                                                           ));
 
         } catch (EntityAlreadyExistsException e) {
             // If conflicts are checked above, this will only occur via race condition
-            setStatusForException(e, Const.StatusMessages.FEEDBACK_SESSION_EXISTS);
-            return createAjaxResultWithErrorMessage(Const.StatusMessages.FEEDBACK_SESSION_EXISTS);
+            setStatusForException(e, StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EXISTS);
+            return createAjaxResultWithErrorMessage(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EXISTS);
         } catch (InvalidParametersException e) {
             setStatusForException(e);
             return createAjaxResultWithErrorMessage(e.getMessage());

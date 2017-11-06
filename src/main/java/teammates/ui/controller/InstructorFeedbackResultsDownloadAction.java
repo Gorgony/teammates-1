@@ -4,26 +4,23 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.ExceedingRangeException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 
 public class InstructorFeedbackResultsDownloadAction extends Action {
 
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        String feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        String section = getRequestParamValue(Const.ParamsNames.SECTION_NAME);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        String feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        String section = getRequestParamValue(ParamNameConst.ParamsNames.SECTION_NAME);
         boolean isMissingResponsesShown = getRequestParamAsBoolean(
-                Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES);
-        boolean isStatsShown = getRequestParamAsBoolean(Const.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS);
-        String questionId = getRequestParamValue(Const.ParamsNames.FEEDBACK_QUESTION_ID);
-        String questionNumber = getRequestParamValue(Const.ParamsNames.FEEDBACK_QUESTION_NUMBER);
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES);
+        boolean isStatsShown = getRequestParamAsBoolean(ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS);
+        String questionId = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID);
+        String questionNumber = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER);
 
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
         FeedbackSessionAttributes session = logic.getFeedbackSession(feedbackSessionName, courseId);
@@ -66,8 +63,8 @@ public class InstructorFeedbackResultsDownloadAction extends Action {
                                                  StatusMessageColor.DANGER));
             isError = true;
             RedirectResult result = createRedirectResult(Const.ActionURIs.INSTRUCTOR_FEEDBACK_RESULTS_PAGE);
-            result.addResponseParam(Const.ParamsNames.COURSE_ID, courseId);
-            result.addResponseParam(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+            result.addResponseParam(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+            result.addResponseParam(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
             return result;
         }
 

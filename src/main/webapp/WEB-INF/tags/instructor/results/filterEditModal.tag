@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="filterPanel" type="teammates.ui.template.InstructorFeedbackResultsFilterPanel" required="true" %>
 
 <div id="editModal" class="modal fade" role="dialog">
@@ -20,7 +21,7 @@
                   View:
                 </label>
                 <div data-toggle="tooltip" title="View results in different formats">
-                  <select id="viewSelect" class="form-control" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE%>">
+                  <select id="viewSelect" class="form-control" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE%>">
                     <option value="<%=Const.FeedbackSessionResults.QUESTION_SORT_TYPE%>"<c:if test="${filterPanel.sortType == 'question'}"> selected</c:if>>
                       Group by - Question
                     </option>
@@ -45,7 +46,7 @@
                     <label for="sectionSelect" class="control-label">
                       Section:
                     </label>
-                    <select id="sectionSelect" class="form-control" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION%>">
+                    <select id="sectionSelect" class="form-control" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION%>">
                       <option value="All"<c:if test="${filterPanel.allSectionsSelected}"> selected</c:if>>
                         All
                       </option>
@@ -69,8 +70,8 @@
               <div data-toggle="tooltip" title="Group results in the current view by team">
                 <div class="checkbox">
                   <label<c:if test="${filterPanel.sortType == 'question'}"> class="text-strike"</c:if>>
-                    <input type="checkbox" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM%>"
-                        id="<%=Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM%>"
+                    <input type="checkbox" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM%>"
+                        id="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM%>"
                         <c:if test="${filterPanel.groupedByTeam}">checked</c:if>
                         <c:if test="${filterPanel.sortType != 'question'}">class="checkbox-group-by-team"</c:if>> Group by Teams
                   </label>
@@ -80,7 +81,7 @@
                 <div class="checkbox">
                   <label<c:if test="${filterPanel.sortType == 'recipient-giver-question' or filterPanel.sortType == 'giver-recipient-question'}"> class="text-strike"</c:if>>
                     <input type="checkbox" id="show-stats-checkbox"
-                        name="<%=Const.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS%>"
+                        name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS%>"
                     <c:if test="${filterPanel.statsShown}"> checked</c:if>> Show Statistics
                   </label>
                 </div>
@@ -90,7 +91,7 @@
                   <input type="checkbox"
                       id="indicate-missing-responses-checkbox"
                       value="true"
-                      name="<%=Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES%>"
+                      name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES%>"
                       <c:if test="${filterPanel.missingResponsesShown}"> checked</c:if>>
                   Indicate Missing Responses
                 </div>
@@ -98,11 +99,11 @@
             </div>
           </div>
 
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_SESSION_NAME%>"
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME%>"
               value="${filterPanel.feedbackSessionName}">
-          <input type="hidden" name="<%=Const.ParamsNames.COURSE_ID%>"
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_ID%>"
               value="${filterPanel.courseId}">
-          <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>"
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>"
               value="${data.account.googleId}">
         </div>
 

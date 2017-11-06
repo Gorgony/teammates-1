@@ -6,7 +6,7 @@ import java.util.Map;
 
 import teammates.common.datatransfer.SectionDetailsBundle;
 import teammates.common.datatransfer.attributes.AccountAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.template.StudentListSectionData;
 
 public class InstructorStudentListAjaxPageData extends PageData {
@@ -28,9 +28,9 @@ public class InstructorStudentListAjaxPageData extends PageData {
         List<StudentListSectionData> sectionsDetails = new ArrayList<>();
         for (SectionDetailsBundle section : sections) {
             boolean isAllowedToViewStudentInSection = sectionPrivileges.get(section.name)
-                                            .get(Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
+                                            .get(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
             boolean isAllowedToModifyStudent = sectionPrivileges.get(section.name)
-                                            .get(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
+                                            .get(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
             sectionsDetails.add(new StudentListSectionData(section, isAllowedToViewStudentInSection,
                                                            isAllowedToModifyStudent,
                                                            emailPhotoUrlMapping, account.googleId, getSessionToken()));

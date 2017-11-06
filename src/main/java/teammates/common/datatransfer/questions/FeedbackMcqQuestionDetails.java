@@ -18,11 +18,7 @@ import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.Templates;
+import teammates.common.util.*;
 import teammates.common.util.Templates.FeedbackQuestion.FormTemplates;
 import teammates.common.util.Templates.FeedbackQuestion.Slots;
 import teammates.logic.core.CoursesLogic;
@@ -72,23 +68,23 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
         boolean mcqOtherEnabled = false; // TODO change this when implementing "other, please specify" field
 
         if ("on".equals(HttpRequestHelper.getValueFromParamMap(
-                                requestParameters, Const.ParamsNames.FEEDBACK_QUESTION_MCQOTHEROPTIONFLAG))) {
+                                requestParameters, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQOTHEROPTIONFLAG))) {
             mcqOtherEnabled = true;
         }
 
         String generatedMcqOptions =
                 HttpRequestHelper.getValueFromParamMap(requestParameters,
-                                                       Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS);
+                                                       ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS);
 
         if (generatedMcqOptions.equals(FeedbackParticipantType.NONE.toString())) {
             String numMcqChoicesCreatedString =
                     HttpRequestHelper.getValueFromParamMap(requestParameters,
-                                                           Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED);
+                                                           ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED);
             Assumption.assertNotNull("Null number of choice for MCQ", numMcqChoicesCreatedString);
             int numMcqChoicesCreated = Integer.parseInt(numMcqChoicesCreatedString);
 
             for (int i = 0; i < numMcqChoicesCreated; i++) {
-                String paramName = Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-" + i;
+                String paramName = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-" + i;
                 String mcqChoice = HttpRequestHelper.getValueFromParamMap(requestParameters, paramName);
                 if (mcqChoice != null && !mcqChoice.trim().isEmpty()) {
                     mcqChoices.add(mcqChoice);
@@ -125,7 +121,7 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
 
     @Override
     public String getQuestionTypeDisplayName() {
-        return Const.FeedbackQuestionTypeNames.MCQ;
+        return FeedbackGuestionConst.FeedbackQuestionTypeNames.MCQ;
     }
 
     public boolean getOtherEnabled() {
@@ -167,7 +163,7 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
                             Slots.DISABLED, sessionIsOpen ? "" : "disabled",
                             Slots.CHECKED,
                                     existingMcqResponse.getAnswerString().equals(choices.get(i)) ? "checked" : "",
-                            Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                            Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
                             Slots.MCQ_CHOICE_VALUE, SanitizationHelper.sanitizeForHtml(choices.get(i)));
             optionListHtml.append(optionFragment).append(Const.EOL);
         }
@@ -180,9 +176,9 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
                             Slots.DISABLED, sessionIsOpen ? "" : "disabled",
                             Slots.TEXT_DISABLED, sessionIsOpen && isOtherSelected ? "" : "disabled",
                             Slots.CHECKED, isOtherSelected ? "checked" : "",
-                            Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                            Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
                             Slots.MCQ_PARAM_IS_OTHER_OPTION_ANSWER,
-                                    Const.ParamsNames.FEEDBACK_QUESTION_MCQ_ISOTHEROPTIONANSWER,
+                                    ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQ_ISOTHEROPTIONANSWER,
                             Slots.MCQ_CHOICE_VALUE,
                                     SanitizationHelper.sanitizeForHtml(existingMcqResponse.getOtherFieldContent()),
                             Slots.MCQ_OTHER_OPTION_ANSWER, isOtherSelected ? "1" : "0");
@@ -208,7 +204,7 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
                             Slots.RESPONSE_INDEX, Integer.toString(responseIdx),
                             Slots.DISABLED, sessionIsOpen ? "" : "disabled",
                             Slots.CHECKED, "",
-                            Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                            Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
                             Slots.MCQ_CHOICE_VALUE, SanitizationHelper.sanitizeForHtml(choices.get(i)));
             optionListHtml.append(optionFragment).append(Const.EOL);
         }
@@ -222,9 +218,9 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
                             Slots.DISABLED, sessionIsOpen ? "" : "disabled",
                             Slots.TEXT_DISABLED, "disabled",
                             Slots.CHECKED, "",
-                            Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                            Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
                             Slots.MCQ_PARAM_IS_OTHER_OPTION_ANSWER,
-                                    Const.ParamsNames.FEEDBACK_QUESTION_MCQ_ISOTHEROPTIONANSWER,
+                                    ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQ_ISOTHEROPTIONANSWER,
                             Slots.MCQ_CHOICE_VALUE, "",
                             Slots.MCQ_OTHER_OPTION_ANSWER, "0");
             optionListHtml.append(otherOptionFragment).append(Const.EOL);
@@ -292,7 +288,7 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
                     Templates.populateTemplate(optionFragmentTemplate,
                             Slots.ITERATOR, Integer.toString(i),
                             Slots.MCQ_CHOICE_VALUE, SanitizationHelper.sanitizeForHtml(mcqChoices.get(i)),
-                            Slots.MCQ_PARAM_CHOICE, Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE);
+                            Slots.MCQ_PARAM_CHOICE, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE);
 
             optionListHtml.append(optionFragment).append(Const.EOL);
         }
@@ -301,13 +297,13 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
                 FormTemplates.MCQ_EDIT_FORM,
                 Slots.MCQ_EDIT_FORM_OPTION_FRAGMENTS, optionListHtml.toString(),
                 Slots.QUESTION_NUMBER, Integer.toString(questionNumber),
-                Slots.NUMBER_OF_CHOICE_CREATED, Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED,
+                Slots.NUMBER_OF_CHOICE_CREATED, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED,
                 Slots.MCQ_NUM_OF_MCQ_CHOICES, Integer.toString(numOfMcqChoices),
                 Slots.CHECKED_OTHER_OPTION_ENABLED, otherEnabled ? "checked" : "",
-                Slots.MCQ_PARAM_OTHER_OPTION, Const.ParamsNames.FEEDBACK_QUESTION_MCQOTHEROPTION,
-                Slots.MCQ_PARAM_OTHER_OPTION_FLAG, Const.ParamsNames.FEEDBACK_QUESTION_MCQOTHEROPTIONFLAG,
+                Slots.MCQ_PARAM_OTHER_OPTION, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQOTHEROPTION,
+                Slots.MCQ_PARAM_OTHER_OPTION_FLAG, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQOTHEROPTIONFLAG,
                 Slots.MCQ_CHECKED_GENERATED_OPTION, generateOptionsFor == FeedbackParticipantType.NONE ? "" : "checked",
-                Slots.GENERATED_OPTIONS, Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS,
+                Slots.GENERATED_OPTIONS, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS,
                 Slots.GENERATE_OPTIONS_FOR_VALUE, generateOptionsFor.toString(),
                 Slots.STUDENT_SELECTED, generateOptionsFor == FeedbackParticipantType.STUDENTS ? "selected" : "",
                 Slots.STUDENTS_TO_STRING, FeedbackParticipantType.STUDENTS.toString(),
@@ -483,16 +479,16 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
     @Override
     public String getQuestionTypeChoiceOption() {
         return "<li data-questiontype = \"MCQ\"><a href=\"javascript:;\"> "
-               + Const.FeedbackQuestionTypeNames.MCQ + "</a></li>";
+               + FeedbackGuestionConst.FeedbackQuestionTypeNames.MCQ + "</a></li>";
     }
 
     @Override
     public List<String> validateQuestionDetails() {
         List<String> errors = new ArrayList<>();
         if (generateOptionsFor == FeedbackParticipantType.NONE
-                && numOfMcqChoices < Const.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES) {
-            errors.add(Const.FeedbackQuestion.MCQ_ERROR_NOT_ENOUGH_CHOICES
-                       + Const.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES + ".");
+                && numOfMcqChoices < FeedbackGuestionConst.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES) {
+            errors.add(FeedbackGuestionConst.FeedbackQuestion.MCQ_ERROR_NOT_ENOUGH_CHOICES
+                       + FeedbackGuestionConst.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES + ".");
         }
         //TODO: check that mcq options do not repeat. needed?
 
@@ -510,7 +506,7 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
 
             if (!otherEnabled && generateOptionsFor == FeedbackParticipantType.NONE
                     && !mcqChoices.contains(frd.getAnswerString())) {
-                errors.add(frd.getAnswerString() + Const.FeedbackQuestion.MCQ_ERROR_INVALID_OPTION);
+                errors.add(frd.getAnswerString() + FeedbackGuestionConst.FeedbackQuestion.MCQ_ERROR_INVALID_OPTION);
             }
         }
         return errors;

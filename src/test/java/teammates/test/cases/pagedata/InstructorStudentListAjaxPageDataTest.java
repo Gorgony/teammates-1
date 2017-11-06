@@ -12,6 +12,7 @@ import teammates.common.datatransfer.TeamDetailsBundle;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 import teammates.common.util.Url;
 import teammates.test.cases.BaseTestCase;
@@ -45,11 +46,11 @@ public class InstructorStudentListAjaxPageDataTest extends BaseTestCase {
     private void testSectionContent(StudentListSectionData section) {
         assertEquals(sampleSection.name, section.getSectionName());
         assertEquals(sectionPrivileges.get(sampleSection.name)
-                                      .get(Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS)
+                                      .get(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS)
                                       .booleanValue(),
                      section.isAllowedToViewStudentInSection());
         assertEquals(sectionPrivileges.get(sampleSection.name)
-                                      .get(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT)
+                                      .get(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT)
                                       .booleanValue(),
                      section.isAllowedToModifyStudent());
         for (StudentListTeamData team : section.getTeams()) {
@@ -103,8 +104,8 @@ public class InstructorStudentListAjaxPageDataTest extends BaseTestCase {
 
         sectionPrivileges = new HashMap<>();
         Map<String, Boolean> sectionPrivilege = new HashMap<>();
-        sectionPrivilege.put(Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS, true);
-        sectionPrivilege.put(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, false);
+        sectionPrivilege.put(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS, true);
+        sectionPrivilege.put(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, false);
         sectionPrivileges.put(sampleSection.name, sectionPrivilege);
 
         Map<String, String> emailPhotoUrlMapping = new HashMap<>();
@@ -137,9 +138,9 @@ public class InstructorStudentListAjaxPageDataTest extends BaseTestCase {
     private String furnishLinkWithCourseEmailAndUserId(String rawLink, String course, String studentEmail,
                                                        String googleId) {
         String link = rawLink;
-        link = Url.addParamToUrl(link, Const.ParamsNames.COURSE_ID, course);
-        link = Url.addParamToUrl(link, Const.ParamsNames.STUDENT_EMAIL, studentEmail);
-        link = Url.addParamToUrl(link, Const.ParamsNames.USER_ID, googleId);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.COURSE_ID, course);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.STUDENT_EMAIL, studentEmail);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.USER_ID, googleId);
         return link;
     }
 

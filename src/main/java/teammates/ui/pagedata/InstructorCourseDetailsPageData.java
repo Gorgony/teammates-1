@@ -11,7 +11,8 @@ import teammates.common.datatransfer.TeamDetailsBundle;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.ToolTipConst;
 import teammates.common.util.Url;
 import teammates.ui.template.ElementTag;
 import teammates.ui.template.StudentListSectionData;
@@ -40,11 +41,11 @@ public class InstructorCourseDetailsPageData extends PageData {
         this.instructors = instructors;
 
         boolean isDisabled =
-                !currentInstructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
+                !currentInstructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
         String courseId = sanitizeForJs(courseDetails.course.getId());
         String href = sanitizeForJs(getInstructorCourseRemindLink(courseDetails.course.getId()));
         courseRemindButton = createButton(null, "btn btn-primary", "button_remind", href,
-                                          Const.Tooltips.COURSE_REMIND, "tooltip", courseId, isDisabled);
+                                          ToolTipConst.Tooltips.COURSE_REMIND, "tooltip", courseId, isDisabled);
 
         String hrefDeleteStudents = sanitizeForJs(getInstructorCourseStudentDeleteAllLink(courseId));
         courseDeleteAllButton = createButton(null, "btn btn-danger course-student-delete-all-link", "button-delete-all",
@@ -57,14 +58,14 @@ public class InstructorCourseDetailsPageData extends PageData {
                 for (StudentAttributes student : teamDetails.students) {
                     String studentPhotoUrl = student.getPublicProfilePictureUrl();
                     studentPhotoUrl = Url.addParamToUrl(studentPhotoUrl,
-                                                    Const.ParamsNames.USER_ID, account.googleId);
+                                                    ParamNameConst.ParamsNames.USER_ID, account.googleId);
                     emailPhotoUrlMapping.put(student.email, studentPhotoUrl);
                 }
             }
             boolean isAllowedToViewStudentInSection = currentInstructor.isAllowedForPrivilege(section.name,
-                                            Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
+                                            ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
             boolean isAllowedToModifyStudent = currentInstructor.isAllowedForPrivilege(section.name,
-                                            Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
+                                            ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
             this.sections.add(new StudentListSectionData(section, isAllowedToViewStudentInSection,
                                                          isAllowedToModifyStudent,
                                                          emailPhotoUrlMapping, account.googleId, getSessionToken()));

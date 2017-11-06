@@ -1,6 +1,8 @@
 <%@ tag description="studentProfile - Edit profile div" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="profile" type="teammates.ui.template.StudentProfileEditBox" required="true" %>
 <%@ attribute name="sessionToken" required="true" %>
 <c:set var="MALE" value="<%= Const.GenderTypes.MALE %>" />
@@ -13,7 +15,7 @@
   <br>
   <div class="form-group row">
     <div class="col-xs-6 col-sm-5 col-md-3 cursor-pointer"
-        title="<%= Const.Tooltips.STUDENT_PROFILE_PICTURE %>"
+        title="<%= ToolTipConst.Tooltips.STUDENT_PROFILE_PICTURE %>"
         data-toggle="tooltip"
         data-placement="top">
       <img id="profilePic"
@@ -38,14 +40,14 @@
       method="post"
       action="<%= Const.ActionURIs.STUDENT_PROFILE_EDIT_SAVE %>">
     <div class="form-group"
-        title="<%= Const.Tooltips.STUDENT_PROFILE_SHORTNAME %>"
+        title="<%= ToolTipConst.Tooltips.STUDENT_PROFILE_SHORTNAME %>"
         data-toggle="tooltip"
         data-placement="top">
       <label for="studentNickname">
         The name you prefer to be called by Instructors
       </label>
       <input id="studentShortname"
-          name="<%= Const.ParamsNames.STUDENT_SHORT_NAME %>"
+          name="<%= ParamNameConst.ParamsNames.STUDENT_SHORT_NAME %>"
           class="form-control"
           type="text"
           data-actual-value="<c:out value="${profile.shortName}"/>"
@@ -53,14 +55,14 @@
           placeholder="How the instructor should call you">
     </div>
     <div class="form-group"
-        title="<%= Const.Tooltips.STUDENT_PROFILE_EMAIL %>"
+        title="<%= ToolTipConst.Tooltips.STUDENT_PROFILE_EMAIL %>"
         data-toggle="tooltip"
         data-placement="top">
       <label for="studentEmail">
         Long term contact email <em class="font-weight-normal emphasis text-muted small">- only visible to your instructors</em>
       </label>
       <input id="studentEmail"
-          name="<%= Const.ParamsNames.STUDENT_PROFILE_EMAIL %>"
+          name="<%= ParamNameConst.ParamsNames.STUDENT_PROFILE_EMAIL %>"
           class="form-control"
           type="email"
           data-actual-value="<c:out value="${profile.email}"/>"
@@ -68,14 +70,14 @@
           placeholder="Contact Email (for your instructors to contact you beyond graduation)">
     </div>
     <div class="form-group"
-        title="<%= Const.Tooltips.STUDENT_PROFILE_INSTITUTION %>"
+        title="<%= ToolTipConst.Tooltips.STUDENT_PROFILE_INSTITUTION %>"
         data-toggle="tooltip"
         data-placement="top">
       <label for="studentInstitution">
         Institution
       </label>
       <input id="studentInstitution"
-          name="<%= Const.ParamsNames.STUDENT_PROFILE_INSTITUTION %>"
+          name="<%= ParamNameConst.ParamsNames.STUDENT_PROFILE_INSTITUTION %>"
           class="form-control"
           type="text"
           data-actual-value="<c:out value="${profile.institute}"/>"
@@ -83,14 +85,14 @@
           placeholder="Your Institution">
     </div>
     <div class="form-group"
-        title="<%= Const.Tooltips.STUDENT_PROFILE_NATIONALITY %>"
+        title="<%= ToolTipConst.Tooltips.STUDENT_PROFILE_NATIONALITY %>"
         data-toggle="tooltip"
         data-placement="top">
       <label for="studentNationality">
         Nationality
       </label>
       <select id="studentNationality"
-          name="<%=Const.ParamsNames.STUDENT_NATIONALITY%>"
+          name="<%=ParamNameConst.ParamsNames.STUDENT_NATIONALITY%>"
           class="form-control" style="width: 300px">
         <c:forEach items="${profile.nationalitySelectField}" var="option">
           <option ${option.attributesToString}>
@@ -112,7 +114,7 @@
       <div id="studentGender">
         <label for="genderMale" class="radio-inline">
           <input id="genderMale"
-              name="<%= Const.ParamsNames.STUDENT_GENDER %>"
+              name="<%= ParamNameConst.ParamsNames.STUDENT_GENDER %>"
               class="radio"
               type="radio"
               value="<%= Const.GenderTypes.MALE %>"
@@ -120,7 +122,7 @@
         </label>
         <label for="genderFemale" class="radio-inline">
           <input id="genderFemale"
-              name="<%= Const.ParamsNames.STUDENT_GENDER %>"
+              name="<%= ParamNameConst.ParamsNames.STUDENT_GENDER %>"
               class="radio"
               type="radio"
               value="<%= Const.GenderTypes.FEMALE %>"
@@ -128,7 +130,7 @@
         </label>
         <label class="radio-inline" for="genderOther">
           <input id="genderOther"
-              name="<%= Const.ParamsNames.STUDENT_GENDER %>"
+              name="<%= ParamNameConst.ParamsNames.STUDENT_GENDER %>"
               class="radio"
               type="radio"
               value="<%= Const.GenderTypes.OTHER %>"
@@ -137,7 +139,7 @@
       </div>
     </div>
     <div class="form-group"
-        title="<%= Const.Tooltips.STUDENT_PROFILE_MOREINFO %>"
+        title="<%= ToolTipConst.Tooltips.STUDENT_PROFILE_MOREINFO %>"
         data-toggle="tooltip"
         data-placement="top">
       <label for="studentNationality">
@@ -145,10 +147,10 @@
       </label>
       <%-- Do not add whitespace between the opening and closing tags --%>
       <textarea id="studentMoreInfo"
-          name="<%= Const.ParamsNames.STUDENT_PROFILE_MOREINFO %>"
+          name="<%= ParamNameConst.ParamsNames.STUDENT_PROFILE_MOREINFO %>"
           rows="4"
           class="form-control"
-          placeholder="<%= Const.Tooltips.STUDENT_PROFILE_MOREINFO %>">${profile.moreInfo}</textarea>
+          placeholder="<%= ToolTipConst.Tooltips.STUDENT_PROFILE_MOREINFO %>">${profile.moreInfo}</textarea>
     </div>
     <br>
     <button type="submit" id="profileEditSubmit" class="btn btn-primary center-block">
@@ -158,7 +160,7 @@
     <p class="text-muted text-color-disclaimer">
       <i>* This profile will be visible to all your Instructors and Coursemates</i>
     </p>
-    <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${profile.googleId}">
-    <input type="hidden" name="<%= Const.ParamsNames.SESSION_TOKEN %>" value="${sessionToken}">
+    <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${profile.googleId}">
+    <input type="hidden" name="<%= ParamNameConst.ParamsNames.SESSION_TOKEN %>" value="${sessionToken}">
   </form>
 </div>

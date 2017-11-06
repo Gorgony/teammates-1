@@ -9,6 +9,7 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityNotFoundException;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StringHelper;
 import teammates.logic.core.AccountsLogic;
 import teammates.logic.core.InstructorsLogic;
@@ -75,7 +76,7 @@ public class StudentProfilePictureActionTest extends BaseActionTest {
         gaeSimulation.loginAsStudent(account.googleId);
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.BLOB_KEY, account.studentProfile.pictureKey
+                ParamNameConst.ParamsNames.BLOB_KEY, account.studentProfile.pictureKey
         };
         StudentProfilePictureAction action = getAction(submissionParams);
         ImageResult result = getImageResult(action);
@@ -91,8 +92,8 @@ public class StudentProfilePictureActionTest extends BaseActionTest {
         gaeSimulation.loginAsAdmin("admin.user");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.USER_ID, account.googleId,
-                Const.ParamsNames.BLOB_KEY, account.studentProfile.pictureKey
+                ParamNameConst.ParamsNames.USER_ID, account.googleId,
+                ParamNameConst.ParamsNames.BLOB_KEY, account.studentProfile.pictureKey
         };
         StudentProfilePictureAction action = getAction(addUserIdToParams(account.googleId, submissionParams));
         ImageResult result = getImageResult(action);
@@ -120,8 +121,8 @@ public class StudentProfilePictureActionTest extends BaseActionTest {
         ______TS("Typical case: using email and course");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt(student.email),
-                Const.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt(student.email),
+                ParamNameConst.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
         };
 
         StudentProfilePictureAction action = getAction(submissionParams);
@@ -137,8 +138,8 @@ public class StudentProfilePictureActionTest extends BaseActionTest {
         ______TS("Failure case: student does not exist");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt("random-email"),
-                Const.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt("random-email"),
+                ParamNameConst.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
         };
 
         StudentProfilePictureAction action = getAction(submissionParams);
@@ -180,8 +181,8 @@ public class StudentProfilePictureActionTest extends BaseActionTest {
         StudentAttributes student = typicalBundle.students.get("student2InUnregisteredCourse");
         assertTrue(student.googleId.isEmpty());
         String[] submissionParams = new String[] {
-                Const.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt(student.email),
-                Const.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt(student.email),
+                ParamNameConst.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
         };
 
         StudentProfilePictureAction action = getAction(submissionParams);
@@ -192,8 +193,8 @@ public class StudentProfilePictureActionTest extends BaseActionTest {
 
     private void testActionWithEmailAndCourseUnauthorisedInstructorOrStudent() {
         String[] submissionParams = new String[] {
-                Const.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt(student.email),
-                Const.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt(student.email),
+                ParamNameConst.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
         };
 
         ______TS("Failure case: instructor not from same course");
@@ -248,8 +249,8 @@ public class StudentProfilePictureActionTest extends BaseActionTest {
 
     private void testActionWithEmailAndCourseUnauthorisedInstructorOrStudentMasquerade() {
         String[] submissionParams = new String[] {
-                Const.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt(student.email),
-                Const.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, StringHelper.encrypt(student.email),
+                ParamNameConst.ParamsNames.COURSE_ID, StringHelper.encrypt(student.course)
         };
 
         ______TS("Failure case: unauthorised student masqueraded as a student from same team");

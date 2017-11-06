@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 
 <%@ taglib tagdir="/WEB-INF/tags/instructor/results" prefix="results" %>
 
@@ -14,15 +15,15 @@
   <div class="panel-heading${questionPanel.ajaxClass}">
     <c:if test="${questionPanel.collapsible}">
       <form style="display:none;" id="seeMore-${questionPanel.question.questionNumber}" class="seeMoreForm-${questionPanel.question.questionNumber}" action="<%=Const.ActionURIs.INSTRUCTOR_FEEDBACK_RESULTS_PAGE%>">
-        <input type="hidden" name="<%=Const.ParamsNames.COURSE_ID%>" value="${questionPanel.courseId}">
-        <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${questionPanel.feedbackSessionName}">
-        <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>" value="${data.account.googleId}">
-        <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM%>" value="${data.groupByTeam}">
-        <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE%>" value="${data.sortType}">
-        <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS%>" value="on" id="showStats-${questionPanel.question.questionNumber}">
-        <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES%>" value="${data.missingResponsesShown}">
-        <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_QUESTION_ID%>" value="${questionPanel.question.feedbackQuestionId}">
-        <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION%>" value="${fn:escapeXml(data.selectedSection)}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_ID%>" value="${questionPanel.courseId}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${questionPanel.feedbackSessionName}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>" value="${data.account.googleId}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYTEAM%>" value="${data.groupByTeam}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE%>" value="${data.sortType}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS%>" value="on" id="showStats-${questionPanel.question.questionNumber}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES%>" value="${data.missingResponsesShown}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID%>" value="${questionPanel.question.feedbackQuestionId}">
+        <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION%>" value="${fn:escapeXml(data.selectedSection)}">
       </form>
       <div class='display-icon pull-right'>
         <span class="glyphicon ${ isShowingResponses ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'} pull-right"></span>
@@ -34,17 +35,17 @@
           <div id="DownloadQuestion-${questionPanel.question.questionNumber}" class="inline">
             <input id="button_download-${questionPanel.question.questionNumber}" type="submit"
                 class="btn-link text-bold padding-0 color-inherit" data-toggle="tooltip" title="Download Question Results"
-                name="<%=Const.ParamsNames.FEEDBACK_RESULTS_UPLOADDOWNLOADBUTTON%>"
+                name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_UPLOADDOWNLOADBUTTON%>"
                 value="Question ${questionPanel.question.questionNumber}:">
           </div>
-          <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>" value="${data.account.googleId}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${questionPanel.feedbackSessionName}">
-          <input type="hidden" name="<%=Const.ParamsNames.COURSE_ID%>" value="${questionPanel.courseId}">
-          <input type="hidden" name="<%=Const.ParamsNames.SECTION_NAME %>" value="${fn:escapeXml(data.selectedSection)}">
-          <input type="hidden" id="statsShownCheckBox" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS %>" value="${showStats}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES %>" value="${data.missingResponsesShown}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_QUESTION_ID%>" value="${questionPanel.question.feedbackQuestionId}">
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_QUESTION_NUMBER%>" value="${questionPanel.question.questionNumber}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>" value="${data.account.googleId}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${questionPanel.feedbackSessionName}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_ID%>" value="${questionPanel.courseId}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.SECTION_NAME %>" value="${fn:escapeXml(data.selectedSection)}">
+          <input type="hidden" id="statsShownCheckBox" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS %>" value="${showStats}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES %>" value="${data.missingResponsesShown}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID%>" value="${questionPanel.question.feedbackQuestionId}">
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER%>" value="${questionPanel.question.questionNumber}">
         </form>
         <div class="inline panel-heading-text">
           <!--Note: When an element has class text-preserve-space, do not insert and HTML spaces-->

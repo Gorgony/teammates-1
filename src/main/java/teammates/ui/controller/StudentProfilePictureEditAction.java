@@ -10,11 +10,7 @@ import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.OutputSettings;
 import com.google.appengine.api.images.Transform;
 
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.GoogleCloudStorageHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 
 /**
  * Action: edits the profile picture based on the coordinates of
@@ -48,7 +44,7 @@ public class StudentProfilePictureEditAction extends Action {
         } catch (IOException e) {
             // Happens when GCS Service is down
             isError = true;
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_PIC_SERVICE_DOWN,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_PIC_SERVICE_DOWN,
                                                StatusMessageColor.DANGER));
             statusToAdmin = Const.ACTION_RESULT_FAILURE + " : Writing transformed image to file failed. Error: "
                           + e.getMessage();
@@ -68,7 +64,7 @@ public class StudentProfilePictureEditAction extends Action {
             return newImage.getImageData();
         } catch (RuntimeException re) {
             isError = true;
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_PICTURE_EDIT_FAILED,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_PICTURE_EDIT_FAILED,
                                                StatusMessageColor.DANGER));
             statusToAdmin = Const.ACTION_RESULT_FAILURE + " : Reading and transforming image failed."
                           + re.getMessage();
@@ -160,50 +156,50 @@ public class StudentProfilePictureEditAction extends Action {
     }
 
     private BlobKey getBlobKey() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.BLOB_KEY,
-                                          getRequestParamValue(Const.ParamsNames.BLOB_KEY));
-        return new BlobKey(getRequestParamValue(Const.ParamsNames.BLOB_KEY));
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.BLOB_KEY,
+                                          getRequestParamValue(ParamNameConst.ParamsNames.BLOB_KEY));
+        return new BlobKey(getRequestParamValue(ParamNameConst.ParamsNames.BLOB_KEY));
     }
 
     private String getPictureWidth() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.PROFILE_PICTURE_WIDTH,
-                                          getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_WIDTH));
-        return getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_WIDTH);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.PROFILE_PICTURE_WIDTH,
+                                          getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_WIDTH));
+        return getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_WIDTH);
     }
 
     private String getPictureHeight() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.PROFILE_PICTURE_HEIGHT,
-                                          getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_HEIGHT));
-        return getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_HEIGHT);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.PROFILE_PICTURE_HEIGHT,
+                                          getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_HEIGHT));
+        return getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_HEIGHT);
     }
 
     private String getBottomYString() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.PROFILE_PICTURE_BOTTOMY,
-                                          getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_BOTTOMY));
-        return getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_BOTTOMY);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.PROFILE_PICTURE_BOTTOMY,
+                                          getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_BOTTOMY));
+        return getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_BOTTOMY);
     }
 
     private String getRightXString() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.PROFILE_PICTURE_RIGHTX,
-                                          getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_RIGHTX));
-        return getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_RIGHTX);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.PROFILE_PICTURE_RIGHTX,
+                                          getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_RIGHTX));
+        return getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_RIGHTX);
     }
 
     private String getTopYString() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.PROFILE_PICTURE_TOPY,
-                                          getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_TOPY));
-        return getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_TOPY);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.PROFILE_PICTURE_TOPY,
+                                          getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_TOPY));
+        return getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_TOPY);
     }
 
     private String getLeftXString() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.PROFILE_PICTURE_LEFTX,
-                                          getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_LEFTX));
-        return getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_LEFTX);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.PROFILE_PICTURE_LEFTX,
+                                          getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_LEFTX));
+        return getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_LEFTX);
     }
 
     private String getRotateString() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.PROFILE_PICTURE_ROTATE,
-                                          getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_ROTATE));
-        return getRequestParamValue(Const.ParamsNames.PROFILE_PICTURE_ROTATE);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.PROFILE_PICTURE_ROTATE,
+                                          getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_ROTATE));
+        return getRequestParamValue(ParamNameConst.ParamsNames.PROFILE_PICTURE_ROTATE);
     }
 }

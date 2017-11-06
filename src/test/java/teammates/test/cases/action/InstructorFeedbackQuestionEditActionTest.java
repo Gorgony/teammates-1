@@ -18,9 +18,7 @@ import teammates.common.datatransfer.questions.FeedbackMsqQuestionDetails;
 import teammates.common.datatransfer.questions.FeedbackNumericalScaleQuestionDetails;
 import teammates.common.datatransfer.questions.FeedbackRubricQuestionDetails;
 import teammates.common.exception.NullPostParameterException;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.logic.core.FeedbackQuestionsLogic;
 import teammates.logic.core.FeedbackSessionsLogic;
 import teammates.storage.api.FeedbackResponsesDb;
@@ -51,20 +49,20 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Typical Case");
 
         String[] typicalParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(typicalParams);
@@ -78,27 +76,27 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         ______TS("Custom number of recipient");
 
         String[] customParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "custom",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "custom",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(customParams);
@@ -112,26 +110,26 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         ______TS("Anonymous Team Session");
 
         String[] teamParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.TEAMS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.TEAMS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(teamParams);
@@ -145,26 +143,26 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         ______TS("Self Feedback");
 
         String[] selfParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.SELF.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.SELF.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(selfParams);
@@ -178,26 +176,26 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         ______TS("Question text requires sanitization");
 
         String[] sanitizeParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.SELF.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "attempted html injection '\"/>",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.SELF.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "attempted html injection '\"/>",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(sanitizeParams);
@@ -211,7 +209,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         String expectedLogMessage = "TEAMMATESLOG|||instructorFeedbackQuestionEdit|||"
@@ -228,20 +226,20 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Invalid edit type");
 
         String[] invalidEditTypeParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "INVALID", //change to invalid edit type.
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "INVALID", //change to invalid edit type.
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         verifyAssumptionFailure(invalidEditTypeParams);
@@ -249,28 +247,28 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Invalid questionNumber");
 
         String[] invalidQnNumParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.SELF.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.SELF.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         // change questionNumber to an invalid number
-        modifyParamValue(invalidQnNumParams, Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "-1");
+        modifyParamValue(invalidQnNumParams, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "-1");
         verifyAssumptionFailure(invalidQnNumParams);
 
         // change questionNumber to invalid "number"
-        modifyParamValue(invalidQnNumParams, Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "ABC");
+        modifyParamValue(invalidQnNumParams, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "ABC");
 
         try {
             a = getAction(invalidQnNumParams);
@@ -283,20 +281,20 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Invalid parameters");
 
         String[] invalidParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.TEAMS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.OWN_TEAM_MEMBERS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.TEAMS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.OWN_TEAM_MEMBERS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(invalidParams);
@@ -310,17 +308,17 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Delete Feedback");
 
         String[] deleteParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "delete",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "delete",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(deleteParams);
@@ -334,25 +332,25 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_DELETED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_DELETED, r.getStatusMessage());
         assertFalse(r.isError);
 
         ______TS("Unsuccessful case: test null course id parameter");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         try {
@@ -361,25 +359,25 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                         Const.ParamsNames.COURSE_ID), e.getMessage());
+                         ParamNameConst.ParamsNames.COURSE_ID), e.getMessage());
         }
 
         ______TS("Unsuccessful case: test null course id parameter");
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "TEXT",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "question",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.RECEIVER.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         try {
@@ -388,7 +386,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                         Const.ParamsNames.FEEDBACK_SESSION_NAME), e.getMessage());
+                         ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME), e.getMessage());
         }
     }
 
@@ -414,24 +412,24 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editTextParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "MCQ",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, Integer.toString(mcqDetails.getNumOfMcqChoices()),
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-0", mcqDetails.getMcqChoices().get(0),
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-1", mcqDetails.getMcqChoices().get(1),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.NONE.toString()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "MCQ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, Integer.toString(mcqDetails.getNumOfMcqChoices()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-0", mcqDetails.getMcqChoices().get(0),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-1", mcqDetails.getMcqChoices().get(1),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.NONE.toString()
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(editTextParams);
@@ -445,7 +443,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing response should remain
@@ -457,29 +455,29 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editOptionParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "MCQ",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "5",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-0", "The Content",
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "MCQ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "5",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-0", "The Content",
                 // This option is deleted during creation, don't pass parameter
                 // Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-1", "The Teacher",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-2", "", // empty option
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-2", "", // empty option
                 // empty option with extra whitespace
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-3", "          ",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-4", "The Atmosphere",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.NONE.toString()
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-3", "          ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-4", "The Atmosphere",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.NONE.toString()
         };
 
         a = getAction(editOptionParams);
@@ -493,7 +491,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing response should be deleted as option is edited
@@ -502,27 +500,27 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Edit to generated");
 
         String[] editToGeneratedOptionParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "MCQ",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "4",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-0", "The Content",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-1", "", // empty option
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "MCQ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "4",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-0", "The Content",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-1", "", // empty option
                 // empty option with extra whitespace
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-2", "          ",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-3", "The Atmosphere",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.STUDENTS.toString()
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-2", "          ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-3", "The Atmosphere",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.STUDENTS.toString()
         };
 
         a = getAction(editToGeneratedOptionParams);
@@ -536,31 +534,31 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         ______TS("Delete Feedback");
 
         String[] deleteParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "MCQ",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "4",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-0", "The Content",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-1", "", // empty option
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "MCQ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "4",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-0", "The Content",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-1", "", // empty option
                 // empty option with extra whitespace
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-2", "          ",
-                Const.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-3", "The Atmosphere",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "delete",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.STUDENTS.toString()
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-2", "          ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MCQCHOICE + "-3", "The Atmosphere",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "delete",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.STUDENTS.toString()
         };
 
         a = getAction(deleteParams);
@@ -574,7 +572,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_DELETED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_DELETED, r.getStatusMessage());
         assertFalse(r.isError);
     }
 
@@ -600,24 +598,24 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editTextParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "MSQ",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, Integer.toString(msqDetails.getNumOfMsqChoices()),
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-0", msqDetails.getMsqChoices().get(0),
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-1", msqDetails.getMsqChoices().get(1),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.NONE.toString()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "MSQ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, Integer.toString(msqDetails.getNumOfMsqChoices()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-0", msqDetails.getMsqChoices().get(0),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-1", msqDetails.getMsqChoices().get(1),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.NONE.toString()
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(editTextParams);
@@ -631,7 +629,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing response should remain
@@ -643,29 +641,29 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editOptionParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "MSQ",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "5",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-0", "The Content",
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "MSQ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "5",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-0", "The Content",
                 // This option is deleted during creation, don't pass parameter
                 //Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-1", "The Teacher",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-2", "", // empty option
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-2", "", // empty option
                 // empty option with extra whitespace
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-3", "          ",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-4", "The Atmosphere",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.NONE.toString()
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-3", "          ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-4", "The Atmosphere",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.NONE.toString()
         };
 
         a = getAction(editOptionParams);
@@ -679,7 +677,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing response should be deleted as option is edited
@@ -688,27 +686,27 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Edit to generated options");
 
         String[] editToGeneratedOptionParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "MSQ",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "4",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-0", "The Content",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-1", "", // empty option
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "MSQ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "4",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-0", "The Content",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-1", "", // empty option
                 // empty option with extra whitespace
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-2", "          ",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-3", "The Atmosphere",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.STUDENTS.toString()
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-2", "          ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-3", "The Atmosphere",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.STUDENTS.toString()
         };
 
         a = getAction(editToGeneratedOptionParams);
@@ -722,32 +720,32 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         ______TS("Delete Feedback");
 
         String[] deleteParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "MSQ",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "4",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-0", "The Content",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-1", "", // empty option
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "MSQ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "What do you like best about the class?",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "4",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-0", "The Content",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-1", "", // empty option
                 // empty option with extra whitespace
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-2", "          ",
-                Const.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-3", "The Atmosphere",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "delete",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.STUDENTS.toString()
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-2", "          ",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQCHOICE + "-3", "The Atmosphere",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "delete",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS, FeedbackParticipantType.STUDENTS.toString()
         };
 
         a = getAction(deleteParams);
@@ -761,7 +759,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_DELETED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_DELETED, r.getStatusMessage());
         assertFalse(r.isError);
     }
 
@@ -788,24 +786,24 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editTextParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "NUMSCALE",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, numscaleDetails.getQuestionText() + " (edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN, Integer.toString(numscaleDetails.getMinScale()),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX, Integer.toString(numscaleDetails.getMaxScale()),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP,
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "NUMSCALE",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, numscaleDetails.getQuestionText() + " (edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN, Integer.toString(numscaleDetails.getMinScale()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX, Integer.toString(numscaleDetails.getMaxScale()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP,
                 StringHelper.toDecimalFormatString(numscaleDetails.getStep()),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(editTextParams);
@@ -819,7 +817,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing response should remain
@@ -828,23 +826,23 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Edit scales");
 
         String[] editScalesParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "NUMSCALE",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, numscaleDetails.getQuestionText() + " (edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN, Integer.toString(1),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX, Integer.toString(10),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP, StringHelper.toDecimalFormatString(1.0),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "NUMSCALE",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, numscaleDetails.getQuestionText() + " (edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN, Integer.toString(1),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX, Integer.toString(10),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP, StringHelper.toDecimalFormatString(1.0),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(editScalesParams);
@@ -858,7 +856,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing response should be deleted as the scales are edited
@@ -886,28 +884,28 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editTextParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONSTSUM",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "Split points among the options.(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTS, "100",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHOPTION, "50",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHRECIPIENT, "30",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, "false",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "3",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMOPTION + "-0", "Grades",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMOPTION + "-1", "Fun",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMTORECIPIENTS, "false",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONSTSUM",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "Split points among the options.(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTS, "100",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHOPTION, "50",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHRECIPIENT, "30",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, "false",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "3",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMOPTION + "-0", "Grades",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMOPTION + "-1", "Fun",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMTORECIPIENTS, "false",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(editTextParams);
@@ -921,7 +919,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing responses should remain
@@ -930,28 +928,28 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Edit points");
 
         String[] editPointsParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONSTSUM",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "Split points among the options.(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTS, "1000",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHOPTION, "300",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHRECIPIENT, "500",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, "false",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "3",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMOPTION + "-0", "Grades",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMOPTION + "-1", "Fun",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMTORECIPIENTS, "false",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONSTSUM",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "Split points among the options.(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTS, "1000",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHOPTION, "300",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHRECIPIENT, "500",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, "false",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, "3",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMOPTION + "-0", "Grades",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMOPTION + "-1", "Fun",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMTORECIPIENTS, "false",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(editPointsParams);
@@ -965,7 +963,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing responses should be deleted as the options are edited
@@ -994,33 +992,33 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editTextParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONSTSUM",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTS, Integer.toString(fqd.getPoints()),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHOPTION, Integer.toString(fqd.getPoints()),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHRECIPIENT, Integer.toString(fqd.getPoints()),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, String.valueOf(fqd.isPointsPerOption()),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, Integer.toString(fqd.getNumOfConstSumOptions()),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMTORECIPIENTS, String.valueOf(fqd.isDistributeToRecipients()),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "custom",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONSTSUM",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTS, Integer.toString(fqd.getPoints()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHOPTION, Integer.toString(fqd.getPoints()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHRECIPIENT, Integer.toString(fqd.getPoints()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, String.valueOf(fqd.isPointsPerOption()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, Integer.toString(fqd.getNumOfConstSumOptions()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMTORECIPIENTS, String.valueOf(fqd.isDistributeToRecipients()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "custom",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(editTextParams);
         RedirectResult r = getRedirectResult(a);
 
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_FEEDBACK_EDIT_PAGE,
@@ -1037,31 +1035,31 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Edit points per option");
 
         String[] editPointsParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONSTSUM",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTS, Integer.toString(fqd.getPoints()),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHOPTION, Integer.toString(fqd.getPoints()),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHRECIPIENT, Integer.toString(fqd.getPoints()),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, String.valueOf(fqd.isPointsPerOption()),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, Integer.toString(fqd.getNumOfConstSumOptions()),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMTORECIPIENTS, String.valueOf(fqd.isDistributeToRecipients()),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "custom",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONSTSUM",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTS, Integer.toString(fqd.getPoints()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHOPTION, Integer.toString(fqd.getPoints()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSFOREACHRECIPIENT, Integer.toString(fqd.getPoints()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, String.valueOf(fqd.isPointsPerOption()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFCHOICECREATED, Integer.toString(fqd.getNumOfConstSumOptions()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMTORECIPIENTS, String.valueOf(fqd.isDistributeToRecipients()),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "custom",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         // Reverse it from true to false
-        modifyParamValue(editPointsParams, Const.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, "false");
+        modifyParamValue(editPointsParams, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONSTSUMPOINTSPEROPTION, "false");
 
         a = getAction(editPointsParams);
         r = getRedirectResult(a);
@@ -1074,7 +1072,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
                         "FSQTT.idOfInstructor1OfCourse1",
                         false),
                 r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertFalse(r.isError);
 
         // All existing responses should be deleted as the options are edited
@@ -1103,28 +1101,28 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editTextParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONTRIB",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
-                Const.ParamsNames.FEEDBACK_QUESTION_CONTRIBISNOTSUREALLOWED, "on"
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONTRIB",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_CONTRIBISNOTSUREALLOWED, "on"
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(editTextParams);
         RedirectResult r = getRedirectResult(a);
 
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_FEEDBACK_EDIT_PAGE,
@@ -1141,28 +1139,28 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         ______TS("Edit: Invalid recipient type");
 
         String[] editRecipientTypeParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONTRIB",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText(),
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "CONTRIB",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(editRecipientTypeParams);
         r = getRedirectResult(a);
 
-        assertEquals(Const.FeedbackQuestion.CONTRIB_ERROR_INVALID_FEEDBACK_PATH
-                     + "<br>" + Const.StatusMessages.FEEDBACK_QUESTION_EDITED,
+        assertEquals(FeedbackGuestionConst.FeedbackQuestion.CONTRIB_ERROR_INVALID_FEEDBACK_PATH
+                     + "<br>" + StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED,
                      r.getStatusMessage());
 
         assertEquals(
@@ -1201,39 +1199,39 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editTextParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "-1",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "-1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(editTextParams);
         RedirectResult r = getRedirectResult(a);
 
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_FEEDBACK_EDIT_PAGE,
@@ -1253,39 +1251,39 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editDescriptionParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "-1",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "New description",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time(Edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "-1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "New description",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time(Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(editDescriptionParams);
         r = getRedirectResult(a);
 
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_FEEDBACK_EDIT_PAGE,
@@ -1305,39 +1303,39 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editWeightParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "0",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "New description",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time(Edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "0",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "New description",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time(Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(editWeightParams);
         r = getRedirectResult(a);
 
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_FEEDBACK_EDIT_PAGE,
@@ -1357,39 +1355,39 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editSubQnParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.(Edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "0",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "New description",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time(Edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.(Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "0",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "New description",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time(Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(editSubQnParams);
         r = getRedirectResult(a);
 
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_FEEDBACK_EDIT_PAGE,
@@ -1418,39 +1416,39 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
         assertFalse(frDb.getFeedbackResponsesForQuestion(fq.getId()).isEmpty());
 
         String[] editChoicesParams = {
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes(Edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "0",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "New description",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time(Edited)",
-                Const.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.giverType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, fq.recipientType.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, "RUBRIC",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, fqd.getQuestionText() + "(edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_COLS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_NUM_ROWS, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-0", "This student has done a good job.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_SUBQUESTION + "-1", "This student has tried his/her best.",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-0", "Yes(Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_CHOICE + "-1", "No",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-0", "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_WEIGHT + "-1", "0",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-0", "New description",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-0-1", "",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-0", "Most of the time(Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RUBRIC_DESCRIPTION + "-1-1", "Less than half the time",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "max",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIES, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(editChoicesParams);
         r = getRedirectResult(a);
 
-        assertEquals(Const.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED, r.getStatusMessage());
         assertEquals(
                 getPageResultDestination(
                         Const.ActionURIs.INSTRUCTOR_FEEDBACK_EDIT_PAGE,
@@ -1497,20 +1495,20 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
 
         FeedbackQuestionAttributes fq = fqLogic.getFeedbackQuestion(fs.getFeedbackSessionName(), fs.getCourseId(), 1);
         String[] params1 = {
-                Const.ParamsNames.COURSE_ID, fq.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fq.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, fq.getQuestionType().toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "What is the best selling point of your product?",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fq.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fq.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, fq.getQuestionType().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "What is the best selling point of your product?",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         InstructorFeedbackQuestionEditAction a = getAction(params1);
@@ -1526,20 +1524,20 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
 
         fq = fqLogic.getFeedbackQuestion(fs.getFeedbackSessionName(), fs.getCourseId(), 3);
         String[] params3 = {
-                Const.ParamsNames.COURSE_ID, fq.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fq.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.getGiverType().toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, fq.getQuestionType().toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "My comments on the class",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fq.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fq.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, fq.getGiverType().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, fq.getQuestionType().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "My comments on the class",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(params3);
@@ -1555,20 +1553,20 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
 
         fq = fqLogic.getFeedbackQuestion(fs.getFeedbackSessionName(), fs.getCourseId(), 4);
         String[] params4 = {
-                Const.ParamsNames.COURSE_ID, fq.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fq.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.NONE.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE, fq.getQuestionType().toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT, "Instructor comments on the class",
-                Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
-                Const.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, fq.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fq.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GIVERTYPE, FeedbackParticipantType.STUDENTS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RECIPIENTTYPE, FeedbackParticipantType.NONE.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, Integer.toString(fq.questionNumber),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE, fq.getQuestionType().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT, "Instructor comments on the class",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION, "more details",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBEROFENTITIESTYPE, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO, FeedbackParticipantType.INSTRUCTORS.toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_EDITTYPE, "edit",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, fq.getId()
         };
 
         a = getAction(params4);
@@ -1590,10 +1588,10 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
     protected String getPageResultDestination(
             String parentUri, String courseId, String fsname, String userId, boolean isError) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsname);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
         return pageDestination;
     }
 
@@ -1614,7 +1612,7 @@ public class InstructorFeedbackQuestionEditActionTest extends BaseActionTest {
 
     private String[] addQuestionIdToParams(String questionId, String[] params) {
         List<String> list = new ArrayList<>();
-        list.add(Const.ParamsNames.FEEDBACK_QUESTION_ID);
+        list.add(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID);
         list.add(questionId);
         for (String s : params) {
             list.add(s);

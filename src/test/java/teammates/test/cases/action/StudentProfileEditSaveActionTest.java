@@ -7,10 +7,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.RedirectResult;
 import teammates.ui.controller.StudentProfileEditSaveAction;
@@ -140,7 +137,7 @@ public class StudentProfileEditSaveActionTest extends BaseActionTest {
         AssertHelper.assertContains(
                 getPageResultDestination(Const.ActionURIs.STUDENT_PROFILE_PAGE, false, student.googleId),
                 result.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.STUDENT_PROFILE_EDITED, result.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.STUDENT_PROFILE_EDITED, result.getStatusMessage());
 
         verifyLogMessage(student, action, expectedProfile, false);
     }
@@ -158,7 +155,7 @@ public class StudentProfileEditSaveActionTest extends BaseActionTest {
         RedirectResult result = getRedirectResult(action);
 
         assertFalse(result.isError);
-        assertEquals(Const.StatusMessages.STUDENT_PROFILE_EDITED, result.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.STUDENT_PROFILE_EDITED, result.getStatusMessage());
         AssertHelper.assertContains(
                 getPageResultDestination(Const.ActionURIs.STUDENT_PROFILE_PAGE, false, student.googleId),
                 result.getDestinationWithParams());
@@ -204,12 +201,12 @@ public class StudentProfileEditSaveActionTest extends BaseActionTest {
 
     private String[] createInvalidParamsForProfileWithScriptInjection() {
         return new String[]{
-                Const.ParamsNames.STUDENT_SHORT_NAME, "short%<script>alert(\"was here\");</script>",
-                Const.ParamsNames.STUDENT_PROFILE_EMAIL, "<script>alert(\"was here\");</script>",
-                Const.ParamsNames.STUDENT_PROFILE_INSTITUTION, "<script>alert(\"was here\");</script>",
-                Const.ParamsNames.STUDENT_NATIONALITY, "USA<script>alert(\"was here\");</script>",
-                Const.ParamsNames.STUDENT_GENDER, "female<script>alert(\"was here\");</script>",
-                Const.ParamsNames.STUDENT_PROFILE_MOREINFO, "This is more info on me<script>alert(\"was here\");</script>"
+                ParamNameConst.ParamsNames.STUDENT_SHORT_NAME, "short%<script>alert(\"was here\");</script>",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_EMAIL, "<script>alert(\"was here\");</script>",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_INSTITUTION, "<script>alert(\"was here\");</script>",
+                ParamNameConst.ParamsNames.STUDENT_NATIONALITY, "USA<script>alert(\"was here\");</script>",
+                ParamNameConst.ParamsNames.STUDENT_GENDER, "female<script>alert(\"was here\");</script>",
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_MOREINFO, "This is more info on me<script>alert(\"was here\");</script>"
         };
     }
 

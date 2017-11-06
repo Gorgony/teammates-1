@@ -3,9 +3,7 @@ package teammates.test.cases.action;
 import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.AdminEmailAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.logic.core.AdminEmailsLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.AdminEmailComposeSaveAction;
@@ -48,18 +46,18 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         String receiver = "test@example.tmt";
         AdminEmailComposeSaveAction action =
                 getAction(
-                        Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                        Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                        Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver);
+                        ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                        ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                        ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver);
         ShowPageResult pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, false, adminUserId),
                 pageResult.getDestinationWithParams());
 
-        String expectedLogSegment = Const.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>Subject: New Email Subject";
+        String expectedLogSegment = StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>Subject: New Email Subject";
         AssertHelper.assertContains(expectedLogSegment, action.getLogMessage());
 
-        assertEquals(Const.StatusMessages.EMAIL_DRAFT_SAVED, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED, pageResult.getStatusMessage());
 
         AdminEmailComposePageData data = (AdminEmailComposePageData) pageResult.data;
         assertNull(data.emailToEdit);
@@ -74,9 +72,9 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = "!Not starting with alphanumeric";
         receiver = "test@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, true, adminUserId),
@@ -97,9 +95,9 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = "valid subject";
         receiver = "test@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, true, adminUserId),
@@ -122,20 +120,20 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = "valid existing email subject";
         receiver = "test@example.tmt, test2@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
-                Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, false, adminUserId),
                 pageResult.getDestinationWithParams());
 
-        expectedLogSegment = Const.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>"
+        expectedLogSegment = StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>"
                 + "Subject: valid existing email subject";
         AssertHelper.assertContains(expectedLogSegment, action.getLogMessage());
 
-        assertEquals(Const.StatusMessages.EMAIL_DRAFT_SAVED, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED, pageResult.getStatusMessage());
 
         data = (AdminEmailComposePageData) pageResult.data;
         assertNull(data.emailToEdit);
@@ -151,20 +149,20 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = "valid existing email subject <b>To check sanitization</b>";
         receiver = "test@example.tmt, test2@example.tmt, test3@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
-                Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, false, adminUserId),
                 pageResult.getDestinationWithParams());
 
-        expectedLogSegment = Const.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>"
+        expectedLogSegment = StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>"
                 + "Subject: valid existing email subject &lt;b&gt;To check sanitization&lt;&#x2f;b&gt;";
         AssertHelper.assertContains(expectedLogSegment, action.getLogMessage());
 
-        assertEquals(Const.StatusMessages.EMAIL_DRAFT_SAVED, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED, pageResult.getStatusMessage());
 
         data = (AdminEmailComposePageData) pageResult.data;
         assertNull(data.emailToEdit);
@@ -179,10 +177,10 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = " ";
         receiver = "test@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
-                Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, true, adminUserId),
@@ -204,10 +202,10 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = "valid subject";
         receiver = "test@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
-                Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, true, adminUserId),
@@ -229,20 +227,20 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = "valid non-existing email subject <b>To check sanitization</b>";
         receiver = "test@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
-                Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, false, adminUserId),
                 pageResult.getDestinationWithParams());
 
-        expectedLogSegment = Const.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>"
+        expectedLogSegment = StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>"
                 + "Subject: valid non-existing email subject &lt;b&gt;To check sanitization&lt;&#x2f;b&gt;";
         AssertHelper.assertContains(expectedLogSegment, action.getLogMessage());
 
-        assertEquals(Const.StatusMessages.EMAIL_DRAFT_SAVED, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED, pageResult.getStatusMessage());
 
         data = (AdminEmailComposePageData) pageResult.data;
         assertNull(data.emailToEdit);
@@ -258,10 +256,10 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = "";
         receiver = "test@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
-                Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
         pageResult = getShowPageResult(action);
         assertEquals(getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, true, "admin.user"),
                 pageResult.getDestinationWithParams());
@@ -281,10 +279,10 @@ public class AdminEmailComposeSaveActionTest extends BaseActionTest {
         subject = "valid subject";
         receiver = "test@example.tmt";
         action = getAction(
-                Const.ParamsNames.ADMIN_EMAIL_CONTENT, content,
-                Const.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
-                Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
-                Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, content,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, subject,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, receiver,
+                ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
         pageResult = getShowPageResult(action);
         assertEquals(
                 getPageResultDestination(Const.ViewURIs.ADMIN_EMAIL, true, "admin.user"),

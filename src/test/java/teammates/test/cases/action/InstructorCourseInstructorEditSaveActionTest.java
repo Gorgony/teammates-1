@@ -6,6 +6,8 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.NullPostParameterException;
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.CoursesLogic;
 import teammates.logic.core.InstructorsLogic;
 import teammates.test.driver.AssertHelper;
@@ -41,15 +43,15 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
         String newInstructorEmail = "newEmail@email.com";
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_ID, instructorId,
-                Const.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructorId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER
         };
         InstructorCourseInstructorEditSaveAction saveAction = getAction(submissionParams);
@@ -59,16 +61,16 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
                     Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_PAGE,
                     redirectResult.getDestinationWithParams());
         assertFalse(redirectResult.isError);
-        assertEquals(String.format(Const.StatusMessages.COURSE_INSTRUCTOR_EDITED, newInstructorName),
+        assertEquals(String.format(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_EDITED, newInstructorName),
                      redirectResult.getStatusMessage());
 
         InstructorAttributes editedInstructor = instructorsLogic.getInstructorForGoogleId(courseId, instructorId);
         assertEquals(newInstructorName, editedInstructor.name);
         assertEquals(newInstructorEmail, editedInstructor.email);
-        assertTrue(editedInstructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE));
-        assertTrue(editedInstructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR));
-        assertTrue(editedInstructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION));
-        assertTrue(editedInstructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT));
+        assertTrue(editedInstructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE));
+        assertTrue(editedInstructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR));
+        assertTrue(editedInstructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION));
+        assertTrue(editedInstructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT));
 
         String expectedLogSegment = "Instructor <span class=\"bold\"> " + newInstructorName + "</span>"
                 + " for Course <span class=\"bold\">[" + courseId + "]</span> edited.<br>"
@@ -80,21 +82,21 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
         String invalidEmail = "wrongEmail.com";
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_ID, instructorId,
-                Const.ParamsNames.INSTRUCTOR_NAME, instructorToEdit.name,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, invalidEmail,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructorId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, instructorToEdit.name,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, invalidEmail,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
 
         saveAction = getAction(submissionParams);
@@ -117,21 +119,21 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
         newInstructorEmail = "newEmail2@email.com";
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_ID, instructorId,
-                Const.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructorId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
 
         saveAction = getAction(addUserIdToParams(instructorId, submissionParams));
@@ -141,7 +143,7 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
                 Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_PAGE,
                 redirectResult.getDestinationWithParams());
         assertFalse(redirectResult.isError);
-        assertEquals(String.format(Const.StatusMessages.COURSE_INSTRUCTOR_EDITED, newInstructorName),
+        assertEquals(String.format(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_EDITED, newInstructorName),
                      redirectResult.getStatusMessage());
 
         editedInstructor = instructorsLogic.getInstructorForGoogleId(courseId, instructorId);
@@ -158,20 +160,20 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
 
         ______TS("Unsuccessful case: test null course id parameter");
         submissionParams = new String[]{
-                Const.ParamsNames.INSTRUCTOR_ID, instructorId,
-                Const.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructorId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
 
         try {
@@ -179,25 +181,25 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
             getRedirectResult(saveAction);
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.COURSE_ID), e.getMessage());
+                    ParamNameConst.ParamsNames.COURSE_ID), e.getMessage());
         }
 
         ______TS("Unsuccessful case: test null instructor name parameter");
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_ID, instructorId,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructorId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
 
         try {
@@ -205,25 +207,25 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
             getRedirectResult(saveAction);
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.INSTRUCTOR_NAME), e.getMessage());
+                    ParamNameConst.ParamsNames.INSTRUCTOR_NAME), e.getMessage());
         }
 
         ______TS("Unsuccessful case: test null instructor email parameter");
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_ID, instructorId,
-                Const.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructorId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
 
         try {
@@ -231,7 +233,7 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
             getRedirectResult(saveAction);
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.INSTRUCTOR_EMAIL), e.getMessage());
+                    ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL), e.getMessage());
         }
     }
 
@@ -245,21 +247,21 @@ public class InstructorCourseInstructorEditSaveActionTest extends BaseActionTest
     protected void testAccessControl() throws Exception {
         InstructorAttributes instructor = typicalBundle.instructors.get("instructor3OfCourse1");
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.INSTRUCTOR_ID, instructor.googleId,
-                Const.ParamsNames.INSTRUCTOR_NAME, instructor.name,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, instructor.email,
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructor.googleId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, instructor.name,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instructor.email,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

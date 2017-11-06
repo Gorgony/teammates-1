@@ -5,11 +5,7 @@ import java.util.List;
 import teammates.common.datatransfer.CourseDetailsBundle;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorCourseDetailsPageData;
 
 /**
@@ -20,12 +16,12 @@ public class InstructorCourseDetailsPageAction extends Action {
     @Override
     public ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
 
         //this is for ajax loading of the htm table in the modal
-        boolean isHtmlTableNeeded = getRequestParamAsBoolean(Const.ParamsNames.CSV_TO_HTML_TABLE_NEEDED);
+        boolean isHtmlTableNeeded = getRequestParamAsBoolean(ParamNameConst.ParamsNames.CSV_TO_HTML_TABLE_NEEDED);
 
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
         gateKeeper.verifyAccessible(instructor, logic.getCourse(courseId));
@@ -49,7 +45,7 @@ public class InstructorCourseDetailsPageAction extends Action {
         data.init(instructor, courseDetails, instructors);
 
         if (courseDetails.getStats().getStudentsTotal() == 0) {
-            String message = String.format(Const.StatusMessages.INSTRUCTOR_COURSE_EMPTY,
+            String message = String.format(StatusMessageConst.StatusMessages.INSTRUCTOR_COURSE_EMPTY,
                                            data.getInstructorCourseEnrollLink(courseId));
             statusToUser.add(new StatusMessage(message, StatusMessageColor.WARNING));
         }

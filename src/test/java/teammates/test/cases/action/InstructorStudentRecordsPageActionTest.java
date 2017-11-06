@@ -12,7 +12,9 @@ import teammates.common.exception.EntityAlreadyExistsException;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.api.Logic;
 import teammates.logic.core.StudentsLogic;
 import teammates.test.driver.AssertHelper;
@@ -49,14 +51,14 @@ public class InstructorStudentRecordsPageActionTest extends BaseActionTest {
 
         // null courseId
         String[] invalidParams = new String[] {
-                Const.ParamsNames.STUDENT_EMAIL, student.email
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email
         };
 
         verifyAssumptionFailure(invalidParams);
 
         // null student email
         invalidParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor.courseId
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId
         };
 
         verifyAssumptionFailure(invalidParams);
@@ -64,22 +66,22 @@ public class InstructorStudentRecordsPageActionTest extends BaseActionTest {
         // student not in course
         String studentEmailOfStudent1InCourse2 = typicalBundle.students.get("student1InCourse2").email;
         invalidParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, studentEmailOfStudent1InCourse2
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, studentEmailOfStudent1InCourse2
         };
 
         RedirectResult redirect = getRedirectResult(getAction(invalidParams));
 
         AssertHelper.assertContains(Const.ActionURIs.INSTRUCTOR_HOME_PAGE,
                                     redirect.getDestinationWithParams());
-        AssertHelper.assertContains(Const.StatusMessages.STUDENT_NOT_FOUND_FOR_RECORDS,
+        AssertHelper.assertContains(StatusMessageConst.StatusMessages.STUDENT_NOT_FOUND_FOR_RECORDS,
                                     redirect.getStatusMessage());
 
         ______TS("Typical case: student has some records and has profile");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email
         };
 
         InstructorStudentRecordsPageAction a = getAction(submissionParams);
@@ -118,8 +120,8 @@ public class InstructorStudentRecordsPageActionTest extends BaseActionTest {
         gaeSimulation.loginAsInstructor(instructor.googleId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email
         };
 
         a = getAction(submissionParams);
@@ -144,15 +146,15 @@ public class InstructorStudentRecordsPageActionTest extends BaseActionTest {
         StudentAttributes testStudent = createStudentInTypicalDataBundleForCourseWithNoSession();
 
         String[] submissionParamsWithNoSession = new String[] {
-                Const.ParamsNames.COURSE_ID, courseIdWithNoSession,
-                Const.ParamsNames.STUDENT_EMAIL, "emailTemp@gmail.tmt"
+                ParamNameConst.ParamsNames.COURSE_ID, courseIdWithNoSession,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, "emailTemp@gmail.tmt"
         };
 
         InstructorStudentRecordsPageAction aWithNoSession = getAction(submissionParamsWithNoSession);
         ShowPageResult rWithNoSession = getShowPageResult(aWithNoSession);
         List<String> expectedMessages = new ArrayList<>();
         expectedMessages.add("No records were found for this student");
-        expectedMessages.add(Const.StatusMessages.STUDENT_NOT_JOINED_YET_FOR_RECORDS);
+        expectedMessages.add(StatusMessageConst.StatusMessages.STUDENT_NOT_JOINED_YET_FOR_RECORDS);
         AssertHelper.assertContains(expectedMessages, rWithNoSession.getStatusMessage());
 
         ______TS("Typical case: student has profile but no records");
@@ -178,8 +180,8 @@ public class InstructorStudentRecordsPageActionTest extends BaseActionTest {
         gaeSimulation.loginAsInstructor(instructorId);
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email
         };
 
         a = getAction(submissionParams);
@@ -229,8 +231,8 @@ public class InstructorStudentRecordsPageActionTest extends BaseActionTest {
         StudentAttributes student1InCourse1 = typicalBundle.students.get("student1InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student1InCourse1.email
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

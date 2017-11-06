@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 public class CourseEditInstructorPanel {
     private int index;
@@ -199,14 +199,14 @@ public class CourseEditInstructorPanel {
         List<ElementTag> permissionInputGroup = new ArrayList<>();
 
         permissionInputGroup.add(createCheckBox("Sessions: Submit Responses and Add Comments",
-                                                Const.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS));
+                                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS));
 
         permissionInputGroup.add(createCheckBox("Sessions: View Responses and Comments",
-                                                Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS));
+                                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS));
 
         permissionInputGroup.add(createCheckBox(
                                     "Sessions: Edit/Delete Responses/Comments by Others",
-                                    Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS));
+                                    ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS));
 
         return permissionInputGroup;
     }
@@ -215,7 +215,7 @@ public class CourseEditInstructorPanel {
         List<ElementTag> permissionInputGroup = new ArrayList<>();
 
         permissionInputGroup.add(createCheckBox("View Students' Details",
-                                                Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS));
+                                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS));
 
         return permissionInputGroup;
     }
@@ -224,16 +224,16 @@ public class CourseEditInstructorPanel {
         List<ElementTag> permissionInputGroup = new ArrayList<>();
 
         permissionInputGroup.add(createCheckBox("Edit/Delete Course",
-                                                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE));
+                                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE));
 
         permissionInputGroup.add(createCheckBox("Add/Edit/Delete Instructors",
-                                                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR));
+                                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR));
 
         permissionInputGroup.add(createCheckBox("Create/Edit/Delete Sessions",
-                                                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION));
+                                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION));
 
         permissionInputGroup.add(createCheckBox("Enroll/Edit/Delete Students",
-                                                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT));
+                                                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT));
 
         return permissionInputGroup;
     }

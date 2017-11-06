@@ -16,6 +16,7 @@ import teammates.common.datatransfer.attributes.FeedbackResponseCommentAttribute
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.template.FeedbackResponseCommentRow;
 import teammates.ui.template.FeedbackSessionRow;
 import teammates.ui.template.QuestionTable;
@@ -226,10 +227,10 @@ public class InstructorSearchPageData extends PageData {
             InstructorAttributes instructor = studentSearchResultBundle.courseIdInstructorMap.get(courseId);
             boolean isAllowedToViewStudentInSection =
                     instructor.isAllowedForPrivilege(
-                            section.name, Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
+                            section.name, ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
             boolean isAllowedToModifyStudent =
                     instructor.isAllowedForPrivilege(
-                            section.name, Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
+                            section.name, ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
             rows.add(new StudentListSectionData(section, isAllowedToViewStudentInSection,
                                                 isAllowedToModifyStudent,
                                                 emailToPhotoUrlMap, account.googleId, getSessionToken()));

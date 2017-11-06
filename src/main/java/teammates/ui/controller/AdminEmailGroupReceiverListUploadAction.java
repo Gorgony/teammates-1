@@ -9,9 +9,7 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreFailureException;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
-import teammates.common.util.Const;
-import teammates.common.util.GoogleCloudStorageHelper;
-import teammates.common.util.Logger;
+import teammates.common.util.*;
 import teammates.ui.pagedata.AdminEmailComposePageData;
 
 public class AdminEmailGroupReceiverListUploadAction extends Action {
@@ -77,10 +75,10 @@ public class AdminEmailGroupReceiverListUploadAction extends Action {
     private BlobInfo extractGroupReceiverListFileKey() {
         try {
             Map<String, List<BlobInfo>> blobsMap = BlobstoreServiceFactory.getBlobstoreService().getBlobInfos(request);
-            List<BlobInfo> blobs = blobsMap.get(Const.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_TO_UPLOAD);
+            List<BlobInfo> blobs = blobsMap.get(ParamNameConst.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_TO_UPLOAD);
 
             if (blobs == null || blobs.isEmpty()) {
-                data.ajaxStatus = Const.StatusMessages.NO_GROUP_RECEIVER_LIST_FILE_GIVEN;
+                data.ajaxStatus = StatusMessageConst.StatusMessages.NO_GROUP_RECEIVER_LIST_FILE_GIVEN;
                 isError = true;
                 return null;
             }
@@ -96,7 +94,7 @@ public class AdminEmailGroupReceiverListUploadAction extends Action {
         if (!groupReceiverListFile.getContentType().contains("text/")) {
             deleteGroupReceiverListFile(groupReceiverListFile.getBlobKey());
             isError = true;
-            data.ajaxStatus = Const.StatusMessages.NOT_A_RECEIVER_LIST_FILE;
+            data.ajaxStatus = StatusMessageConst.StatusMessages.NOT_A_RECEIVER_LIST_FILE;
             return null;
         }
 

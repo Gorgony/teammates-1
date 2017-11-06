@@ -4,10 +4,7 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 
 /**
  * Action: serves a profile picture that is stored in Google Cloud Storage.
@@ -18,9 +15,9 @@ public class StudentProfilePictureAction extends Action {
 
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        boolean isRequestFromStudent = getRequestParamValue(Const.ParamsNames.BLOB_KEY) != null;
+        boolean isRequestFromStudent = getRequestParamValue(ParamNameConst.ParamsNames.BLOB_KEY) != null;
         boolean isRequestFromInstructorOrOtherStudent =
-                                        getRequestParamValue(Const.ParamsNames.STUDENT_EMAIL) != null;
+                                        getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_EMAIL) != null;
 
         if (!isRequestFromStudent && !isRequestFromInstructorOrOtherStudent) {
             Assumption.fail("expected blob-key, or student email with courseId");
@@ -74,21 +71,21 @@ public class StudentProfilePictureAction extends Action {
     }
 
     private String getBlobKeyFromRequest() {
-        String blobKey = getRequestParamValue(Const.ParamsNames.BLOB_KEY);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.BLOB_KEY, blobKey);
+        String blobKey = getRequestParamValue(ParamNameConst.ParamsNames.BLOB_KEY);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.BLOB_KEY, blobKey);
         return blobKey;
     }
 
     private String getCourseIdFromRequest() throws InvalidParametersException {
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
         courseId = StringHelper.decrypt(courseId);
         return courseId;
     }
 
     private String getStudentEmailFromRequest() throws InvalidParametersException {
-        String email = getRequestParamValue(Const.ParamsNames.STUDENT_EMAIL);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.STUDENT_EMAIL, email);
+        String email = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_EMAIL);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.STUDENT_EMAIL, email);
         email = StringHelper.decrypt(email);
         return email;
     }

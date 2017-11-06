@@ -3,15 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor/results" prefix="r" %>
 <%@ tag import="teammates.common.util.Const"%>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="courseId" required="true" %>
 <%@ attribute name="feedbackSession" required="true" %>
 <%@ attribute name="selectedSection" required="true" %>
 <form id="csvToHtmlForm">
-  <input type="hidden" name="<%=Const.ParamsNames.COURSE_ID%>" value="${courseId}">
-  <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${feedbackSession}">
-  <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>" value="${data.account.googleId}">
-  <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION%>" value="${fn:escapeXml(selectedSection)}">
-  <input type="hidden" name="<%=Const.ParamsNames.CSV_TO_HTML_TABLE_NEEDED%>" value="true">
+  <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_ID%>" value="${courseId}">
+  <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME%>" value="${feedbackSession}">
+  <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>" value="${data.account.googleId}">
+  <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTION%>" value="${fn:escapeXml(selectedSection)}">
+  <input type="hidden" name="<%=ParamNameConst.ParamsNames.CSV_TO_HTML_TABLE_NEEDED%>" value="true">
 </form>
 <div class="modal fade align-center" id="fsResultsTableWindow">
   <div class="modal-dialog modal-lg">

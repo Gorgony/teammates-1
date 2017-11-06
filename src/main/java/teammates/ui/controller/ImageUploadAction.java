@@ -8,10 +8,7 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreFailureException;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
-import teammates.common.util.AppUrl;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
+import teammates.common.util.*;
 import teammates.ui.pagedata.FileUploadPageData;
 
 /**
@@ -31,7 +28,7 @@ public class ImageUploadAction extends Action {
     }
 
     protected String getImageKeyParam() {
-        return Const.ParamsNames.IMAGE_TO_UPLOAD;
+        return ParamNameConst.ParamsNames.IMAGE_TO_UPLOAD;
     }
 
     protected FileUploadPageData prepareData() {
@@ -51,7 +48,7 @@ public class ImageUploadAction extends Action {
 
         data.isFileUploaded = true;
         AppUrl fileSrcUrl = Config.getAppUrl(Const.ActionURIs.PUBLIC_IMAGE_SERVE)
-                .withParam(Const.ParamsNames.BLOB_KEY, blobKey.getKeyString());
+                .withParam(ParamNameConst.ParamsNames.BLOB_KEY, blobKey.getKeyString());
         String absoluteFileSrcUrl = fileSrcUrl.toAbsoluteString();
         data.fileSrcUrl = fileSrcUrl.toString();
 
@@ -72,7 +69,7 @@ public class ImageUploadAction extends Action {
             List<BlobInfo> blobs = blobsMap.get(param);
 
             if (blobs == null || blobs.isEmpty()) {
-                data.ajaxStatus = Const.StatusMessages.NO_IMAGE_GIVEN;
+                data.ajaxStatus = StatusMessageConst.StatusMessages.NO_IMAGE_GIVEN;
                 isError = true;
                 return null;
             }
@@ -88,15 +85,15 @@ public class ImageUploadAction extends Action {
      * Validates the image by size and content type.
      */
     protected BlobInfo validateImage(BlobInfo image) {
-        if (image.getSize() > Const.SystemParams.MAX_PROFILE_PIC_SIZE) {
+        if (image.getSize() > SystemParamsConst.SystemParams.MAX_PROFILE_PIC_SIZE) {
             deleteImage(image.getBlobKey());
             isError = true;
-            data.ajaxStatus = Const.StatusMessages.IMAGE_TOO_LARGE;
+            data.ajaxStatus = StatusMessageConst.StatusMessages.IMAGE_TOO_LARGE;
             return null;
         } else if (!image.getContentType().contains("image/")) {
             deleteImage(image.getBlobKey());
             isError = true;
-            data.ajaxStatus = Const.StatusMessages.FILE_NOT_A_PICTURE;
+            data.ajaxStatus = StatusMessageConst.StatusMessages.FILE_NOT_A_PICTURE;
             return null;
         }
 

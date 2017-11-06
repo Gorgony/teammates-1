@@ -2,7 +2,7 @@ package teammates.ui.controller;
 
 import com.google.appengine.api.blobstore.BlobKey;
 
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.pagedata.AdminEmailComposePageData;
 import teammates.ui.pagedata.FileUploadPageData;
 
@@ -26,7 +26,7 @@ public class AdminEmailImageUploadAction extends ImageUploadAction {
 
     @Override
     protected String getImageKeyParam() {
-        return Const.ParamsNames.ADMIN_EMAIL_IMAGE_TO_UPLOAD;
+        return ParamNameConst.ParamsNames.ADMIN_EMAIL_IMAGE_TO_UPLOAD;
     }
 
     @Override

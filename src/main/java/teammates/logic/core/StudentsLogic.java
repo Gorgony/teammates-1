@@ -17,11 +17,7 @@ import teammates.common.exception.EnrollException;
 import teammates.common.exception.EntityAlreadyExistsException;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.storage.api.StudentsDb;
 
 /**
@@ -293,7 +289,7 @@ public final class StudentsLogic {
         }
 
         if (enrollLines.isEmpty()) {
-            throw new EnrollException(Const.StatusMessages.ENROLL_LINE_EMPTY);
+            throw new EnrollException(StatusMessageConst.StatusMessages.ENROLL_LINE_EMPTY);
         }
 
         List<StudentAttributes> studentList = createStudents(enrollLines, courseId);
@@ -329,7 +325,7 @@ public final class StudentsLogic {
 
     private void verifyIsWithinSizeLimitPerEnrollment(List<StudentAttributes> students) throws EnrollException {
         if (students.size() > Const.SIZE_LIMIT_PER_ENROLLMENT) {
-            throw new EnrollException(Const.StatusMessages.QUOTA_PER_ENROLLMENT_EXCEED);
+            throw new EnrollException(StatusMessageConst.StatusMessages.QUOTA_PER_ENROLLMENT_EXCEED);
         }
     }
 
@@ -422,7 +418,7 @@ public final class StudentsLogic {
 
         StringBuilder errorMessage = new StringBuilder();
         for (String section : invalidSectionList) {
-            errorMessage.append(String.format(Const.StatusMessages.SECTION_QUOTA_EXCEED, section));
+            errorMessage.append(String.format(StatusMessageConst.StatusMessages.SECTION_QUOTA_EXCEED, section));
         }
 
         return errorMessage.toString();
@@ -445,7 +441,7 @@ public final class StudentsLogic {
 
         StringBuilder errorMessage = new StringBuilder(100);
         for (String team : invalidTeamList) {
-            errorMessage.append(String.format(Const.StatusMessages.TEAM_INVALID_SECTION_EDIT,
+            errorMessage.append(String.format(StatusMessageConst.StatusMessages.TEAM_INVALID_SECTION_EDIT,
                                               SanitizationHelper.sanitizeForHtml(team)));
         }
 
@@ -626,8 +622,8 @@ public final class StudentsLogic {
      */
     private String invalidStudentInfo(String userInput, StudentAttributes student) {
         String info = StringHelper.toString(SanitizationHelper.sanitizeForHtml(student.getInvalidityInfo()),
-                "<br>" + Const.StatusMessages.ENROLL_LINES_PROBLEM_DETAIL_PREFIX + " ");
-        return String.format(Const.StatusMessages.ENROLL_LINES_PROBLEM, userInput, info);
+                "<br>" + StatusMessageConst.StatusMessages.ENROLL_LINES_PROBLEM_DETAIL_PREFIX + " ");
+        return String.format(StatusMessageConst.StatusMessages.ENROLL_LINES_PROBLEM, userInput, info);
     }
 
     /**
@@ -649,9 +645,9 @@ public final class StudentsLogic {
      */
     private String duplicateEmailInfo(String userInput, String duplicateEmailInfo) {
         String info =
-                Const.StatusMessages.DUPLICATE_EMAIL_INFO + " \"" + duplicateEmailInfo + "\""
-                + "<br>" + Const.StatusMessages.ENROLL_LINES_PROBLEM_DETAIL_PREFIX + " ";
-        return String.format(Const.StatusMessages.ENROLL_LINES_PROBLEM, userInput, info);
+                StatusMessageConst.StatusMessages.DUPLICATE_EMAIL_INFO + " \"" + duplicateEmailInfo + "\""
+                + "<br>" + StatusMessageConst.StatusMessages.ENROLL_LINES_PROBLEM_DETAIL_PREFIX + " ";
+        return String.format(StatusMessageConst.StatusMessages.ENROLL_LINES_PROBLEM, userInput, info);
     }
 
     /**
@@ -659,7 +655,7 @@ public final class StudentsLogic {
      * and the corresponding sanitized invalid {@code userInput}.
      */
     private String enrollExceptionInfo(String userInput, String errorMessage) {
-        return String.format(Const.StatusMessages.ENROLL_LINES_PROBLEM, userInput, errorMessage);
+        return String.format(StatusMessageConst.StatusMessages.ENROLL_LINES_PROBLEM, userInput, errorMessage);
     }
 
     private boolean isInEnrollList(StudentAttributes student,

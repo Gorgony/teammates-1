@@ -83,7 +83,7 @@ public class AdminActivityLogPageActionTest extends BaseActionTest {
 
     private void initVariable() {
         formatterAdminTime = new SimpleDateFormat("dd/MM/yy");
-        formatterAdminTime.setTimeZone(TimeZone.getTimeZone(Const.SystemParams.ADMIN_TIME_ZONE));
+        formatterAdminTime.setTimeZone(TimeZone.getTimeZone(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE));
     }
 
     @Override
@@ -275,7 +275,7 @@ public class AdminActivityLogPageActionTest extends BaseActionTest {
         AdminActivityLogPageAction action = getAction();
         String statusMessage = getShowPageResult(action).getStatusMessage();
         verifyStatusMessage(statusMessage, 11, 5, yesterday);
-        verifyLocalTimeInStatusMessage(statusMessage, yesterday, Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        verifyLocalTimeInStatusMessage(statusMessage, yesterday, SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
 
         // test statusMessage with filterQuery
         String query = "person:idOfInstructor1OfCourse1";
@@ -289,7 +289,7 @@ public class AdminActivityLogPageActionTest extends BaseActionTest {
         Calendar toDate = adminTimeZoneToUtc(getEndOfTheDayOffsetNowInAdminTimeZone(-2));
         statusMessage = getShowPageResult(action).getStatusMessage();
         verifyStatusMessage(statusMessage, 6, 3, toDate.getTime());
-        verifyLocalTimeInStatusMessage(statusMessage, toDate.getTime(), Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        verifyLocalTimeInStatusMessage(statusMessage, toDate.getTime(), SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
 
         // test statusMessage with `from`
         query = "from:" + formatterAdminTime.format(yesterday);
@@ -297,12 +297,12 @@ public class AdminActivityLogPageActionTest extends BaseActionTest {
         Calendar fromDate = adminTimeZoneToUtc(getBeginOfTheDayOffsetNowInAdminTimeZone(-1));
         statusMessage = getShowPageResult(action).getStatusMessage();
         verifyStatusMessage(statusMessage, 17, 8, fromDate.getTime());
-        verifyLocalTimeInStatusMessage(statusMessage, fromDate.getTime(), Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        verifyLocalTimeInStatusMessage(statusMessage, fromDate.getTime(), SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
     }
 
     @Test(groups = "typicalActivityLogs")
     public void loadingLocalTimeAjaxQuery_validAndInvalidInputs_returnCorrectly() {
-        Calendar now = TimeHelper.now(Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        Calendar now = TimeHelper.now(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         // Unknown
@@ -467,7 +467,7 @@ public class AdminActivityLogPageActionTest extends BaseActionTest {
 
     private void verifyStatusMessage(String message, int totalLogs, int filteredLogs, Date earliestDateInUtc) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH");
-        sdf.setTimeZone(TimeZone.getTimeZone(Const.SystemParams.ADMIN_TIME_ZONE));
+        sdf.setTimeZone(TimeZone.getTimeZone(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE));
 
         assertTrue(message.contains("Total Logs gone through in last search: " + totalLogs));
         assertTrue(message.contains("Total Relevant Logs found in last search: " + filteredLogs));
@@ -542,7 +542,7 @@ public class AdminActivityLogPageActionTest extends BaseActionTest {
     }
 
     private Calendar getBeginOfTheDayOffsetNowInAdminTimeZone(int dayOffset) {
-        Calendar calendar = TimeHelper.now(Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        Calendar calendar = TimeHelper.now(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -559,7 +559,7 @@ public class AdminActivityLogPageActionTest extends BaseActionTest {
     }
 
     private Calendar adminTimeZoneToUtc(Calendar calendar) {
-        return TimeHelper.convertToUserTimeZone(calendar, -Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        return TimeHelper.convertToUserTimeZone(calendar, -SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
     }
 
     @Override

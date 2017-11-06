@@ -12,11 +12,7 @@ import com.google.appengine.api.blobstore.BlobstoreInputStream;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 import teammates.common.exception.EntityDoesNotExistException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.GoogleCloudStorageHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 
 /**
  * Action: saves the file information of the profile picture
@@ -43,9 +39,9 @@ public class StudentProfilePictureUploadAction extends Action {
                 blobKey = blobInfo.getBlobKey();
                 pictureKey = renameFileToGoogleId(blobInfo);
                 logic.updateStudentProfilePicture(account.googleId, pictureKey);
-                statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_PICTURE_SAVED,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_PICTURE_SAVED,
                                                    StatusMessageColor.SUCCESS));
-                r.addResponseParam(Const.ParamsNames.STUDENT_PROFILE_PHOTOEDIT, "true");
+                r.addResponseParam(ParamNameConst.ParamsNames.STUDENT_PROFILE_PHOTOEDIT, "true");
             }
         } catch (BlobstoreFailureException | IOException bfe) {
             deletePicture(blobKey);
@@ -81,9 +77,9 @@ public class StudentProfilePictureUploadAction extends Action {
         try {
             Map<String, List<BlobInfo>> blobsMap = BlobstoreServiceFactory.getBlobstoreService()
                                                                           .getBlobInfos(request);
-            List<BlobInfo> blobs = blobsMap.get(Const.ParamsNames.STUDENT_PROFILE_PHOTO);
+            List<BlobInfo> blobs = blobsMap.get(ParamNameConst.ParamsNames.STUDENT_PROFILE_PHOTO);
             if (blobs == null || blobs.isEmpty()) {
-                statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_NO_PICTURE_GIVEN,
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_NO_PICTURE_GIVEN,
                                                    StatusMessageColor.DANGER));
                 isError = true;
                 return null;
@@ -100,16 +96,16 @@ public class StudentProfilePictureUploadAction extends Action {
     }
 
     private BlobInfo validateProfilePicture(BlobInfo profilePic) {
-        if (profilePic.getSize() > Const.SystemParams.MAX_PROFILE_PIC_SIZE) {
+        if (profilePic.getSize() > SystemParamsConst.SystemParams.MAX_PROFILE_PIC_SIZE) {
             deletePicture(profilePic.getBlobKey());
             isError = true;
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_PIC_TOO_LARGE,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_PIC_TOO_LARGE,
                                                StatusMessageColor.DANGER));
             return null;
         } else if (!profilePic.getContentType().contains("image/")) {
             deletePicture(profilePic.getBlobKey());
             isError = true;
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_NOT_A_PICTURE,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_NOT_A_PICTURE,
                                                StatusMessageColor.DANGER));
             return null;
         }
@@ -135,7 +131,7 @@ public class StudentProfilePictureUploadAction extends Action {
         statusToAdmin += Const.ACTION_RESULT_FAILURE + " : Could not delete profile picture for account ("
                        + account.googleId + ")" + Const.EOL;
         statusToUser.clear();
-        statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_PIC_SERVICE_DOWN,
+        statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_PROFILE_PIC_SERVICE_DOWN,
                                            StatusMessageColor.DANGER));
     }
 

@@ -4,6 +4,8 @@
 
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 
 <%@ attribute name="fsForm" type="teammates.ui.template.FeedbackSessionsForm" required="true"%>
 <%@ attribute name="fsEnableEdit" %>
@@ -13,7 +15,7 @@
       action="${fsForm.formSubmitAction}"
       id="form_feedbacksession"
       <c:if test="${not empty fsEnableEdit}">
-        data-<%= Const.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT %>="${fsEnableEdit}"
+        data-<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT %>="${fsEnableEdit}"
       </c:if>>
 
     <feedbacks:feedbackSessionsFormHeader fsForm="${fsForm}" />
@@ -23,12 +25,12 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-sm-12 col-md-6"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_COURSE %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_COURSE %>"
               data-toggle="tooltip"
               data-placement="top">
             <div class="form-group<c:if test="${fsForm.showNoCoursesMessage}"> has-error</c:if>">
               <h5 class="col-sm-2 col-md-4">
-                <label class="control-label" for="<%= Const.ParamsNames.COURSE_ID %>">
+                <label class="control-label" for="<%= ParamNameConst.ParamsNames.COURSE_ID %>">
                   Course ID
                 </label>
               </h5>
@@ -36,8 +38,8 @@
                 <c:choose>
                   <c:when test="${fsForm.courseIdEditable}">
                     <select class="form-control<c:if test="${fsForm.showNoCoursesMessage}"> text-color-red</c:if>"
-                        name="<%= Const.ParamsNames.COURSE_ID %>"
-                        id="<%= Const.ParamsNames.COURSE_ID %>">
+                        name="<%= ParamNameConst.ParamsNames.COURSE_ID %>"
+                        id="<%= ParamNameConst.ParamsNames.COURSE_ID %>">
                       <c:forEach items="${fsForm.coursesSelectField}" var="option">
                         <option ${option.attributesToString}>${option.content}</option>
                       </c:forEach>
@@ -53,19 +55,19 @@
             </div>
           </div>
           <div class="col-sm-12 col-md-6 tablet-no-mobile-margin-top-20px"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_INPUT_TIMEZONE %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_INPUT_TIMEZONE %>"
               data-toggle="tooltip"
               data-placement="top">
             <div class="form-group">
               <h5 class="col-sm-2 col-md-4">
-                <label class="control-label" for="<%= Const.ParamsNames.FEEDBACK_SESSION_TIMEZONE %>">
+                <label class="control-label" for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_TIMEZONE %>">
                   Timezone
                 </label>
               </h5>
               <div class="col-sm-10 col-md-8">
                 <select class="form-control"
-                    name="<%= Const.ParamsNames.FEEDBACK_SESSION_TIMEZONE %>"
-                    id="<%= Const.ParamsNames.FEEDBACK_SESSION_TIMEZONE %>">
+                    name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_TIMEZONE %>"
+                    id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_TIMEZONE %>">
                   <c:forEach items="${fsForm.timezoneSelectField}" var="option">
                     <option ${option.attributesToString}>
                       ${option.content}
@@ -80,12 +82,12 @@
         <br class="hidden-xs">
         <div class="row">
           <div class="col-sm-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_INPUT_NAME %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_INPUT_NAME %>"
               data-toggle="tooltip"
               data-placement="top">
             <div class="form-group">
               <h5 class="col-sm-2">
-                <label class="control-label" for="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>">
+                <label class="control-label" for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>">
                   Session name
                 </label>
               </h5>
@@ -93,8 +95,8 @@
                 <c:choose>
                   <c:when test="${fsForm.fsNameEditable}">
                     <input class="form-control" type="text"
-                        name="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>"
-                        id="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>"
+                        name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>"
+                        id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>"
                         maxlength="<%= FieldValidator.FEEDBACK_SESSION_NAME_MAX_LENGTH %>"
                         placeholder="e.g. Feedback for Project Presentation 1"
                         value="${fsForm.fsName}">
@@ -112,17 +114,17 @@
         <br class="hidden-xs">
         <div class="row" id="instructionsRow">
           <div class="col-sm-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_INSTRUCTIONS %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_INSTRUCTIONS %>"
               data-toggle="tooltip"
               data-placement="top">
             <div class="form-group">
               <h5 class="col-sm-2 margin-top-0">
-                <label class="control-label" for="<%= Const.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS %>">
+                <label class="control-label" for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS %>">
                   Instructions
                 </label>
               </h5>
               <div class="col-sm-10">
-                <div id="<%= Const.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS %>" class="panel panel-default panel-body">
+                <div id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS %>" class="panel panel-default panel-body">
                   ${fsForm.instructions}
                 </div>
               </div>
@@ -135,12 +137,12 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-5"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_STARTDATE %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_STARTDATE %>"
               data-toggle="tooltip"
               data-placement="top">
             <div class="row">
               <div class="col-xs-12">
-                <label class="label-control" for="<%= Const.ParamsNames.FEEDBACK_SESSION_STARTDATE %>">
+                <label class="label-control" for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE %>">
                   Submission opening time
                 </label>
               </div>
@@ -148,15 +150,15 @@
             <div class="row">
               <div class="col-xs-6">
                 <input class="form-control col-sm-2" type="text"
-                    name="<%= Const.ParamsNames.FEEDBACK_SESSION_STARTDATE %>"
-                    id="<%= Const.ParamsNames.FEEDBACK_SESSION_STARTDATE %>"
+                    name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE %>"
+                    id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE %>"
                     value="${fsForm.fsStartDate}"
                     placeholder="Date">
               </div>
               <div class="col-xs-6">
                 <select class="form-control"
-                    name="<%= Const.ParamsNames.FEEDBACK_SESSION_STARTTIME %>"
-                    id="<%= Const.ParamsNames.FEEDBACK_SESSION_STARTTIME %>">
+                    name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTTIME %>"
+                    id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTTIME %>">
                   <c:forEach items="${fsForm.fsStartTimeOptions}" var="option">
                     <option ${option.attributesToString}>
                       ${option.content}
@@ -167,12 +169,12 @@
             </div>
           </div>
           <div class="col-md-5 border-left-gray"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_ENDDATE %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_ENDDATE %>"
               data-toggle="tooltip"
               data-placement="top">
             <div class="row">
               <div class="col-xs-12">
-                <label class="label-control" for="<%= Const.ParamsNames.FEEDBACK_SESSION_ENDDATE %>">
+                <label class="label-control" for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE %>">
                   Submission closing time
                 </label>
               </div>
@@ -180,15 +182,15 @@
             <div class="row">
               <div class="col-xs-6">
                 <input class="form-control col-sm-2" type="text"
-                    name="<%= Const.ParamsNames.FEEDBACK_SESSION_ENDDATE %>"
-                    id="<%= Const.ParamsNames.FEEDBACK_SESSION_ENDDATE %>"
+                    name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE %>"
+                    id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE %>"
                     value="${fsForm.fsEndDate}"
                     placeHolder="Date">
               </div>
               <div class="col-xs-6">
                 <select class="form-control"
-                    name="<%= Const.ParamsNames.FEEDBACK_SESSION_ENDTIME %>"
-                    id="<%= Const.ParamsNames.FEEDBACK_SESSION_ENDTIME %>">
+                    name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDTIME %>"
+                    id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDTIME %>">
                   <c:forEach items="${fsForm.fsEndTimeOptions}" var="option">
                     <option ${option.attributesToString}>
                       ${option.content}
@@ -199,12 +201,12 @@
             </div>
           </div>
           <div class="col-md-2 border-left-gray"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_INPUT_GRACEPERIOD %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_INPUT_GRACEPERIOD %>"
               data-toggle="tooltip"
               data-placement="top">
             <div class="row">
               <div class="col-xs-12">
-                <label class="control-label" for="<%= Const.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD %>">
+                <label class="control-label" for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD %>">
                   Grace period
                 </label>
               </div>
@@ -212,8 +214,8 @@
             <div class="row">
               <div class="col-xs-12">
                 <select class="form-control"
-                    name="<%= Const.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD %>"
-                    id="<%= Const.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD %>">
+                    name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD %>"
+                    id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD %>">
                   <c:forEach items="${fsForm.gracePeriodOptions}" var="option">
                     <option ${option.attributesToString}>
                       ${option.content}
@@ -268,12 +270,12 @@
       </div>
     </c:if>
     <c:if test="${!fsForm.fsNameEditable}">
-      <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${fsForm.fsName}">
+      <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${fsForm.fsName}">
     </c:if>
     <c:if test="${!fsForm.courseIdEditable}">
-      <input type="hidden" name="<%= Const.ParamsNames.COURSE_ID %>" value="${fsForm.courseId}">
+      <input type="hidden" name="<%= ParamNameConst.ParamsNames.COURSE_ID %>" value="${fsForm.courseId}">
     </c:if>
-    <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${data.account.googleId}">
-    <input type="hidden" name="<%= Const.ParamsNames.SESSION_TOKEN%>" value="${data.sessionToken}">
+    <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${data.account.googleId}">
+    <input type="hidden" name="<%= ParamNameConst.ParamsNames.SESSION_TOKEN%>" value="${data.sessionToken}">
   </form>
 </div>

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor/feedbacks" prefix="tif" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
 <%@ attribute name="sessionRows" type="java.util.Collection" required="true" %>
 <div class="panel-collapse collapse">
   <div class="panel-body padding-0">
@@ -20,7 +21,7 @@
           <th>Submissions</th>
           <th>Responses</th>
           <th>
-            <span class="text-nowrap" title="<%= Const.Tooltips.FEEDBACK_SESSION_RESPONSE_RATE %>"
+            <span class="text-nowrap" title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESPONSE_RATE %>"
                 data-toggle="tooltip" data-placement="top">Response Rate</span>
           </th>
           <th class="col-lg-4 no-print">Action(s)</th>

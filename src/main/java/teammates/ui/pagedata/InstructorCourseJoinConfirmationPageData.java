@@ -2,6 +2,7 @@ package teammates.ui.pagedata;
 
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 
 public class InstructorCourseJoinConfirmationPageData extends PageData {
@@ -29,6 +30,6 @@ public class InstructorCourseJoinConfirmationPageData extends PageData {
         return Const.ActionURIs.INSTRUCTOR_COURSE_JOIN_AUTHENTICATED + "?key=" + regkey
              + (institute == null
                 ? ""
-                : '&' + Const.ParamsNames.INSTRUCTOR_INSTITUTION + '=' + SanitizationHelper.sanitizeForUri(institute));
+                : '&' + ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION + '=' + SanitizationHelper.sanitizeForUri(institute));
     }
 }

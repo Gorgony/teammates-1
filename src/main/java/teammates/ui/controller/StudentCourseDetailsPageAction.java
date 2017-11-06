@@ -4,6 +4,7 @@ import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.util.Assumption;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 import teammates.ui.pagedata.StudentCourseDetailsPageData;
 
@@ -12,8 +13,8 @@ public class StudentCourseDetailsPageAction extends Action {
     @Override
     public ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
 
         if (!isJoinedCourse(courseId)) {
             return createPleaseJoinCourseResponse(courseId);

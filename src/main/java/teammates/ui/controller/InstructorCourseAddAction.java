@@ -9,12 +9,7 @@ import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityAlreadyExistsException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorCoursesPageData;
 
 /**
@@ -25,12 +20,12 @@ public class InstructorCourseAddAction extends Action {
 
     @Override
     public ActionResult execute() {
-        String newCourseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, newCourseId);
-        String newCourseName = getRequestParamValue(Const.ParamsNames.COURSE_NAME);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_NAME, newCourseName);
-        String newCourseTimeZone = getRequestParamValue(Const.ParamsNames.COURSE_TIME_ZONE);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_TIME_ZONE, newCourseTimeZone);
+        String newCourseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, newCourseId);
+        String newCourseName = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_NAME, newCourseName);
+        String newCourseTimeZone = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_TIME_ZONE);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_TIME_ZONE, newCourseTimeZone);
 
         /* Check if user has the right to execute the action */
         gateKeeper.verifyInstructorPrivileges(account);
@@ -96,14 +91,14 @@ public class InstructorCourseAddAction extends Action {
         try {
             logic.createCourseAndInstructor(data.account.googleId, course.getId(), course.getName(),
                                             course.getTimeZone());
-            String statusMessage = Const.StatusMessages.COURSE_ADDED.replace("${courseEnrollLink}",
+            String statusMessage = StatusMessageConst.StatusMessages.COURSE_ADDED.replace("${courseEnrollLink}",
                     data.getInstructorCourseEnrollLink(course.getId())).replace("${courseEditLink}",
                     data.getInstructorCourseEditLink(course.getId()));
             statusToUser.add(new StatusMessage(statusMessage, StatusMessageColor.SUCCESS));
             isError = false;
 
         } catch (EntityAlreadyExistsException e) {
-            setStatusForException(e, Const.StatusMessages.COURSE_EXISTS);
+            setStatusForException(e, StatusMessageConst.StatusMessages.COURSE_EXISTS);
         } catch (InvalidParametersException e) {
             setStatusForException(e);
         }

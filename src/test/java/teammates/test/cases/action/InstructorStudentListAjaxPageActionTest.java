@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.controller.InstructorStudentListAjaxPageAction;
 import teammates.ui.controller.ShowPageResult;
 import teammates.ui.pagedata.InstructorStudentListAjaxPageData;
@@ -38,8 +39,8 @@ public class InstructorStudentListAjaxPageActionTest extends BaseActionTest {
         ______TS("typical successful case");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.COURSE_INDEX, "1"
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.COURSE_INDEX, "1"
         };
 
         InstructorStudentListAjaxPageAction action = getAction(submissionParams);
@@ -61,8 +62,8 @@ public class InstructorStudentListAjaxPageActionTest extends BaseActionTest {
     protected void testAccessControl() throws Exception {
         InstructorAttributes instructor = typicalBundle.instructors.get("instructor3OfCourse1");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.COURSE_INDEX, "1"
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.COURSE_INDEX, "1"
         };
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);
     }

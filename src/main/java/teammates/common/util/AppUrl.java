@@ -11,39 +11,39 @@ public class AppUrl extends Url {
     }
 
     public AppUrl withUserId(String userId) {
-        return withParam(Const.ParamsNames.USER_ID, userId);
+        return withParam(ParamNameConst.ParamsNames.USER_ID, userId);
     }
 
     public AppUrl withRegistrationKey(String key) {
-        return withParam(Const.ParamsNames.REGKEY, key);
+        return withParam(ParamNameConst.ParamsNames.REGKEY, key);
     }
 
     public AppUrl withInstructorInstitution(String institute) {
-        return withParam(Const.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
+        return withParam(ParamNameConst.ParamsNames.INSTRUCTOR_INSTITUTION, institute);
     }
 
     public AppUrl withCourseId(String courseId) {
-        return withParam(Const.ParamsNames.COURSE_ID, courseId);
+        return withParam(ParamNameConst.ParamsNames.COURSE_ID, courseId);
     }
 
     public AppUrl withSessionName(String feedbackSessionName) {
-        return withParam(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        return withParam(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
     }
 
     public AppUrl withStudentEmail(String email) {
-        return withParam(Const.ParamsNames.STUDENT_EMAIL, email);
+        return withParam(ParamNameConst.ParamsNames.STUDENT_EMAIL, email);
     }
 
     public AppUrl withInstructorId(String instructorId) {
-        return withParam(Const.ParamsNames.INSTRUCTOR_ID, instructorId);
+        return withParam(ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructorId);
     }
 
     public AppUrl withQuestionNumber(String questionNumber) {
-        return withParam(Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, questionNumber);
+        return withParam(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, questionNumber);
     }
 
     public AppUrl withEnableSessionEditDetails(boolean shouldLoadInEditMode) {
-        return withParam(Const.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT, Boolean.toString(shouldLoadInEditMode));
+        return withParam(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENABLE_EDIT, Boolean.toString(shouldLoadInEditMode));
     }
 
 }

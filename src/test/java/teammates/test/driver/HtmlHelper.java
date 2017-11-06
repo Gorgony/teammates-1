@@ -14,11 +14,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 
 /**
  * Provides mechanism for HTML comparison during testing.
@@ -408,30 +404,30 @@ public final class HtmlHelper {
                                   "_ah/logout?continue=\\${continue\\.url}\"")
                       // student profile picture link
                       .replaceAll(Const.ActionURIs.STUDENT_PROFILE_PICTURE
-                                  + "\\?" + Const.ParamsNames.STUDENT_EMAIL + "=" + REGEX_ENCRYPTED_STUDENT_EMAIL
-                                  + "\\&amp;" + Const.ParamsNames.COURSE_ID + "=" + REGEX_ENCRYPTED_COURSE_ID,
+                                  + "\\?" + ParamNameConst.ParamsNames.STUDENT_EMAIL + "=" + REGEX_ENCRYPTED_STUDENT_EMAIL
+                                  + "\\&amp;" + ParamNameConst.ParamsNames.COURSE_ID + "=" + REGEX_ENCRYPTED_COURSE_ID,
                                   Const.ActionURIs.STUDENT_PROFILE_PICTURE
-                                  + "\\?" + Const.ParamsNames.STUDENT_EMAIL + "=\\${student\\.email\\.enc}"
-                                  + "\\&amp;" + Const.ParamsNames.COURSE_ID + "=\\${course\\.id\\.enc}")
+                                  + "\\?" + ParamNameConst.ParamsNames.STUDENT_EMAIL + "=\\${student\\.email\\.enc}"
+                                  + "\\&amp;" + ParamNameConst.ParamsNames.COURSE_ID + "=\\${course\\.id\\.enc}")
                       // blob-key in student profile page
                       .replaceAll(Const.ActionURIs.STUDENT_PROFILE_PICTURE
-                                  + "\\?" + Const.ParamsNames.BLOB_KEY + "=" + REGEX_BLOB_KEY,
+                                  + "\\?" + ParamNameConst.ParamsNames.BLOB_KEY + "=" + REGEX_BLOB_KEY,
                                   Const.ActionURIs.STUDENT_PROFILE_PICTURE
-                                  + "\\?" + Const.ParamsNames.BLOB_KEY + "=\\${blobkey}")
+                                  + "\\?" + ParamNameConst.ParamsNames.BLOB_KEY + "=\\${blobkey}")
                       .replaceAll("( type=\"hidden\"|"
-                                  + " name=\"" + Const.ParamsNames.BLOB_KEY + "\"|"
+                                  + " name=\"" + ParamNameConst.ParamsNames.BLOB_KEY + "\"|"
                                   + " id=\"blobKey\"|"
                                   + " value=\"" + REGEX_BLOB_KEY + "\"){4}",
-                                  " id=\"blobKey\" name=\"" + Const.ParamsNames.BLOB_KEY + "\""
+                                  " id=\"blobKey\" name=\"" + ParamNameConst.ParamsNames.BLOB_KEY + "\""
                                   + " type=\"hidden\" value=\"\\${blobkey}\"")
                       // regkey in URLs
-                      .replaceAll(Const.ParamsNames.REGKEY + "=" + REGEX_ENCRYPTED_REGKEY,
-                                  Const.ParamsNames.REGKEY + "=\\${regkey\\.enc}")
+                      .replaceAll(ParamNameConst.ParamsNames.REGKEY + "=" + REGEX_ENCRYPTED_REGKEY,
+                                  ParamNameConst.ParamsNames.REGKEY + "=\\${regkey\\.enc}")
                       // regkey in unreg student page
                       .replaceAll("( type=\"hidden\"|"
-                                  + " name=\"" + Const.ParamsNames.REGKEY + "\"|"
+                                  + " name=\"" + ParamNameConst.ParamsNames.REGKEY + "\"|"
                                   + " value=\"" + REGEX_ENCRYPTED_REGKEY + "\"){3}",
-                                  " name=\"" + Const.ParamsNames.REGKEY + "\""
+                                  " name=\"" + ParamNameConst.ParamsNames.REGKEY + "\""
                                   + " type=\"hidden\" value=\"\\${regkey\\.enc}\"")
                       // anonymous student identifier on results page
                       .replaceAll(Const.DISPLAYED_NAME_FOR_ANONYMOUS_PARTICIPANT + " (student|instructor|team) "
@@ -461,13 +457,13 @@ public final class HtmlHelper {
                                   "\\${admin\\.institute}")
                       // sessionToken in form inputs
                       .replaceAll("( type=\"hidden\"|"
-                                   + " name=\"" + Const.ParamsNames.SESSION_TOKEN + "\"|"
+                                   + " name=\"" + ParamNameConst.ParamsNames.SESSION_TOKEN + "\"|"
                                    + " value=\"" + REGEX_SESSION_TOKEN + "\"){3}",
-                                   " name=\"" + Const.ParamsNames.SESSION_TOKEN + "\""
+                                   " name=\"" + ParamNameConst.ParamsNames.SESSION_TOKEN + "\""
                                    + " type=\"hidden\" value=\"\\${sessionToken}\"")
                       // sessionToken in URL parameters
-                      .replaceAll("(\\&amp;|\\?)" + Const.ParamsNames.SESSION_TOKEN + "=" + REGEX_SESSION_TOKEN,
-                                  "$1" + Const.ParamsNames.SESSION_TOKEN + "=\\${sessionToken}")
+                      .replaceAll("(\\&amp;|\\?)" + ParamNameConst.ParamsNames.SESSION_TOKEN + "=" + REGEX_SESSION_TOKEN,
+                                  "$1" + ParamNameConst.ParamsNames.SESSION_TOKEN + "=\\${sessionToken}")
                       // top HTML tag with xmlns defined
                       // TODO check if this is necessary
                       .replace("<html xmlns=\"http://www.w3.org/1999/xhtml\">", "<html>")

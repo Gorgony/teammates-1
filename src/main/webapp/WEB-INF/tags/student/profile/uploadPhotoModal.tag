@@ -1,9 +1,11 @@
 <%@ tag description="studentProfile - Upload photo modal" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.SystemParamsConst" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="modal" type="teammates.ui.template.StudentProfileUploadPhotoModal" required="true" %>
 <%@ attribute name="sessionToken" required="true" %>
-<c:set var="DEFAULT_PROFILE_PICTURE_PATH" value="<%= Const.SystemParams.DEFAULT_PROFILE_PICTURE_PATH %>" />
+<c:set var="DEFAULT_PROFILE_PICTURE_PATH" value="<%= SystemParamsConst.SystemParams.DEFAULT_PROFILE_PICTURE_PATH %>" />
 <div class="modal fade"
     id="studentPhotoUploader"
     role="dialog"
@@ -32,7 +34,7 @@
                   Browse...
                   <input id="studentPhoto"
                       type="file"
-                      name="<%= Const.ParamsNames.STUDENT_PROFILE_PHOTO %>">
+                      name="<%= ParamNameConst.ParamsNames.STUDENT_PROFILE_PHOTO %>">
                 </span>
                 <input type="text" class="filename-preview" value="No File Selected" disabled>
                 <p class="help-block align-left">
@@ -44,7 +46,7 @@
                     disabled>
                   Upload Picture
                 </button>
-                <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${modal.googleId}">
+                <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${modal.googleId}">
               </form>
             </div>
           </div>
@@ -101,16 +103,16 @@
                   <br>
                 </div>
                 <form id="profilePictureEditForm" method="post" action="<%= Const.ActionURIs.STUDENT_PROFILE_PICTURE_EDIT %>">
-                  <input id="pictureHeight" type="hidden" name="<%= Const.ParamsNames.PROFILE_PICTURE_HEIGHT %>" value="">
-                  <input id="pictureWidth" type="hidden" name="<%= Const.ParamsNames.PROFILE_PICTURE_WIDTH %>" value="">
-                  <input id="cropBoxLeftX" type="hidden" name="<%= Const.ParamsNames.PROFILE_PICTURE_LEFTX %>" value="">
-                  <input id="cropBoxTopY" type="hidden" name="<%= Const.ParamsNames.PROFILE_PICTURE_TOPY %>" value="">
-                  <input id="cropBoxRightX" type="hidden" name="<%= Const.ParamsNames.PROFILE_PICTURE_RIGHTX %>" value="">
-                  <input id="cropBoxBottomY" type="hidden" name="<%= Const.ParamsNames.PROFILE_PICTURE_BOTTOMY %>" value="">
-                  <input id="rotate" type="hidden" name="<%= Const.ParamsNames.PROFILE_PICTURE_ROTATE %>" value="">
-                  <input id="blobKey" type="hidden" name="<%= Const.ParamsNames.BLOB_KEY %>" value="${modal.pictureKey}">
-                  <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${modal.googleId}">
-                  <input type="hidden" name="<%= Const.ParamsNames.SESSION_TOKEN %>" value="${sessionToken}">
+                  <input id="pictureHeight" type="hidden" name="<%= ParamNameConst.ParamsNames.PROFILE_PICTURE_HEIGHT %>" value="">
+                  <input id="pictureWidth" type="hidden" name="<%= ParamNameConst.ParamsNames.PROFILE_PICTURE_WIDTH %>" value="">
+                  <input id="cropBoxLeftX" type="hidden" name="<%= ParamNameConst.ParamsNames.PROFILE_PICTURE_LEFTX %>" value="">
+                  <input id="cropBoxTopY" type="hidden" name="<%= ParamNameConst.ParamsNames.PROFILE_PICTURE_TOPY %>" value="">
+                  <input id="cropBoxRightX" type="hidden" name="<%= ParamNameConst.ParamsNames.PROFILE_PICTURE_RIGHTX %>" value="">
+                  <input id="cropBoxBottomY" type="hidden" name="<%= ParamNameConst.ParamsNames.PROFILE_PICTURE_BOTTOMY %>" value="">
+                  <input id="rotate" type="hidden" name="<%= ParamNameConst.ParamsNames.PROFILE_PICTURE_ROTATE %>" value="">
+                  <input id="blobKey" type="hidden" name="<%= ParamNameConst.ParamsNames.BLOB_KEY %>" value="${modal.pictureKey}">
+                  <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${modal.googleId}">
+                  <input type="hidden" name="<%= ParamNameConst.ParamsNames.SESSION_TOKEN %>" value="${sessionToken}">
                   <button type="button"
                       id="profileEditPictureSubmit"
                       class="btn btn-primary">

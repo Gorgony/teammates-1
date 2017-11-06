@@ -6,9 +6,9 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailType;
 import teammates.common.util.EmailWrapper;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.AccountsLogic;
 import teammates.ui.automated.InstructorCourseJoinEmailWorkerAction;
 
@@ -30,9 +30,9 @@ public class InstructorCourseJoinEmailWorkerActionTest extends BaseAutomatedActi
         AccountAttributes inviter = AccountsLogic.inst().getAccount("idOfInstructor2OfCourse1");
 
         String[] submissionParams = new String[] {
-                ParamsNames.COURSE_ID, course1.getId(),
-                ParamsNames.INSTRUCTOR_EMAIL, instr1InCourse1.email,
-                ParamsNames.INVITER_ID, inviter.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, course1.getId(),
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instr1InCourse1.email,
+                ParamNameConst.ParamsNames.INVITER_ID, inviter.googleId
         };
 
         InstructorCourseJoinEmailWorkerAction action = getAction(submissionParams);

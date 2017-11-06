@@ -6,6 +6,7 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.CoursesLogic;
 import teammates.storage.api.AccountsDb;
 import teammates.test.driver.AssertHelper;
@@ -125,7 +126,7 @@ public class StudentHomePageActionTest extends BaseActionTest {
         AssertHelper.assertLogMessageEqualsInMasqueradeMode(expectedLogMessage, a.getLogMessage(), adminUserId);
 
         ______TS("New student with no existing course, course join affected by eventual consistency");
-        submissionParams = new String[]{Const.ParamsNames.CHECK_PERSISTENCE_COURSE,
+        submissionParams = new String[]{ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE,
                                         "idOfTypicalCourse1"};
         studentId = "newStudent";
         gaeSimulation.loginUser(studentId);
@@ -136,7 +137,7 @@ public class StudentHomePageActionTest extends BaseActionTest {
         assertEquals("idOfTypicalCourse1", data.getCourseTables().get(0).getCourseId());
 
         ______TS("Registered student with existing courses, course join affected by eventual consistency");
-        submissionParams = new String[]{Const.ParamsNames.CHECK_PERSISTENCE_COURSE,
+        submissionParams = new String[]{ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE,
                                         "idOfTypicalCourse2"};
         student1InCourse1 = typicalBundle.students.get("student1InCourse1");
         studentId = student1InCourse1.googleId;
@@ -148,7 +149,7 @@ public class StudentHomePageActionTest extends BaseActionTest {
         assertEquals("idOfTypicalCourse2", data.getCourseTables().get(1).getCourseId());
 
         ______TS("Just joined course, course join not affected by eventual consistency and appears in list");
-        submissionParams = new String[]{Const.ParamsNames.CHECK_PERSISTENCE_COURSE,
+        submissionParams = new String[]{ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE,
                                         "idOfTypicalCourse1"};
         student1InCourse1 = typicalBundle.students.get("student1InCourse1");
         studentId = student1InCourse1.googleId;
@@ -175,7 +176,7 @@ public class StudentHomePageActionTest extends BaseActionTest {
 
         // check for persistence issue
         submissionParams = new String[] {
-                Const.ParamsNames.CHECK_PERSISTENCE_COURSE, "random_course"
+                ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE, "random_course"
         };
 
         verifyAccessibleForUnregisteredUsers(submissionParams);

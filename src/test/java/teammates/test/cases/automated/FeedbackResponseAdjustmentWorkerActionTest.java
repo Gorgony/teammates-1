@@ -13,8 +13,8 @@ import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.JsonUtils;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.FeedbackQuestionsLogic;
 import teammates.logic.core.FeedbackResponsesLogic;
 import teammates.logic.core.StudentsLogic;
@@ -64,9 +64,9 @@ public class FeedbackResponseAdjustmentWorkerActionTest extends BaseAutomatedAct
         studentsLogic.updateStudentCascadeWithSubmissionAdjustmentScheduled(student.email, student, false);
 
         String[] submissionParams = new String[] {
-                ParamsNames.COURSE_ID, student.course,
-                ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                ParamsNames.ENROLLMENT_DETAILS, JsonUtils.toJson(enrollList)
+                ParamNameConst.ParamsNames.COURSE_ID, student.course,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.ENROLLMENT_DETAILS, JsonUtils.toJson(enrollList)
         };
 
         FeedbackResponseAdjustmentWorkerAction action = getAction(submissionParams);

@@ -1,8 +1,6 @@
 <%@ tag description="instructorFeedbacks - new feedback session form additional settings" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ tag import="teammates.common.util.Const" %>
-<%@ tag import="teammates.common.util.FieldValidator" %>
-<%@ tag import="teammates.common.util.EmailType" %>
+<%@ tag import="teammates.common.util.*" %>
 
 <%@ attribute name="additionalSettings" type="teammates.ui.template.FeedbackSessionsAdditionalSettingsFormSegment" required="true"%>
 <div class="panel panel-primary" style="display:none;" id="sessionResponsesVisiblePanel">
@@ -11,7 +9,7 @@
       <div class="col-xs-12 col-md-6">
         <div class="row">
           <div class="col-xs-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_SESSIONVISIBLELABEL %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_SESSIONVISIBLELABEL %>"
               data-toggle="tooltip"
               data-placement="top">
             <label class="label-control">Session visible from </label>
@@ -19,29 +17,29 @@
         </div>
         <div class="row radio">
           <h5 class="col-xs-2"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_VISIBLEDATE %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_VISIBLEDATE %>"
               data-toggle="tooltip"
               data-placement="top">
-            <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_custom">
+            <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_custom">
               At
             </label>
             <input type="radio"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_custom"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_custom"
                 value="<%= Const.INSTRUCTOR_FEEDBACK_SESSION_VISIBLE_TIME_CUSTOM %>"
                 <c:if test="${additionalSettings.sessionVisibleDateButtonChecked}">checked</c:if>>
           </h5>
           <div class="col-xs-5">
             <input class="form-control col-sm-2" type="text"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE %>"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE %>"
                 value="${additionalSettings.sessionVisibleDateValue}"
                 <c:if test="${additionalSettings.sessionVisibleDateDisabled}">disabled</c:if>>
           </div>
           <div class="col-xs-5">
             <select class="form-control"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_VISIBLETIME %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_VISIBLETIME %>"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLETIME %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLETIME %>"
                 <c:if test="${additionalSettings.sessionVisibleDateDisabled}">disabled</c:if>>
               <c:forEach items="${additionalSettings.sessionVisibleTimeOptions}" var="option">
                 <option ${option.attributesToString}>
@@ -53,30 +51,30 @@
         </div>
         <div class="row radio">
           <div class="col-xs-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_SESSIONVISIBLEATOPEN %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_SESSIONVISIBLEATOPEN %>"
               data-toggle="tooltip"
               data-placement="top">
-            <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_atopen">
+            <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_atopen">
               Submission opening time
             </label>
             <input type="radio"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_atopen"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_atopen"
                 value="<%= Const.INSTRUCTOR_FEEDBACK_SESSION_VISIBLE_TIME_ATOPEN %>"
                 <c:if test="${additionalSettings.sessionVisibleAtOpenChecked}">checked</c:if>>
           </div>
         </div>
         <div class="row radio">
           <div class="col-xs-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_SESSIONVISIBLENEVER %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_SESSIONVISIBLENEVER %>"
               data-toggle="tooltip"
               data-placement="top">
-            <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_never">
+            <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_never">
               Never
             </label>
             <input type="radio"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_never"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON %>_never"
                 value="never"
                 <c:if test="${additionalSettings.sessionVisiblePrivateChecked}">checked</c:if>>
           </div>
@@ -86,7 +84,7 @@
       <div class="col-xs-12 col-md-6 border-left-gray" id="responsesVisibleFromColumn">
         <div class="row">
           <div class="col-xs-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLELABEL %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLELABEL %>"
               data-toggle="tooltip"
               data-placement="top">
             <label class="label-control">Responses visible from</label>
@@ -94,31 +92,31 @@
         </div>
         <div class="row radio">
           <h5 class="col-xs-2"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLECUSTOM %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLECUSTOM %>"
               data-toggle="tooltip"
               data-placement="top">
-            <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_custom">
+            <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_custom">
               At
             </label>
             <input type="radio"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_custom"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_custom"
                 value="<%= Const.INSTRUCTOR_FEEDBACK_RESULTS_VISIBLE_TIME_CUSTOM %>"
                 <c:if test="${additionalSettings.responseVisibleDateChecked}">checked</c:if>>
           </h5>
           <div class="col-xs-5">
             <input class="form-control"
                 type="text"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE %>"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE %>"
                 value="${additionalSettings.responseVisibleDateValue}"
                 <c:if test="${additionalSettings.responseVisibleDateDisabled}">disabled</c:if>>
           </div>
           <div class="col-xs-5">
             <select class="form-control"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME %>"
-                title="<%= Const.Tooltips.FEEDBACK_SESSION_PUBLISHDATE %>"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME %>"
+                title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_PUBLISHDATE %>"
                 data-toggle="tooltip"
                 data-placement="top"
                 <c:if test="${additionalSettings.responseVisibleDateDisabled}">disabled</c:if>>
@@ -133,44 +131,44 @@
         </div>
         <div class="row radio">
           <div class="col-xs-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLEATVISIBLE %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLEATVISIBLE %>"
               data-toggle="tooltip"
               data-placement="top">
-            <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_atvisible">
+            <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_atvisible">
               Immediately
             </label>
             <input type="radio"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_atvisible"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_atvisible"
                 value="<%= Const.INSTRUCTOR_FEEDBACK_RESULTS_VISIBLE_TIME_ATVISIBLE %>"
                 <c:if test="${additionalSettings.responseVisibleImmediatelyChecked}">checked</c:if>>
           </div>
         </div>
         <div class="row radio">
           <div class="col-xs-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLELATER %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLELATER %>"
               data-toggle="tooltip"
               data-placement="top">
-            <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_later">
+            <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_later">
               Publish manually
             </label>
             <input type="radio" name="resultsVisibleFromButton"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_later"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_later"
                 value="<%= Const.INSTRUCTOR_FEEDBACK_RESULTS_VISIBLE_TIME_LATER %>"
                 <c:if test="${additionalSettings.responseVisiblePublishManuallyChecked}">checked</c:if>>
           </div>
         </div>
         <div class="row radio">
           <div class="col-xs-12"
-              title="<%= Const.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLENEVER %>"
+              title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESULTSVISIBLENEVER %>"
               data-toggle="tooltip"
               data-placement="top">
-            <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_never">
+            <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_never">
               Never
             </label>
             <input type="radio"
-                name="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>"
-                id="<%= Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_never"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON %>_never"
                 value="<%= Const.INSTRUCTOR_FEEDBACK_RESULTS_VISIBLE_TIME_NEVER %>"
                 <c:if test="${additionalSettings.responseVisibleNeverChecked}">checked</c:if>>
           </div>
@@ -188,44 +186,44 @@
     </div>
     <div class="row">
       <div class="col-md-3"
-          title="<%= Const.Tooltips.FEEDBACK_SESSION_SENDOPENEMAIL %>"
+          title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_SENDOPENEMAIL %>"
           data-toggle="tooltip"
           data-placement="top">
         <div class="checkbox">
           <label>Session opening reminder</label>
           <input type="checkbox"
-              name="<%= Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>"
-              id="<%= Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_open"
+              name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>"
+              id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_open"
               <c:if test="${additionalSettings.sendOpeningEmailChecked}">checked</c:if>
               value="<%= EmailType.FEEDBACK_OPENING.toString() %>" disabled>
         </div>
       </div>
       <div class="col-md-3"
-          title="<%= Const.Tooltips.FEEDBACK_SESSION_SENDCLOSINGEMAIL %>"
+          title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_SENDCLOSINGEMAIL %>"
           data-toggle="tooltip"
           data-placement="top">
         <div class="checkbox">
-          <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_closing">
+          <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_closing">
             Session closing reminder
           </label>
           <input type="checkbox"
-              name="<%= Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>"
-              id="<%= Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_closing"
+              name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>"
+              id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_closing"
               <c:if test="${additionalSettings.sendClosingEmailChecked}">checked</c:if>
               value="<%= EmailType.FEEDBACK_CLOSING.toString() %>">
         </div>
       </div>
       <div class="col-md-4"
-          title="<%= Const.Tooltips.FEEDBACK_SESSION_SENDPUBLISHEDEMAIL %>"
+          title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_SENDPUBLISHEDEMAIL %>"
           data-toggle="tooltip"
           data-placement="top">
         <div class="checkbox">
-          <label for="<%= Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_published">
+          <label for="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_published">
             Results published announcement
           </label>
           <input type="checkbox"
-              name="<%= Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>"
-              id="<%= Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_published"
+              name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>"
+              id="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL %>_published"
               <c:if test="${additionalSettings.sendPublishedEmailChecked}">checked</c:if>
               value="<%= EmailType.FEEDBACK_PUBLISHED.toString() %>">
         </div>

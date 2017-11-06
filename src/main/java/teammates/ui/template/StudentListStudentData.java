@@ -1,6 +1,7 @@
 package teammates.ui.template;
 
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 import teammates.common.util.Url;
 
@@ -45,10 +46,10 @@ public class StudentListStudentData {
     private String furnishLinkWithCourseEmailAndUserId(String rawLink, String course, String studentEmail,
                                                        String googleId) {
         String link = rawLink;
-        link = Url.addParamToUrl(link, Const.ParamsNames.COURSE_ID, course);
-        link = Url.addParamToUrl(link, Const.ParamsNames.STUDENT_EMAIL, studentEmail);
-        link = Url.addParamToUrl(link, Const.ParamsNames.USER_ID, googleId);
-        link = Url.addParamToUrl(link, Const.ParamsNames.SESSION_TOKEN, sessionToken);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.COURSE_ID, course);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.STUDENT_EMAIL, studentEmail);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.USER_ID, googleId);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.SESSION_TOKEN, sessionToken);
         return link;
     }
 

@@ -12,12 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import teammates.common.datatransfer.attributes.AccountAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.CryptoHelper;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StringHelper;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 
 /**
  * The result of executing an {@link Action}.
@@ -96,13 +91,13 @@ public abstract class ActionResult {
      */
     public void writeSessionTokenToCookieIfRequired(HttpServletRequest req, HttpServletResponse resp) {
         String sessionToken = CryptoHelper.computeSessionToken(req.getSession().getId());
-        String existingSessionToken = HttpRequestHelper.getCookieValueFromRequest(req, Const.ParamsNames.SESSION_TOKEN);
+        String existingSessionToken = HttpRequestHelper.getCookieValueFromRequest(req, ParamNameConst.ParamsNames.SESSION_TOKEN);
 
         if (sessionToken.equals(existingSessionToken)) {
             return;
         }
 
-        resp.addCookie(new Cookie(Const.ParamsNames.SESSION_TOKEN, sessionToken));
+        resp.addCookie(new Cookie(ParamNameConst.ParamsNames.SESSION_TOKEN, sessionToken));
     }
 
     /**

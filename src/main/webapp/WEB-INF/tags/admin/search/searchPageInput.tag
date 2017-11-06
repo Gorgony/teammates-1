@@ -1,5 +1,6 @@
 <%@ tag description="adminSearch.jsp - input panel" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="searchKey" required="true" %>
 
 <div class="well well-plain">
@@ -14,12 +15,12 @@
 
             <div class="input-group">
               <input type="text" class="form-control" id="filterQuery"
-                  name="<%=Const.ParamsNames.ADMIN_SEARCH_KEY%>"
+                  name="<%=ParamNameConst.ParamsNames.ADMIN_SEARCH_KEY%>"
                   value="${searchKey}">
 
               <span class="input-group-btn">
                 <button class="btn btn-default" type="submit"
-                    name="<%=Const.ParamsNames.ADMIN_SEARCH_BUTTON_HIT%>"
+                    name="<%=ParamNameConst.ParamsNames.ADMIN_SEARCH_BUTTON_HIT%>"
                     id="searchButton" value="true">Search</button>
               </span>
             </div>

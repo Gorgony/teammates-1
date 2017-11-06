@@ -21,14 +21,7 @@ import teammates.common.exception.NullPostParameterException;
 import teammates.common.exception.PageNotFoundException;
 import teammates.common.exception.TeammatesException;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.Const;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.LogMessageGenerator;
-import teammates.common.util.Logger;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
-import teammates.common.util.TimeHelper;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 import teammates.logic.api.GateKeeper;
 
 /**
@@ -100,7 +93,7 @@ public class ControllerServlet extends HttpServlet {
             log.warning(new LogMessageGenerator()
                                 .generateActionFailureLogMessage(url, params, e, userType));
             cleanUpStatusMessageInSession(req);
-            req.getSession().setAttribute(Const.ParamsNames.FEEDBACK_SESSION_NOT_VISIBLE, e.getStartTimeString());
+            req.getSession().setAttribute(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NOT_VISIBLE, e.getStartTimeString());
             resp.sendRedirect(appendParamsToErrorPageUrl(Const.ViewURIs.FEEDBACK_SESSION_NOT_VISIBLE, params, url));
 
         } catch (InvalidOriginException e) {
@@ -132,9 +125,9 @@ public class ControllerServlet extends HttpServlet {
             cleanUpStatusMessageInSession(req);
 
             List<StatusMessage> statusMessagesToUser = new ArrayList<>();
-            statusMessagesToUser.add(new StatusMessage(Const.StatusMessages.NULL_POST_PARAMETER_MESSAGE,
+            statusMessagesToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.NULL_POST_PARAMETER_MESSAGE,
                                                        StatusMessageColor.WARNING));
-            req.getSession().setAttribute(Const.ParamsNames.STATUS_MESSAGES_LIST, statusMessagesToUser);
+            req.getSession().setAttribute(ParamNameConst.ParamsNames.STATUS_MESSAGES_LIST, statusMessagesToUser);
 
             if (requestUrl.contains("/instructor")) {
                 resp.sendRedirect(Const.ActionURIs.INSTRUCTOR_HOME_PAGE);
@@ -160,18 +153,18 @@ public class ControllerServlet extends HttpServlet {
     }
 
     private void cleanUpStatusMessageInSession(HttpServletRequest req) {
-        req.getSession().removeAttribute(Const.ParamsNames.STATUS_MESSAGES_LIST);
+        req.getSession().removeAttribute(ParamNameConst.ParamsNames.STATUS_MESSAGES_LIST);
     }
 
     private String appendParamsToErrorPageUrl(String baseUrl, Map<String, String[]> params, String requestUrl) {
         String redirectUrl = baseUrl;
-        redirectUrl = Url.addParamToUrl(redirectUrl, Const.ParamsNames.ERROR_FEEDBACK_URL_REQUESTED, requestUrl);
-        redirectUrl = Url.addParamToUrl(redirectUrl, Const.ParamsNames.REGKEY,
-                HttpRequestHelper.getValueFromParamMap(params, Const.ParamsNames.REGKEY));
+        redirectUrl = Url.addParamToUrl(redirectUrl, ParamNameConst.ParamsNames.ERROR_FEEDBACK_URL_REQUESTED, requestUrl);
+        redirectUrl = Url.addParamToUrl(redirectUrl, ParamNameConst.ParamsNames.REGKEY,
+                HttpRequestHelper.getValueFromParamMap(params, ParamNameConst.ParamsNames.REGKEY));
         redirectUrl = Url.addParamToUrl(redirectUrl,
-                Const.ParamsNames.COURSE_ID, HttpRequestHelper.getValueFromParamMap(params, Const.ParamsNames.COURSE_ID));
-        redirectUrl = Url.addParamToUrl(redirectUrl, Const.ParamsNames.STUDENT_EMAIL,
-                HttpRequestHelper.getValueFromParamMap(params, Const.ParamsNames.STUDENT_EMAIL));
+                ParamNameConst.ParamsNames.COURSE_ID, HttpRequestHelper.getValueFromParamMap(params, ParamNameConst.ParamsNames.COURSE_ID));
+        redirectUrl = Url.addParamToUrl(redirectUrl, ParamNameConst.ParamsNames.STUDENT_EMAIL,
+                HttpRequestHelper.getValueFromParamMap(params, ParamNameConst.ParamsNames.STUDENT_EMAIL));
         return redirectUrl;
     }
 }

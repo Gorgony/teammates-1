@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import teammates.common.util.Config;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 /**
  * Checks email content and accounts for unpredictable values such as encrypted values,
@@ -75,8 +76,8 @@ public final class EmailChecker {
      */
     private static String replaceUnpredictableValuesWithPlaceholders(String emailContent) {
         return emailContent // regkey in URLs
-                           .replaceAll(Const.ParamsNames.REGKEY + "=" + REGEX_ENCRYPTED_REGKEY,
-                                       Const.ParamsNames.REGKEY + "=\\${regkey\\.enc}");
+                           .replaceAll(ParamNameConst.ParamsNames.REGKEY + "=" + REGEX_ENCRYPTED_REGKEY,
+                                       ParamNameConst.ParamsNames.REGKEY + "=\\${regkey\\.enc}");
 
     }
 

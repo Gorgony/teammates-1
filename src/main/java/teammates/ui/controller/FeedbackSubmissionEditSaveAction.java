@@ -24,13 +24,7 @@ import teammates.common.exception.EntityAlreadyExistsException;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.TeammatesException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.EmailWrapper;
-import teammates.common.util.Logger;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.logic.api.EmailGenerator;
 import teammates.ui.pagedata.FeedbackSubmissionEditPageData;
 
@@ -49,10 +43,10 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
 
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
 
         setAdditionalParameters();
         verifyAccessibleForSpecificUser();
@@ -70,7 +64,7 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
 
         if (!isSessionOpenForSpecificUser(data.bundle.feedbackSession)) {
             isError = true;
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_SUBMISSIONS_NOT_OPEN,
                                                StatusMessageColor.WARNING));
             return createSpecificRedirectResult();
         }
@@ -82,7 +76,7 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
 
         for (int questionIndx = 1; questionIndx <= numOfQuestionsToGet; questionIndx++) {
             String totalResponsesForQuestion = getRequestParamValue(
-                    Const.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-" + questionIndx);
+                    ParamNameConst.ParamsNames.FEEDBACK_QUESTION_RESPONSETOTAL + "-" + questionIndx);
 
             if (totalResponsesForQuestion == null) {
                 continue; // question has been skipped (not displayed).
@@ -90,7 +84,7 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
 
             List<FeedbackResponseAttributes> responsesForQuestion = new ArrayList<>();
             String questionId = getRequestParamValue(
-                    Const.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx);
+                    ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx);
             FeedbackQuestionAttributes questionAttributes = data.bundle.getQuestionAttributes(questionId);
             if (questionAttributes == null) {
                 statusToUser.add(new StatusMessage("The feedback session or questions may have changed "
@@ -119,21 +113,21 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
                         extractFeedbackResponseData(requestParameters, questionIndx, responseIndx, questionAttributes);
 
                 if (response.feedbackQuestionType != questionAttributes.questionType) {
-                    errors.add(String.format(Const.StatusMessages.FEEDBACK_RESPONSES_WRONG_QUESTION_TYPE, questionIndx));
+                    errors.add(String.format(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_WRONG_QUESTION_TYPE, questionIndx));
                 }
 
                 boolean isExistingResponse = response.getId() != null;
                 // test that if editing an existing response, that the edited response's id
                 // came from the original set of existing responses loaded on the submission page
                 if (isExistingResponse && !isExistingResponseValid(response)) {
-                    errors.add(String.format(Const.StatusMessages.FEEDBACK_RESPONSES_INVALID_ID, questionIndx));
+                    errors.add(String.format(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_INVALID_ID, questionIndx));
                     continue;
                 }
 
                 responsesRecipients.add(response.recipient);
                 // if the answer is not empty but the recipient is empty
                 if (response.recipient.isEmpty() && !response.responseMetaData.getValue().isEmpty()) {
-                    errors.add(String.format(Const.StatusMessages.FEEDBACK_RESPONSES_MISSING_RECIPIENT, questionIndx));
+                    errors.add(String.format(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_MISSING_RECIPIENT, questionIndx));
                 }
 
                 if (response.responseMetaData.getValue().isEmpty()) {
@@ -153,7 +147,7 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
             errors.addAll(questionSpecificErrors);
 
             if (!emailSet.containsAll(responsesRecipients)) {
-                errors.add(String.format(Const.StatusMessages.FEEDBACK_RESPONSE_INVALID_RECIPIENT, questionIndx));
+                errors.add(String.format(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSE_INVALID_RECIPIENT, questionIndx));
             }
 
             if (errors.isEmpty()) {
@@ -177,7 +171,7 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
         updateResponses(responsesToUpdate);
 
         if (!isError) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_RESPONSES_SAVED, StatusMessageColor.SUCCESS));
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSES_SAVED, StatusMessageColor.SUCCESS));
         }
 
         if (isUserRespondentOfSession()) {
@@ -186,7 +180,7 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
             removeRespondent();
         }
 
-        boolean isSubmissionEmailRequested = "on".equals(getRequestParamValue(Const.ParamsNames.SEND_SUBMISSION_EMAIL));
+        boolean isSubmissionEmailRequested = "on".equals(getRequestParamValue(ParamNameConst.ParamsNames.SEND_SUBMISSION_EMAIL));
         if (!isError && isSendSubmissionEmail && isSubmissionEmailRequested) {
             FeedbackSessionAttributes session = logic.getFeedbackSession(feedbackSessionName, courseId);
             Assumption.assertNotNull(session);
@@ -302,29 +296,29 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
 
         // This field can be null if the response is new
         response.setId(getRequestParamValue(
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID + "-" + questionIndx + "-" + responseIndx));
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID + "-" + questionIndx + "-" + responseIndx));
 
-        response.feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, response.feedbackSessionName);
+        response.feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, response.feedbackSessionName);
 
-        response.courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, response.courseId);
+        response.courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, response.courseId);
 
         response.feedbackQuestionId = getRequestParamValue(
-                Const.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx,
                 response.feedbackQuestionId);
         Assumption.assertEquals("feedbackQuestionId Mismatch", feedbackQuestionAttributes.getId(),
                                 response.feedbackQuestionId);
 
         response.recipient = getRequestParamValue(
-                Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-" + questionIndx + "-" + responseIndx);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-" + questionIndx + "-"
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-" + questionIndx + "-" + responseIndx);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_RECIPIENT + "-" + questionIndx + "-"
                 + responseIndx, response.recipient);
 
         String feedbackQuestionType = getRequestParamValue(
-                Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-" + questionIndx);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_QUESTION_TYPE + "-" + questionIndx,
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-" + questionIndx);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE + "-" + questionIndx,
                 feedbackQuestionType);
         response.feedbackQuestionType = FeedbackQuestionType.valueOf(feedbackQuestionType);
 
@@ -341,7 +335,7 @@ public abstract class FeedbackSubmissionEditSaveAction extends Action {
         }
 
         // This field can be null if the question is skipped
-        String paramName = Const.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-" + questionIndx + "-" + responseIndx;
+        String paramName = ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT + "-" + questionIndx + "-" + responseIndx;
         String[] answer = getRequestParamValues(paramName);
 
         if (questionDetails.isQuestionSkipped(answer)) {

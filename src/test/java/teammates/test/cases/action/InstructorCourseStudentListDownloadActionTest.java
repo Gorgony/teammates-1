@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.StudentsLogic;
 import teammates.ui.controller.FileDownloadResult;
 import teammates.ui.controller.InstructorCourseStudentListDownloadAction;
@@ -33,7 +34,7 @@ public class InstructorCourseStudentListDownloadActionTest extends BaseActionTes
         verifyAssumptionFailure(submissionParams);
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, course.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId()
         };
 
         ______TS("Typical case: student list downloaded successfully");
@@ -145,7 +146,7 @@ public class InstructorCourseStudentListDownloadActionTest extends BaseActionTes
         CourseAttributes course = typicalBundle.courses.get("typicalCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, course.getId()
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId()
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.CoursesLogic;
 import teammates.logic.core.FeedbackSessionsLogic;
 import teammates.test.driver.AssertHelper;
@@ -26,7 +28,7 @@ public class InstructorFeedbackSessionsPageActionTest extends BaseActionTest {
     public void testExecuteAndPostProcess() throws Exception {
         String instructorId = typicalBundle.instructors.get("instructor1OfCourse1").googleId;
         String adminUserId = "admin.user";
-        String[] submissionParams = new String[]{Const.ParamsNames.IS_USING_AJAX, "true"};
+        String[] submissionParams = new String[]{ParamNameConst.ParamsNames.IS_USING_AJAX, "true"};
 
         InstructorAttributes instructor1ofCourse1 = typicalBundle.instructors.get("instructor1OfCourse1");
 
@@ -63,14 +65,14 @@ public class InstructorFeedbackSessionsPageActionTest extends BaseActionTest {
 
         FeedbackSessionsLogic.inst().deleteFeedbackSessionsForCourseCascade(instructor1ofCourse1.courseId);
 
-        submissionParams = new String[]{Const.ParamsNames.COURSE_ID, instructor1ofCourse1.courseId,
-                                        Const.ParamsNames.IS_USING_AJAX, "true"};
+        submissionParams = new String[]{ParamNameConst.ParamsNames.COURSE_ID, instructor1ofCourse1.courseId,
+                                        ParamNameConst.ParamsNames.IS_USING_AJAX, "true"};
         a = getAction(addUserIdToParams(instructorId, submissionParams));
         r = getShowPageResult(a);
 
         assertEquals(getPageResultDestination(Const.ViewURIs.INSTRUCTOR_FEEDBACK_SESSIONS, false,
                      "idOfInstructor1OfCourse1"), r.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_EMPTY, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EMPTY, r.getStatusMessage());
         assertFalse(r.isError);
 
         pageData = (InstructorFeedbackSessionsPageData) r.data;
@@ -93,7 +95,7 @@ public class InstructorFeedbackSessionsPageActionTest extends BaseActionTest {
         CoursesLogic.inst().deleteCourseCascade(instructor1ofCourse1.courseId);
         CoursesLogic.inst().deleteCourseCascade("new-course");
 
-        submissionParams = new String[]{Const.ParamsNames.IS_USING_AJAX, "true"};
+        submissionParams = new String[]{ParamNameConst.ParamsNames.IS_USING_AJAX, "true"};
         a = getAction(addUserIdToParams(instructorId, submissionParams));
         r = getShowPageResult(a);
 
@@ -127,7 +129,7 @@ public class InstructorFeedbackSessionsPageActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID,
+                ParamNameConst.ParamsNames.COURSE_ID,
                 typicalBundle.instructors.get("instructor1OfCourse1").courseId
         };
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

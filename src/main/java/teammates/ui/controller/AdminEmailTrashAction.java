@@ -3,6 +3,7 @@ package teammates.ui.controller;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StatusMessage;
 import teammates.common.util.StatusMessageColor;
 
@@ -13,9 +14,9 @@ public class AdminEmailTrashAction extends Action {
 
         gateKeeper.verifyAdminPrivileges(account);
 
-        String emailId = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_ID);
+        String emailId = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID);
 
-        String redirect = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_TRASH_ACTION_REDIRECT);
+        String redirect = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_TRASH_ACTION_REDIRECT);
         if (redirect == null) {
             redirect = Const.ActionURIs.ADMIN_EMAIL_TRASH_PAGE;
         }

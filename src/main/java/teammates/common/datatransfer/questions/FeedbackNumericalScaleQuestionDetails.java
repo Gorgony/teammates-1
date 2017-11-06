@@ -13,12 +13,7 @@ import teammates.common.datatransfer.FeedbackParticipantType;
 import teammates.common.datatransfer.FeedbackSessionResultsBundle;
 import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
-import teammates.common.util.Templates;
+import teammates.common.util.*;
 import teammates.common.util.Templates.FeedbackQuestion.FormTemplates;
 import teammates.common.util.Templates.FeedbackQuestion.Slots;
 import teammates.ui.template.InstructorFeedbackResultsResponseRow;
@@ -48,19 +43,19 @@ public class FeedbackNumericalScaleQuestionDetails extends
 
         String minScaleString =
                 HttpRequestHelper.getValueFromParamMap(requestParameters,
-                                                       Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN);
+                                                       ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN);
         Assumption.assertNotNull("Null minimum scale", minScaleString);
         int minScale = Integer.parseInt(minScaleString);
 
         String maxScaleString =
                 HttpRequestHelper.getValueFromParamMap(requestParameters,
-                                                       Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX);
+                                                       ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX);
         Assumption.assertNotNull("Null maximum scale", maxScaleString);
         int maxScale = Integer.parseInt(maxScaleString);
 
         String stepString =
                 HttpRequestHelper.getValueFromParamMap(requestParameters,
-                                                       Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP);
+                                                       ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP);
         Assumption.assertNotNull("Null step", stepString);
         Double step = Double.parseDouble(stepString);
 
@@ -77,7 +72,7 @@ public class FeedbackNumericalScaleQuestionDetails extends
 
     @Override
     public String getQuestionTypeDisplayName() {
-        return Const.FeedbackQuestionTypeNames.NUMSCALE;
+        return FeedbackGuestionConst.FeedbackQuestionTypeNames.NUMSCALE;
     }
 
     @Override
@@ -97,10 +92,10 @@ public class FeedbackNumericalScaleQuestionDetails extends
                 Slots.STEP, StringHelper.toDecimalFormatString(step),
                 Slots.EXISTING_ANSWER, numscaleResponseDetails.getAnswerString(),
                 Slots.POSSIBLE_VALUES_STRING, getPossibleValuesStringSubmit(),
-                Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
-                Slots.NUMSCALE_MIN, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN,
-                Slots.NUMSCALE_MAX, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX,
-                Slots.NUMSCALE_STEP, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP);
+                Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                Slots.NUMSCALE_MIN, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN,
+                Slots.NUMSCALE_MAX, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX,
+                Slots.NUMSCALE_STEP, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP);
     }
 
     @Override
@@ -116,10 +111,10 @@ public class FeedbackNumericalScaleQuestionDetails extends
                 Slots.STEP, StringHelper.toDecimalFormatString(step),
                 Slots.EXISTING_ANSWER, "",
                 Slots.POSSIBLE_VALUES_STRING, getPossibleValuesStringSubmit(),
-                Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
-                Slots.NUMSCALE_MIN, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN,
-                Slots.NUMSCALE_MAX, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX,
-                Slots.NUMSCALE_STEP, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP);
+                Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                Slots.NUMSCALE_MIN, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN,
+                Slots.NUMSCALE_MAX, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX,
+                Slots.NUMSCALE_STEP, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP);
     }
 
     @Override
@@ -131,12 +126,12 @@ public class FeedbackNumericalScaleQuestionDetails extends
                 Slots.MAX_SCALE, Integer.toString(maxScale),
                 Slots.STEP, StringHelper.toDecimalFormatString(step),
                 Slots.POSSIBLE_VALUES, getPossibleValuesStringEdit(),
-                Slots.NUMSCALE_MIN, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN,
-                Slots.NUMSCALE_MAX, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX,
-                Slots.NUMSCALE_STEP, Const.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP,
-                Slots.NUMSCALE_TOOLTIPS_MIN, Const.Tooltips.FEEDBACK_QUESTION_NUMSCALE_MIN,
-                Slots.NUMSCALE_TOOLTIPS_MAX, Const.Tooltips.FEEDBACK_QUESTION_NUMSCALE_MAX,
-                Slots.NUMSCALE_TOOLTIPS_STEP, Const.Tooltips.FEEDBACK_QUESTION_NUMSCALE_STEP);
+                Slots.NUMSCALE_MIN, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MIN,
+                Slots.NUMSCALE_MAX, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_MAX,
+                Slots.NUMSCALE_STEP, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMSCALE_STEP,
+                Slots.NUMSCALE_TOOLTIPS_MIN, ToolTipConst.Tooltips.FEEDBACK_QUESTION_NUMSCALE_MIN,
+                Slots.NUMSCALE_TOOLTIPS_MAX, ToolTipConst.Tooltips.FEEDBACK_QUESTION_NUMSCALE_MAX,
+                Slots.NUMSCALE_TOOLTIPS_STEP, ToolTipConst.Tooltips.FEEDBACK_QUESTION_NUMSCALE_STEP);
     }
 
     @Override
@@ -689,7 +684,7 @@ public class FeedbackNumericalScaleQuestionDetails extends
     @Override
     public String getQuestionTypeChoiceOption() {
         return "<li data-questiontype = \"NUMSCALE\"><a href=\"javascript:;\">"
-               + Const.FeedbackQuestionTypeNames.NUMSCALE + "</a></li>";
+               + FeedbackGuestionConst.FeedbackQuestionTypeNames.NUMSCALE + "</a></li>";
     }
 
     private String getPossibleValuesStringEdit() {
@@ -732,10 +727,10 @@ public class FeedbackNumericalScaleQuestionDetails extends
     public List<String> validateQuestionDetails() {
         List<String> errors = new ArrayList<>();
         if (minScale >= maxScale) {
-            errors.add(Const.FeedbackQuestion.NUMSCALE_ERROR_MIN_MAX);
+            errors.add(FeedbackGuestionConst.FeedbackQuestion.NUMSCALE_ERROR_MIN_MAX);
         }
         if (step <= 0) {
-            errors.add(Const.FeedbackQuestion.NUMSCALE_ERROR_STEP);
+            errors.add(FeedbackGuestionConst.FeedbackQuestion.NUMSCALE_ERROR_STEP);
         }
         return errors;
     }
@@ -749,7 +744,7 @@ public class FeedbackNumericalScaleQuestionDetails extends
             FeedbackNumericalScaleResponseDetails frd =
                     (FeedbackNumericalScaleResponseDetails) response.getResponseDetails();
             if (frd.getAnswer() < minScale || frd.getAnswer() > maxScale) {
-                errors.add(frd.getAnswerString() + Const.FeedbackQuestion.NUMSCALE_ERROR_OUT_OF_RANGE
+                errors.add(frd.getAnswerString() + FeedbackGuestionConst.FeedbackQuestion.NUMSCALE_ERROR_OUT_OF_RANGE
                            + "(min=" + minScale + ", max=" + maxScale + ")");
             }
             //TODO: strengthen check for step

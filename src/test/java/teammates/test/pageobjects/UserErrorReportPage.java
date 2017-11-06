@@ -8,16 +8,17 @@ import org.openqa.selenium.support.FindBy;
 
 import teammates.common.util.Config;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 public class UserErrorReportPage extends AppPage {
 
-    @FindBy (name = Const.ParamsNames.ERROR_FEEDBACK_EMAIL_RECEIVER_ADDRESS)
+    @FindBy (name = ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_RECEIVER_ADDRESS)
     private WebElement errorFeedbackEmailReceiverAddressField;
 
-    @FindBy (name = Const.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT)
+    @FindBy (name = ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_SUBJECT)
     private WebElement errorFeedbackEmailSubjectField;
 
-    @FindBy (name = Const.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT)
+    @FindBy (name = ParamNameConst.ParamsNames.ERROR_FEEDBACK_EMAIL_CONTENT)
     private WebElement errorFeedbackEmailContentField;
 
     @FindBy (xpath = "//button[@type='submit']")

@@ -13,7 +13,9 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.TimeHelper;
+import teammates.common.util.ToolTipConst;
 import teammates.test.cases.BaseTestCase;
 import teammates.test.driver.TimeHelperExtension;
 import teammates.ui.pagedata.StudentHomePageData;
@@ -73,8 +75,8 @@ public class StudentHomePageDataTest extends BaseTestCase {
         assertEquals("View Team", tag.getContent());
         assertEquals(2, tag.getAttributes().size());
         assertTrue(tag.getAttributes().get("href").startsWith(Const.ActionURIs.STUDENT_COURSE_DETAILS_PAGE));
-        assertTrue(tag.getAttributes().get("href").endsWith(Const.ParamsNames.COURSE_ID + "=" + courseId));
-        assertEquals(Const.Tooltips.STUDENT_COURSE_DETAILS, tag.getAttributes().get("title"));
+        assertTrue(tag.getAttributes().get("href").endsWith(ParamNameConst.ParamsNames.COURSE_ID + "=" + courseId));
+        assertEquals(ToolTipConst.Tooltips.STUDENT_COURSE_DETAILS, tag.getAttributes().get("title"));
     }
 
     private void testNewCourseTable(CourseDetailsBundle newCourse, CourseTable courseTable) {
@@ -87,14 +89,14 @@ public class StudentHomePageDataTest extends BaseTestCase {
         int index = 0;
 
         testFeedbackSession(index++, submittedRow, submittedSession,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_SUBMITTED,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED, "Submitted", "Not Published");
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_SUBMITTED,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED, "Submitted", "Not Published");
         testFeedbackSession(index++, pendingRow, pendingSession,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PENDING,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED, "Pending", "Not Published");
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PENDING,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED, "Pending", "Not Published");
         testFeedbackSession(index++, awaitingRow, awaitingSession,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_AWAITING,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED, "Awaiting", "Not Published");
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_AWAITING,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED, "Awaiting", "Not Published");
     }
 
     private void testOldCourseTable(CourseDetailsBundle oldCourse, CourseTable courseTable) {
@@ -109,19 +111,19 @@ public class StudentHomePageDataTest extends BaseTestCase {
         int index = 0 + accumlativeOffset;
 
         testFeedbackSession(index++, publishedRow, publishedSession,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PENDING
-                                + Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_CLOSED,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PUBLISHED,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PENDING
+                                + ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_CLOSED,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PUBLISHED,
                             "Closed", "Published");
         testFeedbackSession(index++, closedRow, closedSession,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PENDING
-                                + Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_CLOSED,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_PENDING
+                                + ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_CLOSED,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED,
                             "Closed", "Not Published");
         testFeedbackSession(index++, submittedClosedRow, submittedClosedSession,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_SUBMITTED
-                                + Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_CLOSED,
-                            Const.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_SUBMITTED
+                                + ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_CLOSED,
+                            ToolTipConst.Tooltips.STUDENT_FEEDBACK_SESSION_STATUS_NOT_PUBLISHED,
                             "Closed", "Not Published");
     }
 
@@ -171,17 +173,17 @@ public class StudentHomePageDataTest extends BaseTestCase {
         // Tooltip and button texts
         tooltipTextMap = new HashMap<>();
         buttonTextMap = new HashMap<>();
-        tooltipTextMap.put(submittedSession, Const.Tooltips.FEEDBACK_SESSION_EDIT_SUBMITTED_RESPONSE);
+        tooltipTextMap.put(submittedSession, ToolTipConst.Tooltips.FEEDBACK_SESSION_EDIT_SUBMITTED_RESPONSE);
         buttonTextMap.put(submittedSession, "Edit Submission");
-        tooltipTextMap.put(pendingSession, Const.Tooltips.FEEDBACK_SESSION_SUBMIT);
+        tooltipTextMap.put(pendingSession, ToolTipConst.Tooltips.FEEDBACK_SESSION_SUBMIT);
         buttonTextMap.put(pendingSession, "Start Submission");
-        tooltipTextMap.put(awaitingSession, Const.Tooltips.FEEDBACK_SESSION_AWAITING);
+        tooltipTextMap.put(awaitingSession, ToolTipConst.Tooltips.FEEDBACK_SESSION_AWAITING);
         buttonTextMap.put(awaitingSession, "Start Submission");
-        tooltipTextMap.put(publishedSession, Const.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE);
+        tooltipTextMap.put(publishedSession, ToolTipConst.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE);
         buttonTextMap.put(publishedSession, "View Submission");
-        tooltipTextMap.put(closedSession, Const.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE);
+        tooltipTextMap.put(closedSession, ToolTipConst.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE);
         buttonTextMap.put(closedSession, "View Submission");
-        tooltipTextMap.put(submittedClosedSession, Const.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE);
+        tooltipTextMap.put(submittedClosedSession, ToolTipConst.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE);
         buttonTextMap.put(submittedClosedSession, "View Submission");
 
         // Packing into bundles

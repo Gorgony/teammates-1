@@ -108,12 +108,12 @@ public final class StringHelper {
 
     /**
      * Checks whether the {@code longId} is longer than the length specified
-     * in {@link Const.SystemParams},
+     * in {@link SystemParamsConst.SystemParams},
      * if so returns the truncated longId appended by ellipsis,
      * otherwise returns the original longId.
      */
     public static String truncateLongId(String longId) {
-        return truncate(longId, Const.SystemParams.USER_ID_MAX_DISPLAY_LENGTH);
+        return truncate(longId, SystemParamsConst.SystemParams.USER_ID_MAX_DISPLAY_LENGTH);
     }
 
     /**

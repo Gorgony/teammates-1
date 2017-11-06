@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.controller.AdminAccountDetailsPageAction;
 import teammates.ui.controller.ShowPageResult;
 import teammates.ui.pagedata.AdminAccountDetailsPageData;
@@ -27,7 +28,7 @@ public class AdminAccountDetailsPageActionTest extends BaseActionTest {
         InstructorAttributes instructor1OfCourse1 = typicalBundle.instructors.get("instructor1OfCourse1");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.INSTRUCTOR_ID, instructor1OfCourse1.googleId
+                ParamNameConst.ParamsNames.INSTRUCTOR_ID, instructor1OfCourse1.googleId
         };
 
         final String adminUserId = "admin.user";

@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCourseEnrollPageAction;
 import teammates.ui.controller.ShowPageResult;
@@ -45,7 +47,7 @@ public class InstructorCourseEnrollPageActionTest extends BaseActionTest {
 
         String courseId = instructor.getCourseId();
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId
+                ParamNameConst.ParamsNames.COURSE_ID, courseId
         };
         InstructorCourseEnrollPageAction enrollPageAction = getAction(submissionParams);
 
@@ -61,7 +63,7 @@ public class InstructorCourseEnrollPageActionTest extends BaseActionTest {
         assertEquals(null, pageData.getEnrollStudents());
 
         String expectedLogSegment = String.format(
-                Const.StatusMessages.ADMIN_LOG_INSTRUCTOR_COURSE_ENROLL_PAGE_LOAD, courseId);
+                StatusMessageConst.StatusMessages.ADMIN_LOG_INSTRUCTOR_COURSE_ENROLL_PAGE_LOAD, courseId);
         AssertHelper.assertContains(expectedLogSegment, enrollPageAction.getLogMessage());
     }
 
@@ -73,7 +75,7 @@ public class InstructorCourseEnrollPageActionTest extends BaseActionTest {
 
         String courseId = instructor.getCourseId();
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, courseId
+                ParamNameConst.ParamsNames.COURSE_ID, courseId
         };
         InstructorCourseEnrollPageAction enrollPageAction = getAction(submissionParams);
 
@@ -82,14 +84,14 @@ public class InstructorCourseEnrollPageActionTest extends BaseActionTest {
                 getPageResultDestination(Const.ViewURIs.INSTRUCTOR_COURSE_ENROLL, false, "idOfInstructor1OfCourse1"),
                 pageResult.getDestinationWithParams());
         assertFalse(pageResult.isError);
-        assertEquals(Const.StatusMessages.COURSE_ENROLL_POSSIBLE_DATA_LOSS, pageResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.COURSE_ENROLL_POSSIBLE_DATA_LOSS, pageResult.getStatusMessage());
 
         InstructorCourseEnrollPageData pageData = (InstructorCourseEnrollPageData) pageResult.data;
         assertEquals(courseId, pageData.getCourseId());
         assertEquals(null, pageData.getEnrollStudents());
 
         String expectedLogSegment = String.format(
-                Const.StatusMessages.ADMIN_LOG_INSTRUCTOR_COURSE_ENROLL_PAGE_LOAD, courseId);
+                StatusMessageConst.StatusMessages.ADMIN_LOG_INSTRUCTOR_COURSE_ENROLL_PAGE_LOAD, courseId);
         AssertHelper.assertContains(expectedLogSegment, enrollPageAction.getLogMessage());
     }
 
@@ -103,8 +105,8 @@ public class InstructorCourseEnrollPageActionTest extends BaseActionTest {
         String courseId = instructorToMasquerade.courseId;
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.USER_ID, instructorId,
-                Const.ParamsNames.COURSE_ID, courseId
+                ParamNameConst.ParamsNames.USER_ID, instructorId,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId
         };
         InstructorCourseEnrollPageAction enrollPageAction = getAction(submissionParams);
 
@@ -120,7 +122,7 @@ public class InstructorCourseEnrollPageActionTest extends BaseActionTest {
         assertEquals(null, pageData.getEnrollStudents());
 
         String expectedLogSegment = String.format(
-                Const.StatusMessages.ADMIN_LOG_INSTRUCTOR_COURSE_ENROLL_PAGE_LOAD, courseId);
+                StatusMessageConst.StatusMessages.ADMIN_LOG_INSTRUCTOR_COURSE_ENROLL_PAGE_LOAD, courseId);
         AssertHelper.assertContains(expectedLogSegment, enrollPageAction.getLogMessage());
     }
 
@@ -133,7 +135,7 @@ public class InstructorCourseEnrollPageActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, typicalBundle.instructors.get("instructor1OfCourse1").courseId
+                ParamNameConst.ParamsNames.COURSE_ID, typicalBundle.instructors.get("instructor1OfCourse1").courseId
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

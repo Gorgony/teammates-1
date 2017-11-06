@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 
 public class InstructorStudentListPage extends AppPage {
 
@@ -178,7 +179,7 @@ public class InstructorStudentListPage extends AppPage {
 
     private String getStudentNameInRow(int courseNumber, int rowId) {
         String xpath = "//tr[@id='student-c" + courseNumber + "." + rowId + "']"
-                     + "//td[@id='" + Const.ParamsNames.STUDENT_NAME + "-c" + courseNumber + "." + rowId + "']";
+                     + "//td[@id='" + ParamNameConst.ParamsNames.STUDENT_NAME + "-c" + courseNumber + "." + rowId + "']";
         return browser.driver.findElement(By.xpath(xpath)).getText();
     }
 

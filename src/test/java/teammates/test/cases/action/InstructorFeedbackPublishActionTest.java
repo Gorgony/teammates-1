@@ -7,10 +7,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.exception.NullPostParameterException;
-import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
-import teammates.common.util.TaskWrapper;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.storage.api.FeedbackSessionsDb;
 import teammates.ui.controller.InstructorFeedbackPublishAction;
 import teammates.ui.controller.RedirectResult;
@@ -31,16 +28,16 @@ public class InstructorFeedbackPublishActionTest extends BaseActionTest {
         gaeSimulation.loginAsInstructor(typicalBundle.instructors.get("instructor1OfCourse1").googleId);
         FeedbackSessionAttributes session = typicalBundle.feedbackSessions.get("session2InCourse1");
         String[] paramsNormal = {
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME,
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME,
                 session.getFeedbackSessionName()
         };
         String[] paramsWithNullCourseId = {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME,
                 session.getFeedbackSessionName()
         };
         String[] paramsWithNullFeedbackSessionName = {
-                Const.ParamsNames.COURSE_ID,
+                ParamNameConst.ParamsNames.COURSE_ID,
                 session.getCourseId()
         };
 
@@ -55,15 +52,15 @@ public class InstructorFeedbackPublishActionTest extends BaseActionTest {
                 Const.ActionURIs.INSTRUCTOR_FEEDBACK_SESSIONS_PAGE, false, "idOfInstructor1OfCourse1");
 
         assertEquals(expectedDestination, result.getDestinationWithParams());
-        assertEquals(Const.StatusMessages.FEEDBACK_SESSION_PUBLISHED, result.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_PUBLISHED, result.getStatusMessage());
         assertFalse(result.isError);
 
         verifySpecifiedTasksAdded(publishAction, Const.TaskQueue.FEEDBACK_SESSION_PUBLISHED_EMAIL_QUEUE_NAME, 1);
 
         TaskWrapper taskAdded = publishAction.getTaskQueuer().getTasksAdded().get(0);
         Map<String, String[]> paramMap = taskAdded.getParamMap();
-        assertEquals(session.getCourseId(), paramMap.get(ParamsNames.EMAIL_COURSE)[0]);
-        assertEquals(session.getSessionName(), paramMap.get(ParamsNames.EMAIL_FEEDBACK)[0]);
+        assertEquals(session.getCourseId(), paramMap.get(ParamNameConst.ParamsNames.EMAIL_COURSE)[0]);
+        assertEquals(session.getSessionName(), paramMap.get(ParamNameConst.ParamsNames.EMAIL_FEEDBACK)[0]);
 
         ______TS("Unsuccessful case 1: params with null course id");
 
@@ -78,7 +75,7 @@ public class InstructorFeedbackPublishActionTest extends BaseActionTest {
         }
 
         assertEquals(
-                String.format(Const.StatusCodes.NULL_POST_PARAMETER, Const.ParamsNames.COURSE_ID),
+                String.format(Const.StatusCodes.NULL_POST_PARAMETER, ParamNameConst.ParamsNames.COURSE_ID),
                 errorMessage);
 
         ______TS("Unsuccessful case 2: params with null feedback session name");
@@ -94,7 +91,7 @@ public class InstructorFeedbackPublishActionTest extends BaseActionTest {
         }
 
         assertEquals(
-                String.format(Const.StatusCodes.NULL_POST_PARAMETER, Const.ParamsNames.FEEDBACK_SESSION_NAME),
+                String.format(Const.StatusCodes.NULL_POST_PARAMETER, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME),
                 errorMessage);
 
         ______TS("Unsuccessful case 3: trying to publish a session not currently unpublished");
@@ -160,8 +157,8 @@ public class InstructorFeedbackPublishActionTest extends BaseActionTest {
         makeFeedbackSessionUnpublished(session); //we have to revert to the closed state
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
         };
 
         verifyUnaccessibleWithoutLogin(submissionParams);

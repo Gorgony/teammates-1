@@ -6,6 +6,7 @@ import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.controller.InstructorStudentRecordsAjaxPageAction;
 import teammates.ui.controller.ShowPageResult;
 import teammates.ui.pagedata.InstructorStudentRecordsAjaxPageData;
@@ -32,9 +33,9 @@ public class InstructorStudentRecordsAjaxPageActionTest extends BaseActionTest {
         ______TS("Typical case: specific session name");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.STUDENT_EMAIL, student.email,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session"
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session"
         };
 
         InstructorStudentRecordsAjaxPageAction a = getAction(submissionParams);
@@ -64,9 +65,9 @@ public class InstructorStudentRecordsAjaxPageActionTest extends BaseActionTest {
         CourseAttributes course = typicalBundle.courses.get("typicalCourse1");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.STUDENT_EMAIL, student.email,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session"
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session"
         };
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);
 
@@ -76,9 +77,9 @@ public class InstructorStudentRecordsAjaxPageActionTest extends BaseActionTest {
         gaeSimulation.loginAsInstructor(instructor.googleId);
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.STUDENT_EMAIL, student.email,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session"
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.STUDENT_EMAIL, student.email,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "First feedback session"
         };
 
         InstructorStudentRecordsAjaxPageAction a = getAction(submissionParams);

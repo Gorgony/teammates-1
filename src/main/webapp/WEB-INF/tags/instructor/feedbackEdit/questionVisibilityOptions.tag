@@ -3,6 +3,8 @@
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
 <%@ tag import="teammates.common.datatransfer.FeedbackParticipantType" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
+<%@ tag import="teammates.common.util.FeedbackGuestionConst" %>
 
 <%@ attribute name="fqForm" type="teammates.ui.template.FeedbackQuestionEditForm" required="true"%>
 
@@ -27,7 +29,7 @@
     </button>
     <ul class="dropdown-menu">
       <li class="dropdown-header">Common visibility options</li>
-      <c:forEach items="<%= Const.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS %>" var="visibilityOption">
+      <c:forEach items="<%= FeedbackGuestionConst.FeedbackQuestion.COMMON_VISIBILITY_OPTIONS %>" var="visibilityOption">
         <li>
           <a class="visibility-options-dropdown-option" href="javascript:;" data-option-name="${visibilityOption.key}">${visibilityOption.value}</a>
         </li>
@@ -46,7 +48,7 @@
       </tr>
       <tr>
         <td class="text-left">
-          <div data-toggle="tooltip" data-placement="top" title="<%= Const.Tooltips.VISIBILITY_OPTIONS_RECIPIENT %>">
+          <div data-toggle="tooltip" data-placement="top" title="<%= ToolTipConst.Tooltips.VISIBILITY_OPTIONS_RECIPIENT %>">
             Recipient(s)
           </div>
         </td>
@@ -70,7 +72,7 @@
       </tr>
       <tr>
         <td class="text-left">
-          <div data-toggle="tooltip" data-placement="top" title="<%= Const.Tooltips.VISIBILITY_OPTIONS_GIVER_TEAM_MEMBERS %>">
+          <div data-toggle="tooltip" data-placement="top" title="<%= ToolTipConst.Tooltips.VISIBILITY_OPTIONS_GIVER_TEAM_MEMBERS %>">
             Giver's Team Members
           </div>
         </td>
@@ -92,7 +94,7 @@
       </tr>
       <tr>
         <td class="text-left">
-          <div data-toggle="tooltip" data-placement="top" title="<%= Const.Tooltips.VISIBILITY_OPTIONS_RECIPIENT_TEAM_MEMBERS %>">
+          <div data-toggle="tooltip" data-placement="top" title="<%= ToolTipConst.Tooltips.VISIBILITY_OPTIONS_RECIPIENT_TEAM_MEMBERS %>">
             Recipient's Team Members
           </div>
         </td>
@@ -111,7 +113,7 @@
       </tr>
       <tr>
         <td class="text-left">
-          <div data-toggle="tooltip" data-placement="top" title="<%= Const.Tooltips.VISIBILITY_OPTIONS_OTHER_STUDENTS %>">
+          <div data-toggle="tooltip" data-placement="top" title="<%= ToolTipConst.Tooltips.VISIBILITY_OPTIONS_OTHER_STUDENTS %>">
             Other students
           </div>
         </td>
@@ -133,7 +135,7 @@
       </tr>
       <tr>
         <td class="text-left">
-          <div data-toggle="tooltip" data-placement="top" title="<%= Const.Tooltips.VISIBILITY_OPTIONS_INSTRUCTORS %>">
+          <div data-toggle="tooltip" data-placement="top" title="<%= ToolTipConst.Tooltips.VISIBILITY_OPTIONS_INSTRUCTORS %>">
             Instructors
           </div>
         </td>

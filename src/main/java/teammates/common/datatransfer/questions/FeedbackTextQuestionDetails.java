@@ -8,10 +8,7 @@ import java.util.Map;
 import teammates.common.datatransfer.FeedbackSessionResultsBundle;
 import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.Templates;
+import teammates.common.util.*;
 import teammates.common.util.Templates.FeedbackQuestion.FormTemplates;
 import teammates.common.util.Templates.FeedbackQuestion.Slots;
 import teammates.ui.template.InstructorFeedbackResultsResponseRow;
@@ -40,7 +37,7 @@ public class FeedbackTextQuestionDetails extends FeedbackQuestionDetails {
             Map<String, String[]> requestParameters,
             FeedbackQuestionType questionType) {
         String recommendedLengthString = HttpRequestHelper.getValueFromParamMap(requestParameters,
-                Const.ParamsNames.FEEDBACK_QUESTION_TEXT_RECOMMENDEDLENGTH);
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT_RECOMMENDEDLENGTH);
 
         recommendedLength = recommendedLengthString == null || recommendedLengthString.isEmpty() ? 0
                 : Integer.parseInt(recommendedLengthString);
@@ -49,7 +46,7 @@ public class FeedbackTextQuestionDetails extends FeedbackQuestionDetails {
 
     @Override
     public String getQuestionTypeDisplayName() {
-        return Const.FeedbackQuestionTypeNames.TEXT;
+        return FeedbackGuestionConst.FeedbackQuestionTypeNames.TEXT;
     }
 
     @Override
@@ -63,7 +60,7 @@ public class FeedbackTextQuestionDetails extends FeedbackQuestionDetails {
         return Templates.populateTemplate(
                 FormTemplates.TEXT_SUBMISSION_FORM,
                 Slots.IS_SESSION_OPEN, Boolean.toString(sessionIsOpen),
-                Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
                 Slots.QUESTION_INDEX, Integer.toString(qnIdx),
                 Slots.RESPONSE_INDEX, Integer.toString(responseIdx),
                 "${recommendedLengthDisplay}", recommendedLength == 0 ? "style=\"display:none\"" : "",
@@ -78,7 +75,7 @@ public class FeedbackTextQuestionDetails extends FeedbackQuestionDetails {
         return Templates.populateTemplate(
                 FormTemplates.TEXT_SUBMISSION_FORM,
                 Slots.IS_SESSION_OPEN, Boolean.toString(sessionIsOpen),
-                Slots.FEEDBACK_RESPONSE_TEXT, Const.ParamsNames.FEEDBACK_RESPONSE_TEXT,
+                Slots.FEEDBACK_RESPONSE_TEXT, ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_TEXT,
                 Slots.QUESTION_INDEX, Integer.toString(qnIdx),
                 Slots.RESPONSE_INDEX, Integer.toString(responseIdx),
                 "${recommendedLengthDisplay}", recommendedLength == 0 ? "style=\"display:none\"" : "",
@@ -162,7 +159,7 @@ public class FeedbackTextQuestionDetails extends FeedbackQuestionDetails {
     @Override
     public String getQuestionTypeChoiceOption() {
         return "<li data-questiontype = \"TEXT\"><a href=\"javascript:;\">"
-               + Const.FeedbackQuestionTypeNames.TEXT + "</a></li>";
+               + FeedbackGuestionConst.FeedbackQuestionTypeNames.TEXT + "</a></li>";
     }
 
     @Override

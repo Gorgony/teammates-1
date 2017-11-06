@@ -2,10 +2,7 @@ package teammates.ui.controller;
 
 import com.google.appengine.api.blobstore.BlobstoreFailureException;
 
-import teammates.common.util.Const;
-import teammates.common.util.GoogleCloudStorageHelper;
-import teammates.common.util.Logger;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 import teammates.ui.pagedata.StudentProfileCreateFormUrlAjaxPageData;
 
 /**
@@ -26,7 +23,7 @@ public class StudentProfileCreateFormUrlAction extends Action {
 
     private String getUploadUrl() {
         String callbackUrl = Url.addParamToUrl(Const.ActionURIs.STUDENT_PROFILE_PICTURE_UPLOAD,
-                Const.ParamsNames.SESSION_TOKEN, sessionToken);
+                ParamNameConst.ParamsNames.SESSION_TOKEN, sessionToken);
         try {
             String uploadUrl = GoogleCloudStorageHelper.getNewUploadUrl(callbackUrl);
             statusToAdmin = "Created Url successfully: " + uploadUrl;

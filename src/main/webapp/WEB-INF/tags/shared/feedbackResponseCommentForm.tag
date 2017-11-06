@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.datatransfer.FeedbackParticipantType" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="fsIndex" required="true" %>
 <%@ attribute name="secondIndex" required="true" %>
 <%@ attribute name="thirdIndex" required="true" %>
@@ -194,7 +195,7 @@
     <div class="panel panel-default panel-body" id="${textAreaId}-${divId}">
       ${frc.commentText}
     </div>
-    <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT %>">
+    <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT %>">
   </div>
   <div class="col-sm-offset-5">
     <a href="${submitLink}"
@@ -213,17 +214,17 @@
           <c:if test="${not empty viewType}">data-viewtype="${viewType}"</c:if>>
     </c:if>
   </div>
-  <c:if test="${isEditForm}"><input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID %>" value="${frc.commentId}"></c:if>
-  <c:if test="${isAddForm}"><input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_ID %>" value="${frc.questionId}"></c:if>
+  <c:if test="${isEditForm}"><input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID %>" value="${frc.commentId}"></c:if>
+  <c:if test="${isAddForm}"><input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID %>" value="${frc.questionId}"></c:if>
   <c:if test="${not empty isOnQuestionsPage && isOnQuestionsPage}">
     <input type="hidden" name="isOnQuestionsPage" value="${isOnQuestionsPage}">
   </c:if>
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_SESSION_INDEX %>" value="${fsIndex}">
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_RESPONSE_ID %>" value="${fn:escapeXml(frc.feedbackResponseId)}">
-  <input type="hidden" name="<%= Const.ParamsNames.COURSE_ID %>" value="${frc.courseId}">
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${frc.feedbackSessionName}">
-  <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${data.account.googleId}">
-  <input type="hidden" name="<%= Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO %>" value="${frc.showCommentToString}">
-  <input type="hidden" name="<%= Const.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO %>" value="${frc.showGiverNameToString}">
-  <input type="hidden" name="<%= Const.ParamsNames.SESSION_TOKEN %>" value="${data.sessionToken}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_INDEX %>" value="${fsIndex}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID %>" value="${fn:escapeXml(frc.feedbackResponseId)}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.COURSE_ID %>" value="${frc.courseId}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${frc.feedbackSessionName}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${data.account.googleId}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO %>" value="${frc.showCommentToString}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO %>" value="${frc.showGiverNameToString}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.SESSION_TOKEN %>" value="${data.sessionToken}">
 </form>

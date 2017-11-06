@@ -132,7 +132,7 @@ public class FeedbackResponseCommentAttributes extends EntityAttributes<Feedback
 
     @Override
     public String getBackupIdentifier() {
-        return Const.SystemParams.COURSE_BACKUP_LOG_MSG + courseId;
+        return SystemParamsConst.SystemParams.COURSE_BACKUP_LOG_MSG + courseId;
     }
 
     @Override

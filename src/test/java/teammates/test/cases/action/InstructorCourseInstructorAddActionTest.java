@@ -5,10 +5,7 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.TaskWrapper;
+import teammates.common.util.*;
 import teammates.logic.core.InstructorsLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCourseInstructorAddAction;
@@ -41,20 +38,20 @@ public class InstructorCourseInstructorAddActionTest extends BaseActionTest {
         String newInstructorEmail = "ICIAAT.newInstructor@email.tmt";
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
 
         InstructorCourseInstructorAddAction addAction = getAction(submissionParams);
@@ -62,7 +59,7 @@ public class InstructorCourseInstructorAddActionTest extends BaseActionTest {
 
         assertEquals(Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_PAGE, redirectResult.destination);
         assertFalse(redirectResult.isError);
-        assertEquals(String.format(Const.StatusMessages.COURSE_INSTRUCTOR_ADDED,
+        assertEquals(String.format(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_ADDED,
                     newInstructorName, newInstructorEmail), redirectResult.getStatusMessage());
 
         assertTrue(instructorsLogic.isEmailOfInstructorOfCourse(newInstructorEmail, courseId));
@@ -80,9 +77,9 @@ public class InstructorCourseInstructorAddActionTest extends BaseActionTest {
         TaskWrapper taskAdded = addAction.getTaskQueuer().getTasksAdded().get(0);
         Map<String, String[]> paramMap = taskAdded.getParamMap();
 
-        assertEquals(courseId, paramMap.get(ParamsNames.COURSE_ID)[0]);
-        assertEquals(instructorAdded.email, paramMap.get(ParamsNames.INSTRUCTOR_EMAIL)[0]);
-        assertEquals(instructorId, paramMap.get(ParamsNames.INVITER_ID)[0]);
+        assertEquals(courseId, paramMap.get(ParamNameConst.ParamsNames.COURSE_ID)[0]);
+        assertEquals(instructorAdded.email, paramMap.get(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL)[0]);
+        assertEquals(instructorId, paramMap.get(ParamNameConst.ParamsNames.INVITER_ID)[0]);
 
         ______TS("Error: try to add an existing instructor");
 
@@ -93,7 +90,7 @@ public class InstructorCourseInstructorAddActionTest extends BaseActionTest {
                 Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_PAGE,
                 redirectResult.getDestinationWithParams());
         assertTrue(redirectResult.isError);
-        assertEquals(Const.StatusMessages.COURSE_INSTRUCTOR_EXISTS, redirectResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_EXISTS, redirectResult.getStatusMessage());
 
         expectedLogSegment = "TEAMMATESLOG|||instructorCourseInstructorAdd|||instructorCourseInstructorAdd"
                 + "|||true|||Instructor|||Instructor 1 of Course 1|||idOfInstructor1OfCourse1|||instr1@course1.tmt"
@@ -107,11 +104,11 @@ public class InstructorCourseInstructorAddActionTest extends BaseActionTest {
         ______TS("Error: try to add an instructor with invalid email");
         String newInvalidInstructorEmail = "ICIAAT.newInvalidInstructor.email.tmt";
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, newInvalidInstructorEmail,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, newInvalidInstructorEmail,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER
         };
 
@@ -145,27 +142,27 @@ public class InstructorCourseInstructorAddActionTest extends BaseActionTest {
 
         gaeSimulation.loginAsAdmin(adminUserId);
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, newInstructorName,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, newInstructorEmail,
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
         addAction = getAction(addUserIdToParams(instructorId, submissionParams));
         redirectResult = getRedirectResult(addAction);
 
         assertEquals(Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_PAGE, redirectResult.destination);
         assertFalse(redirectResult.isError);
-        assertEquals(String.format(Const.StatusMessages.COURSE_INSTRUCTOR_ADDED,
+        assertEquals(String.format(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_ADDED,
                 newInstructorName, newInstructorEmail), redirectResult.getStatusMessage());
 
         assertTrue(instructorsLogic.isEmailOfInstructorOfCourse(newInstructorEmail, courseId));
@@ -183,9 +180,9 @@ public class InstructorCourseInstructorAddActionTest extends BaseActionTest {
         taskAdded = addAction.getTaskQueuer().getTasksAdded().get(0);
         paramMap = taskAdded.getParamMap();
 
-        assertEquals(courseId, paramMap.get(ParamsNames.COURSE_ID)[0]);
-        assertEquals(instructorAdded.email, paramMap.get(ParamsNames.INSTRUCTOR_EMAIL)[0]);
-        assertEquals(adminUserId, paramMap.get(ParamsNames.INVITER_ID)[0]);
+        assertEquals(courseId, paramMap.get(ParamNameConst.ParamsNames.COURSE_ID)[0]);
+        assertEquals(instructorAdded.email, paramMap.get(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL)[0]);
+        assertEquals(adminUserId, paramMap.get(ParamNameConst.ParamsNames.INVITER_ID)[0]);
     }
 
     @Override
@@ -197,20 +194,20 @@ public class InstructorCourseInstructorAddActionTest extends BaseActionTest {
     @Test
     protected void testAccessControl() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
-                Const.ParamsNames.INSTRUCTOR_NAME, "Instructor Name",
-                Const.ParamsNames.INSTRUCTOR_EMAIL, "instructor@email.tmt",
+                ParamNameConst.ParamsNames.COURSE_ID, "idOfTypicalCourse1",
+                ParamNameConst.ParamsNames.INSTRUCTOR_NAME, "Instructor Name",
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, "instructor@email.tmt",
 
-                Const.ParamsNames.INSTRUCTOR_ROLE_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
+                ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME,
                 Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER,
 
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_COURSE, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION, "true",
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT, "true"
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

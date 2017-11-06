@@ -1,6 +1,7 @@
 package teammates.ui.template;
 
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.Url;
 
 public class AdminEmailActions {
@@ -23,7 +24,7 @@ public class AdminEmailActions {
     private ElementTag createEditButton(String emailId) {
         String content = "<span class=\"glyphicon glyphicon-edit\"></span>";
         String href = Const.ActionURIs.ADMIN_EMAIL_COMPOSE_PAGE
-                + "?" + Const.ParamsNames.ADMIN_EMAIL_ID + "=" + emailId;
+                + "?" + ParamNameConst.ParamsNames.ADMIN_EMAIL_ID + "=" + emailId;
 
         return new ElementTag(content, "target", "blank", "href", href);
     }
@@ -31,9 +32,9 @@ public class AdminEmailActions {
     private ElementTag createDeleteButton(String emailId, String currentPage, String sessionToken) {
         String content = "<span class=\"glyphicon glyphicon-trash\"></span>";
         String href = Const.ActionURIs.ADMIN_EMAIL_MOVE_TO_TRASH;
-        href = Url.addParamToUrl(href, Const.ParamsNames.ADMIN_EMAIL_ID, emailId);
-        href = Url.addParamToUrl(href, Const.ParamsNames.ADMIN_EMAIL_TRASH_ACTION_REDIRECT, currentPage);
-        href = Url.addParamToUrl(href, Const.ParamsNames.SESSION_TOKEN, sessionToken);
+        href = Url.addParamToUrl(href, ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
+        href = Url.addParamToUrl(href, ParamNameConst.ParamsNames.ADMIN_EMAIL_TRASH_ACTION_REDIRECT, currentPage);
+        href = Url.addParamToUrl(href, ParamNameConst.ParamsNames.SESSION_TOKEN, sessionToken);
 
         return new ElementTag(content, "target", "blank", "href", href);
     }

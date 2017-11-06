@@ -9,6 +9,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.util.Assumption;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.pagedata.InstructorCourseEditPageData;
 
 /**
@@ -20,10 +21,10 @@ public class InstructorCourseEditPageAction extends Action {
     @Override
     public ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        String instructorEmail = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_EMAIL);
-        String index = getRequestParamValue(Const.ParamsNames.COURSE_EDIT_MAIN_INDEX);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        String instructorEmail = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL);
+        String index = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_EDIT_MAIN_INDEX);
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
         CourseAttributes courseToEdit = logic.getCourse(courseId);

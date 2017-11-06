@@ -10,8 +10,8 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailType;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.TaskWrapper;
 import teammates.logic.core.CoursesLogic;
 import teammates.logic.core.FeedbackSessionsLogic;
@@ -45,8 +45,8 @@ public class FeedbackSessionRemindEmailWorkerActionTest extends BaseAutomatedAct
         session1 = fsLogic.getFeedbackSession(session1.getFeedbackSessionName(), session1.getCourseId());
 
         String[] submissionParams = new String[] {
-                ParamsNames.SUBMISSION_FEEDBACK, session1.getFeedbackSessionName(),
-                ParamsNames.SUBMISSION_COURSE, session1.getCourseId()
+                ParamNameConst.ParamsNames.SUBMISSION_FEEDBACK, session1.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.SUBMISSION_COURSE, session1.getCourseId()
         };
 
         FeedbackSessionRemindEmailWorkerAction action = getAction(submissionParams);
@@ -77,11 +77,11 @@ public class FeedbackSessionRemindEmailWorkerActionTest extends BaseAutomatedAct
             Map<String, String[]> paramMap = task.getParamMap();
             assertEquals(String.format(EmailType.FEEDBACK_SESSION_REMINDER.getSubject(), courseName,
                                        session1.getSessionName()),
-                         paramMap.get(ParamsNames.EMAIL_SUBJECT)[0]);
+                         paramMap.get(ParamNameConst.ParamsNames.EMAIL_SUBJECT)[0]);
 
             String header = "The email below has been sent to students of course: [" + session1.getCourseId() + "]";
-            String content = paramMap.get(ParamsNames.EMAIL_CONTENT)[0];
-            String recipient = paramMap.get(ParamsNames.EMAIL_RECEIVER)[0];
+            String content = paramMap.get(ParamNameConst.ParamsNames.EMAIL_CONTENT)[0];
+            String recipient = paramMap.get(ParamNameConst.ParamsNames.EMAIL_RECEIVER)[0];
 
             if (content.contains(header)) { // notification to all instructors
                 assertTrue(instructorNotifiedList.contains(recipient));

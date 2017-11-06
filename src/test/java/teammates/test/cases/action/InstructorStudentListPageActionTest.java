@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.AssertHelper;
 import teammates.test.driver.Priority;
 import teammates.ui.controller.InstructorStudentListPageAction;
@@ -30,8 +32,8 @@ public class InstructorStudentListPageActionTest extends BaseActionTest {
         String instructorId = instructor.googleId;
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.SEARCH_KEY, "A search key",
-                Const.ParamsNames.DISPLAY_ARCHIVE, "false",
+                ParamNameConst.ParamsNames.SEARCH_KEY, "A search key",
+                ParamNameConst.ParamsNames.DISPLAY_ARCHIVE, "false",
         };
 
         ______TS("Typical case, student list view");
@@ -67,7 +69,7 @@ public class InstructorStudentListPageActionTest extends BaseActionTest {
                 getPageResultDestination(Const.ViewURIs.INSTRUCTOR_STUDENT_LIST, false, "instructorWithoutCourses"),
                 r.getDestinationWithParams());
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.INSTRUCTOR_NO_COURSE_AND_STUDENTS, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.INSTRUCTOR_NO_COURSE_AND_STUDENTS, r.getStatusMessage());
 
         islpd = (InstructorStudentListPageData) r.data;
         assertEquals(0, islpd.getNumOfCourses());
@@ -105,8 +107,8 @@ public class InstructorStudentListPageActionTest extends BaseActionTest {
         AssertHelper.assertLogMessageEquals(expectedLogMessage, a.getLogMessage());
 
         submissionParams = new String[] {
-                Const.ParamsNames.SEARCH_KEY, "A search key",
-                Const.ParamsNames.DISPLAY_ARCHIVE, "true",
+                ParamNameConst.ParamsNames.SEARCH_KEY, "A search key",
+                ParamNameConst.ParamsNames.DISPLAY_ARCHIVE, "true",
         };
 
         ______TS("Archived course, displayed");

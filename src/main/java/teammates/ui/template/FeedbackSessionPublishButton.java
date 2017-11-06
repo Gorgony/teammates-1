@@ -2,7 +2,8 @@ package teammates.ui.template;
 
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.ToolTipConst;
 import teammates.ui.pagedata.PageData;
 
 public class FeedbackSessionPublishButton {
@@ -25,19 +26,19 @@ public class FeedbackSessionPublishButton {
         this.isSendingPublishedEmail = session.isPublishedEmailEnabled();
 
         boolean isUnpublishing = !session.isWaitingToOpen() && session.isPublished();
-        this.isActionAllowed = instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
+        this.isActionAllowed = instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
 
         if (isUnpublishing) {
 
-            this.tooltipText = Const.Tooltips.FEEDBACK_SESSION_UNPUBLISH;
+            this.tooltipText = ToolTipConst.Tooltips.FEEDBACK_SESSION_UNPUBLISH;
             this.actionName = "Unpublish";
             this.actionLink = data.getInstructorFeedbackUnpublishLink(courseId, feedbackSessionName, returnUrl);
 
         } else {
 
             boolean isReadyToPublish = !session.isWaitingToOpen() && !session.isPublished();
-            this.tooltipText = isReadyToPublish ? Const.Tooltips.FEEDBACK_SESSION_PUBLISH
-                                                : Const.Tooltips.FEEDBACK_SESSION_AWAITING;
+            this.tooltipText = isReadyToPublish ? ToolTipConst.Tooltips.FEEDBACK_SESSION_PUBLISH
+                                                : ToolTipConst.Tooltips.FEEDBACK_SESSION_AWAITING;
             this.actionName = "Publish";
             this.actionLink = data.getInstructorFeedbackPublishLink(courseId, feedbackSessionName, returnUrl);
             this.isActionAllowed &= isReadyToPublish;

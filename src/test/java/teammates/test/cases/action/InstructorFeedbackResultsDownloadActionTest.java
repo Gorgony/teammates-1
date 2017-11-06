@@ -7,6 +7,7 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.NullPostParameterException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.core.FeedbackQuestionsLogic;
 import teammates.logic.core.StudentsLogic;
 import teammates.ui.controller.FileDownloadResult;
@@ -30,32 +31,32 @@ public class InstructorFeedbackResultsDownloadActionTest extends BaseActionTest 
         gaeSimulation.loginAsInstructor(typicalBundle.instructors.get("instructor1OfCourse1").googleId);
         FeedbackSessionAttributes session = typicalBundle.feedbackSessions.get("session1InCourse1");
         String[] paramsNormal = {
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
         };
         String[] paramsNormalWithinSection = {
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.SECTION_NAME, "Section 1"
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.SECTION_NAME, "Section 1"
         };
 
         String[] paramsWithNullCourseId = {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
         };
         String[] paramsWithNullFeedbackSessionName = {
-                Const.ParamsNames.COURSE_ID, session.getCourseId()
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId()
         };
 
         String[] paramsWithMissingResponsesShown = {
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES, "true"
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES, "true"
         };
 
         String[] paramsWithMissingResponsesHidden = {
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES, "false"
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES, "false"
         };
 
         ______TS("Typical case: results downloadable");
@@ -114,7 +115,7 @@ public class InstructorFeedbackResultsDownloadActionTest extends BaseActionTest 
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                                       Const.ParamsNames.COURSE_ID),
+                                       ParamNameConst.ParamsNames.COURSE_ID),
                          e.getMessage());
         }
 
@@ -126,7 +127,7 @@ public class InstructorFeedbackResultsDownloadActionTest extends BaseActionTest 
             signalFailureToDetectException("Did not detect that parameters are null.");
         } catch (NullPostParameterException e) {
             assertEquals(String.format(Const.StatusCodes.NULL_POST_PARAMETER,
-                    Const.ParamsNames.FEEDBACK_SESSION_NAME), e.getMessage());
+                    ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME), e.getMessage());
         }
 
         ______TS("Typical case: results with missing responses shown");
@@ -157,10 +158,10 @@ public class InstructorFeedbackResultsDownloadActionTest extends BaseActionTest 
         final String question2Id = fqLogic.getFeedbackQuestion(session.getFeedbackSessionName(),
                 session.getCourseId(), questionNum2).getId();
         String[] paramsQuestion2 = {
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "2",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, question2Id
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "2",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, question2Id
         };
 
         action = getAction(paramsQuestion2);
@@ -182,11 +183,11 @@ public class InstructorFeedbackResultsDownloadActionTest extends BaseActionTest 
                 session.getCourseId(), questionNum1).getId();
 
         String[] paramsQuestion1WithinSection = {
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
-                Const.ParamsNames.SECTION_NAME, "Section 1",
-                Const.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
-                Const.ParamsNames.FEEDBACK_QUESTION_ID, question1Id
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.SECTION_NAME, "Section 1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER, "1",
+                ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID, question1Id
         };
 
         action = getAction(paramsQuestion1WithinSection);
@@ -395,8 +396,8 @@ public class InstructorFeedbackResultsDownloadActionTest extends BaseActionTest 
         FeedbackSessionAttributes session = typicalBundle.feedbackSessions.get("session1InCourse1");
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, session.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.COURSE_ID, session.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, session.getFeedbackSessionName()
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

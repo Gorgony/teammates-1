@@ -2,7 +2,7 @@ package teammates.test.cases.action;
 
 import org.testng.annotations.Test;
 
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.cases.BaseTestCase;
 import teammates.ui.controller.ActionResult;
 import teammates.ui.controller.FileDownloadResult;
@@ -17,7 +17,7 @@ public class ActionResultTest extends BaseTestCase {
     public void testAppendParameters() {
         ActionResult svr = new ShowPageResult("/page/instructorHome", null, null, null);
         assertEquals("/page/instructorHome", svr.getDestinationWithParams());
-        svr.addResponseParam(Const.ParamsNames.USER_ID, "david");
+        svr.addResponseParam(ParamNameConst.ParamsNames.USER_ID, "david");
         assertEquals("/page/instructorHome?user=david", svr.getDestinationWithParams());
     }
 

@@ -7,9 +7,7 @@ import java.util.Map;
 
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorCoursesPageData;
 
 /**
@@ -32,7 +30,7 @@ public class InstructorCoursesPageAction extends Action {
          * prepare the matching PageData object, accessing the Logic
          * component if necessary.*/
         InstructorCoursesPageData data = new InstructorCoursesPageData(account, sessionToken);
-        String isUsingAjax = getRequestParamValue(Const.ParamsNames.IS_USING_AJAX);
+        String isUsingAjax = getRequestParamValue(ParamNameConst.ParamsNames.IS_USING_AJAX);
         data.setUsingAjax(isUsingAjax != null);
 
         Map<String, InstructorAttributes> instructorsForCourses = new HashMap<>();
@@ -68,7 +66,7 @@ public class InstructorCoursesPageAction extends Action {
 
         /* Explanation: Set any status messages that should be shown to the user.*/
         if (data.isUsingAjax() && allCourses.isEmpty()) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.COURSE_EMPTY, StatusMessageColor.WARNING));
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.COURSE_EMPTY, StatusMessageColor.WARNING));
         }
 
         /* Explanation: We must set this variable. It is the text that will

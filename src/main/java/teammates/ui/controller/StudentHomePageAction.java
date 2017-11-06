@@ -10,10 +10,7 @@ import teammates.common.datatransfer.FeedbackSessionDetailsBundle;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.StudentHomePageData;
 
 public class StudentHomePageAction extends Action {
@@ -22,7 +19,7 @@ public class StudentHomePageAction extends Action {
     public ActionResult execute() {
         gateKeeper.verifyLoggedInUserPrivileges();
 
-        String recentlyJoinedCourseId = getRequestParamValue(Const.ParamsNames.CHECK_PERSISTENCE_COURSE);
+        String recentlyJoinedCourseId = getRequestParamValue(ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE);
 
         List<CourseDetailsBundle> courses = new ArrayList<>();
         Map<FeedbackSessionAttributes, Boolean> sessionSubmissionStatusMap = new HashMap<>();
@@ -46,7 +43,7 @@ public class StudentHomePageAction extends Action {
 
         } catch (EntityDoesNotExistException e) {
             if (recentlyJoinedCourseId == null) {
-                statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_FIRST_TIME, StatusMessageColor.WARNING));
+                statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.STUDENT_FIRST_TIME, StatusMessageColor.WARNING));
                 statusToAdmin = Const.ACTION_RESULT_FAILURE + " :" + e.getMessage();
             } else {
                 addPlaceholderCourse(courses, recentlyJoinedCourseId, sessionSubmissionStatusMap);
@@ -97,7 +94,7 @@ public class StudentHomePageAction extends Action {
     }
 
     private void showEventualConsistencyMessage(String recentlyJoinedCourseId) {
-        String errorMessage = String.format(Const.StatusMessages.EVENTUAL_CONSISTENCY_MESSAGE_STUDENT,
+        String errorMessage = String.format(StatusMessageConst.StatusMessages.EVENTUAL_CONSISTENCY_MESSAGE_STUDENT,
                                             recentlyJoinedCourseId);
         statusToUser.add(new StatusMessage(errorMessage, StatusMessageColor.DANGER));
     }

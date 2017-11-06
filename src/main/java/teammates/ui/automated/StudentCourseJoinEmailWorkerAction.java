@@ -3,8 +3,8 @@ package teammates.ui.automated;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.util.Assumption;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailWrapper;
+import teammates.common.util.ParamNameConst;
 import teammates.logic.api.EmailGenerator;
 
 /**
@@ -24,12 +24,12 @@ public class StudentCourseJoinEmailWorkerAction extends AutomatedAction {
 
     @Override
     public void execute() {
-        String courseId = getRequestParamValue(ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(ParamsNames.COURSE_ID, courseId);
-        String studentEmail = getRequestParamValue(ParamsNames.STUDENT_EMAIL);
-        Assumption.assertPostParamNotNull(ParamsNames.STUDENT_EMAIL, studentEmail);
-        String isRejoinString = getRequestParamValue(ParamsNames.IS_STUDENT_REJOINING);
-        Assumption.assertPostParamNotNull(ParamsNames.IS_STUDENT_REJOINING, isRejoinString);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        String studentEmail = getRequestParamValue(ParamNameConst.ParamsNames.STUDENT_EMAIL);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.STUDENT_EMAIL, studentEmail);
+        String isRejoinString = getRequestParamValue(ParamNameConst.ParamsNames.IS_STUDENT_REJOINING);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.IS_STUDENT_REJOINING, isRejoinString);
         boolean isRejoin = Boolean.parseBoolean(isRejoinString);
 
         CourseAttributes course = logic.getCourse(courseId);

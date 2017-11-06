@@ -15,11 +15,7 @@ import teammates.common.datatransfer.FeedbackSessionType;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.EmailType;
-import teammates.common.util.Logger;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 
 public abstract class InstructorFeedbackAbstractAction extends Action {
 
@@ -34,22 +30,22 @@ public abstract class InstructorFeedbackAbstractAction extends Action {
         // TODO: When creating a new session, assert parameters are not null.
         // Not necessary when editing an existing session as null values do not affect data integrity.
 
-        String title = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
+        String title = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
         if (isCreatingNewSession) {
             title = SanitizationHelper.sanitizeTitle(title);
         }
         FeedbackSessionAttributes attributes = FeedbackSessionAttributes
-                .builder(title, getRequestParamValue(Const.ParamsNames.COURSE_ID),
-                        getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_CREATOR))
+                .builder(title, getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID),
+                        getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_CREATOR))
                 .build();
 
         attributes.setStartTime(TimeHelper.combineDateTime(
-                getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_STARTDATE),
-                getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_STARTTIME)));
+                getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTDATE),
+                getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_STARTTIME)));
         attributes.setEndTime(TimeHelper.combineDateTime(
-                getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENDDATE),
-                getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_ENDTIME)));
-        String paramTimeZone = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_TIMEZONE);
+                getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDDATE),
+                getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_ENDTIME)));
+        String paramTimeZone = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_TIMEZONE);
         if (paramTimeZone != null) {
             try {
                 attributes.setTimeZone(Double.parseDouble(paramTimeZone));
@@ -58,7 +54,7 @@ public abstract class InstructorFeedbackAbstractAction extends Action {
             }
         }
 
-        String paramGracePeriod = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD);
+        String paramGracePeriod = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_GRACEPERIOD);
         try {
             attributes.setGracePeriod(Integer.parseInt(paramGracePeriod));
         } catch (NumberFormatException nfe) {
@@ -72,14 +68,14 @@ public abstract class InstructorFeedbackAbstractAction extends Action {
         }
 
         attributes.setFeedbackSessionType(FeedbackSessionType.STANDARD);
-        attributes.setInstructions(new Text(getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS)));
+        attributes.setInstructions(new Text(getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_INSTRUCTIONS)));
 
-        String type = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON);
+        String type = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_RESULTSVISIBLEBUTTON);
         switch (type) {
         case Const.INSTRUCTOR_FEEDBACK_RESULTS_VISIBLE_TIME_CUSTOM:
             attributes.setResultsVisibleFromTime(TimeHelper.combineDateTime(
-                        getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE),
-                        getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME)));
+                        getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHDATE),
+                        getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_PUBLISHTIME)));
             break;
         case Const.INSTRUCTOR_FEEDBACK_RESULTS_VISIBLE_TIME_ATVISIBLE:
             attributes.setResultsVisibleFromTime(Const.TIME_REPRESENTS_FOLLOW_VISIBLE);
@@ -97,12 +93,12 @@ public abstract class InstructorFeedbackAbstractAction extends Action {
 
         // Handle session visible after results visible to avoid having a
         // results visible date when session is private (session not visible)
-        type = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON);
+        type = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_SESSIONVISIBLEBUTTON);
         switch (type) {
         case Const.INSTRUCTOR_FEEDBACK_SESSION_VISIBLE_TIME_CUSTOM:
             attributes.setSessionVisibleFromTime(TimeHelper.combineDateTime(
-                        getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE),
-                        getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_VISIBLETIME)));
+                        getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLEDATE),
+                        getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_VISIBLETIME)));
             break;
         case Const.INSTRUCTOR_FEEDBACK_SESSION_VISIBLE_TIME_ATOPEN:
             attributes.setSessionVisibleFromTime(Const.TIME_REPRESENTS_FOLLOW_OPENING);
@@ -121,7 +117,7 @@ public abstract class InstructorFeedbackAbstractAction extends Action {
             break;
         }
 
-        String[] sendReminderEmailsArray = getRequestParamValues(Const.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL);
+        String[] sendReminderEmailsArray = getRequestParamValues(ParamNameConst.ParamsNames.FEEDBACK_SESSION_SENDREMINDEREMAIL);
         List<String> sendReminderEmailsList = sendReminderEmailsArray == null ? new ArrayList<String>()
                 : Arrays.asList(sendReminderEmailsArray);
         attributes.setOpeningEmailEnabled(sendReminderEmailsList.contains(EmailType.FEEDBACK_OPENING.toString()));

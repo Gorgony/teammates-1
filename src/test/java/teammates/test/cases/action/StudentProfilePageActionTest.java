@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.ShowPageResult;
@@ -53,8 +54,8 @@ public class StudentProfilePageActionTest extends BaseActionTest {
         gaeSimulation.loginAsAdmin("admin.user");
         ______TS("Typical case: masquerade mode");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.STUDENT_PROFILE_PHOTOEDIT, "false",
-                Const.ParamsNames.USER_ID, student.googleId
+                ParamNameConst.ParamsNames.STUDENT_PROFILE_PHOTOEDIT, "false",
+                ParamNameConst.ParamsNames.USER_ID, student.googleId
         };
 
         StudentProfilePageAction action = getAction(addUserIdToParams(

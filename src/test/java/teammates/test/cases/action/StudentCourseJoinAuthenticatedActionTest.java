@@ -8,9 +8,7 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.logic.core.StudentsLogic;
 import teammates.storage.api.AccountsDb;
 import teammates.storage.api.StudentsDb;
@@ -56,8 +54,8 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
 
         String invalidKey = StringHelper.encrypt("invalid key");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, invalidKey,
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_HOME_PAGE
+                ParamNameConst.ParamsNames.REGKEY, invalidKey,
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_HOME_PAGE
         };
 
         try {
@@ -70,9 +68,9 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
         ______TS("already registered student");
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY,
+                ParamNameConst.ParamsNames.REGKEY,
                 StringHelper.encrypt(student1InCourse1.key),
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_PROFILE_PAGE
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_PROFILE_PAGE
         };
 
         StudentCourseJoinAuthenticatedAction authenticatedAction = getAction(submissionParams);
@@ -136,9 +134,9 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
         gaeSimulation.loginUser("idOfNoFSStudent");
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY,
+                ParamNameConst.ParamsNames.REGKEY,
                 StringHelper.encrypt(studentWithEmptyProfileAttributes.key),
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_HOME_PAGE
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_HOME_PAGE
         };
 
         authenticatedAction = getAction(submissionParams);
@@ -150,13 +148,13 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
                 redirectResult.getDestinationWithParams());
         assertFalse(redirectResult.isError);
         assertEquals(
-                String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
+                String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
                               "[idOfCourseNoEvals] Typical Course 3 with 0 Evals")
                 + "<br>"
-                + String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
+                + String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
                                 "[idOfCourseNoEvals] Typical Course 3 with 0 Evals")
                 + "<br>"
-                + Const.StatusMessages.STUDENT_UPDATE_PROFILE,
+                + StatusMessageConst.StatusMessages.STUDENT_UPDATE_PROFILE,
                 redirectResult.getStatusMessage());
 
         ______TS("join course with no feedback sessions, profile has only one missing field");
@@ -177,9 +175,9 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
         gaeSimulation.loginUser("idOfNoFSStudent2");
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY,
+                ParamNameConst.ParamsNames.REGKEY,
                 StringHelper.encrypt(studentWithoutProfilePictureAttributes.key),
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_HOME_PAGE
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_HOME_PAGE
         };
 
         authenticatedAction = getAction(submissionParams);
@@ -194,13 +192,13 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
                 redirectResult.getDestinationWithParams());
         assertFalse(redirectResult.isError);
         assertEquals(
-                String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
+                String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
                               "[idOfCourseNoEvals] Typical Course 3 with 0 Evals")
                 + "<br>"
-                + String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
+                + String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
                                 "[idOfCourseNoEvals] Typical Course 3 with 0 Evals")
                 + "<br>"
-                + Const.StatusMessages.STUDENT_UPDATE_PROFILE_PICTURE,
+                + StatusMessageConst.StatusMessages.STUDENT_UPDATE_PROFILE_PICTURE,
                 redirectResult.getStatusMessage());
 
         ______TS("join course with no feedback sessions, profile has no missing field");
@@ -221,9 +219,9 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
         gaeSimulation.loginUser("idOfNoFSStudent3");
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY,
+                ParamNameConst.ParamsNames.REGKEY,
                 StringHelper.encrypt(studentWithFullProfileAttributes.key),
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_HOME_PAGE
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_HOME_PAGE
         };
 
         authenticatedAction = getAction(submissionParams);
@@ -235,10 +233,10 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
                 redirectResult.getDestinationWithParams());
         assertFalse(redirectResult.isError);
         assertEquals(
-                String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
+                String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
                               "[idOfCourseNoEvals] Typical Course 3 with 0 Evals")
                 + "<br>"
-                + String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
+                + String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT,
                                 "[idOfCourseNoEvals] Typical Course 3 with 0 Evals"),
                 redirectResult.getStatusMessage());
 
@@ -263,9 +261,9 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
         gaeSimulation.loginUser("idOfNewStudent");
 
         submissionParams = new String[] {
-                Const.ParamsNames.REGKEY,
+                ParamNameConst.ParamsNames.REGKEY,
                 StringHelper.encrypt(newStudentAttributes.key),
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_PROFILE_PAGE
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_PROFILE_PAGE
         };
 
         authenticatedAction = getAction(submissionParams);
@@ -277,7 +275,7 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
                 redirectResult.getDestinationWithParams());
         assertFalse(redirectResult.isError);
         assertEquals(
-                String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
+                String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL,
                               "[idOfTypicalCourse1] Typical Course 1 with 2 Evals"),
                 redirectResult.getStatusMessage());
 
@@ -294,9 +292,9 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
                 studentsDb.getStudentForEmail(studentTestSanitization.course, studentTestSanitization.email);
 
         submissionParams = new String[]{
-                Const.ParamsNames.REGKEY,
+                ParamNameConst.ParamsNames.REGKEY,
                 StringHelper.encrypt(studentTestSanitization.key),
-                Const.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_PROFILE_PAGE
+                ParamNameConst.ParamsNames.NEXT_URL, Const.ActionURIs.STUDENT_PROFILE_PAGE
         };
 
         authenticatedAction = getAction(submissionParams);
@@ -311,8 +309,8 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
         String courseIdentifier = "[" + courseTestSanitization.getId() + "] "
                 + SanitizationHelper.sanitizeForHtml(courseTestSanitization.getName());
         String expectedStatusMessage =
-                String.format(Const.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL, courseIdentifier) + "<br>"
-                + String.format(Const.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT, courseIdentifier) + "<br>"
+                String.format(StatusMessageConst.StatusMessages.STUDENT_COURSE_JOIN_SUCCESSFUL, courseIdentifier) + "<br>"
+                + String.format(StatusMessageConst.StatusMessages.HINT_FOR_NO_SESSIONS_STUDENT, courseIdentifier) + "<br>"
                 + accountTestSanitization.studentProfile.generateUpdateMessageForStudent();
         assertEquals(expectedStatusMessage, redirectResult.getStatusMessage());
     }
@@ -324,9 +322,9 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
 
     protected String getPageResultDestination(String parentUri, String persistenceCourse, boolean isError, String userId) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.CHECK_PERSISTENCE_COURSE, persistenceCourse);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE, persistenceCourse);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
         return pageDestination;
     }
 
@@ -337,8 +335,8 @@ public class StudentCourseJoinAuthenticatedActionTest extends BaseActionTest {
         StudentAttributes unregStudent1 = typicalBundle.students.get("student1InUnregisteredCourse");
         String key = StudentsLogic.inst().getStudentForEmail(unregStudent1.course, unregStudent1.email).key;
         String[] submissionParams = new String[] {
-                Const.ParamsNames.REGKEY, StringHelper.encrypt(key),
-                Const.ParamsNames.NEXT_URL, "randomUrl"
+                ParamNameConst.ParamsNames.REGKEY, StringHelper.encrypt(key),
+                ParamNameConst.ParamsNames.NEXT_URL, "randomUrl"
         };
 
         verifyUnaccessibleWithoutLogin(submissionParams);

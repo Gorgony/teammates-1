@@ -3,6 +3,8 @@ package teammates.test.cases.action;
 import org.testng.annotations.Test;
 
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.api.Logic;
 import teammates.logic.core.CoursesLogic;
 import teammates.test.driver.AssertHelper;
@@ -24,7 +26,7 @@ public class InstructorHomePageActionTest extends BaseActionTest {
     @Test
     public void testExecuteAndPostProcess() throws Exception {
         String[] submissionParams = new String[]{
-                Const.ParamsNames.CHECK_PERSISTENCE_COURSE, "something"
+                ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE, "something"
         };
 
         ______TS("persistence issue");
@@ -33,7 +35,7 @@ public class InstructorHomePageActionTest extends BaseActionTest {
         InstructorHomePageAction a = getAction(submissionParams);
         ShowPageResult r = getShowPageResult(a);
         assertFalse(a.account.isInstructor);
-        assertEquals(Const.StatusMessages.INSTRUCTOR_PERSISTENCE_ISSUE, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.INSTRUCTOR_PERSISTENCE_ISSUE, r.getStatusMessage());
 
         ______TS("instructor with no courses, right after registration (ie no persistence issue)");
 
@@ -44,7 +46,7 @@ public class InstructorHomePageActionTest extends BaseActionTest {
                 getPageResultDestination(Const.ViewURIs.INSTRUCTOR_HOME, false, "instructorWithoutCourses"),
                 r.getDestinationWithParams());
         assertFalse(r.isError);
-        assertEquals(Const.StatusMessages.HINT_FOR_NEW_INSTRUCTOR, r.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.HINT_FOR_NEW_INSTRUCTOR, r.getStatusMessage());
 
         InstructorHomePageData data = (InstructorHomePageData) r.data;
         assertEquals(0, data.getCourseTables().size());
@@ -61,7 +63,7 @@ public class InstructorHomePageActionTest extends BaseActionTest {
         ______TS("instructor with multiple courses, sort by course id, masquerade mode");
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_SORTING_CRITERIA, Const.SORT_BY_COURSE_ID
+                ParamNameConst.ParamsNames.COURSE_SORTING_CRITERIA, Const.SORT_BY_COURSE_ID
         };
         String adminUserId = "admin.user";
         gaeSimulation.loginAsAdmin(adminUserId);
@@ -108,7 +110,7 @@ public class InstructorHomePageActionTest extends BaseActionTest {
         ______TS("instructor with multiple courses, sort by course name, masquerade mode");
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_SORTING_CRITERIA, Const.SORT_BY_COURSE_NAME
+                ParamNameConst.ParamsNames.COURSE_SORTING_CRITERIA, Const.SORT_BY_COURSE_NAME
         };
 
         a = getAction(addUserIdToParams(instructorWithMultipleCourses, submissionParams));
@@ -136,7 +138,7 @@ public class InstructorHomePageActionTest extends BaseActionTest {
         ______TS("instructor with multiple courses, sort by course name, masquerade mode");
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_SORTING_CRITERIA, "haha"
+                ParamNameConst.ParamsNames.COURSE_SORTING_CRITERIA, "haha"
         };
 
         try {
@@ -150,7 +152,7 @@ public class InstructorHomePageActionTest extends BaseActionTest {
         ______TS("instructor with multiple courses, sort by creation date, masquerade mode");
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_SORTING_CRITERIA, Const.SORT_BY_COURSE_CREATION_DATE
+                ParamNameConst.ParamsNames.COURSE_SORTING_CRITERIA, Const.SORT_BY_COURSE_CREATION_DATE
         };
 
         a = getAction(addUserIdToParams(instructorWithMultipleCourses, submissionParams));
@@ -192,7 +194,7 @@ public class InstructorHomePageActionTest extends BaseActionTest {
 
         // check for persistence issue
         submissionParams = new String[] {
-                Const.ParamsNames.CHECK_PERSISTENCE_COURSE, "random_course"
+                ParamNameConst.ParamsNames.CHECK_PERSISTENCE_COURSE, "random_course"
         };
 
         verifyOnlyLoggedInUsersCanAccess(submissionParams);

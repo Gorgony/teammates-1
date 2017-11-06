@@ -14,12 +14,7 @@ import teammates.common.exception.EnrollException;
 import teammates.common.exception.EntityAlreadyExistsException;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorCourseEnrollPageData;
 import teammates.ui.pagedata.InstructorCourseEnrollResultPageData;
 
@@ -33,15 +28,15 @@ public class InstructorCourseEnrollSaveAction extends Action {
     @Override
     public ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        String studentsInfo = getRequestParamValue(Const.ParamsNames.STUDENTS_ENROLLMENT_INFO);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        String studentsInfo = getRequestParamValue(ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO);
         String sanitizedStudentsInfo = SanitizationHelper.sanitizeForHtml(studentsInfo);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, studentsInfo);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.STUDENTS_ENROLLMENT_INFO, studentsInfo);
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
         gateKeeper.verifyAccessible(instructor, logic.getCourse(courseId),
-                                    Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
+                                    ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_STUDENT);
 
         /* Process enrollment list and setup data for page result */
         try {

@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
 import teammates.common.util.JsonUtils;
 import teammates.common.util.SanitizationHelper;
@@ -119,7 +118,7 @@ public class CourseAttributes extends EntityAttributes<Course> implements Compar
 
     @Override
     public String getBackupIdentifier() {
-        return Const.SystemParams.COURSE_BACKUP_LOG_MSG + getId();
+        return SystemParamsConst.SystemParams.COURSE_BACKUP_LOG_MSG + getId();
     }
 
     @Override

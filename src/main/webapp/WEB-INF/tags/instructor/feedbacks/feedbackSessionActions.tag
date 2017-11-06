@@ -2,10 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor/feedbacks" prefix="tif" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
 <%@ attribute name="actions" type="teammates.ui.template.InstructorFeedbackSessionActions" required="true" %>
 <a class="btn btn-default btn-xs btn-tm-actions session-edit-for-test margin-bottom-7px"
     href="${actions.editLink}"
-    title="<%= Const.Tooltips.FEEDBACK_SESSION_EDIT %>"
+    title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_EDIT %>"
     data-toggle="tooltip"
     data-placement="top"
     <c:if test="${not actions.allowedToEdit}">disabled</c:if>>
@@ -13,7 +14,7 @@
 </a>
 <a class="btn btn-default btn-xs btn-tm-actions session-delete-for-test margin-bottom-7px"
     href="${actions.deleteLink}"
-    title="<%= Const.Tooltips.FEEDBACK_SESSION_DELETE %>"
+    title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_DELETE %>"
     data-toggle="tooltip"
     data-placement="top"
     data-courseid="${actions.courseId}"
@@ -21,7 +22,7 @@
     <c:if test="${not actions.allowedToDelete}">disabled</c:if>>
   Delete
 </a>
-<div title="<%= Const.Tooltips.FEEDBACK_SESSION_COPY %>"
+<div title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_COPY %>"
     data-toggle="tooltip"
     data-placement="top"
     style="display: inline-block; padding-right: 5px;">
@@ -36,7 +37,7 @@
     Copy
   </a>
 </div>
-<div title="<%= Const.Tooltips.FEEDBACK_SESSION_SUBMIT %>"
+<div title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_SUBMIT %>"
     data-toggle="tooltip"
     data-placement="top"
     style="display: inline-block; padding-right: 5px;">
@@ -46,7 +47,7 @@
     Submit
   </a>
 </div>
-<div title="<%= Const.Tooltips.FEEDBACK_SESSION_RESULTS %>"
+<div title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_RESULTS %>"
     data-toggle="tooltip"
     data-placement="top"
     style="display: inline-block; padding-right: 5px;">
@@ -72,7 +73,7 @@
     </ul>
   </div>
 </div>
-<div title="<%= Const.Tooltips.FEEDBACK_SESSION_REMIND %>"
+<div title="<%= ToolTipConst.Tooltips.FEEDBACK_SESSION_REMIND %>"
     data-toggle="tooltip"
     data-placement="top"
     style="display: inline-block; padding-right: 5px;">

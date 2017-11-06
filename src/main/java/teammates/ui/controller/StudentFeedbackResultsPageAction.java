@@ -8,16 +8,14 @@ import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.Const;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.StudentFeedbackResultsPageData;
 
 public class StudentFeedbackResultsPageAction extends Action {
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        String feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        String feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
 
         if (courseId == null || feedbackSessionName == null) {
             return createRedirectResult(Const.ActionURIs.STUDENT_HOME_PAGE);
@@ -47,10 +45,10 @@ public class StudentFeedbackResultsPageAction extends Action {
         }
 
         if (data.getBundle().isStudentHasSomethingNewToSee(data.student)) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_RESULTS_SOMETHINGNEW,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_RESULTS_SOMETHINGNEW,
                                                StatusMessageColor.INFO));
         } else {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_RESULTS_NOTHINGNEW,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_RESULTS_NOTHINGNEW,
                                                StatusMessageColor.WARNING));
         }
 

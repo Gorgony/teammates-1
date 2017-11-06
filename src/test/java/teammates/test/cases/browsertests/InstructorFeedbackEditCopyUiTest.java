@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.util.AppUrl;
 import teammates.common.util.Const;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.pageobjects.InstructorFeedbackEditPage;
 
 /**
@@ -38,7 +39,7 @@ public class InstructorFeedbackEditCopyUiTest extends BaseUiTestCase {
         feedbackEditPage.getFsCopyToModal().clickSubmitButton();
         feedbackEditPage.getFsCopyToModal().waitForFormSubmissionErrorMessagePresence();
         assertTrue(feedbackEditPage.getFsCopyToModal().isFormSubmissionStatusMessageVisible());
-        feedbackEditPage.getFsCopyToModal().verifyStatusMessage(Const.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED);
+        feedbackEditPage.getFsCopyToModal().verifyStatusMessage(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_NONESELECTED);
 
         feedbackEditPage.getFsCopyToModal().clickCloseButton();
 
@@ -53,7 +54,7 @@ public class InstructorFeedbackEditCopyUiTest extends BaseUiTestCase {
 
         feedbackEditPage.getFsCopyToModal()
                         .verifyStatusMessage(
-                                 String.format(Const.StatusMessages.FEEDBACK_SESSION_COPY_ALREADYEXISTS,
+                                 String.format(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPY_ALREADYEXISTS,
                                                feedbackSessionName,
                                                testData.courses.get("course").getId()));
 
@@ -88,7 +89,7 @@ public class InstructorFeedbackEditCopyUiTest extends BaseUiTestCase {
         feedbackEditPage.getFsCopyToModal().clickSubmitButton();
         feedbackEditPage.waitForPageToLoad();
 
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_COPIED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_COPIED);
         feedbackEditPage.waitForElementPresence(By.id("table-sessions"));
 
         // Full HTML verification already done in InstructorFeedbackEditPageUiTest

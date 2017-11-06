@@ -1,7 +1,7 @@
 package teammates.ui.template;
 
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
-import teammates.common.util.Const;
+import teammates.common.util.ToolTipConst;
 
 public class StudentFeedbackSessionActions {
 
@@ -23,19 +23,19 @@ public class StudentFeedbackSessionActions {
 
         if (hasSubmitted) {
             if (fs.isOpened()) {
-                this.tooltipText = Const.Tooltips.FEEDBACK_SESSION_EDIT_SUBMITTED_RESPONSE;
+                this.tooltipText = ToolTipConst.Tooltips.FEEDBACK_SESSION_EDIT_SUBMITTED_RESPONSE;
                 this.buttonText = "Edit Submission";
             } else {
-                this.tooltipText = Const.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE;
+                this.tooltipText = ToolTipConst.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE;
                 this.buttonText = "View Submission";
             }
         } else {
             if (fs.isClosed()) {
-                this.tooltipText = Const.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE;
+                this.tooltipText = ToolTipConst.Tooltips.FEEDBACK_SESSION_VIEW_SUBMITTED_RESPONSE;
                 this.buttonText = fs.isOpened() ? "Edit Submission" : "View Submission";
             } else {
-                this.tooltipText = fs.isWaitingToOpen() ? Const.Tooltips.FEEDBACK_SESSION_AWAITING
-                                                       : Const.Tooltips.FEEDBACK_SESSION_SUBMIT;
+                this.tooltipText = fs.isWaitingToOpen() ? ToolTipConst.Tooltips.FEEDBACK_SESSION_AWAITING
+                                                       : ToolTipConst.Tooltips.FEEDBACK_SESSION_SUBMIT;
                 this.buttonText = "Start Submission";
             }
         }

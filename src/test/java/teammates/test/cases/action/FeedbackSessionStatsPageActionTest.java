@@ -6,6 +6,7 @@ import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.UnauthorizedAccessException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.controller.AjaxResult;
 import teammates.ui.controller.FeedbackSessionStatsPageAction;
 import teammates.ui.pagedata.FeedbackSessionStatsPageData;
@@ -33,8 +34,8 @@ public class FeedbackSessionStatsPageActionTest extends BaseActionTest {
 
         FeedbackSessionAttributes accessableFeedbackSession = typicalBundle.feedbackSessions.get("session1InCourse1");
         submissionParams = new String[]{
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, accessableFeedbackSession.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, accessableFeedbackSession.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
         };
 
         FeedbackSessionStatsPageAction a = getAction(addUserIdToParams(instructorId, submissionParams));
@@ -52,8 +53,8 @@ public class FeedbackSessionStatsPageActionTest extends BaseActionTest {
 
         String nonexistentFeedbackSession = "nonexistentFeedbackSession";
         submissionParams = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, nonexistentFeedbackSession,
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, nonexistentFeedbackSession,
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
         };
 
         boolean hasThrownUnauthorizedAccessException = false;
@@ -84,8 +85,8 @@ public class FeedbackSessionStatsPageActionTest extends BaseActionTest {
         InstructorAttributes instructor1OfCourse1 = typicalBundle.instructors.get("instructor1OfCourse1");
         FeedbackSessionAttributes accessibleFeedbackSession = typicalBundle.feedbackSessions.get("session1InCourse1");
         String[] submissionParams = new String[] {
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, accessibleFeedbackSession.getFeedbackSessionName(),
-                Const.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, accessibleFeedbackSession.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.COURSE_ID, instructor1OfCourse1.courseId
         };
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);

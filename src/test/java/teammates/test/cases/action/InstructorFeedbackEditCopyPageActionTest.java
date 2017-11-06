@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.controller.InstructorFeedbackEditCopyPageAction;
 import teammates.ui.controller.ShowPageResult;
 import teammates.ui.pagedata.InstructorFeedbackEditCopyPageData;
@@ -39,8 +40,8 @@ public class InstructorFeedbackEditCopyPageActionTest extends BaseActionTest {
         ______TS("Successful case");
 
         String[] submissionParams = {
-                Const.ParamsNames.COURSE_ID, "valid course id",
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, "valid fs name"
+                ParamNameConst.ParamsNames.COURSE_ID, "valid course id",
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, "valid fs name"
         };
 
         InstructorFeedbackEditCopyPageAction a = getAction(submissionParams);

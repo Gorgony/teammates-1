@@ -196,8 +196,8 @@ public class LogMessageGenerator {
     }
 
     private String generateLogIdWithoutGoogleId(Map<String, String[]> params, long time) {
-        String courseId = HttpRequestHelper.getValueFromParamMap(params, Const.ParamsNames.COURSE_ID);
-        String studentEmail = HttpRequestHelper.getValueFromParamMap(params, Const.ParamsNames.STUDENT_EMAIL);
+        String courseId = HttpRequestHelper.getValueFromParamMap(params, ParamNameConst.ParamsNames.COURSE_ID);
+        String studentEmail = HttpRequestHelper.getValueFromParamMap(params, ParamNameConst.ParamsNames.STUDENT_EMAIL);
         if (courseId != null && studentEmail != null) {
             return StringHelper.join(Const.ActivityLog.FIELD_CONNECTOR,
                     studentEmail, courseId, formatTimeForId(new Date(time)));
@@ -212,7 +212,7 @@ public class LogMessageGenerator {
 
     private String formatTimeForId(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat(Const.ActivityLog.TIME_FORMAT_LOGID);
-        sdf.setTimeZone(TimeZone.getTimeZone(Const.SystemParams.ADMIN_TIME_ZONE));
+        sdf.setTimeZone(TimeZone.getTimeZone(SystemParamsConst.SystemParams.ADMIN_TIME_ZONE));
         return sdf.format(date.getTime());
     }
 }

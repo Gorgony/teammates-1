@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.util.AppUrl;
 import teammates.common.util.Const;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.BackDoor;
 import teammates.test.driver.Priority;
 import teammates.test.driver.TestProperties;
@@ -49,14 +50,14 @@ public class AdminAccountDetailsPageUiTest extends BaseUiTestCase {
         String courseId = "AAMgtUiT.CS2104";
 
         detailsPage.clickRemoveInstructorFromCourse(courseId)
-            .verifyStatus(Const.StatusMessages.INSTRUCTOR_REMOVED_FROM_COURSE);
+            .verifyStatus(StatusMessageConst.StatusMessages.INSTRUCTOR_REMOVED_FROM_COURSE);
         assertNull(BackDoor.getInstructorByGoogleId(googleId, courseId));
 
         ______TS("action: remove student from course");
 
         courseId = "AAMgtUiT.CS1101";
         detailsPage.clickRemoveStudentFromCourse(courseId)
-            .verifyStatus(Const.StatusMessages.STUDENT_DELETED);
+            .verifyStatus(StatusMessageConst.StatusMessages.STUDENT_DELETED);
         assertNull(BackDoor.getStudent(courseId, "AAMgtUiT.instr2@gmail.com"));
         detailsPage.verifyHtmlMainContent("/adminAccountDetailsRemoveStudent.html");
     }

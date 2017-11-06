@@ -146,7 +146,7 @@ public class AdminActivityLogPageAction extends Action {
 
         double targetTimeZone = getTargetTimeZone(data, courseId);
 
-        double adminTimeZone = Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
+        double adminTimeZone = SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
         String timeInAdminTimeZone = computeTimeWithOffset(adminTimeZone, earliestSearchTime);
         String timeInUserTimeZone = computeTimeWithOffset(targetTimeZone, earliestSearchTime);
 
@@ -204,7 +204,7 @@ public class AdminActivityLogPageAction extends Action {
                 targetTimeZone = getLocalTimeZoneForUnregisteredUserRequest(courseId);
             }
         } else {
-            targetTimeZone = Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
+            targetTimeZone = SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
         }
         return targetTimeZone;
     }
@@ -278,7 +278,7 @@ public class AdminActivityLogPageAction extends Action {
     private double getLocalTimeZoneForRequest(String userGoogleId, String userRole) {
 
         if (userRole != null && (userRole.contentEquals("Admin") || userRole.contains("(M)"))) {
-            return Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
+            return SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
         }
 
         double localTimeZone = Const.DOUBLE_UNINITIALIZED;
@@ -352,7 +352,7 @@ public class AdminActivityLogPageAction extends Action {
         if (timeZone == Const.DOUBLE_UNINITIALIZED) {
             return "Local Time Unavailable";
         }
-        double timeZoneOffset = timeZone - Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
+        double timeZoneOffset = timeZone - SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
         return computeTimeWithOffset(timeZoneOffset, Long.parseLong(logTimeInAdminTimeZone));
     }
 

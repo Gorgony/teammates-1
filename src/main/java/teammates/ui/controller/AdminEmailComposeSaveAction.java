@@ -8,10 +8,7 @@ import com.google.appengine.api.datastore.Text;
 import teammates.common.datatransfer.attributes.AdminEmailAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.AdminEmailComposePageData;
 
 public class AdminEmailComposeSaveAction extends Action {
@@ -25,13 +22,13 @@ public class AdminEmailComposeSaveAction extends Action {
         gateKeeper.verifyAdminPrivileges(account);
         AdminEmailComposePageData data = new AdminEmailComposePageData(account, sessionToken);
 
-        String emailContent = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_CONTENT);
-        String subject = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_SUBJECT);
-        String addressReceiverListString = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS);
+        String emailContent = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT);
+        String subject = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT);
+        String addressReceiverListString = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS);
 
-        String groupReceiverListFileKey = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY);
+        String groupReceiverListFileKey = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY);
 
-        String emailId = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_ID);
+        String emailId = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID);
 
         addressReceiver.add(addressReceiverListString);
 
@@ -66,9 +63,9 @@ public class AdminEmailComposeSaveAction extends Action {
                     .withEmailId(emailId)
                     .build();
         } else {
-            statusToAdmin = Const.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>"
+            statusToAdmin = StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED + ": <br>"
                     + "Subject: " + SanitizationHelper.sanitizeForHtml(subject);
-            statusToUser.add(new StatusMessage(Const.StatusMessages.EMAIL_DRAFT_SAVED, StatusMessageColor.SUCCESS));
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.EMAIL_DRAFT_SAVED, StatusMessageColor.SUCCESS));
         }
 
         return createShowPageResult(Const.ViewURIs.ADMIN_EMAIL, data);

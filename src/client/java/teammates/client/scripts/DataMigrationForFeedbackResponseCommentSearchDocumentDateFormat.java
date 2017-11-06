@@ -26,7 +26,7 @@ public class DataMigrationForFeedbackResponseCommentSearchDocumentDateFormat
 
     private static final DateFormat oldDateFormat =
             DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.US);
-    private static final DateFormat newDateFormat = new SimpleDateFormat(Const.SystemParams.DEFAULT_DATE_TIME_FORMAT);
+    private static final DateFormat newDateFormat = new SimpleDateFormat(SystemParamsConst.SystemParams.DEFAULT_DATE_TIME_FORMAT);
 
     private static final JsonParser jsonParser = new JsonParser();
 

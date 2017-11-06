@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
 
 <%@ taglib tagdir="/WEB-INF/tags/instructor/results" prefix="results" %>
 <%@ taglib tagdir="/WEB-INF/tags/shared" prefix="shared" %>
@@ -21,7 +22,7 @@
         <button type="button" class="btn btn-default btn-xs icon-button pull-right show-frc-add-form" id="button_add_comment"
             data-recipientindex="${responsePanel.recipientIndex}" data-giverindex="${responsePanel.giverIndex}"
             data-qnindex="${responsePanel.qnIndex}" data-sectionindex="${responsePanel.sectionId}"
-            data-toggle="tooltip" data-placement="top" title="<%=Const.Tooltips.COMMENT_ADD%>"
+            data-toggle="tooltip" data-placement="top" title="<%=ToolTipConst.Tooltips.COMMENT_ADD%>"
             <c:if test="${!responsePanel.allowedToAddComment}">
               disabled
             </c:if>>

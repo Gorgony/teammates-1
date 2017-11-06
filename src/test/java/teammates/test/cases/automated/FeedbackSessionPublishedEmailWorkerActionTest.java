@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.util.Const;
-import teammates.common.util.Const.ParamsNames;
 import teammates.common.util.EmailType;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.TaskWrapper;
 import teammates.logic.core.CoursesLogic;
 import teammates.ui.automated.FeedbackSessionPublishedEmailWorkerAction;
@@ -30,8 +30,8 @@ public class FeedbackSessionPublishedEmailWorkerActionTest extends BaseAutomated
         FeedbackSessionAttributes session1 = dataBundle.feedbackSessions.get("session1InCourse1");
 
         String[] submissionParams = new String[] {
-                ParamsNames.EMAIL_COURSE, session1.getCourseId(),
-                ParamsNames.EMAIL_FEEDBACK, session1.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.EMAIL_COURSE, session1.getCourseId(),
+                ParamNameConst.ParamsNames.EMAIL_FEEDBACK, session1.getFeedbackSessionName()
         };
 
         FeedbackSessionPublishedEmailWorkerAction action = getAction(submissionParams);
@@ -46,7 +46,7 @@ public class FeedbackSessionPublishedEmailWorkerActionTest extends BaseAutomated
             Map<String, String[]> paramMap = task.getParamMap();
             assertEquals(String.format(EmailType.FEEDBACK_PUBLISHED.getSubject(), courseName,
                                        session1.getSessionName()),
-                         paramMap.get(ParamsNames.EMAIL_SUBJECT)[0]);
+                         paramMap.get(ParamNameConst.ParamsNames.EMAIL_SUBJECT)[0]);
         }
     }
 

@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.InstructorsLogic;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.InstructorCourseInstructorDeleteAction;
@@ -37,8 +39,8 @@ public class InstructorCourseInstructorDeleteActionTest extends BaseActionTest {
         String instructorEmailToDelete = instructorToDelete.email;
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, instructorEmailToDelete
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instructorEmailToDelete
         };
 
         InstructorCourseInstructorDeleteAction deleteAction = getAction(submissionParams);
@@ -52,7 +54,7 @@ public class InstructorCourseInstructorDeleteActionTest extends BaseActionTest {
                         "idOfTypicalCourse1"),
                 redirectResult.getDestinationWithParams());
         assertFalse(redirectResult.isError);
-        assertEquals(Const.StatusMessages.COURSE_INSTRUCTOR_DELETED, redirectResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_DELETED, redirectResult.getStatusMessage());
 
         assertFalse(instructorsLogic.isEmailOfInstructorOfCourse(instructorEmailToDelete, courseId));
 
@@ -65,8 +67,8 @@ public class InstructorCourseInstructorDeleteActionTest extends BaseActionTest {
         instructorEmailToDelete = loginInstructor.email;
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, instructorEmailToDelete
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instructorEmailToDelete
         };
 
         deleteAction = getAction(submissionParams);
@@ -76,7 +78,7 @@ public class InstructorCourseInstructorDeleteActionTest extends BaseActionTest {
                 getPageResultDestination(Const.ActionURIs.INSTRUCTOR_COURSES_PAGE, false, "idOfInstructor1OfCourse1"),
                 redirectResult.getDestinationWithParams());
         assertFalse(redirectResult.isError);
-        assertEquals(Const.StatusMessages.COURSE_INSTRUCTOR_DELETED, redirectResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_DELETED, redirectResult.getStatusMessage());
 
         assertFalse(instructorsLogic.isGoogleIdOfInstructorOfCourse(loginInstructor.googleId, courseId));
 
@@ -93,8 +95,8 @@ public class InstructorCourseInstructorDeleteActionTest extends BaseActionTest {
         gaeSimulation.loginAsAdmin(adminUserId);
 
         submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, courseId,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, instructorEmailToDelete
+                ParamNameConst.ParamsNames.COURSE_ID, courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instructorEmailToDelete
         };
 
         deleteAction = getAction(addUserIdToParams(instructorToDelete.googleId, submissionParams));
@@ -108,7 +110,7 @@ public class InstructorCourseInstructorDeleteActionTest extends BaseActionTest {
                         "idOfCourseNoEvals"),
                 redirectResult.getDestinationWithParams());
         assertTrue(redirectResult.isError);
-        assertEquals(Const.StatusMessages.COURSE_INSTRUCTOR_DELETE_NOT_ALLOWED, redirectResult.getStatusMessage());
+        assertEquals(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_DELETE_NOT_ALLOWED, redirectResult.getStatusMessage());
 
         assertTrue(instructorsLogic.isGoogleIdOfInstructorOfCourse(instructorToDelete.googleId, courseId));
 
@@ -125,9 +127,9 @@ public class InstructorCourseInstructorDeleteActionTest extends BaseActionTest {
 
     protected String getPageResultDestination(String parentUri, boolean isError, String userId, String courseId) {
         String pageDestination = parentUri;
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.ERROR, Boolean.toString(isError));
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.USER_ID, userId);
-        pageDestination = addParamToUrl(pageDestination, Const.ParamsNames.COURSE_ID, courseId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.ERROR, Boolean.toString(isError));
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.USER_ID, userId);
+        pageDestination = addParamToUrl(pageDestination, ParamNameConst.ParamsNames.COURSE_ID, courseId);
         return pageDestination;
     }
 
@@ -136,8 +138,8 @@ public class InstructorCourseInstructorDeleteActionTest extends BaseActionTest {
     protected void testAccessControl() throws Exception {
         InstructorAttributes instructor = typicalBundle.instructors.get("instructor2OfCourse1");
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, instructor.courseId,
-                Const.ParamsNames.INSTRUCTOR_EMAIL, instructor.email
+                ParamNameConst.ParamsNames.COURSE_ID, instructor.courseId,
+                ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instructor.email
         };
 
         verifyUnaccessibleWithoutModifyInstructorPrivilege(submissionParams);

@@ -1,11 +1,6 @@
 package teammates.ui.controller;
 
-import teammates.common.util.Assumption;
-import teammates.common.util.Config;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.StudentCourseJoinConfirmationPageData;
 
 /**
@@ -21,7 +16,7 @@ public class StudentCourseJoinAction extends Action {
 
     @Override
     public ActionResult execute() {
-        Assumption.assertPostParamNotNull(Const.ParamsNames.REGKEY, regkey);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.REGKEY, regkey);
 
         statusToAdmin = "Action Student Clicked Join Link"
                         + (account.googleId == null ? "<br>Email: " + account.email
@@ -29,11 +24,11 @@ public class StudentCourseJoinAction extends Action {
 
         if (student == null) {
             statusToAdmin += "<br>Student course join failed as student does not exist.";
-            String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-            Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+            String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+            Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
             isError = true;
             statusToUser.add(new StatusMessage(
-                    String.format(Const.StatusMessages.NON_EXISTENT_STUDENT_ATTEMPTING_TO_JOIN_COURSE, courseId),
+                    String.format(StatusMessageConst.StatusMessages.NON_EXISTENT_STUDENT_ATTEMPTING_TO_JOIN_COURSE, courseId),
                     StatusMessageColor.WARNING));
             return createRedirectResult(Const.ActionURIs.STUDENT_HOME_PAGE);
         }
@@ -44,13 +39,13 @@ public class StudentCourseJoinAction extends Action {
         }
 
         String confirmUrl = Const.ActionURIs.STUDENT_COURSE_JOIN_AUTHENTICATED
-                + "?" + Const.ParamsNames.REGKEY + "=" + regkey
-                + "&" + Const.ParamsNames.NEXT_URL + "=" + SanitizationHelper.sanitizeForNextUrl(nextUrl);
+                + "?" + ParamNameConst.ParamsNames.REGKEY + "=" + regkey
+                + "&" + ParamNameConst.ParamsNames.NEXT_URL + "=" + SanitizationHelper.sanitizeForNextUrl(nextUrl);
         String nextUrlType = getPageTypeOfUrl(nextUrl);
         // the student is redirected to join page because he/she is not registered in the course
-        boolean isRedirectResult = !Const.SystemParams.PAGES_ACCESSIBLE_WITHOUT_REGISTRATION.contains(nextUrlType);
+        boolean isRedirectResult = !SystemParamsConst.SystemParams.PAGES_ACCESSIBLE_WITHOUT_REGISTRATION.contains(nextUrlType);
         boolean isNextUrlAccessibleWithoutLogin =
-                        Const.SystemParams.PAGES_ACCESSIBLE_WITHOUT_GOOGLE_LOGIN.contains(nextUrlType);
+                        SystemParamsConst.SystemParams.PAGES_ACCESSIBLE_WITHOUT_GOOGLE_LOGIN.contains(nextUrlType);
         String courseId = student.course;
         StudentCourseJoinConfirmationPageData data =
                 new StudentCourseJoinConfirmationPageData(
@@ -64,7 +59,7 @@ public class StudentCourseJoinAction extends Action {
     }
 
     private String getNextUrl() {
-        String nextUrl = getRequestParamValue(Const.ParamsNames.NEXT_URL);
+        String nextUrl = getRequestParamValue(ParamNameConst.ParamsNames.NEXT_URL);
         if (nextUrl == null) {
             nextUrl = Const.ActionURIs.STUDENT_HOME_PAGE;
         }
@@ -76,7 +71,7 @@ public class StudentCourseJoinAction extends Action {
         // send straight to next page as the user can choose to login as he wishes
         String redirectUrl = Config.getAppUrl(Const.ActionURIs.STUDENT_COURSE_JOIN_AUTHENTICATED)
                 .withRegistrationKey(regkey)
-                .withParam(Const.ParamsNames.NEXT_URL, nextUrl)
+                .withParam(ParamNameConst.ParamsNames.NEXT_URL, nextUrl)
                 .toString();
 
         excludeStudentDetailsFromResponseParams();

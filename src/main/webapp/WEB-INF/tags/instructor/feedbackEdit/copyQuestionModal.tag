@@ -1,6 +1,7 @@
 <%@ tag description="instructorFeedbacks - feedback sessions 'copy question' modal" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 
 <%@ attribute name="feedbackSessionName" required="true"%>
 <%@ attribute name="courseId" required="true"%>
@@ -18,10 +19,10 @@
         <form class="form" id="copyModalForm" role="form" method="post"
             action="<%= Const.ActionURIs.INSTRUCTOR_FEEDBACK_QUESTION_COPY %>">
 
-          <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${feedbackSessionName}">
-          <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${data.account.googleId}">
-          <input type="hidden" name="<%= Const.ParamsNames.COURSE_ID %>" value="${courseId}">
-          <input type="hidden" name="<%= Const.ParamsNames.SESSION_TOKEN %>" value="${data.sessionToken}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${feedbackSessionName}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${data.account.googleId}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.COURSE_ID %>" value="${courseId}">
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.SESSION_TOKEN %>" value="${data.sessionToken}">
         </form>
         <div id="question-copy-modal-status"></div>
       </div>

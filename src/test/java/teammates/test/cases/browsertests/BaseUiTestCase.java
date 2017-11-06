@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeSuite;
 import teammates.common.datatransfer.DataBundle;
 import teammates.common.util.AppUrl;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.Url;
 import teammates.test.cases.BaseTestCaseWithBackDoorApiAccess;
 import teammates.test.driver.TestProperties;
@@ -114,7 +115,7 @@ public abstract class BaseUiTestCase extends BaseTestCaseWithBackDoorApiAccess {
         String adminUsername = TestProperties.TEST_ADMIN_ACCOUNT;
         String adminPassword = TestProperties.TEST_ADMIN_PASSWORD;
 
-        String instructorId = url.get(Const.ParamsNames.USER_ID);
+        String instructorId = url.get(ParamNameConst.ParamsNames.USER_ID);
 
         if (instructorId == null) { //admin using system as admin
             instructorId = adminUsername;

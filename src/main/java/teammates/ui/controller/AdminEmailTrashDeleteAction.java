@@ -3,6 +3,7 @@ package teammates.ui.controller;
 import com.google.appengine.api.blobstore.BlobstoreFailureException;
 
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.StatusMessage;
 import teammates.common.util.StatusMessageColor;
 
@@ -13,7 +14,7 @@ public class AdminEmailTrashDeleteAction extends Action {
 
         gateKeeper.verifyAdminPrivileges(account);
 
-        boolean shouldEmptyTrashBin = getRequestParamAsBoolean(Const.ParamsNames.ADMIN_EMAIL_EMPTY_TRASH_BIN);
+        boolean shouldEmptyTrashBin = getRequestParamAsBoolean(ParamNameConst.ParamsNames.ADMIN_EMAIL_EMPTY_TRASH_BIN);
 
         if (shouldEmptyTrashBin) {
             try {

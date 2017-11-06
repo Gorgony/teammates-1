@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="addInstructorButton" type="teammates.ui.template.ElementTag" required="true" %>
 <%@ attribute name="courseId" required="true" %>
 <%@ attribute name="addInstructorPanel" type="teammates.ui.template.CourseEditInstructorPanel" required="true" %>
@@ -19,18 +21,18 @@
   <div class="panel-body fill-plain">
     <form method="post" action="<%=Const.ActionURIs.INSTRUCTOR_COURSE_INSTRUCTOR_ADD%>" name="formAddInstructor"
         class="form form-horizontal" id="formAddInstructor">
-      <input type="hidden" name="<%=Const.ParamsNames.COURSE_ID%>" value="${courseId}">
-      <input type="hidden" name="<%=Const.ParamsNames.USER_ID%>" value="${data.account.googleId}">
-      <input type="hidden" name="<%=Const.ParamsNames.SESSION_TOKEN%>" value="${data.sessionToken}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.COURSE_ID%>" value="${courseId}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.USER_ID%>" value="${data.account.googleId}">
+      <input type="hidden" name="<%=ParamNameConst.ParamsNames.SESSION_TOKEN%>" value="${data.sessionToken}">
 
       <div id="instructorAddTable">
         <div class="form-group">
           <label class="col-sm-3 control-label">Name:</label>
           <div class="col-sm-9">
             <input class="form-control" type="text"
-                name="<%=Const.ParamsNames.INSTRUCTOR_NAME%>" id="<%=Const.ParamsNames.INSTRUCTOR_NAME%>"
-                data-toggle="tooltip" data-placement="top" title="Enter the name of the instructor."
-                maxlength="<%=FieldValidator.PERSON_NAME_MAX_LENGTH%>" tabindex="8"/>
+                   name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_NAME%>" id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_NAME%>"
+                   data-toggle="tooltip" data-placement="top" title="Enter the name of the instructor."
+                   maxlength="<%=FieldValidator.PERSON_NAME_MAX_LENGTH%>" tabindex="8"/>
           </div>
         </div>
 
@@ -38,23 +40,23 @@
           <label class="col-sm-3 control-label">Email:</label>
           <div class="col-sm-9">
             <input class="form-control" type="text"
-                name="<%=Const.ParamsNames.INSTRUCTOR_EMAIL%>" id="<%=Const.ParamsNames.INSTRUCTOR_EMAIL%>"
-                data-toggle="tooltip" data-placement="top" title="Enter the Email of the instructor."
-                maxlength="<%=FieldValidator.EMAIL_MAX_LENGTH%>" tabindex="9"/>
+                   name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL%>" id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL%>"
+                   data-toggle="tooltip" data-placement="top" title="Enter the Email of the instructor."
+                   maxlength="<%=FieldValidator.EMAIL_MAX_LENGTH%>" tabindex="9"/>
           </div>
         </div>
 
         <div id="accessControlEditDivForInstr${addInstructorPanel.index}">
           <div class="form-group">
             <label class="col-sm-3 control-label">
-              <input type="checkbox" name="<%=Const.ParamsNames.INSTRUCTOR_IS_DISPLAYED_TO_STUDENT%>" value="true" checked
-                  data-toggle="tooltip" data-placement="top" title="<%=Const.Tooltips.INSTRUCTOR_DISPLAYED_TO_STUDENT%>">
+              <input type="checkbox" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_IS_DISPLAYED_TO_STUDENT%>" value="true" checked
+                     data-toggle="tooltip" data-placement="top" title="<%=ToolTipConst.Tooltips.INSTRUCTOR_DISPLAYED_TO_STUDENT%>">
               Display to students as:
             </label>
             <div class="col-sm-9">
-              <input class="form-control" type="text" name="<%=Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME%>"
+              <input class="form-control" type="text" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME%>"
                   placeholder="E.g.Co-lecturer, Teaching Assistant" value="Instructor"
-                  data-toggle="tooltip" data-placement="top" title="<%=Const.Tooltips.INSTRUCTOR_DISPLAYED_AS%>"/>
+                  data-toggle="tooltip" data-placement="top" title="<%=ToolTipConst.Tooltips.INSTRUCTOR_DISPLAYED_AS%>"/>
             </div>
           </div>
 
@@ -64,8 +66,8 @@
             </div>
 
             <div class="col-sm-9">
-              <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-                  id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
+              <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+                  id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
                   value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_COOWNER%>"
                   checked>
               &nbsp;Co-owner: Can do everything
@@ -75,8 +77,8 @@
               </a>
               <br>
 
-              <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-                  id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
+              <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+                  id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
                   value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_MANAGER%>" >
               &nbsp;Manager: Can do everything except for deleting the course
               <a href="javascript:;" class="view-role-details"
@@ -85,8 +87,8 @@
               </a>
               <br>
 
-              <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-                  id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
+              <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+                  id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
                   value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_OBSERVER%>">
               &nbsp;Observer: Can only view information(students, submissions, comments etc.).&nbsp;Cannot edit/delete/submit anything.
               <a href="javascript:;" class="view-role-details"
@@ -95,8 +97,8 @@
               </a>
               <br>
 
-              <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-                  id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
+              <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+                  id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
                   value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_TUTOR%>">
               &nbsp;Tutor: Can view student details, give/view comments, submit/view responses for sessions
               <a href="javascript:;" class="view-role-details" data-role="<%= Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_TUTOR %>">
@@ -104,8 +106,8 @@
               </a>
               <br>
 
-              <input type="radio" name="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
-                  id="<%=Const.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
+              <input type="radio" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>"
+                  id="<%=ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME%>forinstructor${addInstructorPanel.index}"
                   value="<%=Const.InstructorPermissionRoleNames.INSTRUCTOR_PERMISSION_ROLE_CUSTOM%>">
               &nbsp;Custom: No access by default. Any access needs to be granted explicitly.
             </div>
@@ -179,7 +181,7 @@
                             <p><strong> the instructor can only,</strong></p>
                           </div>
                         </div>
-                        <input type="hidden" name="is<%=Const.ParamsNames.INSTRUCTOR_SECTION_GROUP%>${i.index}set" value="false"/>
+                        <input type="hidden" name="is<%=ParamNameConst.ParamsNames.INSTRUCTOR_SECTION_GROUP%>${i.index}set" value="false"/>
                       </div>
 
                       <div class="panel-body">
@@ -220,7 +222,7 @@
                         </c:choose>
 
                         <div id="tuneSessionPermissionsDiv${i.index}ForInstructor${addInstructorPanel.index}" class="row" style="display: none;">
-                          <input type="hidden" name="is<%=Const.ParamsNames.INSTRUCTOR_SECTION_GROUP%>${i.index}sessionsset" value="false"/>
+                          <input type="hidden" name="is<%=ParamNameConst.ParamsNames.INSTRUCTOR_SECTION_GROUP%>${i.index}sessionsset" value="false"/>
                           <table class="table table-striped">
                             <thead>
                               <tr>
@@ -241,16 +243,16 @@
                                 <tr>
                                   <td>${feedbackSession.feedbackSessionName}</td>
                                   <td class="align-center">
-                                    <input type="checkbox" name="<%=Const.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS
-                                        + Const.ParamsNames.INSTRUCTOR_SECTION_GROUP %>${i.index}feedback${feedbackSession.feedbackSessionName}" value="true"/>
+                                    <input type="checkbox" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_SUBMIT_SESSION_IN_SECTIONS
+                                        + ParamNameConst.ParamsNames.INSTRUCTOR_SECTION_GROUP %>${i.index}feedback${feedbackSession.feedbackSessionName}" value="true"/>
                                   </td>
                                   <td class="align-center">
-                                    <input type="checkbox" name="<%=Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS
-                                        + Const.ParamsNames.INSTRUCTOR_SECTION_GROUP %>${i.index}feedback${feedbackSession.feedbackSessionName}" value="true"/>
+                                    <input type="checkbox" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_SESSION_IN_SECTIONS
+                                        + ParamNameConst.ParamsNames.INSTRUCTOR_SECTION_GROUP %>${i.index}feedback${feedbackSession.feedbackSessionName}" value="true"/>
                                   </td>
                                   <td class="align-center">
-                                    <input type="checkbox" name="<%=Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
-                                        + Const.ParamsNames.INSTRUCTOR_SECTION_GROUP %>${i.index}feedback${feedbackSession.feedbackSessionName}" value="true"/>
+                                    <input type="checkbox" name="<%=ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS
+                                        + ParamNameConst.ParamsNames.INSTRUCTOR_SECTION_GROUP %>${i.index}feedback${feedbackSession.feedbackSessionName}" value="true"/>
                                   </td>
                                 </tr>
                               </c:forEach>

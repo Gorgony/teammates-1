@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="teammates.common.util.Const"%>
+<%@ page import="teammates.common.util.ParamNameConst" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <table class="table-responsive table table-bordered">
@@ -31,7 +32,7 @@
       <td class="align-center">
         <div class="checkbox">
           <label>
-            <input type="checkbox" class="table-column-no-float" name="<%= Const.ParamsNames.SUBMISSION_REMIND_USERLIST %>" value="${userToRemindEmail}">
+            <input type="checkbox" class="table-column-no-float" name="<%= ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST %>" value="${userToRemindEmail}">
           </label>
         </div>
       </td>
@@ -57,7 +58,7 @@
       <td class="align-center">
         <div class="checkbox">
           <label>
-            <input type="checkbox" class="table-column-no-float" name="<%= Const.ParamsNames.SUBMISSION_REMIND_USERLIST %>" value="${userToRemindEmail}">
+            <input type="checkbox" class="table-column-no-float" name="<%= ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST %>" value="${userToRemindEmail}">
           </label>
         </div>
       </td>
@@ -80,5 +81,5 @@
   </c:forEach>
 </table>
 
-<input type="hidden" name="<%= Const.ParamsNames.COURSE_ID %>" value="${data.courseId}">
-<input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${data.fsName}">
+<input type="hidden" name="<%= ParamNameConst.ParamsNames.COURSE_ID %>" value="${data.courseId}">
+<input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${data.fsName}">

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 
 <%@ attribute name="copyFromModal" type="teammates.ui.template.FeedbackSessionsCopyFromModal" required="true"%>
 
@@ -27,7 +28,7 @@
               Create in course
             </label>
             <select class="form-control"
-                name="<%= Const.ParamsNames.COPIED_COURSE_ID %>"
+                name="<%= ParamNameConst.ParamsNames.COPIED_COURSE_ID %>"
                 id="modalCopiedCourseId">
               <c:forEach items="${copyFromModal.coursesSelectField}" var="option">
                 <option ${option.attributesToString}>${option.content}</option>
@@ -40,7 +41,7 @@
               Name for new session
             </label>
             <input class="form-control" type="text"
-                name="<%= Const.ParamsNames.COPIED_FEEDBACK_SESSION_NAME %>"
+                name="<%= ParamNameConst.ParamsNames.COPIED_FEEDBACK_SESSION_NAME %>"
                 id="modalCopiedSessionName"
                 maxlength=<%= FieldValidator.FEEDBACK_SESSION_NAME_MAX_LENGTH %>
                 value="${copyFromModal.fsName}"
@@ -64,13 +65,13 @@
               </tr>
             </c:forEach>
           </table>
-          <input type="hidden" name="<%=Const.ParamsNames.FEEDBACK_SESSION_NAME%>"
+          <input type="hidden" name="<%=ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME%>"
               value="" id="modalSessionName">
-          <input type="hidden" name="<%= Const.ParamsNames.COURSE_ID %>"
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.COURSE_ID %>"
               value="" id="modalCourseId">
-          <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>"
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>"
               value="${data.account.googleId }">
-          <input type="hidden" name="<%= Const.ParamsNames.SESSION_TOKEN %>"
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.SESSION_TOKEN %>"
               value="${data.sessionToken}">
         </form>
       </div>

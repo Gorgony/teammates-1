@@ -6,6 +6,7 @@ import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.controller.InstructorFeedbackRemindParticularStudentsPageAction;
 import teammates.ui.controller.ShowPageResult;
 import teammates.ui.pagedata.InstructorFeedbackRemindParticularStudentsPageData;
@@ -35,8 +36,8 @@ public class InstructorFeedbackRemindParticularStudentsPageActionTest extends Ba
 
         ______TS("Typical case");
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fsa.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsa.getFeedbackSessionName()
         };
 
         InstructorFeedbackRemindParticularStudentsPageAction a = getAction(submissionParams);
@@ -75,8 +76,8 @@ public class InstructorFeedbackRemindParticularStudentsPageActionTest extends Ba
         CourseAttributes course = typicalBundle.courses.get("typicalCourse1");
         FeedbackSessionAttributes fsa = typicalBundle.feedbackSessions.get("session1InCourse1");
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, course.getId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fsa.getFeedbackSessionName()
+                ParamNameConst.ParamsNames.COURSE_ID, course.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fsa.getFeedbackSessionName()
         };
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);
     }

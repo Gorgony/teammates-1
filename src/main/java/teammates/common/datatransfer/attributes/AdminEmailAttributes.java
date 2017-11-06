@@ -7,12 +7,7 @@ import java.util.List;
 
 import com.google.appengine.api.datastore.Text;
 
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.JsonUtils;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.storage.entity.AdminEmail;
 
 public class AdminEmailAttributes extends EntityAttributes<AdminEmail> {
@@ -30,7 +25,7 @@ public class AdminEmailAttributes extends EntityAttributes<AdminEmail> {
 
     AdminEmailAttributes() {
         createDate = Const.TIME_REPRESENTS_DEFAULT_TIMESTAMP;
-        emailId = Const.ParamsNames.ADMIN_EMAIL_ID;
+        emailId = ParamNameConst.ParamsNames.ADMIN_EMAIL_ID;
     }
 
     /**
@@ -141,7 +136,7 @@ public class AdminEmailAttributes extends EntityAttributes<AdminEmail> {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.sendDate);
-        cal = TimeHelper.convertToUserTimeZone(cal, Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        cal = TimeHelper.convertToUserTimeZone(cal, SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
 
         return TimeHelper.formatTime12H(cal.getTime());
     }
@@ -149,7 +144,7 @@ public class AdminEmailAttributes extends EntityAttributes<AdminEmail> {
     public String getCreateDateForDisplay() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.createDate);
-        cal = TimeHelper.convertToUserTimeZone(cal, Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
+        cal = TimeHelper.convertToUserTimeZone(cal, SystemParamsConst.SystemParams.ADMIN_TIME_ZONE_DOUBLE);
 
         return TimeHelper.formatTime12H(cal.getTime());
     }

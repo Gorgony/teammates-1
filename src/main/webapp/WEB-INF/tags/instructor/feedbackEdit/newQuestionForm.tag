@@ -3,6 +3,8 @@
 <%@ tag import="teammates.common.util.Const" %>
 <%@ tag import="teammates.common.util.FieldValidator" %>
 <%@ tag import="teammates.common.datatransfer.FeedbackParticipantType" %>
+<%@ tag import="teammates.common.util.ToolTipConst" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor/feedbackEdit" prefix="feedbackEdit" %>
 
 <%@ attribute name="fqForm" type="teammates.ui.template.FeedbackQuestionEditForm" required="true"%>
@@ -54,8 +56,8 @@
           <span>
             <strong>Question</strong>
             <select class="questionNumber nonDestructive text-primary"
-                name="<%= Const.ParamsNames.FEEDBACK_QUESTION_NUMBER %>"
-                id="<%= Const.ParamsNames.FEEDBACK_QUESTION_NUMBER %>">
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER %>">
               <c:forEach items="${fqForm.questionNumberOptions}" var="option">
                 <option ${option.attributesToString}>
                   ${option.content}
@@ -70,7 +72,7 @@
           <span class="mobile-no-pull pull-right">
             <a class="btn btn-primary btn-xs btn-discard-changes"
                 data-qnnumber="${NEW_QUESTION}" data-toggle="tooltip" data-placement="top"
-                title="<%= Const.Tooltips.FEEDBACK_QUESTION_CANCEL_NEW %>">
+                title="<%= ToolTipConst.Tooltips.FEEDBACK_QUESTION_CANCEL_NEW %>">
               Cancel
             </a>
           </span>
@@ -81,17 +83,17 @@
       <div class="col-sm-12 margin-bottom-15px background-color-light-blue">
         <div class="form-group" style="padding: 15px;">
           <h5 class="col-sm-2">
-            <label class="control-label" for="<%= Const.ParamsNames.FEEDBACK_QUESTION_TEXT %>-${NEW_QUESTION}">
+            <label class="control-label" for="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT %>-${NEW_QUESTION}">
               Question
             </label>
           </h5>
           <div class="col-sm-10">
             <%-- Do not add whitespace between the opening and closing tags --%>
             <textarea class="form-control textvalue nonDestructive" rows="2"
-                name="<%= Const.ParamsNames.FEEDBACK_QUESTION_TEXT %>"
-                id="<%= Const.ParamsNames.FEEDBACK_QUESTION_TEXT %>-${NEW_QUESTION}"
+                name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT %>"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TEXT %>-${NEW_QUESTION}"
                 data-toggle="tooltip" data-placement="top"
-                title="<%= Const.Tooltips.FEEDBACK_QUESTION_INPUT_INSTRUCTIONS %>"
+                title="<%= ToolTipConst.Tooltips.FEEDBACK_QUESTION_INPUT_INSTRUCTIONS %>"
                 placeholder="<%= Const.PlaceholderText.FEEDBACK_QUESTION %>"
                 tabindex="9"
                 disabled></textarea>
@@ -100,19 +102,19 @@
         <div class="form-group" style="padding: 0 15px;">
           <h5 class="col-sm-2">
             <label class="align-left"
-                for="<%= Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION %>-${NEW_QUESTION}">
+                for="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION %>-${NEW_QUESTION}">
               [Optional]<br>Description
             </label>
           </h5>
           <div class="col-sm-10">
             <div class="panel panel-default panel-body question-description"
-                id="<%= Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION %>-${NEW_QUESTION}"
+                id="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION %>-${NEW_QUESTION}"
                 data-toggle="tooltip" data-placement="top"
-                title="<%= Const.Tooltips.FEEDBACK_QUESTION_INPUT_DESCRIPTION %>"
+                title="<%= ToolTipConst.Tooltips.FEEDBACK_QUESTION_INPUT_DESCRIPTION %>"
                 data-placeholder="<%= Const.PlaceholderText.FEEDBACK_QUESTION_DESCRIPTION %>"
                 tabindex="9">
             </div>
-            <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION %>">
+            <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_DESCRIPTION %>">
           </div>
           ${fqForm.questionSpecificEditFormHtml}
         </div>
@@ -129,16 +131,16 @@
       </div>
     </div>
   </div>
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_NUMBER %>" value="${nextQnNum}">
-  <input type="hidden" id="<%= Const.ParamsNames.FEEDBACK_QUESTION_TYPE %>" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_TYPE %>">
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${fqForm.feedbackSessionName}">
-  <input type="hidden" name="<%= Const.ParamsNames.COURSE_ID %>" value="${fqForm.courseId}">
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO %>" >
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO %>" >
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO %>" >
-  <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>" value="${data.account.googleId}">
-  <input type="hidden" name="<%= Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS %>"
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_NUMBER %>" value="${nextQnNum}">
+  <input type="hidden" id="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE %>" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_TYPE %>">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME %>" value="${fqForm.feedbackSessionName}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.COURSE_ID %>" value="${fqForm.courseId}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRESPONSESTO %>" >
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWGIVERTO %>" >
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_SHOWRECIPIENTTO %>" >
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>" value="${data.account.googleId}">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS %>"
       value="<%= FeedbackParticipantType.NONE.toString() %>"
-      id="<%= Const.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS %>">
-  <input type="hidden" name="<%= Const.ParamsNames.SESSION_TOKEN %>" value="${data.sessionToken}">
+      id="<%= ParamNameConst.ParamsNames.FEEDBACK_QUESTION_GENERATEDOPTIONS %>">
+  <input type="hidden" name="<%= ParamNameConst.ParamsNames.SESSION_TOKEN %>" value="${data.sessionToken}">
 </form>

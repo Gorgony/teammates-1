@@ -8,6 +8,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.AppUrl;
 import teammates.common.util.Config;
 import teammates.common.util.Const;
+import teammates.common.util.StatusMessageConst;
 import teammates.test.driver.AssertHelper;
 import teammates.test.driver.BackDoor;
 import teammates.test.driver.Priority;
@@ -165,7 +166,7 @@ public class AllAccessControlUiTests extends BaseUiTestCase {
         UserErrorReportPage errorReportPage = currentPage.changePageType(UserErrorReportPage.class);
         errorReportPage.verifyErrorReportFormContents();
         errorReportPage.fillFormAndClickSubmit("This is an error report.");
-        errorReportPage.verifyStatus(Const.StatusMessages.ERROR_FEEDBACK_SUBMIT_SUCCESS);
+        errorReportPage.verifyStatus(StatusMessageConst.StatusMessages.ERROR_FEEDBACK_SUBMIT_SUCCESS);
 
         ______TS("user error report form - submit failed");
         logout();

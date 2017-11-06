@@ -18,9 +18,7 @@ import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.questions.FeedbackQuestionType;
-import teammates.common.util.AppUrl;
-import teammates.common.util.Const;
-import teammates.common.util.TimeHelper;
+import teammates.common.util.*;
 import teammates.common.util.retry.MaximumRetriesExceededException;
 import teammates.test.driver.AssertHelper;
 import teammates.test.driver.BackDoor;
@@ -140,14 +138,14 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
         feedbackEditPage.editFeedbackSession(editedSession.getStartTime(), editedSession.getEndTime(),
                 editedSession.getInstructions(), editedSession.getGracePeriod());
 
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_EDITED);
-        assertTrue(feedbackEditPage.isElementInViewport(Const.ParamsNames.STATUS_MESSAGES_LIST));
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EDITED);
+        assertTrue(feedbackEditPage.isElementInViewport(ParamNameConst.ParamsNames.STATUS_MESSAGES_LIST));
 
         FeedbackSessionAttributes savedSession = getFeedbackSessionWithRetry(
                 editedSession.getCourseId(), editedSession.getFeedbackSessionName());
         editedSession.setInstructions(new Text("<p>" + editedSession.getInstructionsString() + "</p>"));
         assertEquals(editedSession.toString(), savedSession.toString());
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_EDITED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EDITED);
         feedbackEditPage.reloadPage();
         feedbackEditPage.verifyHtmlMainContent("/instructorFeedbackEditSuccess.html");
 
@@ -163,7 +161,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
 
         // The statement below is a 'dummy' but valid statement to wait for the data in back-end to be persistent
         // TODO: to implement a more sophisticated method to wait for the persistence of data
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_EDITED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EDITED);
 
         feedbackEditPage.reloadPage();
         // uncommon settings panel not in default will be automatically expanded
@@ -180,7 +178,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
 
         // The statement below is a 'dummy' but valid statement to wait for the data in back-end to be persistent
         // TODO: to implement a more sophisticated method to wait for the persistence of data
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_SESSION_EDITED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_EDITED);
         testEditSessionLink();
 
         // test expanded uncommon settings section
@@ -243,7 +241,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
 
         feedbackEditPage.clickAddQuestionButton();
 
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_TEXTINVALID);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_TEXTINVALID);
 
         ______TS("empty number of max respondents field");
 
@@ -255,7 +253,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
         feedbackEditPage.clickCustomNumberOfRecipientsButton();
         feedbackEditPage.clickAddQuestionButton();
 
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_NUMBEROFENTITIESINVALID);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_NUMBEROFENTITIESINVALID);
 
     }
 
@@ -266,7 +264,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
         feedbackEditPage.clickMaxNumberOfRecipientsButton();
         feedbackEditPage.clickAddQuestionButton();
 
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_ADDED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_ADDED);
         assertNotNull(getFeedbackQuestionWithRetry(courseId, feedbackSessionName, 1));
         feedbackEditPage.verifyHtmlMainContent("/instructorFeedbackQuestionAddSuccess.html");
     }
@@ -479,7 +477,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
         feedbackEditPage.clickEditQuestionButton(2);
         feedbackEditPage.selectQuestionNumber(2, 1);
         feedbackEditPage.clickSaveExistingQuestionButton(2);
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_EDITED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_EDITED);
 
         ______TS("questions still editable even if questions numbers became inconsistent");
 
@@ -874,7 +872,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
 
         feedbackEditPage.clickDeleteQuestionLink(qnNumber);
         feedbackEditPage.waitForConfirmationModalAndClickOk();
-        feedbackEditPage.verifyStatus(Const.StatusMessages.FEEDBACK_QUESTION_DELETED);
+        feedbackEditPage.verifyStatus(StatusMessageConst.StatusMessages.FEEDBACK_QUESTION_DELETED);
         assertNull(getFeedbackQuestion(courseId, feedbackSessionName, qnNumber));
 
     }
@@ -902,7 +900,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
         feedbackEditPage.clickSaveExistingQuestionButton(1);
 
         AppUrl expectedRedirectUrl = createUrl("/entityNotFoundPage.jsp");
-        expectedRedirectUrl.withParam(Const.ParamsNames.ERROR_FEEDBACK_URL_REQUESTED,
+        expectedRedirectUrl.withParam(ParamNameConst.ParamsNames.ERROR_FEEDBACK_URL_REQUESTED,
                 Const.ActionURIs.INSTRUCTOR_FEEDBACK_QUESTION_EDIT);
 
         assertTrue(browser.driver.getCurrentUrl().contains(expectedRedirectUrl.toAbsoluteString()));
@@ -1071,7 +1069,7 @@ public class InstructorFeedbackEditPageUiTest extends BaseUiTestCase {
 
         // check redirect to main feedback page
         InstructorFeedbackSessionsPage feedbackPage = feedbackEditPage.deleteSession();
-        AssertHelper.assertContains(Const.StatusMessages.FEEDBACK_SESSION_DELETED,
+        AssertHelper.assertContains(StatusMessageConst.StatusMessages.FEEDBACK_SESSION_DELETED,
                                     feedbackPage.getStatus());
         assertNull(getFeedbackSession(courseId, feedbackSessionName));
     }

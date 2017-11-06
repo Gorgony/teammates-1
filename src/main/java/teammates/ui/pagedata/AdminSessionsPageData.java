@@ -7,10 +7,7 @@ import java.util.Map;
 
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
-import teammates.common.util.Const;
-import teammates.common.util.StringHelper;
-import teammates.common.util.TimeHelper;
-import teammates.common.util.Url;
+import teammates.common.util.*;
 import teammates.ui.template.AdminFeedbackSessionRow;
 import teammates.ui.template.AdminFilter;
 import teammates.ui.template.InstitutionPanel;
@@ -94,7 +91,7 @@ public class AdminSessionsPageData extends PageData {
 
     private String getInstructorHomePageViewLink(String googleId) {
         String link = Const.ActionURIs.INSTRUCTOR_HOME_PAGE;
-        link = Url.addParamToUrl(link, Const.ParamsNames.USER_ID, googleId);
+        link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.USER_ID, googleId);
         return "href=\"" + link + "\"";
     }
 
@@ -134,9 +131,9 @@ public class AdminSessionsPageData extends PageData {
             link = "";
         } else {
             link = Const.ActionURIs.INSTRUCTOR_FEEDBACK_STATS_PAGE;
-            link = Url.addParamToUrl(link, Const.ParamsNames.COURSE_ID, courseId);
-            link = Url.addParamToUrl(link, Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
-            link = Url.addParamToUrl(link, Const.ParamsNames.USER_ID, user);
+            link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.COURSE_ID, courseId);
+            link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+            link = Url.addParamToUrl(link, ParamNameConst.ParamsNames.USER_ID, user);
         }
         return link;
     }

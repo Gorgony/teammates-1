@@ -8,6 +8,7 @@ import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.ui.pagedata.AdminAccountDetailsPageData;
 
 public class AdminAccountDetailsPageAction extends Action {
@@ -17,7 +18,7 @@ public class AdminAccountDetailsPageAction extends Action {
 
         gateKeeper.verifyAdminPrivileges(account);
 
-        String googleId = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_ID);
+        String googleId = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_ID);
         AccountAttributes accountInformation = logic.getAccount(googleId);
 
         List<CourseDetailsBundle> instructorCourseList;

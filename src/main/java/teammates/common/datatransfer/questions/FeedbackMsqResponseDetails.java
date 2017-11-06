@@ -5,10 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import teammates.common.util.Const;
-import teammates.common.util.HttpRequestHelper;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 
 public class FeedbackMsqResponseDetails extends FeedbackResponseDetails {
     public List<String> answers; // answers contain the "other" answer, if any
@@ -35,7 +32,7 @@ public class FeedbackMsqResponseDetails extends FeedbackResponseDetails {
 
         // "1" if other is selected, "0" if other is not selected, null if other is disabled by the instructor
         String isOtherOptionAnswer = HttpRequestHelper.getValueFromParamMap(
-                                        requestParameters, Const.ParamsNames.FEEDBACK_QUESTION_MSQ_ISOTHEROPTIONANSWER
+                                        requestParameters, ParamNameConst.ParamsNames.FEEDBACK_QUESTION_MSQ_ISOTHEROPTIONANSWER
                                         + "-" + questionIndx + "-" + responseIndx);
 
         if ("1".equals(isOtherOptionAnswer)) {

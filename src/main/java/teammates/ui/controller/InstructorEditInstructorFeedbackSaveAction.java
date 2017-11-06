@@ -8,11 +8,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 
 /**
  * The {@code InstructorEditInstructorFeedbackSaveAction} class handles incoming requests to
@@ -33,7 +29,7 @@ public class InstructorEditInstructorFeedbackSaveAction extends FeedbackSubmissi
         FeedbackSessionAttributes session = logic.getFeedbackSession(feedbackSessionName, courseId);
 
         gateKeeper.verifyAccessible(
-                instructor, session, false, Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
+                instructor, session, false, ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION);
     }
 
     /**
@@ -41,8 +37,8 @@ public class InstructorEditInstructorFeedbackSaveAction extends FeedbackSubmissi
      */
     @Override
     protected void setAdditionalParameters() throws EntityDoesNotExistException {
-        String moderatedInstructorEmail = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail);
+        String moderatedInstructorEmail = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructorEmail);
 
         moderatedInstructor = logic.getInstructorForEmail(courseId, moderatedInstructorEmail);
         isSendSubmissionEmail = false;
@@ -66,7 +62,7 @@ public class InstructorEditInstructorFeedbackSaveAction extends FeedbackSubmissi
         int numOfQuestionsToGet = data.bundle.questionResponseBundle.size();
 
         for (int questionIndx = 1; questionIndx <= numOfQuestionsToGet; questionIndx++) {
-            String paramMapKey = Const.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx;
+            String paramMapKey = ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx;
             String questionId = getRequestParamValue(paramMapKey);
 
             if (questionId == null) {
@@ -205,9 +201,9 @@ public class InstructorEditInstructorFeedbackSaveAction extends FeedbackSubmissi
     protected RedirectResult createSpecificRedirectResult() {
         RedirectResult result = createRedirectResult(Const.ActionURIs.INSTRUCTOR_EDIT_INSTRUCTOR_FEEDBACK_PAGE);
 
-        result.responseParams.put(Const.ParamsNames.COURSE_ID, moderatedInstructor.courseId);
-        result.responseParams.put(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
-        result.responseParams.put(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructor.email);
+        result.responseParams.put(ParamNameConst.ParamsNames.COURSE_ID, moderatedInstructor.courseId);
+        result.responseParams.put(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        result.responseParams.put(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedInstructor.email);
 
         return result;
     }

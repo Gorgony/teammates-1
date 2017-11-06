@@ -8,6 +8,8 @@ import teammates.common.datatransfer.attributes.FeedbackResponseCommentAttribute
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.logic.core.FeedbackSessionsLogic;
 import teammates.storage.api.FeedbackQuestionsDb;
 import teammates.storage.api.FeedbackResponseCommentsDb;
@@ -57,10 +59,10 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         verifyAssumptionFailure();
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "Comment to first response",
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "Comment to first response",
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         verifyAssumptionFailure(submissionParams);
@@ -68,14 +70,14 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         ______TS("Typical successful case for unpublished session");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER,INSTRUCTORS",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO, "GIVER,INSTRUCTORS"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER,INSTRUCTORS",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO, "GIVER,INSTRUCTORS"
         };
 
         InstructorFeedbackResponseCommentEditAction action = getAction(submissionParams);
@@ -89,12 +91,12 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         ______TS("Null show comments and show giver permissions");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
         };
 
         action = getAction(submissionParams);
@@ -107,14 +109,14 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         ______TS("Empty show comments and show giver permissions");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO, ""
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO, ""
         };
 
         action = getAction(submissionParams);
@@ -127,13 +129,13 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         ______TS("Typical successful case for unpublished session public to various recipients");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "",
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "",
         };
 
         action = getAction(submissionParams);
@@ -144,13 +146,13 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         assertEquals("", result.getStatusMessage());
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER",
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER",
         };
 
         action = getAction(submissionParams);
@@ -161,13 +163,13 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         assertEquals("", result.getStatusMessage());
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "RECEIVER",
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "RECEIVER",
         };
 
         action = getAction(submissionParams);
@@ -178,13 +180,13 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         assertEquals("", result.getStatusMessage());
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "OWN_TEAM_MEMBERS",
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "OWN_TEAM_MEMBERS",
         };
 
         action = getAction(submissionParams);
@@ -195,13 +197,13 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         assertEquals("", result.getStatusMessage());
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "RECEIVER_TEAM_MEMBERS",
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "RECEIVER_TEAM_MEMBERS",
         };
 
         action = getAction(submissionParams);
@@ -212,13 +214,13 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         assertEquals("", result.getStatusMessage());
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "STUDENTS",
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "STUDENTS",
         };
 
         action = getAction(submissionParams);
@@ -231,14 +233,14 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         ______TS("Non-existent feedback response comment id");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, "123123123123123",
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER,INSTRUCTORS",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO, "GIVER,INSTRUCTORS"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, "123123123123123",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER,INSTRUCTORS",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO, "GIVER,INSTRUCTORS"
         };
 
         try {
@@ -253,14 +255,14 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         gaeSimulation.loginAsInstructor("idOfInstructor2OfCourse1");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER,INSTRUCTORS",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO, "GIVER,INSTRUCTORS"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER,INSTRUCTORS",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO, "GIVER,INSTRUCTORS"
         };
         action = getAction(submissionParams);
         result = getAjaxResult(action);
@@ -279,14 +281,14 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         FeedbackSessionsLogic.inst().publishFeedbackSession(fs);
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText
                                                                 + " (Edited for published session)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER,INSTRUCTORS"
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO, "GIVER,INSTRUCTORS"
         };
 
         action = getAction(submissionParams);
@@ -299,12 +301,12 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         ______TS("Unsuccessful case: empty comment text");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
         };
 
         action = getAction(submissionParams);
@@ -313,7 +315,7 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
         data = (InstructorFeedbackResponseCommentAjaxPageData) result.data;
 
         assertTrue(data.isError);
-        assertEquals(Const.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY, data.errorMessage);
+        assertEquals(StatusMessageConst.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY, data.errorMessage);
     }
 
     @Override
@@ -346,12 +348,12 @@ public class InstructorFeedbackResponseCommentEditActionTest extends BaseActionT
                 feedbackResponseComment.giverEmail, feedbackResponseComment.createdAt);
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponse.getId(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "comment",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponse.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "comment",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
         };
         // this person is not the giver. so not accessible
         verifyUnaccessibleWithoutModifySessionCommentInSectionsPrivilege(submissionParams);

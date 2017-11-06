@@ -8,6 +8,7 @@ import teammates.common.datatransfer.attributes.FeedbackResponseCommentAttribute
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.storage.api.FeedbackQuestionsDb;
 import teammates.storage.api.FeedbackResponseCommentsDb;
 import teammates.storage.api.FeedbackResponsesDb;
@@ -58,10 +59,10 @@ public class InstructorFeedbackResponseCommentDeleteActionTest extends BaseActio
         verifyAssumptionFailure();
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "Comment to first response",
-                Const.ParamsNames.USER_ID, instructor.googleId
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "Comment to first response",
+                ParamNameConst.ParamsNames.USER_ID, instructor.googleId
         };
 
         verifyAssumptionFailure(submissionParams);
@@ -69,12 +70,12 @@ public class InstructorFeedbackResponseCommentDeleteActionTest extends BaseActio
         ______TS("Typical successful case");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, feedbackResponseComment.commentText + " (Edited)",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
         };
 
         InstructorFeedbackResponseCommentDeleteAction action = getAction(submissionParams);
@@ -91,12 +92,12 @@ public class InstructorFeedbackResponseCommentDeleteActionTest extends BaseActio
         ______TS("Non-existent feedback response comment");
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
                 // non-existent feedback response comment id
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, "123123123123123",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, "123123123123123",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
         };
 
         action = getAction(submissionParams);
@@ -126,11 +127,11 @@ public class InstructorFeedbackResponseCommentDeleteActionTest extends BaseActio
         assertNotNull("response comment not found", feedbackResponseComment);
 
         submissionParams = new String[] {
-                Const.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
+                ParamNameConst.ParamsNames.COURSE_ID, feedbackResponseComment.courseId,
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackResponseComment.feedbackSessionName,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseComment.feedbackResponseId,
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseComment.getId().toString(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient"
         };
 
         action = getAction(submissionParams);
@@ -168,12 +169,12 @@ public class InstructorFeedbackResponseCommentDeleteActionTest extends BaseActio
         comment.feedbackResponseId = response.getId();
 
         String[] submissionParams = new String[]{
-                Const.ParamsNames.COURSE_ID, fs.getCourseId(),
-                Const.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "",
-                Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
-                Const.ParamsNames.FEEDBACK_RESPONSE_ID, response.getId(),
-                Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, String.valueOf(comment.getId())
+                ParamNameConst.ParamsNames.COURSE_ID, fs.getCourseId(),
+                ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, fs.getFeedbackSessionName(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, "",
+                ParamNameConst.ParamsNames.FEEDBACK_RESULTS_SORTTYPE, "recipient",
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, response.getId(),
+                ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, String.valueOf(comment.getId())
         };
         verifyUnaccessibleWithoutSubmitSessionInSectionsPrivilege(submissionParams);
 

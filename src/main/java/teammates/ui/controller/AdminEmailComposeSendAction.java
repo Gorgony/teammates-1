@@ -10,11 +10,7 @@ import com.google.appengine.api.datastore.Text;
 import teammates.common.datatransfer.attributes.AdminEmailAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Const;
-import teammates.common.util.FieldValidator;
-import teammates.common.util.GoogleCloudStorageHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.AdminEmailComposePageData;
 
 public class AdminEmailComposeSendAction extends Action {
@@ -38,13 +34,13 @@ public class AdminEmailComposeSendAction extends Action {
         gateKeeper.verifyAdminPrivileges(account);
         AdminEmailComposePageData data = new AdminEmailComposePageData(account, sessionToken);
 
-        String emailContent = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_CONTENT);
-        String subject = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_SUBJECT);
+        String emailContent = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT);
+        String subject = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT);
 
-        addressReceiverListString = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS);
+        addressReceiverListString = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS);
         isAddressModeOn = addressReceiverListString != null && !addressReceiverListString.isEmpty();
-        emailId = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_ID);
-        groupReceiverListFileKey = getRequestParamValue(Const.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY);
+        emailId = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID);
+        groupReceiverListFileKey = getRequestParamValue(ParamNameConst.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY);
         isGroupModeOn = groupReceiverListFileKey != null && !groupReceiverListFileKey.isEmpty();
 
         if (isGroupModeOn) {

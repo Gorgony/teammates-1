@@ -6,28 +6,24 @@ import teammates.common.datatransfer.InstructorPrivileges;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 
 public class InstructorCourseInstructorEditSaveAction extends InstructorCourseInstructorAbstractAction {
 
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
 
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        String instructorId = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_ID);
-        String instructorName = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_NAME);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.INSTRUCTOR_NAME, instructorName);
-        String instructorEmail = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_EMAIL);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.INSTRUCTOR_EMAIL, instructorEmail);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        String instructorId = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_ID);
+        String instructorName = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.INSTRUCTOR_NAME, instructorName);
+        String instructorEmail = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instructorEmail);
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
         gateKeeper.verifyAccessible(instructor, logic.getCourse(courseId),
-                                    Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR);
+                                    ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR);
 
         InstructorAttributes instructorToEdit =
                 extractUpdatedInstructor(courseId, instructorId, instructorName, instructorEmail);
@@ -40,7 +36,7 @@ public class InstructorCourseInstructorEditSaveAction extends InstructorCourseIn
                 logic.updateInstructorByGoogleId(instructorId, instructorToEdit);
             }
 
-            statusToUser.add(new StatusMessage(String.format(Const.StatusMessages.COURSE_INSTRUCTOR_EDITED, instructorName),
+            statusToUser.add(new StatusMessage(String.format(StatusMessageConst.StatusMessages.COURSE_INSTRUCTOR_EDITED, instructorName),
                                                StatusMessageColor.SUCCESS));
             statusToAdmin = "Instructor <span class=\"bold\"> " + instructorName + "</span>"
                     + " for Course <span class=\"bold\">[" + courseId + "]</span> edited.<br>"
@@ -51,7 +47,7 @@ public class InstructorCourseInstructorEditSaveAction extends InstructorCourseIn
 
         /* Create redirection to 'Edit' page with corresponding course id */
         RedirectResult result = createRedirectResult(Const.ActionURIs.INSTRUCTOR_COURSE_EDIT_PAGE);
-        result.addResponseParam(Const.ParamsNames.COURSE_ID, courseId);
+        result.addResponseParam(ParamNameConst.ParamsNames.COURSE_ID, courseId);
         return result;
     }
 
@@ -69,7 +65,7 @@ public class InstructorCourseInstructorEditSaveAction extends InstructorCourseIn
         int numOfInstrCanModifyInstructor = 0;
         InstructorAttributes instrWithModifyInstructorPrivilege = null;
         for (InstructorAttributes instructor : instructors) {
-            if (instructor.isAllowedForPrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR)) {
+            if (instructor.isAllowedForPrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR)) {
                 numOfInstrCanModifyInstructor++;
                 instrWithModifyInstructorPrivilege = instructor;
             }
@@ -80,7 +76,7 @@ public class InstructorCourseInstructorEditSaveAction extends InstructorCourseIn
                                                            || instrWithModifyInstructorPrivilege.googleId
                                                                      .equals(instructorToEdit.googleId));
         if (isLastRegInstructorWithPrivilege) {
-            instructorToEdit.privileges.updatePrivilege(Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, true);
+            instructorToEdit.privileges.updatePrivilege(ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_INSTRUCTOR, true);
         }
     }
 
@@ -97,10 +93,10 @@ public class InstructorCourseInstructorEditSaveAction extends InstructorCourseIn
      */
     private InstructorAttributes extractUpdatedInstructor(String courseId, String instructorId,
                                                           String instructorName, String instructorEmail) {
-        String instructorRole = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_ROLE_NAME);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.INSTRUCTOR_ROLE_NAME, instructorRole);
-        boolean isDisplayedToStudents = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_IS_DISPLAYED_TO_STUDENT) != null;
-        String displayedName = getRequestParamValue(Const.ParamsNames.INSTRUCTOR_DISPLAY_NAME);
+        String instructorRole = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.INSTRUCTOR_ROLE_NAME, instructorRole);
+        boolean isDisplayedToStudents = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_IS_DISPLAYED_TO_STUDENT) != null;
+        String displayedName = getRequestParamValue(ParamNameConst.ParamsNames.INSTRUCTOR_DISPLAY_NAME);
         if (displayedName == null || displayedName.isEmpty()) {
             displayedName = InstructorAttributes.DEFAULT_DISPLAY_NAME;
         }

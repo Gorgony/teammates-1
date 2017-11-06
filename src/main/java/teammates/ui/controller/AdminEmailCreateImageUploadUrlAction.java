@@ -2,6 +2,7 @@ package teammates.ui.controller;
 
 import teammates.common.util.Const;
 import teammates.common.util.GoogleCloudStorageHelper;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.Url;
 
 /**
@@ -22,7 +23,7 @@ public class AdminEmailCreateImageUploadUrlAction extends CreateImageUploadUrlAc
     @Override
     protected String getUploadUrl() {
         String callbackUrl =
-                Url.addParamToUrl(Const.ActionURIs.ADMIN_EMAIL_IMAGE_UPLOAD, Const.ParamsNames.SESSION_TOKEN, sessionToken);
+                Url.addParamToUrl(Const.ActionURIs.ADMIN_EMAIL_IMAGE_UPLOAD, ParamNameConst.ParamsNames.SESSION_TOKEN, sessionToken);
         return GoogleCloudStorageHelper.getNewUploadUrl(callbackUrl);
     }
 

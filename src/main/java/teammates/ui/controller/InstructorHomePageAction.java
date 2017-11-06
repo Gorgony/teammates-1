@@ -8,10 +8,7 @@ import teammates.common.datatransfer.CourseSummaryBundle;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
-import teammates.common.util.Const;
-import teammates.common.util.Const.StatusMessages;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 import teammates.ui.pagedata.InstructorHomeCourseAjaxPageData;
 import teammates.ui.pagedata.InstructorHomePageData;
 
@@ -19,15 +16,15 @@ public class InstructorHomePageAction extends Action {
     @Override
     public ActionResult execute() throws EntityDoesNotExistException {
         if (!account.isInstructor && isPersistenceIssue()) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.INSTRUCTOR_PERSISTENCE_ISSUE,
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.INSTRUCTOR_PERSISTENCE_ISSUE,
                                                StatusMessageColor.WARNING));
-            statusToAdmin = "instructorHome " + Const.StatusMessages.INSTRUCTOR_PERSISTENCE_ISSUE;
+            statusToAdmin = "instructorHome " + StatusMessageConst.StatusMessages.INSTRUCTOR_PERSISTENCE_ISSUE;
             return createShowPageResult(Const.ViewURIs.INSTRUCTOR_HOME, new InstructorHomePageData(account, sessionToken));
         }
 
         gateKeeper.verifyInstructorPrivileges(account);
 
-        String courseToLoad = getRequestParamValue(Const.ParamsNames.COURSE_TO_LOAD);
+        String courseToLoad = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_TO_LOAD);
         return courseToLoad == null ? loadPage() : loadCourse(courseToLoad);
     }
 
@@ -61,7 +58,7 @@ public class InstructorHomePageAction extends Action {
         data.init(courseList, sortCriteria);
 
         if (logic.isNewInstructor(account.googleId)) {
-            statusToUser.add(new StatusMessage(StatusMessages.HINT_FOR_NEW_INSTRUCTOR, StatusMessageColor.INFO));
+            statusToUser.add(new StatusMessage(StatusMessageConst.StatusMessages.HINT_FOR_NEW_INSTRUCTOR, StatusMessageColor.INFO));
         }
         statusToAdmin = "instructorHome Page Load<br>" + "Total Courses: " + courseList.size();
 
@@ -69,7 +66,7 @@ public class InstructorHomePageAction extends Action {
     }
 
     private String getSortCriteria() {
-        String sortCriteria = getRequestParamValue(Const.ParamsNames.COURSE_SORTING_CRITERIA);
+        String sortCriteria = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_SORTING_CRITERIA);
         if (sortCriteria == null) {
             sortCriteria = Const.DEFAULT_SORT_CRITERIA;
         }

@@ -9,12 +9,7 @@ import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.UnauthorizedAccessException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
-import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StatusMessage;
-import teammates.common.util.StatusMessageColor;
+import teammates.common.util.*;
 
 public class InstructorEditStudentFeedbackSaveAction extends FeedbackSubmissionEditSaveAction {
 
@@ -28,13 +23,13 @@ public class InstructorEditStudentFeedbackSaveAction extends FeedbackSubmissionE
         FeedbackSessionAttributes session = logic.getFeedbackSession(feedbackSessionName, courseId);
 
         gateKeeper.verifyAccessible(instructor, session, false, moderatedStudent.section,
-                Const.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
+                ParamNameConst.ParamsNames.INSTRUCTOR_PERMISSION_MODIFY_SESSION_COMMENT_IN_SECTIONS);
     }
 
     @Override
     protected void setAdditionalParameters() {
-        String moderatedStudentEmail = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail);
+        String moderatedStudentEmail = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudentEmail);
 
         moderatedStudent = logic.getStudentForEmail(courseId, moderatedStudentEmail);
         isSendSubmissionEmail = false;
@@ -51,7 +46,7 @@ public class InstructorEditStudentFeedbackSaveAction extends FeedbackSubmissionE
 
         for (int questionIndx = 1; questionIndx <= numOfQuestionsToGet; questionIndx++) {
             String questionId = getRequestParamValue(
-                    Const.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx);
+                    ParamNameConst.ParamsNames.FEEDBACK_QUESTION_ID + "-" + questionIndx);
 
             if (questionId == null) {
                 // we do not throw an error if the question was not present on the page for instructors to edit
@@ -147,9 +142,9 @@ public class InstructorEditStudentFeedbackSaveAction extends FeedbackSubmissionE
     protected RedirectResult createSpecificRedirectResult() {
         RedirectResult result = createRedirectResult(Const.ActionURIs.INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE);
 
-        result.responseParams.put(Const.ParamsNames.COURSE_ID, moderatedStudent.course);
-        result.responseParams.put(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
-        result.responseParams.put(Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudent.email);
+        result.responseParams.put(ParamNameConst.ParamsNames.COURSE_ID, moderatedStudent.course);
+        result.responseParams.put(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        result.responseParams.put(ParamNameConst.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, moderatedStudent.email);
 
         return result;
     }

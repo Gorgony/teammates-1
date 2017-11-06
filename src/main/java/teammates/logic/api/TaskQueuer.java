@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import teammates.common.datatransfer.StudentEnrollDetails;
-import teammates.common.util.Const.ParamsNames;
+import teammates.common.util.*;
 import teammates.common.util.Const.TaskQueue;
-import teammates.common.util.EmailWrapper;
-import teammates.common.util.JsonUtils;
-import teammates.common.util.Logger;
-import teammates.common.util.TaskWrapper;
 import teammates.logic.core.TaskQueuesLogic;
 
 /**
@@ -78,8 +74,8 @@ public class TaskQueuer {
      */
     public void scheduleAdminEmailPreparationInAddressMode(String emailId, String addressReceiverListString) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.ADMIN_EMAIL_ID, emailId);
-        paramMap.put(ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, addressReceiverListString);
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_EMAIL_ADDRESS_RECEIVERS, addressReceiverListString);
 
         addTask(TaskQueue.ADMIN_PREPARE_EMAIL_ADDRESS_MODE_QUEUE_NAME,
                 TaskQueue.ADMIN_PREPARE_EMAIL_ADDRESS_MODE_WORKER_URL, paramMap);
@@ -102,10 +98,10 @@ public class TaskQueuer {
     public void scheduleAdminEmailPreparationInGroupMode(String emailId, String groupReceiverListFileKey,
                                                          int emailListIndex, int emailIndex) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.ADMIN_EMAIL_ID, emailId);
-        paramMap.put(ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY, groupReceiverListFileKey);
-        paramMap.put(ParamsNames.ADMIN_GROUP_RECEIVER_EMAIL_LIST_INDEX, Integer.toString(emailListIndex));
-        paramMap.put(ParamsNames.ADMIN_GROUP_RECEIVER_EMAIL_INDEX, Integer.toString(emailIndex));
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_EMAIL_GROUP_RECEIVER_LIST_FILE_KEY, groupReceiverListFileKey);
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_GROUP_RECEIVER_EMAIL_LIST_INDEX, Integer.toString(emailListIndex));
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_GROUP_RECEIVER_EMAIL_INDEX, Integer.toString(emailIndex));
 
         addTask(TaskQueue.ADMIN_PREPARE_EMAIL_GROUP_MODE_QUEUE_NAME,
                 TaskQueue.ADMIN_PREPARE_EMAIL_GROUP_MODE_WORKER_URL, paramMap);
@@ -122,18 +118,18 @@ public class TaskQueuer {
     public void scheduleAdminEmailForSending(String emailId, String emailReceiver, String emailSubject,
                                              String emailContent) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.ADMIN_EMAIL_RECEIVER, emailReceiver);
-        paramMap.put(ParamsNames.ADMIN_EMAIL_SUBJECT, emailSubject);
-        paramMap.put(ParamsNames.ADMIN_EMAIL_CONTENT, emailContent);
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_EMAIL_RECEIVER, emailReceiver);
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT, emailSubject);
+        paramMap.put(ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT, emailContent);
 
         try {
             addTask(TaskQueue.ADMIN_SEND_EMAIL_QUEUE_NAME, TaskQueue.ADMIN_SEND_EMAIL_WORKER_URL, paramMap);
         } catch (IllegalArgumentException e) {
             if (e.getMessage().toLowerCase().contains("task size too large")) {
                 log.info("Email task size exceeds max limit. Switching to large email task mode.");
-                paramMap.remove(ParamsNames.ADMIN_EMAIL_SUBJECT);
-                paramMap.remove(ParamsNames.ADMIN_EMAIL_CONTENT);
-                paramMap.put(ParamsNames.ADMIN_EMAIL_ID, emailId);
+                paramMap.remove(ParamNameConst.ParamsNames.ADMIN_EMAIL_SUBJECT);
+                paramMap.remove(ParamNameConst.ParamsNames.ADMIN_EMAIL_CONTENT);
+                paramMap.put(ParamNameConst.ParamsNames.ADMIN_EMAIL_ID, emailId);
                 addTask(TaskQueue.ADMIN_SEND_EMAIL_QUEUE_NAME, TaskQueue.ADMIN_SEND_EMAIL_WORKER_URL, paramMap);
             }
         }
@@ -148,8 +144,8 @@ public class TaskQueuer {
      */
     public void scheduleFeedbackSessionReminders(String courseId, String feedbackSessionName) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.SUBMISSION_FEEDBACK, feedbackSessionName);
-        paramMap.put(ParamsNames.SUBMISSION_COURSE, courseId);
+        paramMap.put(ParamNameConst.ParamsNames.SUBMISSION_FEEDBACK, feedbackSessionName);
+        paramMap.put(ParamNameConst.ParamsNames.SUBMISSION_COURSE, courseId);
 
         addTask(TaskQueue.FEEDBACK_SESSION_REMIND_EMAIL_QUEUE_NAME,
                 TaskQueue.FEEDBACK_SESSION_REMIND_EMAIL_WORKER_URL, paramMap);
@@ -166,9 +162,9 @@ public class TaskQueuer {
     public void scheduleFeedbackSessionRemindersForParticularUsers(String courseId, String feedbackSessionName,
                                                                    String[] usersToRemind) {
         Map<String, String[]> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.SUBMISSION_FEEDBACK, new String[] { feedbackSessionName });
-        paramMap.put(ParamsNames.SUBMISSION_COURSE, new String[] { courseId });
-        paramMap.put(ParamsNames.SUBMISSION_REMIND_USERLIST, usersToRemind);
+        paramMap.put(ParamNameConst.ParamsNames.SUBMISSION_FEEDBACK, new String[] { feedbackSessionName });
+        paramMap.put(ParamNameConst.ParamsNames.SUBMISSION_COURSE, new String[] { courseId });
+        paramMap.put(ParamNameConst.ParamsNames.SUBMISSION_REMIND_USERLIST, usersToRemind);
 
         addTaskMultisetParam(TaskQueue.FEEDBACK_SESSION_REMIND_PARTICULAR_USERS_EMAIL_QUEUE_NAME,
                              TaskQueue.FEEDBACK_SESSION_REMIND_PARTICULAR_USERS_EMAIL_WORKER_URL, paramMap);
@@ -182,8 +178,8 @@ public class TaskQueuer {
      */
     public void scheduleFeedbackSessionPublishedEmail(String courseId, String feedbackSessionName) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.EMAIL_COURSE, courseId);
-        paramMap.put(ParamsNames.EMAIL_FEEDBACK, feedbackSessionName);
+        paramMap.put(ParamNameConst.ParamsNames.EMAIL_COURSE, courseId);
+        paramMap.put(ParamNameConst.ParamsNames.EMAIL_FEEDBACK, feedbackSessionName);
 
         addTask(TaskQueue.FEEDBACK_SESSION_PUBLISHED_EMAIL_QUEUE_NAME,
                 TaskQueue.FEEDBACK_SESSION_PUBLISHED_EMAIL_WORKER_URL, paramMap);
@@ -197,8 +193,8 @@ public class TaskQueuer {
      */
     public void scheduleFeedbackSessionUnpublishedEmail(String courseId, String feedbackSessionName) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.EMAIL_COURSE, courseId);
-        paramMap.put(ParamsNames.EMAIL_FEEDBACK, feedbackSessionName);
+        paramMap.put(ParamNameConst.ParamsNames.EMAIL_COURSE, courseId);
+        paramMap.put(ParamNameConst.ParamsNames.EMAIL_FEEDBACK, feedbackSessionName);
 
         addTask(TaskQueue.FEEDBACK_SESSION_UNPUBLISHED_EMAIL_QUEUE_NAME,
                 TaskQueue.FEEDBACK_SESSION_UNPUBLISHED_EMAIL_WORKER_URL, paramMap);
@@ -216,9 +212,9 @@ public class TaskQueuer {
 
         Map<String, String> paramMap = new HashMap<>();
 
-        paramMap.put(ParamsNames.INVITER_ID, inviterGoogleId);
-        paramMap.put(ParamsNames.INSTRUCTOR_EMAIL, instructorEmail);
-        paramMap.put(ParamsNames.COURSE_ID, courseId);
+        paramMap.put(ParamNameConst.ParamsNames.INVITER_ID, inviterGoogleId);
+        paramMap.put(ParamNameConst.ParamsNames.INSTRUCTOR_EMAIL, instructorEmail);
+        paramMap.put(ParamNameConst.ParamsNames.COURSE_ID, courseId);
 
         addTask(TaskQueue.INSTRUCTOR_COURSE_JOIN_EMAIL_QUEUE_NAME,
                 TaskQueue.INSTRUCTOR_COURSE_JOIN_EMAIL_WORKER_URL, paramMap);
@@ -232,9 +228,9 @@ public class TaskQueuer {
      */
     public void scheduleCourseRegistrationInviteToStudent(String courseId, String studentEmail, boolean isRejoining) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.COURSE_ID, courseId);
-        paramMap.put(ParamsNames.STUDENT_EMAIL, studentEmail);
-        paramMap.put(ParamsNames.IS_STUDENT_REJOINING, String.valueOf(isRejoining));
+        paramMap.put(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        paramMap.put(ParamNameConst.ParamsNames.STUDENT_EMAIL, studentEmail);
+        paramMap.put(ParamNameConst.ParamsNames.IS_STUDENT_REJOINING, String.valueOf(isRejoining));
 
         addTask(TaskQueue.STUDENT_COURSE_JOIN_EMAIL_QUEUE_NAME,
                 TaskQueue.STUDENT_COURSE_JOIN_EMAIL_WORKER_URL, paramMap);
@@ -252,11 +248,11 @@ public class TaskQueuer {
     public void scheduleFeedbackResponseAdjustmentForCourse(String courseId, String feedbackSessionName,
                                                             List<StudentEnrollDetails> enrollmentList) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put(ParamsNames.COURSE_ID, courseId);
-        paramMap.put(ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        paramMap.put(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        paramMap.put(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
 
         String enrollmentDetails = JsonUtils.toJson(enrollmentList);
-        paramMap.put(ParamsNames.ENROLLMENT_DETAILS, enrollmentDetails);
+        paramMap.put(ParamNameConst.ParamsNames.ENROLLMENT_DETAILS, enrollmentDetails);
 
         addTask(TaskQueue.FEEDBACK_RESPONSE_ADJUSTMENT_QUEUE_NAME,
                 TaskQueue.FEEDBACK_RESPONSE_ADJUSTMENT_WORKER_URL, paramMap);
@@ -293,14 +289,14 @@ public class TaskQueuer {
         String emailReplyToAddress = email.getReplyTo();
         try {
             Map<String, String> paramMap = new HashMap<>();
-            paramMap.put(ParamsNames.EMAIL_SUBJECT, emailSubject);
-            paramMap.put(ParamsNames.EMAIL_CONTENT, email.getContent());
-            paramMap.put(ParamsNames.EMAIL_SENDER, emailSender);
+            paramMap.put(ParamNameConst.ParamsNames.EMAIL_SUBJECT, emailSubject);
+            paramMap.put(ParamNameConst.ParamsNames.EMAIL_CONTENT, email.getContent());
+            paramMap.put(ParamNameConst.ParamsNames.EMAIL_SENDER, emailSender);
             if (emailSenderName != null && !emailSenderName.isEmpty()) {
-                paramMap.put(ParamsNames.EMAIL_SENDERNAME, emailSenderName);
+                paramMap.put(ParamNameConst.ParamsNames.EMAIL_SENDERNAME, emailSenderName);
             }
-            paramMap.put(ParamsNames.EMAIL_RECEIVER, emailReceiver);
-            paramMap.put(ParamsNames.EMAIL_REPLY_TO_ADDRESS, emailReplyToAddress);
+            paramMap.put(ParamNameConst.ParamsNames.EMAIL_RECEIVER, emailReceiver);
+            paramMap.put(ParamNameConst.ParamsNames.EMAIL_REPLY_TO_ADDRESS, emailReplyToAddress);
 
             addDeferredTask(TaskQueue.SEND_EMAIL_QUEUE_NAME, TaskQueue.SEND_EMAIL_WORKER_URL,
                             paramMap, emailDelayTimer);

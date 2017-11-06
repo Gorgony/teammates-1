@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
 import teammates.test.driver.AssertHelper;
 import teammates.ui.controller.AjaxResult;
 import teammates.ui.controller.StudentProfileCreateFormUrlAction;
@@ -47,7 +48,7 @@ public class StudentProfileCreateFormUrlActionTest extends BaseActionTest {
         gaeSimulation.loginAsAdmin("admin.user");
 
         String[] submissionParams = new String[] {
-                Const.ParamsNames.USER_ID, student.googleId
+                ParamNameConst.ParamsNames.USER_ID, student.googleId
         };
 
         StudentProfileCreateFormUrlAction action = getAction(addUserIdToParams(student.googleId,

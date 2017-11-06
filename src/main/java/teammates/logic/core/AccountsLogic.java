@@ -11,10 +11,7 @@ import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.exception.JoinCourseException;
 import teammates.common.exception.TeammatesException;
-import teammates.common.util.Assumption;
-import teammates.common.util.Const;
-import teammates.common.util.Logger;
-import teammates.common.util.StringHelper;
+import teammates.common.util.*;
 import teammates.storage.api.AccountsDb;
 
 /**
@@ -212,7 +209,7 @@ public final class AccountsLogic {
 
         if (existingInstructor != null) {
             throw new JoinCourseException(
-                    String.format(Const.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
+                    String.format(StatusMessageConst.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
                                   googleId));
         }
 
@@ -251,7 +248,7 @@ public final class AccountsLogic {
         //  person already.
         if (!instructorForKey.googleId.equals(googleId)) {
             throw new JoinCourseException(Const.StatusCodes.KEY_BELONGS_TO_DIFFERENT_USER,
-                                          String.format(Const.StatusMessages.JOIN_COURSE_KEY_BELONGS_TO_DIFFERENT_USER,
+                                          String.format(StatusMessageConst.StatusMessages.JOIN_COURSE_KEY_BELONGS_TO_DIFFERENT_USER,
                                                   StringHelper.obscure(instructorForKey.googleId)));
         }
     }
@@ -271,7 +268,7 @@ public final class AccountsLogic {
             }
             throw new JoinCourseException(
                     Const.StatusCodes.KEY_BELONGS_TO_DIFFERENT_USER,
-                    String.format(Const.StatusMessages.JOIN_COURSE_KEY_BELONGS_TO_DIFFERENT_USER,
+                    String.format(StatusMessageConst.StatusMessages.JOIN_COURSE_KEY_BELONGS_TO_DIFFERENT_USER,
                                   StringHelper.obscure(studentRole.googleId)));
         }
 
@@ -280,7 +277,7 @@ public final class AccountsLogic {
 
         if (existingStudent != null) {
             throw new JoinCourseException(
-                    String.format(Const.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
+                    String.format(StatusMessageConst.StatusMessages.JOIN_COURSE_GOOGLE_ID_BELONGS_TO_DIFFERENT_USER,
                             googleId));
         }
     }

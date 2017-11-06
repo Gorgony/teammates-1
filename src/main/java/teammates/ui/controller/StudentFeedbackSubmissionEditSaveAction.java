@@ -7,6 +7,7 @@ import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.util.Const;
 import teammates.common.util.Logger;
+import teammates.common.util.ParamNameConst;
 import teammates.common.util.SanitizationHelper;
 
 public class StudentFeedbackSubmissionEditSaveAction extends FeedbackSubmissionEditSaveAction {
@@ -80,9 +81,9 @@ public class StudentFeedbackSubmissionEditSaveAction extends FeedbackSubmissionE
         RedirectResult result = createRedirectResult(Const.ActionURIs.STUDENT_FEEDBACK_SUBMISSION_EDIT_PAGE);
 
         // Provide course id and session name for the redirected page
-        result.responseParams.put(Const.ParamsNames.COURSE_ID, student.course);
-        result.responseParams.put(Const.ParamsNames.FEEDBACK_SESSION_NAME,
-                                  getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME));
+        result.responseParams.put(ParamNameConst.ParamsNames.COURSE_ID, student.course);
+        result.responseParams.put(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME,
+                                  getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME));
 
         return result;
     }

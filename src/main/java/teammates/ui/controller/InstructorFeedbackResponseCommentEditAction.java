@@ -13,7 +13,8 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.util.Assumption;
-import teammates.common.util.Const;
+import teammates.common.util.ParamNameConst;
+import teammates.common.util.StatusMessageConst;
 import teammates.ui.pagedata.InstructorFeedbackResponseCommentAjaxPageData;
 
 /**
@@ -22,14 +23,14 @@ import teammates.ui.pagedata.InstructorFeedbackResponseCommentAjaxPageData;
 public class InstructorFeedbackResponseCommentEditAction extends InstructorFeedbackResponseCommentAbstractAction {
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-        String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        String feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
-        String feedbackResponseId = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESPONSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseId);
-        String feedbackResponseCommentId = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseCommentId);
+        String courseId = getRequestParamValue(ParamNameConst.ParamsNames.COURSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.COURSE_ID, courseId);
+        String feedbackSessionName = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_SESSION_NAME, feedbackSessionName);
+        String feedbackResponseId = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_ID, feedbackResponseId);
+        String feedbackResponseCommentId = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_ID, feedbackResponseCommentId);
 
         InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
         FeedbackSessionAttributes session = logic.getFeedbackSession(feedbackSessionName, courseId);
@@ -46,10 +47,10 @@ public class InstructorFeedbackResponseCommentEditAction extends InstructorFeedb
                 new InstructorFeedbackResponseCommentAjaxPageData(account, sessionToken);
 
         //Edit comment text
-        String commentText = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, commentText);
+        String commentText = getRequestParamValue(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT);
+        Assumption.assertPostParamNotNull(ParamNameConst.ParamsNames.FEEDBACK_RESPONSE_COMMENT_TEXT, commentText);
         if (commentText.trim().isEmpty()) {
-            data.errorMessage = Const.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY;
+            data.errorMessage = StatusMessageConst.StatusMessages.FEEDBACK_RESPONSE_COMMENT_EMPTY;
             data.isError = true;
             return createAjaxResult(data);
         }
@@ -64,8 +65,8 @@ public class InstructorFeedbackResponseCommentEditAction extends InstructorFeedb
         feedbackResponseComment.setId(Long.parseLong(feedbackResponseCommentId));
 
         //Edit visibility settings
-        String showCommentTo = getRequestParamValue(Const.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO);
-        String showGiverNameTo = getRequestParamValue(Const.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO);
+        String showCommentTo = getRequestParamValue(ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWCOMMENTSTO);
+        String showGiverNameTo = getRequestParamValue(ParamNameConst.ParamsNames.RESPONSE_COMMENTS_SHOWGIVERTO);
         feedbackResponseComment.showCommentTo = new ArrayList<>();
         if (showCommentTo != null && !showCommentTo.isEmpty()) {
             String[] showCommentToArray = showCommentTo.split(",");

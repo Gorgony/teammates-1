@@ -1,5 +1,6 @@
 <%@ tag description="instructorHome / instructorFeedbacks - Remind modal" %>
 <%@ tag import="teammates.common.util.Const" %>
+<%@ tag import="teammates.common.util.ParamNameConst" %>
 <%@ attribute name="remindParticularStudentsLink" required="true" %>
 
 <div class="modal fade" id="remindModal" tabindex="-1" role="dialog"
@@ -23,7 +24,7 @@
           <button type="button" class="btn btn-default"
               data-dismiss="modal">Cancel</button>
           <input type="button" class="btn btn-primary remind-particular-button" data-dismiss="modal" value="Remind">
-          <input type="hidden" name="<%= Const.ParamsNames.USER_ID %>"
+          <input type="hidden" name="<%= ParamNameConst.ParamsNames.USER_ID %>"
               value="${data.account.googleId}">
         </div>
       </form>
