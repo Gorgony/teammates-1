@@ -56,13 +56,13 @@ public class AdminActivityLogPageAction extends Action {
         String logTimeInAdminTimeZoneFromAjax = getRequestParamValue("logTimeInAdminTimeZone");
 
         boolean isLoadingLocalTimeAjax = logRoleFromAjax != null
-                                         && logGoogleIdFromAjax != null
-                                         && logTimeInAdminTimeZoneFromAjax != null;
+                && logGoogleIdFromAjax != null
+                && logTimeInAdminTimeZoneFromAjax != null;
 
         if (isLoadingLocalTimeAjax) {
             data.setLogLocalTime(getLocalTimeInfo(logGoogleIdFromAjax,
-                                                  logRoleFromAjax,
-                                                  logTimeInAdminTimeZoneFromAjax));
+                    logRoleFromAjax,
+                    logTimeInAdminTimeZoneFromAjax));
             return createAjaxResult(data);
         }
 
@@ -131,8 +131,8 @@ public class AdminActivityLogPageAction extends Action {
                                        List<ActivityLogEntry> logs, String courseId) {
         StringBuilder status = new StringBuilder(500);
         status.append("Total Logs gone through in last search: " + totalLogsSearched
-                    + "<br>Total Relevant Logs found in last search: "
-                    + String.format("%s<br>", logs.size()));
+                + "<br>Total Relevant Logs found in last search: "
+                + String.format("%s<br>", logs.size()));
 
         long earliestSearchTime = data.getFromDate();
         ActivityLogEntry earliestLogChecked = null;
@@ -144,25 +144,14 @@ public class AdminActivityLogPageAction extends Action {
             earliestSearchTime = earliestLogChecked.getLogTime();
         }
 
-        double targetTimeZone = Const.DOUBLE_UNINITIALIZED;
-        if (data.isPersonSpecified()) {
-            String targetUserGoogleId = data.getPersonSpecified();
-            targetTimeZone = getLocalTimeZoneForRequest(targetUserGoogleId, "");
-
-            if (targetTimeZone == Const.DOUBLE_UNINITIALIZED && courseId != null && !courseId.isEmpty()) {
-                // if the user is unregistered, try finding the timezone by course id passed from Search page
-                targetTimeZone = getLocalTimeZoneForUnregisteredUserRequest(courseId);
-            }
-        } else {
-            targetTimeZone = Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
-        }
+        double targetTimeZone = getTargetTimeZone(data, courseId);
 
         double adminTimeZone = Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
         String timeInAdminTimeZone = computeTimeWithOffset(adminTimeZone, earliestSearchTime);
         String timeInUserTimeZone = computeTimeWithOffset(targetTimeZone, earliestSearchTime);
 
         status.append("The earliest log entry checked on <b>" + timeInAdminTimeZone + "</b> in Admin Time Zone ("
-                      + adminTimeZone + ") and ");
+                + adminTimeZone + ") and ");
         if (targetTimeZone == Const.DOUBLE_UNINITIALIZED) {
             status.append(timeInUserTimeZone).append(".<br>");
         } else {
@@ -193,15 +182,31 @@ public class AdminActivityLogPageAction extends Action {
 
         // the "Search More" button to continue searching from the previous fromDate
         status.append("<button class=\"btn-link\" id=\"button_older\" data-next-end-time-to-search=\""
-                      + nextEndTimeToSearch
-                      + "\">Search More</button><input id=\"ifShowAll\" type=\"hidden\" value=\""
-                      + data.getShouldShowAllLogs()
-                      + "\"/><input id=\"ifShowTestData\" type=\"hidden\" value=\""
-                      + data.getShouldShowTestData() + "\"/>");
+                + nextEndTimeToSearch
+                + "\">Search More</button><input id=\"ifShowAll\" type=\"hidden\" value=\""
+                + data.getShouldShowAllLogs()
+                + "\"/><input id=\"ifShowTestData\" type=\"hidden\" value=\""
+                + data.getShouldShowTestData() + "\"/>");
 
         String statusString = status.toString();
         data.setStatusForAjax(statusString);
         statusToUser.add(new StatusMessage(statusString, StatusMessageColor.INFO));
+    }
+
+    private double getTargetTimeZone(AdminActivityLogPageData data, String courseId) {
+        double targetTimeZone = Const.DOUBLE_UNINITIALIZED;
+        if (data.isPersonSpecified()) {
+            String targetUserGoogleId = data.getPersonSpecified();
+            targetTimeZone = getLocalTimeZoneForRequest(targetUserGoogleId, "");
+
+            if (targetTimeZone == Const.DOUBLE_UNINITIALIZED && courseId != null && !courseId.isEmpty()) {
+                // if the user is unregistered, try finding the timezone by course id passed from Search page
+                targetTimeZone = getLocalTimeZoneForUnregisteredUserRequest(courseId);
+            }
+        } else {
+            targetTimeZone = Const.SystemParams.ADMIN_TIME_ZONE_DOUBLE;
+        }
+        return targetTimeZone;
     }
 
     /**
