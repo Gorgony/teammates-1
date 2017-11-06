@@ -107,12 +107,12 @@ public class AdminSearchPageData extends PageData {
         String googleId = instructor.googleId;
         String googleIdLink = instructorHomePageLinkMap.get(instructor.googleId);
         String institute = instructorInstituteMap.get(instructor.getIdentificationString());
-        String viewRecentActionsId = createViewRecentActionsId(instructor);
+        String viewRecentActionsId = getAvailableIdString(instructor.googleId, instructor.name, instructor.email);
         String email = instructor.email;
         String courseJoinLink = instructorCourseJoinLinkMap.get(instructor.getIdentificationString());
 
         return new AdminSearchInstructorRow(id, name, courseName, courseId, googleId, googleIdLink,
-                                            institute, viewRecentActionsId, email, courseJoinLink);
+                institute, viewRecentActionsId, email, courseJoinLink);
     }
 
     /**
@@ -125,23 +125,6 @@ public class AdminSearchPageData extends PageData {
         id = id.replace(" ", "").replace("@", "");
 
         return "instructor_" + id;
-    }
-
-    private String createViewRecentActionsId(InstructorAttributes instructor) {
-        String availableIdString = "";
-
-        boolean isSearchingUsingGoogleId = instructor.googleId != null && !instructor.googleId.trim().isEmpty();
-        boolean isSearchingUsingName = instructor.name != null && !instructor.name.trim().isEmpty();
-        boolean isSearchingUsingEmail = instructor.email != null && !instructor.email.trim().isEmpty();
-        if (isSearchingUsingGoogleId) {
-            availableIdString = "person:" + instructor.googleId;
-        } else if (isSearchingUsingName) {
-            availableIdString = "person:" + instructor.name;
-        } else if (isSearchingUsingEmail) {
-            availableIdString = "person:" + instructor.email;
-        }
-
-        return availableIdString;
     }
 
     private AdminSearchStudentTable createStudentTable() {
@@ -165,21 +148,21 @@ public class AdminSearchPageData extends PageData {
         String googleId = student.googleId;
         String email = student.email;
         String comments = student.comments;
-        String viewRecentActionsId = createViewRecentActionsId(student);
+        String viewRecentActionsId = getAvailableIdString(student.googleId, student.name, student.email);
 
         AdminSearchStudentLinks links = createStudentLinks(student);
 
         List<AdminSearchStudentFeedbackSession> openFeedbackSessions =
-                                        createFeedbackSessionsList(student, FeedbackSessionState.OPEN);
+                createFeedbackSessionsList(student, FeedbackSessionState.OPEN);
         List<AdminSearchStudentFeedbackSession> closedFeedbackSessions =
-                                        createFeedbackSessionsList(student, FeedbackSessionState.CLOSED);
+                createFeedbackSessionsList(student, FeedbackSessionState.CLOSED);
         List<AdminSearchStudentFeedbackSession> publishedFeedbackSessions =
-                                        createFeedbackSessionsList(student, FeedbackSessionState.PUBLISHED);
+                createFeedbackSessionsList(student, FeedbackSessionState.PUBLISHED);
 
         return new AdminSearchStudentRow(id, name, institute, courseName, courseId, section,
-                                         team, googleId, email, comments, viewRecentActionsId,
-                                         links, openFeedbackSessions, closedFeedbackSessions,
-                                         publishedFeedbackSessions);
+                team, googleId, email, comments, viewRecentActionsId,
+                links, openFeedbackSessions, closedFeedbackSessions,
+                publishedFeedbackSessions);
     }
 
     /**
@@ -192,18 +175,18 @@ public class AdminSearchPageData extends PageData {
         return "student_" + id;
     }
 
-    private String createViewRecentActionsId(StudentAttributes student) {
+    private String getAvailableIdString(String googleId, String name, String email) {
         String availableIdString = "";
 
-        boolean isSearchingUsingGoogleId = student.googleId != null && !student.googleId.trim().isEmpty();
-        boolean isSearchingUsingName = student.name != null && !student.name.trim().isEmpty();
-        boolean isSearchingUsingEmail = student.email != null && !student.email.trim().isEmpty();
+        boolean isSearchingUsingGoogleId = googleId != null && !googleId.trim().isEmpty();
+        boolean isSearchingUsingName = name != null && !name.trim().isEmpty();
+        boolean isSearchingUsingEmail = email != null && !email.trim().isEmpty();
         if (isSearchingUsingGoogleId) {
-            availableIdString = "person:" + student.googleId;
+            availableIdString = "person:" + googleId;
         } else if (isSearchingUsingName) {
-            availableIdString = "person:" + student.name;
+            availableIdString = "person:" + name;
         } else if (isSearchingUsingEmail) {
-            availableIdString = "person:" + student.email;
+            availableIdString = "person:" + email;
         }
 
         return availableIdString;
@@ -218,30 +201,30 @@ public class AdminSearchPageData extends PageData {
     }
 
     private List<AdminSearchStudentFeedbackSession> createFeedbackSessionsList(
-                                    StudentAttributes student, FeedbackSessionState fsState) {
+            StudentAttributes student, FeedbackSessionState fsState) {
 
         List<AdminSearchStudentFeedbackSession> sessions = new ArrayList<>();
         List<String> links = new ArrayList<>();
 
         switch (fsState) {
-        case OPEN:
-            links = studentOpenFeedbackSessionLinksMap.get(student.getIdentificationString());
-            break;
-        case CLOSED:
-            links = studentUnOpenedFeedbackSessionLinksMap.get(student.getIdentificationString());
-            break;
-        case PUBLISHED:
-            links = studentPublishedFeedbackSessionLinksMap.get(student.getIdentificationString());
-            break;
-        default:
-            Assumption.fail();
-            break;
+            case OPEN:
+                links = studentOpenFeedbackSessionLinksMap.get(student.getIdentificationString());
+                break;
+            case CLOSED:
+                links = studentUnOpenedFeedbackSessionLinksMap.get(student.getIdentificationString());
+                break;
+            case PUBLISHED:
+                links = studentPublishedFeedbackSessionLinksMap.get(student.getIdentificationString());
+                break;
+            default:
+                Assumption.fail();
+                break;
         }
 
         if (links != null) {
             for (String link : links) {
                 sessions.add(new AdminSearchStudentFeedbackSession(
-                                                feedbackSessionLinkToNameMap.get(link), link));
+                        feedbackSessionLinkToNameMap.get(link), link));
             }
         }
 
