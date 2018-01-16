@@ -55,43 +55,76 @@ public class DataMigrationForSanitizedDataInStudentAttributes extends RemoteApiC
         if (hasSanitizedData) {
             System.out.println("Checking student having email: " + student.email);
 
-            if (isSanitizedString(student.comments)) {
-                System.out.println("comments: " + student.comments);
-                System.out.println("new comments: " + fixSanitization(student.comments));
-            }
-            if (isSanitizedString(student.course)) {
-                System.out.println("course: " + student.course);
-                System.out.println("new course: " + fixSanitization(student.course));
-            }
-            if (isSanitizedString(student.email)) {
-                numberOfSanitizedEmail++;
-                System.out.println("email: " + student.email);
-                System.out.println("new email: " + fixSanitization(student.email));
-            }
-            if (isSanitizedString(student.googleId)) {
-                numberOfSanitizedGoogleId++;
-                System.out.println("googleId: " + student.googleId);
-                System.out.println("new googleId: " + fixSanitization(student.googleId));
-            }
-            if (isSanitizedString(student.lastName)) {
-                System.out.println("lastName: " + student.lastName);
-                System.out.println("new lastName: " + fixSanitization(student.lastName));
-            }
-            if (isSanitizedString(student.name)) {
-                System.out.println("name: " + student.name);
-                System.out.println("new name: " + fixSanitization(student.name));
-            }
-            if (isSanitizedString(student.section)) {
-                System.out.println("section: " + student.section);
-                System.out.println("new section: " + fixSanitization(student.section));
-            }
-            if (isSanitizedString(student.team)) {
-                System.out.println("team: " + student.team);
-                System.out.println("new team: " + fixSanitization(student.team));
-            }
+            previewSanitizedStudentComment(student);
+            previewSanitizedStudentCourse(student);
+            previewSanitizedStudentEmail(student);
+            previewSanitizedStudentGoogleId(student);
+            previewSanitizedStudentLastName(student);
+            previewSanitizedStudentName(student);
+            previewSanitizedStudentSection(student);
+            previewSanitizedStudentTeam(student);
+
             System.out.println();
         }
         return hasSanitizedData;
+    }
+
+    private void previewSanitizedStudentTeam(StudentAttributes student) {
+        if (isSanitizedString(student.team)) {
+            System.out.println("team: " + student.team);
+            System.out.println("new team: " + fixSanitization(student.team));
+        }
+    }
+
+    private void previewSanitizedStudentSection(StudentAttributes student) {
+        if (isSanitizedString(student.section)) {
+            System.out.println("section: " + student.section);
+            System.out.println("new section: " + fixSanitization(student.section));
+        }
+    }
+
+    private void previewSanitizedStudentName(StudentAttributes student) {
+        if (isSanitizedString(student.name)) {
+            System.out.println("name: " + student.name);
+            System.out.println("new name: " + fixSanitization(student.name));
+        }
+    }
+
+    private void previewSanitizedStudentLastName(StudentAttributes student) {
+        if (isSanitizedString(student.lastName)) {
+            System.out.println("lastName: " + student.lastName);
+            System.out.println("new lastName: " + fixSanitization(student.lastName));
+        }
+    }
+
+    private void previewSanitizedStudentGoogleId(StudentAttributes student) {
+        if (isSanitizedString(student.googleId)) {
+            numberOfSanitizedGoogleId++;
+            System.out.println("googleId: " + student.googleId);
+            System.out.println("new googleId: " + fixSanitization(student.googleId));
+        }
+    }
+
+    private void previewSanitizedStudentEmail(StudentAttributes student) {
+        if (isSanitizedString(student.email)) {
+            numberOfSanitizedEmail++;
+            System.out.println("email: " + student.email);
+            System.out.println("new email: " + fixSanitization(student.email));
+        }
+    }
+
+    private void previewSanitizedStudentCourse(StudentAttributes student) {
+        if (isSanitizedString(student.course)) {
+            System.out.println("course: " + student.course);
+            System.out.println("new course: " + fixSanitization(student.course));
+        }
+    }
+
+    private void previewSanitizedStudentComment(StudentAttributes student) {
+        if (isSanitizedString(student.comments)) {
+            System.out.println("comments: " + student.comments);
+            System.out.println("new comments: " + fixSanitization(student.comments));
+        }
     }
 
     private boolean isSanitizedString(String s) {
