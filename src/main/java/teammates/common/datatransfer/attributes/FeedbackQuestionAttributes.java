@@ -200,51 +200,10 @@ public class FeedbackQuestionAttributes extends EntityAttributes<FeedbackQuestio
             }
 
             // Front fragment: e.g. Other students in the course..., The receiving.., etc.
-            line.append(participant.toVisibilityString()).append(' ');
-
-            // Recipient fragment: e.g. student, instructor, etc.
-            if (participant == FeedbackParticipantType.RECEIVER) {
-                line.append(recipientType.toSingularFormString());
-
-                if (numberOfEntitiesToGiveFeedbackTo > 1) {
-                    line.append('s');
-                }
-
-                line.append(' ');
-            }
-
-            line.append("can see your response");
+            addRecipientsToVisibilityMessage(participant, line);
 
             // Visibility fragment: e.g. can see your name, but not...
-            if (showRecipientNameTo.contains(participant)) {
-                if (participant != FeedbackParticipantType.RECEIVER
-                        && recipientType != FeedbackParticipantType.NONE) {
-                    line.append(", the name of the recipient");
-                }
-
-                if (showGiverNameTo.contains(participant)) {
-                    line.append(", and your name");
-                } else {
-                    line.append(", but not your name");
-                }
-            } else {
-                if (showGiverNameTo.contains(participant)) {
-                    line.append(", and your name");
-                }
-
-                if (recipientType == FeedbackParticipantType.NONE) {
-                    if (!showGiverNameTo.contains(participant)) {
-                        line.append(", but not your name");
-                    }
-                } else {
-                    line.append(", but not the name of the recipient");
-
-                    if (!showGiverNameTo.contains(participant)) {
-                        line.append(", or your name");
-                    }
-                }
-
-            }
+            addVisiblePartsToVisibilityMessage(participant, line);
 
             line.append('.');
             message.add(line.toString());
@@ -255,6 +214,55 @@ public class FeedbackQuestionAttributes extends EntityAttributes<FeedbackQuestio
         }
 
         return message;
+    }
+
+    private void addVisiblePartsToVisibilityMessage(FeedbackParticipantType participant, StringBuilder line) {
+        if (showRecipientNameTo.contains(participant)) {
+            if (participant != FeedbackParticipantType.RECEIVER
+                    && recipientType != FeedbackParticipantType.NONE) {
+                line.append(", the name of the recipient");
+            }
+
+            if (showGiverNameTo.contains(participant)) {
+                line.append(", and your name");
+            } else {
+                line.append(", but not your name");
+            }
+        } else {
+            if (showGiverNameTo.contains(participant)) {
+                line.append(", and your name");
+            }
+
+            if (recipientType == FeedbackParticipantType.NONE) {
+                if (!showGiverNameTo.contains(participant)) {
+                    line.append(", but not your name");
+                }
+            } else {
+                line.append(", but not the name of the recipient");
+
+                if (!showGiverNameTo.contains(participant)) {
+                    line.append(", or your name");
+                }
+            }
+
+        }
+    }
+
+    private void addRecipientsToVisibilityMessage(FeedbackParticipantType participant, StringBuilder line) {
+        line.append(participant.toVisibilityString()).append(' ');
+
+        // Recipient fragment: e.g. student, instructor, etc.
+        if (participant == FeedbackParticipantType.RECEIVER) {
+            line.append(recipientType.toSingularFormString());
+
+            if (numberOfEntitiesToGiveFeedbackTo > 1) {
+                line.append('s');
+            }
+
+            line.append(' ');
+        }
+
+        line.append("can see your response");
     }
 
     @Override
