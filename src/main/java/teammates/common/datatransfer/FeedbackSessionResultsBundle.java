@@ -28,6 +28,8 @@ import teammates.common.util.Logger;
 import teammates.common.util.SanitizationHelper;
 import teammates.common.util.StringHelper;
 
+import javax.jdo.annotations.Order;
+
 /**
  * Represents detailed results for an feedback session.
  * <br> Contains:
@@ -76,45 +78,177 @@ public class FeedbackSessionResultsBundle {
     */
     public Map<String, Set<String>> sectionTeamNameTable;
 
+    private enum OrderType {
+        GIVER_SECTION,
+        GIVER_NAME,
+        GIVER_MAIL,
+        RECIPIENT_SECTION,
+        RECIPIENT_NAME,
+        RECIPIENT_MAIL,
+        QUESTION_NUMBER,
+        RESPONSE_STRING,
+        TEAM_NAME_GIVER,
+        TEAM_NAME_RECIPIENT
+    }
+
+    private int getOrder(OrderType type, FeedbackResponseAttributes o1, FeedbackResponseAttributes o2, boolean isGiverVisible1, boolean isGiverVisible2,
+                         boolean isRecipientVisible1, boolean isRecipientVisible2){
+        switch (type){
+            case GIVER_SECTION: return compareByGiverSection(o1, o2);
+            case GIVER_NAME: return compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
+            case GIVER_MAIL: return compareByNames(o1.giver, o2.giver, isGiverVisible1, isGiverVisible2);
+            case RECIPIENT_SECTION: return compareByRecipientSection(o1, o2);
+            case RECIPIENT_NAME: return compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
+            case RECIPIENT_MAIL: return compareByNames(o1.recipient, o2.recipient, isRecipientVisible1, isRecipientVisible2);
+            case QUESTION_NUMBER: return compareByQuestionNumber(o1, o2);
+            case RESPONSE_STRING: return compareByResponseString(o1, o2);
+            case TEAM_NAME_GIVER: return compareByTeamName(o1, o2, isGiverVisible1, isGiverVisible2);
+            case TEAM_NAME_RECIPIENT: return compareByTeamName(o1, o2, isRecipientVisible1, isRecipientVisible2);
+        }
+
+        return 0;
+    }
+
+    private Comparator<FeedbackResponseAttributes> getComparator(OrderType[] orderArray){
+        return new Comparator<FeedbackResponseAttributes>() {
+            public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
+                boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
+                boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
+
+                boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
+                boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
+
+                int order = 0;
+
+                for(OrderType orderBy : orderArray){
+                    order = getOrder(orderBy, o1, o2, isGiverVisible1, isGiverVisible2, isRecipientVisible1, isRecipientVisible2);
+                    if(order != 0){
+                        return order;
+                    }
+                }
+
+                return o1.getId().compareTo(o2.getId());
+            }
+        };
+    }
+
     // Sorts by giverName > recipientName > qnNumber
     // General questions and team questions at the bottom.
-    public Comparator<FeedbackResponseAttributes> compareByGiverRecipientQuestion =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    int order = compareByGiverSection(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
+    public Comparator<FeedbackResponseAttributes> compareByGiverRecipientQuestion = getComparator(new OrderType[]{
+            OrderType.GIVER_SECTION,
+            OrderType.GIVER_NAME,
+            OrderType.RECIPIENT_NAME,
+            OrderType.QUESTION_NUMBER,
+            OrderType.RESPONSE_STRING
+    });
 
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
+    // Sorts by giverName > recipientName
+    public Comparator<FeedbackResponseAttributes> compareByGiverRecipient = getComparator(new OrderType[]{
+            OrderType.GIVER_NAME,
+            OrderType.RECIPIENT_NAME,
+            OrderType.RESPONSE_STRING
+    });
 
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
+    // Sorts by teamName > giverName > recipientName > qnNumber
+    public Comparator<FeedbackResponseAttributes> compareByTeamGiverRecipientQuestion = getComparator(new OrderType[]{
+            OrderType.GIVER_SECTION,
+            OrderType.RECIPIENT_NAME,
+            OrderType.RESPONSE_STRING,
+            OrderType.TEAM_NAME_GIVER,
+            OrderType.GIVER_NAME,
+            OrderType.RECIPIENT_NAME,
+            OrderType.QUESTION_NUMBER,
+            OrderType.RESPONSE_STRING
+    });
 
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
+    // Sorts by recipientName > giverName > qnNumber
+    public Comparator<FeedbackResponseAttributes> compareByRecipientGiverQuestion = getComparator(new OrderType[]{
+            OrderType.RECIPIENT_SECTION,
+            OrderType.RECIPIENT_NAME,
+            OrderType.GIVER_NAME,
+            OrderType.QUESTION_NUMBER,
+            OrderType.RESPONSE_STRING
+    });
 
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
+    // Sorts by teamName > recipientName > giverName > qnNumber
+    public Comparator<FeedbackResponseAttributes> compareByTeamRecipientGiverQuestion = getComparator(new OrderType[]{
+            OrderType.RECIPIENT_SECTION,
+            OrderType.TEAM_NAME_RECIPIENT,
+            OrderType.RECIPIENT_NAME,
+            OrderType.GIVER_NAME,
+            OrderType.QUESTION_NUMBER,
+            OrderType.RESPONSE_STRING
+    });
 
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
+    // Sorts by giverName > question > recipientTeam > recipientName
+    public Comparator<FeedbackResponseAttributes> compareByGiverQuestionTeamRecipient = getComparator(new OrderType[]{
+            OrderType.GIVER_SECTION,
+            OrderType.GIVER_NAME,
+            OrderType.QUESTION_NUMBER,
+            OrderType.TEAM_NAME_RECIPIENT,
+            OrderType.RECIPIENT_NAME,
+            OrderType.RESPONSE_STRING
+    });
 
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
+    // Sorts by giverTeam > giverName > question > recipientTeam > recipientName
+    public Comparator<FeedbackResponseAttributes> compareByTeamGiverQuestionTeamRecipient = getComparator(new OrderType[]{
+            OrderType.GIVER_SECTION,
+            OrderType.TEAM_NAME_GIVER,
+            OrderType.GIVER_NAME,
+            OrderType.QUESTION_NUMBER,
+            OrderType.TEAM_NAME_RECIPIENT,
+            OrderType.RECIPIENT_NAME,
+            OrderType.RESPONSE_STRING
+    });
+
+    // Sorts by recipientName > question > giverTeam > giverName
+    public Comparator<FeedbackResponseAttributes> compareByRecipientQuestionTeamGiver = getComparator(new OrderType[]{
+            OrderType.RECIPIENT_SECTION,
+            OrderType.RECIPIENT_NAME,
+            OrderType.QUESTION_NUMBER,
+            OrderType.TEAM_NAME_GIVER,
+            OrderType.GIVER_NAME,
+            OrderType.RESPONSE_STRING
+    });
+
+    // Sorts by recipientTeam > recipientName > question > giverTeam > giverName
+    public Comparator<FeedbackResponseAttributes> compareByTeamRecipientQuestionTeamGiver = getComparator(new OrderType[]{
+            OrderType.RECIPIENT_SECTION,
+            OrderType.TEAM_NAME_RECIPIENT,
+            OrderType.RECIPIENT_NAME,
+            OrderType.QUESTION_NUMBER,
+            OrderType.TEAM_NAME_GIVER,
+            OrderType.GIVER_NAME,
+            OrderType.RESPONSE_STRING
+    });
+
+    // Sorts by recipientTeam > question > recipientName > giverTeam > giverName
+    public Comparator<FeedbackResponseAttributes> compareByTeamQuestionRecipientTeamGiver = getComparator(new OrderType[]{
+            OrderType.TEAM_NAME_RECIPIENT,
+            OrderType.QUESTION_NUMBER,
+            OrderType.RECIPIENT_NAME,
+            OrderType.GIVER_NAME,
+            OrderType.RESPONSE_STRING
+    });
+
+    // Sorts by giverTeam > question > giverName > recipientTeam > recipientName
+    public Comparator<FeedbackResponseAttributes> compareByTeamQuestionGiverTeamRecipient = getComparator(new OrderType[]{
+            OrderType.TEAM_NAME_GIVER,
+            OrderType.QUESTION_NUMBER,
+            OrderType.GIVER_NAME,
+            OrderType.TEAM_NAME_RECIPIENT,
+            OrderType.RECIPIENT_NAME,
+            OrderType.RESPONSE_STRING
+    });
+
+    // Sorts by recipientName > recipientEmail > giverName > giverEmail
+    public Comparator<FeedbackResponseAttributes> compareByRecipientNameEmailGiverNameEmail = getComparator(new OrderType[]{
+            OrderType.RECIPIENT_NAME,
+            OrderType.RECIPIENT_MAIL,
+            OrderType.GIVER_NAME,
+            OrderType.GIVER_MAIL,
+            OrderType.RESPONSE_STRING
+    });
 
     private int compareByRecipientName(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2, boolean isRecipientVisible1, boolean isRecipientVisible2) {
         int order;
@@ -138,81 +272,6 @@ public class FeedbackSessionResultsBundle {
         return giverSection1.compareTo(giverSection2);
     }
 
-    // Sorts by giverName > recipientName
-    private Comparator<FeedbackResponseAttributes> compareByGiverRecipient =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-                    
-                    int order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
-    // Sorts by teamName > giverName > recipientName > qnNumber
-    private Comparator<FeedbackResponseAttributes> compareByTeamGiverRecipientQuestion =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    int order = compareByGiverSection(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-
-                    order = compareByTeamName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
     private int compareByTeamName(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2, boolean visible1, boolean visible2) {
         int order;
         String t1 = getTeamNameForEmail(o1.giver).isEmpty() ? getNameForEmail(o1.giver)
@@ -223,426 +282,11 @@ public class FeedbackSessionResultsBundle {
         return order;
     }
 
-    // Sorts by recipientName > giverName > qnNumber
-    private Comparator<FeedbackResponseAttributes> compareByRecipientGiverQuestion =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    int order = compareByRecipientSection(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
-    // Sorts by teamName > recipientName > giverName > qnNumber
-    private Comparator<FeedbackResponseAttributes> compareByTeamRecipientGiverQuestion =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    int order = compareByRecipientSection(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-                    
-                    order = compareByTeamName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
     private int compareByRecipientSection(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
         String recipientSection1 = o1.recipientSection;
         String recipientSection2 = o2.recipientSection;
         return recipientSection1.compareTo(recipientSection2);
     }
-
-    // Sorts by giverName > question > recipientTeam > recipientName
-    private Comparator<FeedbackResponseAttributes> compareByGiverQuestionTeamRecipient =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    int order = compareByGiverSection(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-                    
-                    order = compareByTeamName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-
-                    if (order != 0) {
-                        return order;
-                    }
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
-    // Sorts by giverTeam > giverName > question > recipientTeam > recipientName
-    private Comparator<FeedbackResponseAttributes> compareByTeamGiverQuestionTeamRecipient =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    int order = compareByGiverSection(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-
-                    order = compareByTeamName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-                    
-                    order = compareByTeamName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-
-                    if (order != 0) {
-                        return order;
-                    }
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
-    // Sorts by recipientName > question > giverTeam > giverName
-    private final Comparator<FeedbackResponseAttributes> compareByRecipientQuestionTeamGiver =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    int order = compareByRecipientSection(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-
-                    order = compareByTeamName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-
-                }
-            };
-
-    // Sorts by recipientTeam > recipientName > question > giverTeam > giverName
-    private Comparator<FeedbackResponseAttributes> compareByTeamRecipientQuestionTeamGiver =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-
-                    int order = compareByRecipientSection(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-                    
-                    order = compareByTeamName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-
-                    order = compareByTeamName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
-    // Sorts by recipientTeam > question > recipientName > giverTeam > giverName
-    private Comparator<FeedbackResponseAttributes> compareByTeamQuestionRecipientTeamGiver =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-                    
-                    int order = compareByTeamName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByTeamName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
-    // Sorts by giverTeam > question > giverName > recipientTeam > recipientName
-    private Comparator<FeedbackResponseAttributes> compareByTeamQuestionGiverTeamRecipient =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-
-                    int order = compareByTeamName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByQuestionNumber(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByGiverName(o1, o2, isGiverVisible1, isGiverVisible2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-
-                    order = compareByTeamName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByRecipientName(o1, o2, isRecipientVisible1, isRecipientVisible2);
-
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    order = compareByResponseString(o1, o2);
-                    if (order != 0) {
-                        return order;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
-
-    // Sorts by recipientName > recipientEmail > giverName > giverEmail
-    private Comparator<FeedbackResponseAttributes> compareByRecipientNameEmailGiverNameEmail =
-            new Comparator<FeedbackResponseAttributes>() {
-                @Override
-                public int compare(FeedbackResponseAttributes o1, FeedbackResponseAttributes o2) {
-
-                    boolean isRecipientVisible1 = FeedbackUtils.isRecipientVisible(o1, questions, visibilityTable);
-                    boolean isRecipientVisible2 = FeedbackUtils.isRecipientVisible(o2, questions, visibilityTable);
-                    // Compare by Recipient Name
-                    int recipientNameCompareResult = compareByNames(getNameForEmail(o1.recipient),
-                            getNameForEmail(o2.recipient),
-                            isRecipientVisible1, isRecipientVisible2);
-                    if (recipientNameCompareResult != 0) {
-                        return recipientNameCompareResult;
-                    }
-
-                    // Compare by Recipient Email
-                    int recipientEmailCompareResult = compareByNames(o1.recipient, o2.recipient,
-                            isRecipientVisible1, isRecipientVisible2);
-                    if (recipientEmailCompareResult != 0) {
-                        return recipientEmailCompareResult;
-                    }
-
-                    boolean isGiverVisible1 = FeedbackUtils.isGiverVisible(o1, questions, visibilityTable);
-                    boolean isGiverVisible2 = FeedbackUtils.isGiverVisible(o2, questions, visibilityTable);
-                    // Compare by Giver Name
-                    int giverNameCompareResult = compareByNames(getNameForEmail(o1.giver),
-                            getNameForEmail(o2.giver),
-                            isGiverVisible1, isGiverVisible2);
-                    if (giverNameCompareResult != 0) {
-                        return giverNameCompareResult;
-                    }
-
-                    // Compare by Giver Email
-                    int giverEmailCompareResult = compareByNames(o1.giver, o2.giver,
-                            isGiverVisible1, isGiverVisible2);
-                    if (giverEmailCompareResult != 0) {
-                        return giverEmailCompareResult;
-                    }
-
-                    int responseStringResult = compareByResponseString(o1, o2);
-                    if (responseStringResult != 0) {
-                        return responseStringResult;
-                    }
-
-                    return o1.getId().compareTo(o2.getId());
-                }
-            };
 
     public FeedbackSessionResultsBundle(FeedbackSessionAttributes feedbackSession,
                                         Map<String, FeedbackQuestionAttributes> questions, CourseRoster roster) {
