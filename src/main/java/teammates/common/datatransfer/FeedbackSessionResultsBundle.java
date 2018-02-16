@@ -28,8 +28,6 @@ import teammates.common.util.Logger;
 import teammates.common.util.SanitizationHelper;
 import teammates.common.util.StringHelper;
 
-import javax.jdo.annotations.Order;
-
 /**
  * Represents detailed results for an feedback session.
  * <br> Contains:
@@ -290,61 +288,49 @@ public class FeedbackSessionResultsBundle {
 
     public FeedbackSessionResultsBundle(FeedbackSessionAttributes feedbackSession,
                                         Map<String, FeedbackQuestionAttributes> questions, CourseRoster roster) {
-        this(feedbackSession, new ArrayList<FeedbackResponseAttributes>(), questions, new HashMap<String, String>(),
-                new HashMap<String, String>(), new HashMap<String, String>(), new HashMap<String, Set<String>>(),
-                new HashMap<String, boolean[]>(), new FeedbackSessionResponseStatus(), roster,
-                new HashMap<String, List<FeedbackResponseCommentAttributes>>());
+        this(feedbackSession, new ResponsesParameterObject(new ArrayList<FeedbackResponseAttributes>(), new FeedbackSessionResponseStatus(), new HashMap<String, List<FeedbackResponseCommentAttributes>>()), questions,
+                new EmailMapParameterObject(new HashMap<String, String>(), new HashMap<String, String>(), new HashMap<String, String>()), new HashMap<String, Set<String>>(),
+                new HashMap<String, boolean[]>(), roster
+        );
     }
 
     public FeedbackSessionResultsBundle(FeedbackSessionAttributes feedbackSession,
-                                        List<FeedbackResponseAttributes> responses,
-                                        Map<String, FeedbackQuestionAttributes> questions,
-                                        Map<String, String> emailNameTable,
-                                        Map<String, String> emailLastNameTable,
-                                        Map<String, String> emailTeamNameTable,
-                                        Map<String, Set<String>> sectionTeamNameTable,
+                                        ResponsesParameterObject responsesParameterObject, Map<String, FeedbackQuestionAttributes> questions,
+                                        EmailMapParameterObject emailMapParameterObject, Map<String, Set<String>> sectionTeamNameTable,
                                         Map<String, boolean[]> visibilityTable,
-                                        FeedbackSessionResponseStatus responseStatus,
-                                        CourseRoster roster,
-                                        Map<String, List<FeedbackResponseCommentAttributes>> responseComments) {
-        this(feedbackSession, responses, questions, emailNameTable, emailLastNameTable,
-                emailTeamNameTable, sectionTeamNameTable, visibilityTable, responseStatus, roster, responseComments, true);
+                                        CourseRoster roster) {
+        this(feedbackSession, new ResponsesParameterObject(responsesParameterObject.getResponses(), responsesParameterObject.getResponseStatus(), responsesParameterObject.getResponseComments()), questions,
+                new EmailMapParameterObject(emailMapParameterObject.getEmailNameTable(), emailMapParameterObject.getEmailLastNameTable(), emailMapParameterObject.getEmailTeamNameTable()), sectionTeamNameTable, visibilityTable, roster, true);
     }
 
     public FeedbackSessionResultsBundle(FeedbackSessionAttributes feedbackSession,
-                                        List<FeedbackResponseAttributes> responses,
-                                        Map<String, FeedbackQuestionAttributes> questions,
-                                        Map<String, String> emailNameTable,
-                                        Map<String, String> emailLastNameTable,
-                                        Map<String, String> emailTeamNameTable,
-                                        Map<String, Set<String>> sectionTeamNameTable,
+                                        ResponsesParameterObject responsesParameterObject, Map<String, FeedbackQuestionAttributes> questions,
+                                        EmailMapParameterObject emailMapParameterObject, Map<String, Set<String>> sectionTeamNameTable,
                                         Map<String, boolean[]> visibilityTable,
-                                        FeedbackSessionResponseStatus responseStatus,
                                         CourseRoster roster,
-                                        Map<String, List<FeedbackResponseCommentAttributes>> responseComments,
                                         boolean isComplete) {
         this.feedbackSession = feedbackSession;
         this.questions = questions;
-        this.responses = responses;
-        this.emailNameTable = emailNameTable;
-        this.emailLastNameTable = emailLastNameTable;
-        this.emailTeamNameTable = emailTeamNameTable;
+        this.responses = responsesParameterObject.getResponses();
+        this.emailNameTable = emailMapParameterObject.getEmailNameTable();
+        this.emailLastNameTable = emailMapParameterObject.getEmailLastNameTable();
+        this.emailTeamNameTable = emailMapParameterObject.getEmailTeamNameTable();
         this.instructorEmailNameTable = getInstructorEmailNameTableFromRoster(roster);
         this.sectionTeamNameTable = sectionTeamNameTable;
         this.visibilityTable = visibilityTable;
-        this.responseStatus = responseStatus;
+        this.responseStatus = responsesParameterObject.getResponseStatus();
         this.roster = roster;
-        this.responseComments = responseComments;
+        this.responseComments = responsesParameterObject.getResponseComments();
         this.actualResponses = new ArrayList<>();
 
         // We change user email to team name here for display purposes.
-        for (FeedbackResponseAttributes response : responses) {
+        for (FeedbackResponseAttributes response : responsesParameterObject.getResponses()) {
             if (questions.get(response.feedbackQuestionId).giverType == FeedbackParticipantType.TEAMS
                     && roster.isStudentInCourse(response.giver)) {
                 // for TEAMS giver type, for older responses,
                 // the giverEmail is stored as the student giver's email in the database
                 // so we convert it to the team name for use in FeedbackSessionResultsBundle
-                response.giver = emailNameTable.get(response.giver + Const.TEAM_OF_EMAIL_OWNER);
+                response.giver = emailMapParameterObject.getEmailNameTable().get(response.giver + Const.TEAM_OF_EMAIL_OWNER);
             }
             // Copy the data before hiding response recipient and giver.
             FeedbackResponseAttributes fraCopy = new FeedbackResponseAttributes(response);

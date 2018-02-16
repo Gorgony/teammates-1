@@ -13,14 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import teammates.common.datatransfer.CourseRoster;
-import teammates.common.datatransfer.FeedbackParticipantType;
-import teammates.common.datatransfer.FeedbackSessionDetailsBundle;
-import teammates.common.datatransfer.FeedbackSessionQuestionsBundle;
-import teammates.common.datatransfer.FeedbackSessionResponseStatus;
-import teammates.common.datatransfer.FeedbackSessionResultsBundle;
-import teammates.common.datatransfer.FeedbackSessionType;
-import teammates.common.datatransfer.UserRole;
+import teammates.common.datatransfer.*;
 import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseCommentAttributes;
@@ -1601,9 +1594,9 @@ public final class FeedbackSessionsLogic {
         if (isPrivateSessionNotCreatedByThisUser) {
             // return empty result set
             return new FeedbackSessionResultsBundle(
-                    session, responses, relevantQuestions, emailNameTable,
-                    emailLastNameTable, emailTeamNameTable, sectionTeamNameTable,
-                    visibilityTable, responseStatus, roster, responseComments);
+                    session, new ResponsesParameterObject(responses, responseStatus, responseComments), relevantQuestions,
+                    new EmailMapParameterObject(emailNameTable, emailLastNameTable, emailTeamNameTable), sectionTeamNameTable,
+                    visibilityTable, roster);
         }
 
         List<FeedbackQuestionAttributes> allQuestions = fqLogic.getFeedbackQuestionsForSession(
@@ -1682,9 +1675,9 @@ public final class FeedbackSessionsLogic {
         addSectionTeamNamesToTable(sectionTeamNameTable, roster, courseId, userEmail, role, feedbackSessionName, section);
 
         return new FeedbackSessionResultsBundle(
-                        session, responses, relevantQuestions, emailNameTable,
-                        emailLastNameTable, emailTeamNameTable, sectionTeamNameTable,
-                        visibilityTable, responseStatus, roster, responseComments);
+                        session, new ResponsesParameterObject(responses, responseStatus, responseComments), relevantQuestions,
+                new EmailMapParameterObject(emailNameTable, emailLastNameTable, emailTeamNameTable), sectionTeamNameTable,
+                        visibilityTable, roster);
     }
 
     private FeedbackSessionResultsBundle getFeedbackSessionResultsForUserWithParams(
@@ -1772,9 +1765,9 @@ public final class FeedbackSessionsLogic {
         addSectionTeamNamesToTable(sectionTeamNameTable, roster, courseId, userEmail, role, feedbackSessionName, section);
 
         return new FeedbackSessionResultsBundle(
-                session, responses, relevantQuestions, emailNameTable,
-                emailLastNameTable, emailTeamNameTable, sectionTeamNameTable,
-                visibilityTable, responseStatus, roster, responseComments, isComplete);
+                session, new ResponsesParameterObject(responses, responseStatus, responseComments), relevantQuestions,
+                new EmailMapParameterObject(emailNameTable, emailLastNameTable, emailTeamNameTable), sectionTeamNameTable,
+                visibilityTable, roster, isComplete);
     }
 
     private Map<String, List<FeedbackResponseCommentAttributes>> getResponseComments(
@@ -1909,9 +1902,9 @@ public final class FeedbackSessionsLogic {
                 sectionTeamNameTable, roster, courseId, userEmail, role, feedbackSessionName, section);
 
         return new FeedbackSessionResultsBundle(
-                session, responses, relevantQuestions, emailNameTable,
-                emailLastNameTable, emailTeamNameTable, sectionTeamNameTable,
-                visibilityTable, responseStatus, roster, responseComments, true);
+                session, new ResponsesParameterObject(responses, responseStatus, responseComments), relevantQuestions,
+                new EmailMapParameterObject(emailNameTable, emailLastNameTable, emailTeamNameTable), sectionTeamNameTable,
+                visibilityTable, roster, true);
     }
 
     private Map<String, FeedbackQuestionAttributes> getAllQuestions(
